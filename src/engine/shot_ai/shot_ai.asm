@@ -5,7 +5,7 @@ section s_2FFB8 progbits alloc exec nowrite align=1
 extern assexit, assreplace, BreakawayFlag, CarrierInShotArea, CommentaryEvent, DefendFlags, F32_neg1392_PickShotTarget, F32_neg432
 extern F64_105, F64_10_PickShotTarget, F64_130, F64_20_PickShotTarget, GameSettings, gmode, GoalieTarget, LastTouchPlayer
 extern LastTouchTeam, onetimerplayer, OneTimerReady, OneTimerTarget, PassButtonTimes, PassDistX, PassDistY, PassReceiver
-extern PtrPuckFlags, PtrPuckOwner, PtrPuckZone, PuckFlags, PuckZone, randomd0, regd1, SetCrowdMood
+extern PtrPuckFlags, PtrPuckOwner, puckc, PuckFlags, PuckZone, randomd0, regd1, SetCrowdMood
 extern ShotAnimFrames, ShotPending, ShotSpeed, ShotState, ShotTarget, ShotTargetX, ShotTargetY, ShotTimer
 extern ShotType, StartOneTimerAnim, StartShotAnim, StartWristShotAnim, ZoneTargetX, ZoneTargetY
 global PickShotTarget, UpdateShot, StartShot, assshoot, ChkShoot, ForceShoot
@@ -317,7 +317,7 @@ UpdateShot:
         jne short .6
         test al, 40h
         jne short .6
-        mov ecx, dword [PtrPuckZone]
+        mov ecx, dword [puckc]
         xor eax, eax
         movsx ecx, byte [ecx]
         mov al, byte [dword ebx+0A4h]
@@ -332,7 +332,7 @@ UpdateShot:
         mov eax, ebx
         call StartOneTimerAnim
         xor edx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [dword ebx+0A4h]
         movsx eax, byte [eax]
         cmp edx, eax

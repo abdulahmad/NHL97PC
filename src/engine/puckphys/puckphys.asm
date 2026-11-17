@@ -25,7 +25,7 @@ extern F64_8p26446eneg05_PuckInAwayNet, F64_96_PuckBounceOffPlayer, F64_neg0p087
 extern F64_neg3p14159_PuckHitsGlass, F64_neg3p14159_PuckHitsNet, F64_neg3p14159_PuckOffCrossbar, F64_neg3p14159_PuckOffPost, F64_neg4338, F64_neg4338_PuckInAwayNet, F64_neg66, F64_neg6p28319_GoalJudgeTest
 extern F64_neg6p28319_PlayNetSound, F64_neg6p28319_PuckHitsBoards, F64_neg6p28319_PuckHitsGlass, F64_neg6p28319_PuckHitsNet, F64_neg6p28319_PuckOffCrossbar, F64_neg6p28319_PuckOffPost, gmode, Goal
 extern GoalieTarget, hypot_, IF@ATAN2, IF@DFMOD, LastTouchPlayer, OneTimerPasser, onetimerplayer, OneTimerReady
-extern OneTimerTarget, PlayFlags, PlaySfxVolume, PtrAwayIce, PtrHomeIce, PtrPuckFlags, PtrPuckZone, PuckHitFlag
+extern OneTimerTarget, gmode2, PlaySfxVolume, PtrAwayIce, PtrHomeIce, PtrPuckFlags, puckc, PuckHitFlag
 extern PuckOwner, randomd0, ReachScale, regd1, SetCrowdMood, SortCords, SpeedScale, StartCrowdReaction
 extern StickPointId, tickcount, UpdateObjectPose
 global StickReach, PuckHeightAt, ObjectFramePos, TryStickTouch, PuckBounceOffPlayer, PlayPostSound, PuckHitsNet, PuckHitsBoards
@@ -1209,7 +1209,7 @@ PuckHitsNet:
         fstp dword [byte edx+038h]
         cmp cl, 0Dh
         jne near .38
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .35
         mov eax, dword [dword edx+0FAh]
@@ -1231,7 +1231,7 @@ PuckHitsNet:
         fstp dword [byte edx+030h]
         call RandomPuckSpin
 .35:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .36
         fld dword [byte edx+028h]
@@ -1474,7 +1474,7 @@ PuckHitsBoards:
         fld dword [byte esp+060h]
         fld st0
         fmul dword [byte esp+028h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         fxch
         fmul dword [byte esp+02Ch]
         mov dl, byte [eax]
@@ -1723,7 +1723,7 @@ PuckHitsGlass:
         fstp dword [byte esp+040h]
         mov dword [byte esp+014h], ecx
 .3:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .4
         mov eax, dword [byte esp+040h]
@@ -1765,7 +1765,7 @@ PuckHitsGlass:
         fstp dword [byte esp+044h]
         mov dword [byte esp+014h], esi
 .7:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .8
         mov eax, dword [byte esp+044h]
@@ -2563,7 +2563,7 @@ PlayNetSound:
         and esp, byte 0FFFFFFF8h
         mov edx, eax
         fld dword [byte eax+040h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         fsub dword [byte ebp+010h]
         mov bl, byte [eax]
         fstp dword [byte esp+010h]
@@ -5029,7 +5029,7 @@ UpdatePuckCarrier:
         push edx
         push esi
         sub esp, byte 0Ch
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx edx, byte [eax]
         mov eax, edx
         shl eax, 5
@@ -5385,7 +5385,7 @@ UpdatePuck:
         and byte [byte eax+030h], 0F7h
         mov eax, dword [dword edx+0FAh]
         and byte [byte eax+030h], 0EFh
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0Ch
         je short .3
         cmp word [BreakawayFlag], byte 8
@@ -5407,7 +5407,7 @@ UpdatePuck:
         pop edx
         ret
 .1:
-        and byte [PlayFlags], 0EFh
+        and byte [gmode2], 0EFh
 .2:
         mov eax, edx
         call PuckBounceIce

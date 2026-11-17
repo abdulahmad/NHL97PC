@@ -4,7 +4,7 @@ bits 32
 section s_3088F progbits alloc exec nowrite align=1
 extern AutoLineData, AwScore, awtmstruct, CentersByDefense, CentersByOffense, DefenseByDefense, DefenseByOffense, ForwardsByDefense
 extern ForwardsByOffense, HmScore, hmtmstruct, homelines, LeftWingsByDefense, LeftWingsByOffense, LineBuildLine, LineBuildPlayer
-extern LineBuildSlot, LineReplaceOrder, LineReplaceTable, LineSlotOffsets, LineSlotPositions, LineSlotStart, LineSlotTaken, LineSortIndex
+extern LineBuildSlot, LineReplaceOrder, lineslotgroupstart, lineslotgroups, LineSlotPositions, LineSlotStart, LineSlotTaken, LineSortIndex
 extern LineSortKeys, LineSortOrder, RightWingsByDefense, RightWingsByOffense, SortIndices
 global PositionSlotJumpTable, PositionSlot, PositionSlot_1D, PositionSlot_21, PositionSlot_25, PositionSlot_29, PositionSlot_2D, PositionSlot_31
 global PositionSlot_35, SortByPosition, SortForwards, BuildTeamLines, SetupAutoLines, CanPlayLineSlot, FindLinePlayer, PickLineReplacement
@@ -1057,7 +1057,7 @@ FindLinePlayer:
 ;-----------------------------------------------------------------------------
 ; PickLineReplacement                             31540  97 PC, low confidence
 ; Picks a replacement for a line slot from the position order lists
-; (LineSlotOffsets, LineReplaceTable)
+; (lineslotgroups, lineslotgroupstart)
 ;-----------------------------------------------------------------------------
 PickLineReplacement:
         push ebx
@@ -1079,13 +1079,13 @@ PickLineReplacement:
         mov ebp, dword [dword eax+0108h]
         movsx eax, cx
         add ebp, 20EDh
-        mov al, byte [dword eax+LineReplaceTable]
+        mov al, byte [dword eax+lineslotgroupstart]
         xor ah, ah
         mov dword [byte esp+014h], eax
         mov esi, eax
 .3:
         movsx eax, si
-        movsx ax, byte [dword eax+LineSlotOffsets]
+        movsx ax, byte [dword eax+lineslotgroups]
         cmp ax, cx
         je short .4
         inc esi
@@ -1093,7 +1093,7 @@ PickLineReplacement:
 .4:
         inc esi
         movsx eax, si
-        cmp byte [dword eax+LineSlotOffsets], 0
+        cmp byte [dword eax+lineslotgroups], 0
         jl short .5
         mov eax, dword [dword eax+LineReplaceOrder]
         sar eax, 18h
@@ -1332,7 +1332,7 @@ PickLineReplacement:
         mov esi, dword [byte esp+014h]
 .30:
         movsx eax, si
-        movsx dx, byte [dword eax+LineSlotOffsets]
+        movsx dx, byte [dword eax+lineslotgroups]
         cmp dx, cx
         je short .32
         mov eax, dword [dword eax+LineReplaceOrder]

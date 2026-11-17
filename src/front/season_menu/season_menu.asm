@@ -7,7 +7,7 @@ extern BlitShape, BlitShape2, BuildSeasonSchedule, ClearLinkAbort, ClearTeamInju
 extern DosFileInfo, DrawArt, DrawScreenBackground, DrawSeasonTitle, DrawShapeAtOwnPos, DrawShapeCore, DrawStatTable, DrawTeamLogoBanner
 extern DrawTextAligned, EditTextField, ExhibitionData, ExitScreen, FadeInScreen, FindGameRecord, FindSeasonReplay, FindShape
 extern FindShapeList, FindTeamRecord, FreeBitmap, FreeDbBlock, FreeExhibitionFile, FreeMemBlock, FrontEndExit, FrontMusicOn
-extern GameOptionFlags, GetLangText, GlobalSetVersion, InitMenuItems, LangTextHandle, LangTextLoaded, LinkGameActive, LinkReceiveBlock
+extern gameopts, GetLangText, GlobalSetVersion, InitMenuItems, LangTextHandle, LangTextLoaded, LinkGameActive, LinkReceiveBlock
 extern LinkScreensDone, LinkSendBlock, LinkTransferReady, LinkTransferSetup, LoadDataFile, LoadExhibitionFile, LoadNameIndex, MakeColor
 extern MakeDirPath, MakeGoalieStatKey, MakeLeagueKeyBase, MakeStandingsKey, MatchupNote, memcpy_, memset_, MusicEnabled
 extern NameIndexFree, NameIndexLimit, NameIndexLoad, NameIndexNew, NewSeasonArtOffsets, NewSeasonBannerTeams, NewSeasonItems, NewSeasonShapes
@@ -52,7 +52,7 @@ RunNewSeason:
         mov eax, SeasonName
         mov esi, 6
         call memcpy_
-        mov dword [GameOptionFlags], SeasonName
+        mov dword [gameopts], SeasonName
         push byte 1
         cmp dword [LinkGameActive], byte 0
         je short .1
@@ -1553,7 +1553,7 @@ CreateSeason:
         mov edx, SeasonUserTeam
         mov eax, SeasonFilePath
         call OpenLeagueFile
-        mov dword [GameOptionFlags], SeasonName
+        mov dword [gameopts], SeasonName
         test byte [SeasonFlags], 1
         je short .20
         call BuildSeasonSchedule
@@ -1793,7 +1793,7 @@ SeasonMenuScreen:
         inc esi
         cmp esi, byte 1Ah
         jl short .1
-        mov dword [GameOptionFlags], SeasonName
+        mov dword [gameopts], SeasonName
         call SeasonYearText
         push byte 0
         push dword 3E8h

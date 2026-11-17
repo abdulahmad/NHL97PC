@@ -11,7 +11,7 @@ extern str_OFFST, str_RELTV, CamTagNone, str_PUCK, CamTagNet0, CamTagNet1, str_P
 extern str_USER, str_ZAMB, str_MULTI, str_PEN0, str_PEN1, str_BNCH0, str_BNCH1, str_CENTR
 extern str_CIRC1, str_CIRC2, str_CIRC3, str_CIRC4, str_DOT1, str_DOT2, str_DOT3, str_DOT4
 global CameraFlagsByte, GoalSceneActive, ReplayCameraActive, FaceoffDropScene, CameraScenesOn, IntermissionActive, FightSceneActive, PlayerAssignOrder
-global FaceoffSpotIndex, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, OverlayPanelFuncs, ClockPanelFunc, CameraViewDefs
+global apl, PenaltyNameIds, F32_CameraNear, PenaltySceneYaw, PenaltySceneDist, OverlayPanelFuncs, ClockPanelFunc, CameraViewDefs
 
 
 global IntermissionCamPath, IntermissionTimes, ExtraAttackerSpots, ExtraAttackerFlags
@@ -135,7 +135,7 @@ FaceoffSpotX:                                   ; face-off spot X; used by Faceo
 FaceoffSpotY:                                   ; face-off spot Y; used by FaceoffSpotPosition
         db 050h,0EFh,02Ch,0FEh,0B4h,0FDh,0D4h,01h,0B4h,0FDh,00h,0FDh,0A0h,0FFh,00h,00h
         db 070h,0FFh,00h,03h,0A0h,0FFh,00h,00h,00h,0FDh
-FaceoffSpotIndex:                               ; face-off spot per zone; used by FaceoffSpotPosition
+apl:                                            ; face-off spot per zone; used by FaceoffSpotPosition
         db 00h,01h,02h,03h,04h,05h,06h,00h,00h,01h,05h,03h,04h,02h,00h,00h
         db 00h,03h,05h,01h,04h,00h,00h,00h
 ExtraAttackerSpots:                             ; extra attacker positions for assextra4; used by assextra4

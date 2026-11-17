@@ -1,0 +1,15 @@
+TimerOldVector oldint8off {source=95PC,confidence=medium} saved timer interrupt offset: same users as 95/96 PC oldint8off
+TimerSavedSelector oldint8sel {source=95PC,confidence=medium} saved timer interrupt selector: same users as 95/96 PC oldint8sel
+GusStreamRefillA GusStreamRefillLeft {confidence=medium} same users as 96 PC GusStreamRefillLeft
+GusStreamRefillB GusStreamRefillRight {confidence=medium} same users as 96 PC GusStreamRefillRight
+GusStreamBusyA GusStreamBusyLeft {confidence=medium} same position as 96 PC GusStreamBusyLeft in the same routines
+GusStreamBusyB GusStreamBusyRight {confidence=medium} same position as 96 PC GusStreamBusyRight in the same routines
+GusStreamCardA GusStreamCardLeft {confidence=medium} same position as 96 PC GusStreamCardLeft in the same routines
+GusStreamCardB GusStreamCardRight {confidence=medium} same position as 96 PC GusStreamCardRight in the same routines
+GusStreamHalfA GusStreamHalfLeft {confidence=medium} same position as 96 PC GusStreamHalfLeft in the same routines
+GusStreamHalfB GusStreamHalfRight {confidence=medium} same position as 96 PC GusStreamHalfRight in the same routines
+GusStreamSrcA GusStreamSrcLeft {confidence=medium} same position as 96 PC GusStreamSrcLeft in the same routines
+GusStreamSrcB GusStreamSrcRight {confidence=medium} same position as 96 PC GusStreamSrcRight in the same routines
+GusStreamVoiceA GusStreamVoiceLeft {confidence=medium} same position as 96 PC GusStreamVoiceLeft in the same routines
+GusStreamVoiceB GusStreamVoiceRight {confidence=medium} same position as 96 PC GusStreamVoiceRight in the same routines
+GameOptionFlags gameopts {source=95PC,confidence=medium} pointer to the game options: 27 routines in common with 95/96 PC gameopts, loaded the same way

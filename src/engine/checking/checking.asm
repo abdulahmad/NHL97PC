@@ -6,7 +6,7 @@ extern AdvanceMoveAnim, ApplyMoveMotion, BlockReach, EndMove, F32_30_HookMove, F
 extern F64_0p523599_PokeCheckMove, F64_0p6_HookMove, F64_0p785398_StartPokeAnim, F64_0p785398_SweepCheckMove, F64_144_PokeCheckMove, F64_1p22173, F64_3p14159_StartPokeAnim, F64_3p14159_SweepCheckMove
 extern F64_6p28319_StartPokeAnim, F64_6p28319_SweepCheckMove, F64_neg3p14159_StartPokeAnim, F64_neg3p14159_SweepCheckMove, F64_neg6p28319_StartPokeAnim, F64_neg6p28319_SweepCheckMove, GetAnimId, gmode
 extern GoalieAnimFiles, GoalieFreezeAnims, HoldPoseMove, hypot_, IF@DFMOD, MoveFuncPair, MovePlayer, PickSaveAnim
-extern PickSkateAnim, PlaySfxAt, PlaySfxVolume, PtrPuckFlags, PtrPuckState, PtrPuckZone, randomd0, ResetAnimTimer
+extern PickSkateAnim, PlaySfxAt, PlaySfxVolume, PtrPuckFlags, PtrPuckState, puckc, randomd0, ResetAnimTimer
 extern SetSPA, SortCords, SpeedTowardSpot, StepMove
 global SkateMoveStep, StartPokeAnim, PokeCheckMove, StickSlashMove, SweepCheckMove, HookMove, DiveMove, HoldPoseMoveJump
 global GoalieFreezeMove
@@ -241,13 +241,13 @@ PokeCheckMove:
         fnstsw ax
         sahf
         ja short .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .7
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bh, byte [eax]
         and edx, 0FFh
         cmp bh, 6
@@ -259,7 +259,7 @@ PokeCheckMove:
         mov esi, 0A9h
         jmp near .15
 .7:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .8
         mov eax, 2
@@ -509,12 +509,12 @@ SweepCheckMove:
         fnstsw ax
         sahf
         ja short .2
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         cmp byte [edx], 0
         jl short .1
         cmp byte [dword ecx+0A4h], 6
         setb dl
-        mov ebx, dword [PtrPuckZone]
+        mov ebx, dword [puckc]
         mov al, byte [ebx]
         and edx, 0FFh
         cmp al, 6
@@ -672,7 +672,7 @@ HookMove:
 .5:
         test byte [gmode], 1
         jne short .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .6
         lea ebx, [byte esp+010h]
@@ -716,7 +716,7 @@ HookMove:
 .8:
         test byte [gmode], 1
         jne short .9
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .9
         lea ebx, [byte esp+020h]
@@ -777,14 +777,14 @@ HookMove:
         lea edx, [dword eax+0AFh]
         test bl, 1
         jne short .14
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .13
         mov ah, byte [dword ecx+0A4h]
         xor ebx, ebx
         cmp ah, 6
         setb bl
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 6
         setl al
         and eax, 0FFh
@@ -952,7 +952,7 @@ GoalieFreezeMove:
 .4:
         cmp edx, dword [byte ebx+04h]
         jne short .5
-        mov ecx, dword [PtrPuckZone]
+        mov ecx, dword [puckc]
         movzx esi, byte [dword eax+0A4h]
         movsx ecx, byte [ecx]
         cmp esi, ecx
@@ -961,13 +961,13 @@ GoalieFreezeMove:
 .5:
         cmp edx, dword [byte ebx+04h]
         jge short .6
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         cmp byte [edx], 0
         jl short .6
         cmp byte [dword eax+0A4h], 6
         setb dl
         mov ecx, edx
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         and ecx, 0FFh
         cmp byte [edx], 6
         setl dl

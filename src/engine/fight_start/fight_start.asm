@@ -3,9 +3,9 @@ bits 32
 %include "hockey.inc"
 section s_363EA progbits alloc exec nowrite align=1
 extern __CHP, AddPenalty2, assexit, assinsert, AwPlayerEnergy, BreakawayFlag, CommentaryEvent, F32_144_assfwatch
-extern F32_48_assfwatch, F64_0p159155_HumanStickAction, F64_0p392699_HumanStickAction, F64_1392_assfwatch, F64_153p6, F64_65536_HumanStickAction, FightCameraScene, GameOptionFlags
+extern F32_48_assfwatch, F64_0p159155_HumanStickAction, F64_0p392699_HumanStickAction, F64_1392_assfwatch, F64_153p6, F64_65536_HumanStickAction, FightCameraScene, gameopts
 extern GameSettings, GiveControl, gmode, HmPlayerEnergy, IF@ATAN2, InputDir, InputState, JoyStateTable
-extern PassPlayer, PickSkateAnim, PtrPuckFlags, PtrPuckZone, PuckFlags, randomd0, regd1, SetCrowdMood
+extern PassPlayer, PickSkateAnim, PtrPuckFlags, puckc, PuckFlags, randomd0, regd1, SetCrowdMood
 extern SetFightCameraReady, SetSkateSpeedFromRating, ShotPending, SortCords, StartFightAnim, StartFightBlock, StartFightGrab, StartFightPull
 extern StartFightPunch, vecdist, ZoneTargetY
 global CheckFightOdds, StartFight, checkfight, ResetPlayerCounters, HumanStickAction, assfight, assfwatch, assfwatch_1EC
@@ -188,7 +188,7 @@ checkfight:
         jge near .3
         test dx, dx
         jl near .7
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 4
         je near .7
         cmp byte [dword ecx+0A4h], 0Ch
@@ -224,7 +224,7 @@ checkfight:
         cmp word [BreakawayFlag], byte 0
         jne near .7
         and byte [PuckFlags], 0F3h
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov edx, 40h
         mov eax, dword [PtrPuckFlags]

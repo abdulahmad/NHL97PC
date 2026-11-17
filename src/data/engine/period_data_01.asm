@@ -12,10 +12,10 @@ extern asseben, assleaveice, asspenalty, assdopen, assepen, assrefpenshot, assre
 extern assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot, assintrostand, assintroline, asstakeposition
 extern assstanley, pucknorm, puckfaceoff2, assshoot, assfight, assfwatch, InitFpuEmulatorEntry, FiniFpuEmulatorEntry
 extern SaveStackSegment
-global LinePlayersHome, LinePlayersAway, LinePickOrder, PersonnelTable, VideoCodePtr, AssignFuncTable, CompLineTable, LinePickOrderFrom1
+global LinePlayersHome, LinePlayersAway, LinePickOrder, PersonnelTable, VideoCodePtr, asstab, CompLineTable, LinePickOrderFrom1
 global CompLineRows
 global InitRtnsEntry, FiniRtnsEntry, SpareGameWord, SpareGameFlag, HomeSpareCount
-global HomeSpareFlag, FaceoffHomePlayer, FaceoffAwayPlayer, AwaySpareCount, AwaySpareFlag, RimTargetX, RimTargetY
+global HomeSpareFlag, FaceoffHomePlayer, FaceoffAwayPlayer, AwaySpareCount, AwaySpareFlag, RimTargetX, dirtab_y
 SpareGameWord:                                  ; cleared at game start, never read; used by InitGameVars
         db 00h,00h
 SpareGameFlag:                                  ; cleared at game start, never read; used by InitGameVars
@@ -43,7 +43,7 @@ AwaySpareCount:                                 ; away team word cleared at game
 AwaySpareFlag:                                  ; away team word cleared at game start, never read; used by
                                                 ; InitGameVars
         db 00h,00h
-AssignFuncTable:                                ; assignment routine per player role; used by updateplayers
+asstab:                                         ; assignment routine per player role; used by updateplayers
         dd assnull
         dd assbenchwait
         dd assgoalie
@@ -131,7 +131,7 @@ LinePickOrder:                                  ; line pick order; used by PickL
         db 00h,01h,02h,04h,03h,05h,06h,00h
 RimTargetX:                                     ; rim target X; used by DoShootButton, RimPuck
         db 00h,00h
-RimTargetY:                                     ; rim target Y; used by DoShootButton, RimPuck
+dirtab_y:                                       ; rim target Y; used by DoShootButton, RimPuck
         db 0C8h,00h,08Dh,00h,08Dh,00h,0C8h,00h,00h,00h,08Dh,00h,073h,0FFh,00h,00h
         db 038h,0FFh,073h,0FFh,073h,0FFh,038h,0FFh,00h,00h,073h,0FFh,08Dh,00h
 InitRtnsEntry:                                  ; start up routine entry; used by __InitRtns

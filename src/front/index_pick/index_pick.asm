@@ -5,7 +5,7 @@ section s_9F6F5 progbits alloc exec nowrite align=1
 extern AddReplayIndexEntry, AllocMemBlock, atoi_, BlankMenuItem, BlitArt, BlitConverted, BlitShape, BlitShape2
 extern ClearLinkAbort, ClearReplayEntry, ConvertArtXY, CreateBitmap, DrawEditBox, DrawEntryList, DrawScrollBar, DrawShape
 extern DrawShapeAtOwnPos, DrawTextAligned, FadeInScreen, FileDateText, FindReplayIndexEntry, FindShape, FreeArtArchive, FreeBitmap
-extern FreeMemBlock, FreeScrollList, GameOptionFlags, GameSettings, GetFileTimes, GlobalSetVersion, HomeTeamCode, IndexDialogBack
+extern FreeMemBlock, FreeScrollList, gameopts, GameSettings, GetFileTimes, GlobalSetVersion, HomeTeamCode, IndexDialogBack
 extern IndexDialogFrame, IndexDialogHeight, IndexDialogShape, IndexDialogShapeEnd, IndexDialogShapeMid, IndexDialogShapeTop, IndexDialogText, IndexDialogType
 extern IndexDialogWidth, IndexEntryList, IndexEntrySettings, IndexFlags, IndexItemTemplate, IndexItemType, IndexItemValue, IndexListBox
 extern IndexPickChoice, IndexScreenSound, InitMenuItems, InitScrollList, KeysEqual, LinkGameActive, LinkReceiveBlock, LinkSendBlock
@@ -1173,7 +1173,7 @@ PickIndexEntryScreen_4EE:
         and eax, byte 3Fh
         and word [TeamSelectMode], 0FC0Fh
         shl eax, 14h
-        mov dword [GameOptionFlags], GlobalSetVersion
+        mov dword [gameopts], GlobalSetVersion
         or dword [TeamSelectFlags], eax
 .86:
         mov ebx, 8

@@ -5,7 +5,7 @@ section s_A7D7C progbits alloc exec nowrite align=1
 extern AllocMemBlock, AllocStatTable, AutoLineData, BlitArt, BlitShape, ClearScreen, ConvertArtXY, CreateBitmap
 extern DrawArt, DrawFrameBox, DrawScreenBackground, DrawScrollBar, DrawShadedLogo, DrawShadowBox, DrawShapeBlended, DrawStatTableArt
 extern DrawStatTableRows, DrawTextAligned, ExitScreen, FindShape, FirstPenaltyEntry, FirstScoringEntry, FormatGoalLine, FreeBitmap
-extern FreeLogoArt, FreeMemBlock, FreeScrollList, FreeStatTable, FrontMusicOn, FrontShapeFile, GameLogCount, GameOptionFlags
+extern FreeLogoArt, FreeMemBlock, FreeScrollList, FreeStatTable, FrontMusicOn, FrontShapeFile, GameLogCount, gameopts
 extern gameover, GameStatsAnimSoundOn, GameStatsBackFile, GameStatsColumn, GameStatsDrawn, GameStatsLine, GameStatsList, GameStatsPage
 extern GameStatsRow, GameStatsScroll, GameStatsSoundOn, GameStatsSpeechCount, GameStatsTable, GameStatsTeam, GameStatsTitleFile, GetLangText
 extern GoalTypeSuffix, homelines, InitListBox, InitMenuItems, InitScrollList, InitShapeListBox, LoadDataFile, LoadTeamLogo
@@ -369,7 +369,7 @@ InitGameStatsScreen:
         push edi
         push ebp
         mov ebx, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -403,7 +403,7 @@ InitGameStatsScreen:
         call DrawShapeBlended
         add esp, byte 10h
         call FreeLogoArt
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -2213,7 +2213,7 @@ DrawPlayerStatsPage:
         jne short .1
         push str_GS24
         mov ecx, str_GS25
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [GameStatsColumn]
         mov ebx, str_GS24
         add edx, 1ECh
@@ -2224,7 +2224,7 @@ DrawPlayerStatsPage:
 .1:
         push str_GS20
         mov ecx, str_GS21
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [GameStatsColumn]
         mov ebx, str_GS20
         add edx, 1ECh

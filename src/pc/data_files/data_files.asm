@@ -4,7 +4,7 @@ bits 32
 section s_4AB70 progbits alloc exec nowrite align=1
 extern _dos_close_, _dos_open_, ArtArchiveIds, ArtArchivePaths, ArtArchiveSizes, AudioOptions, ClearLinkAbort, CurrentArchiveName
 extern DataDirPath, DataFilePath, DetectCPU, DirPathTable, DosCloseFile, DosFileInfo, DosWriteFile, FreeMemBlock
-extern GameOptionFlags, GameSettings, GlobalSetData, GlobalSetName, GlobalSetPad, GlobalSetVersion, LinkGameActive, LinkSettings
+extern gameopts, GameSettings, GlobalSetData, GlobalSetName, GlobalSetPad, GlobalSetVersion, LinkGameActive, LinkSettings
 extern LoadDataFileErr, LoadDataFileNoErr, LoadFileAlloc, LoadFileAllocQuiet, LoadFileInto, LoadFileIntoQuiet, LoadFileToBlockPlain, LoadFileToBlockShared
 extern LoadResourceBlock, LoadResourceBlockShared, LoadResourceData, LoadResourceDataShared, memcpy_, MusicStreamTick, OpenArtArchive, OpenArtArchiveErr
 extern openhandle, OpenResourceArchive, printf_, ReadWholeFile, ServiceIdle, StartupFlag, str_BIGFILES, str_DIRECTORYS
@@ -768,7 +768,7 @@ LoadStartupData:
         call DetectCPU
         mov byte [GlobalSetName], 0
         mov dword [DirPathTable], GlobalSetName
-        mov dword [GameOptionFlags], GlobalSetVersion
+        mov dword [gameopts], GlobalSetVersion
         mov edx, 1
         lea eax, [byte ebp-038h]
         lea ebx, [byte ebp-04h]

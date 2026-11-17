@@ -5,7 +5,7 @@ section s_845E4 progbits alloc exec nowrite align=1
 extern AllocMemBlock, ArenaFileName, bcopy, BlankMenuItem, BlitArt, BlitShape, BlitShape2, ChkMenuMusic
 extern ClearLinkAbort, ClearScreen, ConvertArtNew, CreateBitmap, CreditsKeyFlag, DosFileInfo, DrawArt, DrawScreenBackground
 extern DrawShapeCore, DrawStatTable, EditLinesScreen, ExitScreen, FadeInScreen, FindSeasonReplay, FindShape, FindShapeList
-extern FinishLeagueGame, FreeBitmap, FreeMemBlock, GameOptionFlags, GameSettings, GameStatsScreen, GetLangText, GlobalSetVersion
+extern FinishLeagueGame, FreeBitmap, FreeMemBlock, gameopts, GameSettings, GameStatsScreen, GetLangText, GlobalSetVersion
 extern IndexEntrySettings, IndexMenuCursor, InitMenuItems, LinkGameActive, LinkMenuCursor, LinkReceiveBlock, LinkScreensDone, LinkSendBlock
 extern LinkSettings, LinkSettingsData, LinkTransferReady, LoadDataFile, MainMenuAnimArt, MainMenuAnimBack, MainMenuAnimCursor, MainMenuAnimDone
 extern MainMenuAnimEnd, MainMenuAnimFrame, MainMenuAnimFrames, MainMenuAnimItems, MainMenuAnimJumpTable, MainMenuAnimLogo, MainMenuAnimMode, MainMenuAnimName
@@ -1574,7 +1574,7 @@ RunGameScreens:
         mov ebx, 0Dh
         jmp short .17
 .19:
-        mov ecx, dword [GameOptionFlags]
+        mov ecx, dword [gameopts]
         test byte [byte ecx+02h], 20h
         je short .20
         cmp eax, byte 13h

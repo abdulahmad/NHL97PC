@@ -2,15 +2,15 @@
 bits 32
 %include "hockey.inc"
 section s_77A88 progbits alloc exec nowrite align=1
-extern __CHP, AddAnimClock, AddPenalty2, AngleOfVector, AssignFuncTable, assinsert, assreplace, AwActiveCount
+extern __CHP, AddAnimClock, AddPenalty2, AngleOfVector, asstab, assinsert, assreplace, AwActiveCount
 extern AwayGoalieOff, AwLineCount, AwSkaterCount, awtmstruct, bholdtimer, ChkGoalies, chkprogress, ChkPuckContacts
-extern ChkTiredPlayer, ClearOverlayWindows, CommentaryEvent, CupCelebrationActive, doinput, F64_0p001, gameclock, GameOptionFlags
+extern ChkTiredPlayer, ClearOverlayWindows, CommentaryEvent, CupCelebrationActive, doinput, F64_0p001, gameclock, gameopts
 extern gameover, gmode, GoalieTick, GoalLineFlag, gsp, HmActiveCount, HmLineCount, HmScore
 extern HmSkaterCount, hmtmstruct, holdreset, HomeControlSlot, HomeGoalieOff, HomeTeamRecord, InCrease, InGameMenuRequest
 extern Intermission, IsPlayoffGame, LastTouchPlayer, LoadCupAnims, LogPeriodEnd, MovePlayer, OpenResourceArchive, PassPending
-extern PenaltyPending, PenCntDwn, Period, PlayerControlFlags, PlayerUpdateFlags, PlayerUpdateTable, PlayFlags, PlayoffColumns
+extern PenBuf, PenCntDwn, Period, PlayerControlFlags, PlayerUpdateFlags, PlayerUpdateTable, gmode2, PlayoffColumns
 extern PlayoffCurrentRound, PlayoffFinalRound, PlayoffRound, PlayoffRoundBits, PlaySfxAt, PlaySfxOr, PtrPuckFlags, PtrPuckObject
-extern PtrPuckOwner, PtrPuckTarget, PtrPuckZone, PuckOwnerTeam, rand_, randomd0, ReadJoy1, RefPlayer
+extern PtrPuckOwner, PtrPuckTarget, puckc, PuckOwnerTeam, rand_, randomd0, ReadJoy1, RefPlayer
 extern regd1, ReplayPlaying, RestartGameMusic, RestoreBenchEnergy, SelectCameraView, SetArtArchive, SetCrowdMood, setplayer
 extern SetPlayerTarget, SetTeamColours, SetZoneFlags, ShotChanceCommentary, SimFrames, SlotAssign, SlotPlayers, SortCords
 extern SortPlayersByDepth, StartCameraPath, StartCrowdMusic, StartFaceoffLineChange, StartMusicTrack, StatsPanelOn, str_ANIMSVIV2, TeamLineSlots
@@ -20,7 +20,7 @@ global DoGameFrame, SimGameBlankPair, RandomCrowdDelay
 ;-----------------------------------------------------------------------------
 ; updateplayers                                  77A88  94G, medium confidence
 ; The per-frame player update: reads the joypads (ReadJoy1), runs each object's assignment from
-; AssignFuncTable, collisions and animation
+; asstab, collisions and animation
 ;-----------------------------------------------------------------------------
 updateplayers:
         push ebx
@@ -42,11 +42,11 @@ updateplayers:
         sar esi, 18h
         test ah, 1
         je short .1
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         jne short .1
         cmp word [PenCntDwn], byte 0
         jge short .1
-        cmp byte [PenaltyPending], 0
+        cmp byte [PenBuf], 0
         jne short .1
         cmp esi, byte 36h
         je short .1
@@ -257,7 +257,7 @@ updateplayers:
 .22:
         cmp esi, byte 0Dh
         jne near .27
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov cl, byte [eax]
         cmp cl, 0Ch
         jne short .23
@@ -296,13 +296,13 @@ updateplayers:
         jmp short .25
 .24:
         call UpdatePuckCarrier
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         imul eax, dword 108h
         mov edx, dword [PtrPuckFlags]
         mov ecx, dword [dword eax+PlayerUpdateFlags]
         mov dword [byte edx+038h], ecx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         imul edx, eax, dword 108h
         mov eax, dword [PtrPuckFlags]
@@ -344,7 +344,7 @@ updateplayers:
         and eax, 0FFh
         lea edx, [nosplit eax*4+00h]
         mov eax, ebx
-        call dword [dword edx+AssignFuncTable]
+        call dword [dword edx+asstab]
         jmp short .34
 .31:
         test byte [gmode], 1
@@ -557,7 +557,7 @@ clockcont_0:
         call IsPlayoffGame
         test eax, eax
         jne near .5
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov ebx, 0FFFFFFFFh
         mov byte [eax], 0FFh
         xor eax, eax
@@ -624,7 +624,7 @@ clockcont_0:
         mov eax, dword [PtrPuckFlags]
         call assreplace
         mov edx, 3E8h
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dword [RefPlayer], edx
         mov esi, 0FFFFFFFFh
         mov byte [eax], 0FFh
@@ -892,11 +892,11 @@ periodicevents:
         test byte [holdreset], 40h
         je near .4
         call ChkGoalies
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         je near .4
         call RestoreBenchEnergy
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, byte 40h
@@ -978,14 +978,14 @@ PlayCrowdAmbience:
 .3:
         test byte [gmode], 1
         jne near .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl near .6
         mov eax, 3E8h
         call randomd0
         cmp ax, 2
         jg near .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx edx, byte [eax]
         mov eax, edx
         shl eax, 5
@@ -1004,7 +1004,7 @@ PlayCrowdAmbience:
 .4:
         mov eax, 6
 .5:
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         movsx edx, byte [edx]
         cmp eax, edx
         je short .6
@@ -1040,7 +1040,7 @@ DoGameFrame:
         call periodicevents
         call updateplayers
         call PlayCrowdAmbience
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [eax]
         test dl, dl
         jl near .3
@@ -1093,7 +1093,7 @@ DoGameFrame:
         xor esi, esi
 .4:
         xor eax, eax
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov al, byte [dword ecx+0A4h]
         movsx edx, byte [edx]
         inc esi

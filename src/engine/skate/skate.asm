@@ -18,8 +18,8 @@ extern F64_neg0p1_StopSkidDistance, F64_neg3p14159_ApplyMoveMotion, F64_neg3p141
 extern F64_neg3p14159_SkateBackwardMove, F64_neg3p14159_SkateForwardMove, F64_neg3p14159_SpeedTowardSpot, F64_neg3p14159_StopForwardMove, F64_neg3p75, F64_neg3p75_TurnStickPos, F64_neg6p28319_ApplyMoveMotion, F64_neg6p28319_FaceoffPuckDrop
 extern F64_neg6p28319_GlideForwardMove, F64_neg6p28319_LimitSkateSpeed, F64_neg6p28319_PickBackwardTurn, F64_neg6p28319_PickForwardTurn, F64_neg6p28319_PickStrideAnim, F64_neg6p28319_SkateBackwardMove, F64_neg6p28319_SkateForwardMove, F64_neg6p28319_SpeedTowardSpot
 extern F64_neg6p28319_StopForwardMove, GetStickBladePos, GetStopTable, gmode, GoalieAI, hypot_, IdleAnims, IF@ATAN2
-extern IF@DFMOD, IsStopAnim, MoveFuncPair, MovePlayer, PlayFlags, PlaySfxVolume, PtrPuckFlags, PtrPuckOwner
-extern PtrPuckZone, PuckOnStickPhysics, randomd0, ScaleAnimTime, SetFaceMouth, SetSPA, SetSPAInPlace, SkateAnimAccel
+extern IF@DFMOD, IsStopAnim, MoveFuncPair, MovePlayer, gmode2, PlaySfxVolume, PtrPuckFlags, PtrPuckOwner
+extern puckc, PuckOnStickPhysics, randomd0, ScaleAnimTime, SetFaceMouth, SetSPA, SetSPAInPlace, SkateAnimAccel
 extern SkateAnimSpeeds, SkateMoveTable, SkateStrideTable, SpeedScale, StartNextMove, StickHandleSpeed, StickHandleTarget, StrideSpeeds
 extern TurnAnimAngles, TurnRateForSpeed, UpdateMovePose
 global ResetAnimTimer, PickIdleAnim, PickSkateAnim, EndMove, AdvanceMoveAnim, ApplyMoveMotion, StepMove, HoldPoseMove
@@ -84,7 +84,7 @@ PickIdleAnim:
 .3:
         cmp word [dword ecx+0A9h], byte 0
         jne short .5
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ecx+0A4h]
@@ -130,7 +130,7 @@ PickIdleAnim:
         pop ebx
         ret
 .7:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -255,7 +255,7 @@ PickSkateAnim:
 .3:
         cmp word [dword ecx+0A9h], byte 0
         jne near .17
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         je short .5
 .4:
         mov edx, 9Eh
@@ -263,7 +263,7 @@ PickSkateAnim:
 .5:
         xor edx, edx
         mov dl, ah
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         cmp edx, eax
         jne short .6
@@ -340,13 +340,13 @@ PickSkateAnim:
 .11:
         cmp eax, 570h
         jle near .4
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .12
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and edx, 0FFh
         cmp byte [eax], 6
         setl al
@@ -372,7 +372,7 @@ PickSkateAnim:
         mov edx, 0A0h
         jmp near .32
 .17:
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         je short .19
         cmp word [dword ecx+0A9h], byte 4
         jne short .18
@@ -387,7 +387,7 @@ PickSkateAnim:
         je short .23
         cmp word [dword ecx+0A9h], byte 0
         jle short .20
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -410,7 +410,7 @@ PickSkateAnim:
 .23:
         cmp word [dword ecx+0A9h], byte 0
         jle short .24
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1026,7 +1026,7 @@ PickTurnAnim:
         and eax, 0FFh
         xor eax, edx
         je short .2
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ecx+0A4h]
@@ -1038,7 +1038,7 @@ PickTurnAnim:
         mov edx, 0A4h
         jmp short .4
 .2:
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov al, byte [dword ecx+0A4h]
         movsx edx, byte [edx]
         cmp eax, edx
@@ -1143,7 +1143,7 @@ PickTurnAnim:
         jle short .11
         xor eax, eax
         mov al, dl
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         movsx edx, byte [edx]
         cmp eax, edx
         je short .12
@@ -1170,7 +1170,7 @@ PickTurnAnim:
 .15:
         cmp word [dword ecx+0A9h], byte 0
         jle short .16
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ecx+0A4h]
@@ -1215,7 +1215,7 @@ PickTurnAnim:
         je short .25
         cmp word [dword ecx+0A9h], byte 0
         jle short .22
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1244,7 +1244,7 @@ PickTurnAnim:
 .26:
         cmp word [dword ecx+0A9h], byte 0
         jle short .27
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1331,7 +1331,7 @@ PickStopAnim:
         and eax, 0FFh
         xor eax, edx
         je short .2
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1343,7 +1343,7 @@ PickStopAnim:
         mov edx, 0A4h
         jmp short .4
 .2:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1413,7 +1413,7 @@ PickStopAnim:
         je short .11
         cmp word [dword ecx+0A9h], byte 0
         jle short .8
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1442,7 +1442,7 @@ PickStopAnim:
 .12:
         cmp word [dword ecx+0A9h], byte 0
         jle short .13
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1487,7 +1487,7 @@ PickStopAnim:
         je short .22
         cmp word [dword ecx+0A9h], byte 0
         jle short .19
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1516,7 +1516,7 @@ PickStopAnim:
 .23:
         cmp word [dword ecx+0A9h], byte 0
         jle short .24
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -2017,7 +2017,7 @@ PickForwardTurn:
         mov eax, dword [dword eax+0F6h]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+028h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [eax]
         and ebx, 0FFFFh
         test dl, dl
@@ -2171,7 +2171,7 @@ PickBackwardTurn:
         mov eax, dword [dword eax+0F6h]
         mov eax, dword [eax]
         mov ebx, dword [byte eax+028h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [eax]
         and ebx, 0FFFFh
         test dl, dl
@@ -2342,7 +2342,7 @@ GlideForwardMove:
         xor eax, eax
         mov al, byte [dword ecx+0A4h]
         mov dword [byte esp+0Ch], eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         mov dword [byte esp+010h], eax
         mov eax, dword [byte esp+0Ch]
@@ -2930,7 +2930,7 @@ SkateForwardMove:
         and byte [dword ecx+0BFh], 0DFh
         jmp near SkateForwardMove_41B.22
 .1:
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         jne near SkateForwardMove_41B.22
         mov edx, dword [byte ebx+01Ch]
         dec edx
@@ -3253,7 +3253,7 @@ SkateForwardMove_41B:
 .18:
         cmp word [dword ecx+0A9h], byte 0
         jle short .19
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         xor ebx, ebx
         movsx edx, byte [edx]
         mov bl, byte [dword ecx+0A4h]
@@ -3646,7 +3646,7 @@ SkateBackwardMove_3B2:
 .16:
         cmp word [dword ecx+0A9h], byte 0
         jle short .17
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -4028,7 +4028,7 @@ TurnForwardMove_C2:
 .5:
         cmp word [dword ecx+0A9h], byte 0
         jle short .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -4410,7 +4410,7 @@ StopForwardMove:
         jne near .15
         cmp word [dword edi+0A9h], byte 0
         jne short .10
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]
@@ -4426,7 +4426,7 @@ StopForwardMove:
         mov eax, 430h
         jmp short .14
 .10:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]
@@ -4947,7 +4947,7 @@ CrossoverMove:
 .8:
         cmp word [dword esi+0A9h], byte 0
         jle short .9
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         xor ebx, ebx
         movsx edx, byte [edx]
         mov bl, byte [dword esi+0A4h]
@@ -5127,7 +5127,7 @@ GoalieSlideMove:
         mov ebx, 20h
         test dx, dx
         jle short .1
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         movzx esi, byte [dword ecx+0A4h]
         movsx edx, byte [edx]
         cmp esi, edx
@@ -5579,7 +5579,7 @@ TurnBackwardMove_C2:
 .5:
         cmp word [dword esi+0A9h], byte 0
         jle short .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword esi+0A4h]
@@ -5800,7 +5800,7 @@ StopBackwardMove:
         jne near .12
         cmp word [dword edi+0A9h], byte 0
         jne short .7
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]
@@ -5816,7 +5816,7 @@ StopBackwardMove:
         mov eax, 430h
         jmp short .11
 .7:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         push dword [byte edi+028h]
         mov dl, byte [dword edi+0A4h]

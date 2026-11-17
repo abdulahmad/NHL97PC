@@ -6,7 +6,7 @@ extern AdvanceStreamOffset, AllocMemData, AudioEnter, AudioLeaveCheck, AudioNull
 extern DacBufSize, DacDriverBuffer, DacDriverRunning, DacIrq, DacPort, DacPortBits, DacPortTable, DacRateTable
 extern DacState, DmaPlayedHalf, FreeMemBlock, GusClose, GusDriverBasePort, GusDriverCardMem, GusDriverConfig, GusDriverDma
 extern GusDriverDmaBuf, GusDriverFound, GusDriverIrq, GusDriverIsOpen, GusDriverRunning, GusDriverStreaming, GusGetEnvConfig, GusMemAlloc
-extern GusOpen, GusProbePort, GusServiceStream, GusStartStream, GusStopStream, GusStreamBusy, GusStreamRefillB, memset_
+extern GusOpen, GusProbePort, GusServiceStream, GusStartStream, GusStopStream, GusStreamBusy, GusStreamRefillRight, memset_
 extern MixerFillBuffer, MixerInit, MixNoise, PatlChannelParams, PatlDefaultPitch, PickSampleRate, PlayPatchNote, PlayPatchNote_4E8
 extern ReadBlasterPort, SetChannelCount, StartChannel, StartTmplSample, str_DMABUFFER, str_DMABUFFER2, UpdateChannels, WssCodecStart
 extern WssCodecStop, WssDmaSize, WssFormat, WssSetVolume
@@ -978,7 +978,7 @@ GusDriverUpdate:
         call GusStreamBusy
         test eax, eax
         je short .1
-        mov edx, dword [GusStreamRefillB]
+        mov edx, dword [GusStreamRefillRight]
         mov eax, dword [GusDriverDmaBuf]
         shl edx, 0Bh
         push dword 200h

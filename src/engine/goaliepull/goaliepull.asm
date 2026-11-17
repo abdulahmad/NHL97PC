@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_2DCC5 progbits alloc exec nowrite align=1
 extern AwayGoalieOff, awtmstruct, CommentaryEvent, FaceoffSpot, gameclock, gmode, goalieflags, GoalieOut
-extern gsp, hmtmstruct, HomeGoalieOff, penshotmode, PtrPuckOwner, PtrPuckZone, setpersonel
+extern gsp, hmtmstruct, HomeGoalieOff, penshotmode, PtrPuckOwner, puckc, setpersonel
 global CPgoalie, ChkGoalies, ReturnGoalies
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
@@ -71,7 +71,7 @@ ChkGoalies:
 .1:
         cmp word [byte eax+010h], byte 0
         jl near .5
-        mov esi, dword [PtrPuckZone]
+        mov esi, dword [puckc]
         mov bl, byte [esi]
         test bl, bl
         jl near .5

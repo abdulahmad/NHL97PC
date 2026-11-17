@@ -1,0 +1,18 @@
+AssignFuncTable asstab {source=94G,confidence=high} the assignment routine table: same routines as 94 Genesis/95/96 PC asstab, read by updateplayers
+PenaltyBoxCount PBnum {source=94G,confidence=medium} players in the penalty box: same users as 95/96 PC PBnum (AddPenalty, assdopen, asspenalty, ResetBench)
+RefTarget RefStep {source=94G,confidence=medium} referee step: same users as 95/96 PC RefStep (AddPenalty2, InProgress)
+PenaltyPending PenBuf {source=94G,confidence=medium} pending penalty buffer: same users as 95/96 PC PenBuf (AddPenalty2, ClearPlayerFlags)
+PenaltySlots penmintab {source=95PC,confidence=medium} penalty minutes per slot: same users as 95/96 PC penmintab (AddPenalty2, InProgress, PenGoalStuff)
+PeriodLengths PerTimeTab {source=95PC,confidence=high} period length per setting: same contents as 95/96 PC PerTimeTab
+PlayFlags gmode2 {source=94G,confidence=medium} game mode flag word: 21 routines in common with 95/96 PC gmode2
+PtrPuckZone puckc {source=94G,confidence=medium} the puck carrier pointer: 33 routines in common with 95/96 PC puckc
+LineSlotOffsets lineslotgroups {source=95PC,confidence=high} line slots grouped by position: same contents as 95/96 PC lineslotgroups
+LineReplaceTable lineslotgroupstart {source=95PC,confidence=high} start index of each group in lineslotgroups: same contents as 95/96 PC
+RimTargetY dirtab_y {source=95PC,confidence=medium} direction table, y part: same contents as 95/96 PC dirtab_y
+FaceoffSpotIndex apl {source=94G,confidence=high} faceoff slot list: same contents as 95/96 PC apl (puckfaceoff2 .apl)
+RandState RandomState {source=95PC,confidence=high} random generator state: same as 95/96 PC RandomState (Random32)
+ScanToAscii KeyMapNormal {source=95PC,confidence=high} scan code to ASCII map: same contents as 95 PC KeyMapNormal
+ScanToAsciiShift KeyMapShift {source=95PC,confidence=high} shifted map: same contents as 95 PC KeyMapShift
+ScanToAsciiCtrl KeyMapCtrl {source=95PC,confidence=high} control map: same contents as 95 PC KeyMapCtrl
+ScanToAsciiCaps KeyMapCaps {source=95PC,confidence=high} caps lock map: same contents as 95 PC KeyMapCaps
+ScanToAsciiCapsShift KeyMapAlt {source=95PC,confidence=high} same contents as 95 PC KeyMapAlt

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_6B13E progbits alloc exec nowrite align=1
 extern ApplySkateAccel, BlockReach, F64_384_GlideWithPuckMove, F64_384_SkateWithPuckMove, F64_4272_GlideWithPuckMove, F64_4272_SkateWithPuckMove, F64_4448_GlideWithPuckMove, F64_4448_SkateWithPuckMove
-extern F64_864_GlideWithPuckMove, F64_864_SkateWithPuckMove, GlideForwardMove, hypot_, PickSkateAnim, PtrPuckZone, SkateForwardMove, StartPuckReceiveAnim
+extern F64_864_GlideWithPuckMove, F64_864_SkateWithPuckMove, GlideForwardMove, hypot_, PickSkateAnim, puckc, SkateForwardMove, StartPuckReceiveAnim
 extern SteerTowardTarget, StepMove
 global SkateWithPuckMove, GlideWithPuckMove
         db 08Bh,0C0h
@@ -26,7 +26,7 @@ SkateWithPuckMove:
         mov esi, dword [dword ebx+0FAh]
         test dx, dx
         jle short .1
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         xor eax, eax
         movsx edx, byte [edx]
         mov al, byte [dword ebx+0A4h]
@@ -39,7 +39,7 @@ SkateWithPuckMove:
 .1:
         cmp word [dword ebx+0A9h], byte 0
         jne short .2
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ebx+0A4h]
@@ -149,7 +149,7 @@ GlideWithPuckMove:
         mov eax, dword [dword edx+0FAh]
         test cx, cx
         jle short .1
-        mov ecx, dword [PtrPuckZone]
+        mov ecx, dword [puckc]
         movzx esi, byte [dword edx+0A4h]
         movsx ecx, byte [ecx]
         cmp esi, ecx

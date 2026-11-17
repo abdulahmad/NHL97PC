@@ -4,10 +4,10 @@ bits 32
 section s_5B961 progbits alloc exec nowrite align=1
 extern AllocMemBlock, AllocMemData, AnimStatesReady, AutoLineData, AwScore, AwTeamData, awtmstruct, BenchPlayerTable
 extern CameraScenesEnabled, ChangeViewSize, ClearOverlayWindows, ClockDataTicks, DrawGameFrame, DrawGameOverlays, FaceTextureCount, FreeMemBlock
-extern GameObjects, GameOptionFlags, GameSettings, GlobalSetVersion, gmode, HmScore, HmTeamData, hmtmstruct
+extern GameObjects, gameopts, GameSettings, GlobalSetVersion, gmode, HmScore, HmTeamData, hmtmstruct
 extern homelines, HomeTeamRecord, InstantReplayEnd, InstantReplayOn, InstantReplayStart, IsCameraOnPuck, IsReplayRecordingOn, kaufmfont
 extern memcpy_, MemFreeSizeAny, ObjectPositions, OpenFreeOverlay, PadStates, PaletteDirtyFlag, PlayerStartRecords, PtrPuckFlags
-extern PtrPuckZone, RedrawGameView, RefreshPlayerModel, RefreshRinkPalette, RefreshViewDistance, ReplayBuffer, ReplayBufferEnd, ReplayCameraStateCount
+extern puckc, RedrawGameView, RefreshPlayerModel, RefreshRinkPalette, RefreshViewDistance, ReplayBuffer, ReplayBufferEnd, ReplayCameraStateCount
 extern ReplayDrawn, ReplayFinalFrame, ReplayFrame, ReplayFrameCount, ReplayFrameMarker, ReplayFrames, ReplayFrameSize, ReplayFull
 extern ReplayHeader, ReplayMode, ReplayObjectCount, ReplayObjects, ReplayObjectSizes, ReplayObjectsSet, ReplayPackBuf, ReplayPackPos
 extern ReplayPlayerStateCount, ReplayPlaying, ReplayPuckStateCount, ReplayReadPos, ReplayRecordBuf, ReplayRecording, ReplayRestoreFuncs, ReplaySoundOn
@@ -918,7 +918,7 @@ ReplayDrawFrame:
         xor esi, esi
         call UpdateGameDisplay
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         inc esi
         mov dl, byte [dword ecx+0A4h]
@@ -1462,7 +1462,7 @@ ReplayRestoreObjects:
         movsx ebx, bx
         mov eax, ecx
         call RefreshPlayerModel
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         inc esi
         mov dl, byte [dword ecx+0A4h]
@@ -1577,7 +1577,7 @@ SaveReplayHeader:
         test edx, edx
         je short .1
         mov ebx, 1E7h
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         call memcpy_
 .1:
         mov eax, dword [GameSettings]

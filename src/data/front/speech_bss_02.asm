@@ -11,7 +11,7 @@ global SeasonFlags, SfxBankNames, GameAudioState, SfxBankData, SfxBankSizes, Pla
 global SpeechQueueRead, SpeechQueueWrite, SpeechFileHandle, SpeechStreamBuf, SpeechStreamLen, SpeechStreamRead, SpeechStreamEnd, SpeechStreamClip
 global SpeechChainCount, SpeechClipIndex, SpeechBankHandle, SpeechClipTable, SpeechQueueClipId, SpeechQueueDelay, SpeechQueueStage, SpeechQueuePriority
 global SpeechQueueTime, SpeechBanksLoaded, SpeechBankList, SpeechChainLen, SpeechRequestId, SpeechRequestA, SpeechRequestB, GlobalSetData
-global GameSettings, AudioOptions, brightness, NetworkGameIndex, SeasonUserTeam, GameOptionFlags, TeamSelectFlags, SeasonSlot
+global GameSettings, AudioOptions, brightness, NetworkGameIndex, SeasonUserTeam, gameopts, TeamSelectFlags, SeasonSlot
 global SeasonPhase, PlayoffRounds, SeasonActive, DataFilePath, DisplaySettings, ModemSettings, ControlSetup, LinkSettings
 global LinkSettingsData, GlobalSetVersion, IndexEntrySettings, SeasonName, SeasonPath, SeasonIndexPath, MatchupNote, SpeechQueuePrio
 global NetworkSettings, TeamSelectMode
@@ -155,7 +155,7 @@ ControlSetupFlags:                              ; control setup flags; used by C
 SeasonUserTeam:                                 ; user team in the season; used by AdvanceSeasonDate,
                                                 ; AllocAllStarRosters, AllocRosterInfo ...
         resb 4
-GameOptionFlags:                                ; game option flags; used by AIPassDecision, AddPenalty,
+gameopts:                                       ; game option flags; used by AIPassDecision, AddPenalty,
                                                 ; AutoSwitchToCarrier ...
         resb 4
 GlobalSetName:                                  ; name stored in GLOBAL.SET; used by LoadStartupData,

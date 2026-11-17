@@ -8,7 +8,7 @@ extern F64_2p35619_StartBlockAnim, F64_384_BlockShotMove, F64_384_BlockSlideMove
 extern F64_4288, F64_4448_BlockShotMove, F64_4448_BlockSlideMove, F64_5_BlockReach, F64_6p28319_BlockReach, F64_6p28319_BlockShotMove, F64_6p28319_StartBlockAnim, F64_864_BlockShotMove
 extern F64_864_BlockSlideMove, F64_neg3p14159_BlockReach, F64_neg3p14159_BlockShotMove, F64_neg3p14159_StartBlockAnim, F64_neg6p28319_BlockReach, F64_neg6p28319_BlockShotMove, F64_neg6p28319_StartBlockAnim, gmode
 extern hypot_, IF@ATAN2, IF@DFMOD, LimitSkateSpeed, PickCrossoverAnim, PickGlideAnim, PickSkateAnim, PickStrideAnim
-extern PlayFlags, PtrPuckFlags, PtrPuckOwner, PtrPuckZone, PuckOnStickFromState, PuckOnStickPhysics, randomd0, ResetAnimTimer
+extern gmode2, PtrPuckFlags, PtrPuckOwner, puckc, PuckOnStickFromState, PuckOnStickPhysics, randomd0, ResetAnimTimer
 extern SetSPA, SkateAnimAccel, SkateMoveTable, SpeedScale, StepMove, StickHandleScaled
 global StartBlockAnim, BlockReach, KneelMove, BlockShotMoveJumpTable, BlockShotMove, BlockShotMove_471, BlockShotMove_481, BlockShotMove_63F
 global BlockShotMove_671, BlockSlideMove
@@ -358,7 +358,7 @@ KneelMove:
         jne short .1
         movzx esi, byte [dword ecx+0A4h]
         mov dword [byte ebp-08h], esi
-        mov esi, dword [PtrPuckZone]
+        mov esi, dword [puckc]
         movsx esi, byte [esi]
         mov dword [byte ebp-04h], esi
         mov esi, dword [byte ebp-08h]
@@ -499,13 +499,13 @@ BlockShotMove:
 .5:
         cmp esi, 570h
         jle near .12
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .6
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov esi, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and esi, 0FFh
         cmp byte [eax], 6
         setl al
@@ -624,13 +624,13 @@ BlockShotMove:
 .14:
         cmp eax, 570h
         jle short .15
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .15
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov esi, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and esi, 0FFh
         cmp byte [eax], 6
         setl al
@@ -681,7 +681,7 @@ BlockShotMove:
         pop ebx
         ret
 .16:
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         jne near .18
         mov eax, dword [dword ecx+0AEh]
         sar eax, 18h
@@ -1015,7 +1015,7 @@ BlockShotMove_671:
         pop ebx
         ret
 .35:
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         jne short .36
         mov edx, esp
         mov eax, ecx

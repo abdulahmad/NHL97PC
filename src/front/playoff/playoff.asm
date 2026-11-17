@@ -7,7 +7,7 @@ extern ClearLinkAbort, ClearScreen, ConvertArtXY, CreateBitmap, CreatePlayoffFil
 extern DrawArt, DrawProgressBar, DrawScreenBackground, DrawStatTable, DrawTextAligned, EditLinesScreen_17F, EditLinesScreen_18C, EditLinesScreen_2C7
 extern EditLinesScreen_49D, EditLinesScreen_4C4, EditLinesScreen_5BA, EditLinesScreen_5EF, EditLinesScreen_61B, EditLinesScreen_69D, EditTextField, ExhibitionData
 extern ExitScreen, FadeInScreen, FindGameRecord, FindSeasonReplay, FindShape, FindShapeList, FindTeamRecord, FreeBitmap
-extern FreeDbBlock, FreeExhibitionFile, FreeMemBlock, FrontEndExit, FrontMusicOn, GameOptionFlags, GameSettings, GetLangText
+extern FreeDbBlock, FreeExhibitionFile, FreeMemBlock, FrontEndExit, FrontMusicOn, gameopts, GameSettings, GetLangText
 extern GlobalSetVersion, InitMenuItems, LinkGameActive, LinkReceiveBlock, LinkScreensDone, LinkSendBlock, LinkTransferReady, LinkTransferSetup
 extern LoadDataFile, LoadDataFileLib, LoadExhibitionFile, LoadFrontEndSfx, LoadNameIndex, MakeColor, MakeDirPath, MakeLeagueKeyBase
 extern MakeStandingsKey, memcpy_, memset_, MusicEnabled, NameIndexFree, NameIndexLimit, NameIndexLoad, NameIndexNew
@@ -2118,10 +2118,10 @@ PlayoffTreeScreen:
         and eax, byte 70h
         cmp eax, byte 20h
         jne short .2
-        mov dword [GameOptionFlags], PlayoffSettings
+        mov dword [gameopts], PlayoffSettings
         jmp short .3
 .2:
-        mov dword [GameOptionFlags], SeasonName
+        mov dword [gameopts], SeasonName
 .3:
         call ClearPlayoffTree
         push byte 0

@@ -17,7 +17,7 @@ extern F64_neg8, FaceoffAwayPlayer, FaceoffCenter, FaceoffDropX, FaceoffDropY, F
 extern FaceoffTakerAway, FaceoffTakers, FaceoffWinner, FaceoffX, FaceoffY, FaceoffZone, FadeGamePalette, FadeOut
 extern FindStartingGoalies, fofdata2, ForcePenaltyCall, FreeAnimStates, FreeAnimTables, FreeExhibitionFile, FreeGameGraphics, FreeGameText
 extern FreeLangText, FreeMemBlock, FreeReplayBuffer, FrontMusicOn, FrontShapeFile, FrontTextFile, gameclock, GameEventFlags
-extern GameEventPtr, GameEventTable, GameFrame, GameKeyState, GameLoopTime, GameObjects, GameOptionFlags, GameOver
+extern GameEventPtr, GameEventTable, GameFrame, GameKeyState, GameLoopTime, GameObjects, gameopts, GameOver
 extern gameover, GameRecord, GameRunning, GameSettings, GameTick, GameVarClear, GetVideoModeList, gmode
 extern Goal, GoalieOut, GoalieTarget, GoalLineFlag, GoalScorer, GoalState, gsp, hmtmstruct
 extern holdreset, HomeControlSlot, HomeEbenPlayer, HomeGoalieOff, HomeGoalsPeriod, HomeSimGoals, HomeSimShots, HomeSkaters
@@ -30,12 +30,12 @@ extern LoadDataFileLib, LoadExhibitionFile, LoadGameLogos, LoadGameMenuText, Loa
 extern memcpy_, MessagePanel, MusicOptions, NearestPlayer, NearestTeam, NextVideoModeKey, ObjectPositions, OneTimerFlag
 extern OneTimerPasser, OneTimerReady, OneTimerTarget, OpenGameDatabase, OpenInGameMenu, OpeningFrames, OpenResourceArchive, PadStates
 extern PassDistX, PassDistY, PassFrom, PassPending, PassPlayer, PassReceiver, PassState, PassTarget
-extern PassTo, PauseMenu, PenaltyBoxCount, PenCntDwn, penshotlive, penshotmode, penshottimer, Period
+extern PassTo, PauseMenu, PBnum, PenCntDwn, penshotlive, penshotmode, penshottimer, Period
 extern PeriodAwayTeam, PeriodHomeTeam, PeriodLength, PeriodOver, PickDemoTeams, PickVideoMode, PlayerAssignWords, PlayerControlRest
-extern PlayerNamesOn, PlayerPointsTable, PlayFlags, PrevVideoModeKey, ProgressCount, ProgressTimer, PtrAwayIce, PtrHomeIce
-extern PtrPuckFlags, PtrPuckObject, PtrPuckOwner, PtrPuckZone, PuckChasers, PuckFlags, PuckOwner, PuckOwnerTeam
+extern PlayerNamesOn, PlayerPointsTable, gmode2, PrevVideoModeKey, ProgressCount, ProgressTimer, PtrAwayIce, PtrHomeIce
+extern PtrPuckFlags, PtrPuckObject, PtrPuckOwner, puckc, PuckChasers, PuckFlags, PuckOwner, PuckOwnerTeam
 extern puckx, pucky, PuckZone, QuantizePalette, QueueMusicRestart, QueueOverlayPanel, rand_, randomd0
-extern RedrawGameView, RefPlayer, RefreshRinkPalette, RefSignal, RefState, RefTarget, regd1, ReplayFrames
+extern RedrawGameView, RefPlayer, RefreshRinkPalette, RefSignal, RefState, RefStep, regd1, ReplayFrames
 extern ReplayFreeFrames, ReplayHasFrames, ReplayLoaded, ReplayMode, ReplayPauseRecording, ReplayPlaying, ReplayRecordFinal, ReplayRecordTick
 extern ReplaySetupObjects, ReplayTick, ResetExhibitionFile, ResetForIntermission, ResetInputState, ResetPlayerCounters, ResetRenderTimers, ResetReplayBuffer
 extern ResetSceneCamera, ResetScoringLog, ResetTeamStats, RunReplay, SavedCameraView, SeasonFileName, seed, SelectCameraView
@@ -141,14 +141,14 @@ StartGame:
         mov word [FaceoffSpot], dx
         mov word [FaceoffZone], dx
         mov word [holdreset], dx
-        mov word [PlayFlags], dx
+        mov word [gmode2], dx
         mov word [PuckFlags], dx
         call ClearPlayerFlags
         mov eax, ChantPlayed
         xor edx, edx
         call __STOSB
         xor dl, dl
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov byte [ChantState], dl
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
@@ -225,7 +225,7 @@ InitGameVars:
         mov word [BreakawayFlag], bx
         mov dword [ProgressCount], ecx
         mov word [PenCntDwn], di
-        mov dword [RefTarget], ebp
+        mov dword [RefStep], ebp
         mov word [LastPlayerTouch], bx
         mov word [PuckOwnerTeam], bx
         mov word [PassDistY], bx
@@ -289,7 +289,7 @@ InitGameVars:
         xor edx, edx
         xor bh, bh
         mov word [OneTimerPasser], dx
-        mov byte [PenaltyBoxCount], bh
+        mov byte [PBnum], bh
         mov word [HomeSpareFlag], bx
         mov word [AwaySpareFlag], bx
         mov ebx, 0FFFFFFFFh
@@ -492,7 +492,7 @@ RunOpeningFrames:
         pop ebx
         ret
         db 08Bh,0C0h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -527,7 +527,7 @@ PlaceOpeningPlayers:
         push ebx
         push ecx
         push edx
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -658,10 +658,10 @@ PlaceOpeningPlayers:
         mov eax, dword [PtrPuckFlags]
         call assreplace
         call PeriodOver
-        mov bl, byte [PlayFlags]
+        mov bl, byte [gmode2]
         or bl, 4
         xor edx, edx
-        mov byte [PlayFlags], bl
+        mov byte [gmode2], bl
         call DoGameFrame
         call DoGameFrame
         mov eax, 64h
@@ -685,7 +685,7 @@ OpeningSequence:
         push edi
         mov eax, 64h
         call SetAmbientVolume
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 20h
         je short .1
         mov ebx, 64h
@@ -886,12 +886,12 @@ LinkSideFlags:
         push edx
         test eax, eax
         je short .1
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 6
         jmp short .2
 .1:
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
 .2:
@@ -934,12 +934,12 @@ PickGameEvents:
         mov ebx, eax
         test eax, eax
         je short .1
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 6
         jmp short .2
 .1:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
 .2:
@@ -971,7 +971,7 @@ PickGameEvents:
 .5:
         test ebx, ebx
         je short .7
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -994,7 +994,7 @@ PickGameEvents:
 .8:
         test ebx, ebx
         je short .9
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -1036,7 +1036,7 @@ PickGameEvents:
         jne short .12
         mov eax, 15h
 .12:
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         and edx, 0FC000h
         inc eax
@@ -1191,7 +1191,7 @@ PlayerReachFactor:
         and esp, byte 0FFFFFFF8h
         cmp byte [dword eax+0A4h], 0Ch
         je short .1
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         and edx, 0C0h
         cmp edx, byte 40h
@@ -1910,7 +1910,7 @@ DebugKeys:
         pop ebx
         ret
 .27:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov ch, byte [eax]
         test ch, ch
         jl near .32
@@ -1919,7 +1919,7 @@ DebugKeys:
         cmp ch, 6
         jmp near .31
 .28:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov ch, byte [eax]
         test ch, ch
         jl near .32
@@ -1928,7 +1928,7 @@ DebugKeys:
         cmp ch, 6
         jmp near .31
 .29:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov ch, byte [eax]
         test ch, ch
         jl near .32
@@ -1937,7 +1937,7 @@ DebugKeys:
         cmp ch, 6
         jmp short .31
 .30:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, byte [eax]
         test bl, bl
         jl short .32
@@ -1947,7 +1947,7 @@ DebugKeys:
         add eax, edx
         cmp word [nosplit eax*8+PlayerAssignWords], byte 0
         jle short .32
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 6
         setge al
         xor ah, ah
@@ -1958,7 +1958,7 @@ DebugKeys:
         mov word [FaceoffRequest], dx
         mov ax, word [dword eax+0BAh]
         mov word [DelayedPen], ax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor ebx, ebx
         mov cl, byte [eax]
         mov edx, 22h
@@ -2386,7 +2386,7 @@ Gameloop:
         jne near .9
         mov eax, PadStates
         call TakeInputRecord
-        test byte [PlayFlags], 4
+        test byte [gmode2], 4
         jne short .5
         cmp edi, dword [ReplayTick]
         je short .5
@@ -2420,7 +2420,7 @@ Gameloop:
 .6:
         mov eax, 1
         call RunSimFrames
-        test byte [PlayFlags], 4
+        test byte [gmode2], 4
         jne short .7
         mov ecx, dword [ReplayTick]
         cmp edi, ecx
@@ -2430,7 +2430,7 @@ Gameloop:
         call ReplayPauseRecording
         jmp short .8
 .7:
-        test byte [PlayFlags], 4
+        test byte [gmode2], 4
         je short .8
         cmp edi, dword [ReplayTick]
         je short .8
@@ -2642,7 +2642,7 @@ InitGameDisplay:
         jne short .2
         mov eax, 15h
 .2:
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         and edx, 0FC000h
         inc eax
@@ -2943,7 +2943,7 @@ PlayGame:
         call rand_
         add dword [seed], eax
 .2:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -3258,7 +3258,7 @@ RunDemoGame:
         call FreeExhibitionFile
         xor edx, edx
         mov eax, 2Fh
-        mov dword [GameOptionFlags], ecx
+        mov dword [gameopts], ecx
         call LoadDataFileLib
         push byte 0FFFFFFFFh
         mov dword [FrontTextFile], eax

@@ -5,11 +5,11 @@ section s_25894 progbits alloc exec nowrite align=1
 extern AimAtPuckTarget, AIPassDecision, assexit, assextra3, assextra4, assgoalie, assreplace, AvgLineEnergy
 extern AwPlayersInBox, awtmstruct, BenchRequest, BuildPassTargets, CanReceivePass, ChangePlayer, check4bench, ChkAIShoot
 extern ChkForwardSwap, ChkPokeOrCheck, ChkSwapWithPartner, CompLine, CreaseBounds, DefendPuck, doplayeracc, F64_1435
-extern F64_neg12, FaceoffRequest, FindManToCover, ForceShoot, gameclock, GameOptionFlags, GameSettings, GetDefensePartner
+extern F64_neg12, FaceoffRequest, FindManToCover, ForceShoot, gameclock, gameopts, GameSettings, GetDefensePartner
 extern gmode, GoalieTarget, GoalLineY, HmPlayersInBox, hmtmstruct, iflags, KeepInsideRink, LineChangeCommentary
 extern MessagePanel, NearestPlayer, ObjectFramePos, OneTimerPasser, onetimerplayer, OneTimerReady, OneTimerTarget, OnsideOffsetX
-extern OnsideOffsetY, PassState, penshotlive, PlayerAssignWords, PlayFlags, PtrAwayIce, PtrHomeIce, PtrPuckFlags
-extern PtrPuckObject, PtrPuckOwner, PtrPuckTarget, PtrPuckZone, PuckChaseOffsetX, PuckChaseOffsetY, PuckChasers, PuckOwnerTeam
+extern OnsideOffsetY, PassState, penshotlive, PlayerAssignWords, gmode2, PtrAwayIce, PtrHomeIce, PtrPuckFlags
+extern PtrPuckObject, PtrPuckOwner, PtrPuckTarget, puckc, PuckChaseOffsetX, PuckChaseOffsetY, PuckChasers, PuckOwnerTeam
 extern QueueOverlayPanel, randomd0, regd1, RemoveOverlayPanel, setpersonel, SetSkateSpeedFromRating, ShootSpotY, SortCords
 extern StartPass, StartWhistleStop, vtoa, ZoneFlags, ZoneTargetX, ZoneTargetY
 global PlayerPastLine, PlayerPastLine_D1, checkob, GetLowestPen, chk4lc, SkateOnside, SkateToEndBoards, asspuckc
@@ -105,7 +105,7 @@ PlayerPastLine_D1:
 ;-----------------------------------------------------------------------------
 ; checkob                                        2596C  94G, medium confidence
 ; (warning ref when a player on your team is over the blue line): offsides option, a teammate
-; past the blue line as the carrier comes up sets PlayFlags 80h and shows overlay 5
+; past the blue line as the carrier comes up sets gmode2 80h and shows overlay 5
 ;-----------------------------------------------------------------------------
 checkob:
         push ebx
@@ -118,7 +118,7 @@ checkob:
         sub esp, byte 4
         and esp, byte 0FFFFFFF8h
         mov esi, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov dl, byte [byte eax+01h]
         xor edi, edi
         test dl, 8
@@ -179,12 +179,12 @@ checkob:
 .8:
         test di, di
         je short .10
-        mov bh, byte [PlayFlags]
+        mov bh, byte [gmode2]
         test bh, 80h
         jne near .12
         mov cl, bh
         or cl, 80h
-        mov byte [PlayFlags], cl
+        mov byte [gmode2], cl
         test byte [dword esi+0BFh], 80h
         setne al
         mov edx, eax
@@ -208,13 +208,13 @@ checkob:
         or byte [dword eax+0C1h], 2
         jmp short .11
 .10:
-        mov ah, byte [PlayFlags]
+        mov ah, byte [gmode2]
         test ah, 80h
         je short .12
         mov dl, ah
         and dl, 7Fh
         mov eax, 5
-        mov byte [PlayFlags], dl
+        mov byte [gmode2], dl
         call RemoveOverlayPanel
         test byte [gmode], 8
         jne short .12
@@ -357,7 +357,7 @@ chk4lc:
         push esi
         push edi
         mov ebx, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, byte 40h
@@ -486,7 +486,7 @@ chk4lc:
         ret
 ;-----------------------------------------------------------------------------
 ; SkateOnside                                     25D40  97 PC, low confidence
-; Offside warning on (PlayFlags 80h): send the player to his onside spot
+; Offside warning on (gmode2 80h): send the player to his onside spot
 ; (OnsideOffsetX table by formation, mirrored by team), speed 25
 ;-----------------------------------------------------------------------------
 SkateOnside:
@@ -494,7 +494,7 @@ SkateOnside:
         push ecx
         push edx
         mov edx, eax
-        test byte [PlayFlags], 80h
+        test byte [gmode2], 80h
         je near .2
         mov ax, word [dword edx+0ABh]
         add eax, eax
@@ -655,7 +655,7 @@ SkateToEndBoards:
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; asspuckc                                          25F64  94G, low confidence
-; Assignment 9, the computer puck carrier: steps out when its team does not have the puck (PtrPuckZone),
+; Assignment 9, the computer puck carrier: steps out when its team does not have the puck (puckc),
 ; runs its checks on a reaction timer (+56h), and goes to 1Bh when skating in close on the goal
 ;-----------------------------------------------------------------------------
 asspuckc:
@@ -668,7 +668,7 @@ asspuckc:
         mov ebx, eax
         xor edx, edx
         mov dl, byte [dword eax+0A4h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         cmp edx, eax
         je short .1
@@ -905,7 +905,7 @@ ChkDefenseSwitch:
         je short .1
         test eax, eax
         je near .17
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge near .17
         test byte [iflags], 4
@@ -913,7 +913,7 @@ ChkDefenseSwitch:
 .1:
         test eax, eax
         je short .2
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .2
         test byte [iflags], 4
@@ -940,7 +940,7 @@ ChkDefenseSwitch:
         pop ecx
         ret
 .2:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl near .9
         cmp word [byte ecx+06h], byte 0
@@ -1112,7 +1112,7 @@ ChasePuck:
         push edx
         sub esp, byte 4
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, byte [eax]
         test bl, bl
         jge short .1
@@ -1197,7 +1197,7 @@ ChasePuck:
         db 08Bh,0C0h
 ;-----------------------------------------------------------------------------
 ; assnearest                                     265FC  94G, medium confidence
-; assignment 0Ah (AssignFuncTable), the main skater AI
+; assignment 0Ah (asstab), the main skater AI
 ; (forcepldata gives it to the centre)
 ;-----------------------------------------------------------------------------
 assnearest:
@@ -1235,7 +1235,7 @@ assnearest:
         mov word [OneTimerReady], di
         mov word [OneTimerPasser], di
 .3:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword esi+0A4h]
@@ -1311,13 +1311,13 @@ assnearest:
         mov dword [byte esi+056h], eax
         mov eax, dword [byte esp+04h]
         mov dword [byte eax+012h], 0
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .10
         cmp byte [dword esi+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bh, byte [eax]
         and edx, 0FFh
         cmp bh, 6
@@ -1325,7 +1325,7 @@ assnearest:
         and eax, 0FFh
         cmp eax, edx
         jne short .10
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx edx, byte [eax]
         mov eax, edx
         shl eax, 5
@@ -1447,13 +1447,13 @@ assnearest:
         mov word [ShootSpotY], di
         jne near .13
 .21:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .22
         cmp byte [dword esi+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, byte [eax]
         and edx, 0FFh
         cmp bl, 6
@@ -1591,7 +1591,7 @@ assnearest:
         pop ebx
         ret
 .30:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .31
         test byte [iflags], 4
@@ -1686,12 +1686,12 @@ assnearest:
         jle short .42
         dec dword [regd1]
 .42:
-        test byte [PlayFlags], 20h
+        test byte [gmode2], 20h
         je short .44
         sub dword [regd1], byte 2
         mov al, byte [dword esi+0BFh]
         and al, 40h
-        mov dx, word [PlayFlags]
+        mov dx, word [gmode2]
         xor dh, dh
         and dl, 40h
         and eax, 0FFh
@@ -1763,13 +1763,13 @@ assnearest:
 .48:
         test al, 8
         jne near .87
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl near .54
         cmp byte [dword esi+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bh, byte [eax]
         and edx, 0FFh
         cmp bh, 6
@@ -1777,7 +1777,7 @@ assnearest:
         and eax, 0FFh
         cmp eax, edx
         jne near .54
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx edx, byte [eax]
         mov eax, edx
         shl eax, 5
@@ -1840,13 +1840,13 @@ assnearest:
         mov eax, dword [dword esi+0FEh]
         test byte [byte eax+016h], 10h
         jne short .55
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .56
         cmp byte [dword esi+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, byte [eax]
         and edx, 0FFh
         cmp bl, 6
@@ -1889,13 +1889,13 @@ assnearest:
 .57:
         mov dword [byte esi+060h], eax
 .58:
-        test byte [PlayFlags], 20h
+        test byte [gmode2], 20h
         je near .61
         mov al, byte [dword esi+0BFh]
         xor edx, edx
         and al, 40h
         mov dl, al
-        mov ax, word [PlayFlags]
+        mov ax, word [gmode2]
         xor ah, ah
         and al, 40h
         cwde

@@ -6,9 +6,9 @@ extern AddPenalty, AddPenalty2, AssignControlSlots, AwayGoalieOff, AwFaceoffCent
 extern BenchRequest, BreakawayFlag, CarrierInShotArea, changeplayer, ChkTwoInBox, clockcont_0, CommentaryEvent, CompLine
 extern DelayedPen, F64_480_PenaltyChance, FaceoffAwayPlayer, FaceoffCameraScene, FaceoffCameraScene2, FaceoffDropX, FaceoffDropY, FaceoffHomePlayer
 extern FaceoffRequest, FaceoffSlots, FaceoffTakerAway, FaceoffTakers, FaceoffX, FaceoffY, ForcePenaltyCall, forcepldata
-extern gameclock, GameOptionFlags, gmode, Goal, gsp, HmFaceoffCenter, HmFaceoffWinger, HmPlayerFlags
+extern gameclock, gameopts, gmode, Goal, gsp, HmFaceoffCenter, HmFaceoffWinger, HmPlayerFlags
 extern hmtmstruct, HomeControlSlot, HomeGoalieOff, HomeTeamRecord, LastTouchPlayer, OneTimerTarget, PassReceiver, PenaltyCallCameraScene
-extern penshotmode, PtrAwayIce, PtrHomeIce, PtrPuckFlags, PtrPuckZone, PuckFlags, PuckZone, QueueOverlayPanel
+extern penshotmode, PtrAwayIce, PtrHomeIce, PtrPuckFlags, puckc, PuckFlags, PuckZone, QueueOverlayPanel
 extern randomd0, RefPlayer, RefState, RequestLineChange, RequestPauseMenu, ResetFaceoffAssigns, ReturnGoalies, SetCrowdMood
 extern SetFaceBlink, SetFaceExpression, SetFaceMouth, setpersonel, ShotType, SlotAssign, SlotPlayers, slotteam
 extern SortCords, StartFaceoffLineChange, StatsPanelOn, StatsPanelPlayer, Stop4Pen, StopObject, UpdateLinesForAbsent
@@ -30,7 +30,7 @@ puckfaceoff:
         mov edi, eax
         test byte [dword eax+0BFh], 2
         je near .26
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov bl, byte [edx]
         cmp bl, 0Ch
         je short .3
@@ -50,13 +50,13 @@ puckfaceoff:
         mov dword [byte eax+064h], 0
         mov dword [byte edi+038h], 0
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .2
         mov eax, dword [PtrPuckFlags]
         call StopObject
 .2:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
 .3:
         and byte [dword edi+0BFh], 0FDh
@@ -143,7 +143,7 @@ puckfaceoff:
         call AssignControlSlots
 .14:
         call ReturnGoalies
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         jne short .15
         mov eax, hmtmstruct
@@ -152,7 +152,7 @@ puckfaceoff:
         call setpersonel
 .15:
         mov esi, 0FFFFFFFFh
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov word [FaceoffY], si
         mov word [FaceoffX], si
         test byte [byte eax+01h], 0C0h
@@ -172,7 +172,7 @@ puckfaceoff:
         mov byte [byte edx-048h], ch
         cmp eax, byte 0Ch
         jl short .16
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, byte 40h
@@ -269,7 +269,7 @@ puckfaceoff:
         cmp eax, byte 10h
         jl near .21
 .24:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, 80h
@@ -311,7 +311,7 @@ puckfaceoff:
         call setpersonel
         mov eax, edx
         call ResetFaceoffAssigns
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 20h
         jne short .29
         cmp word [gsp], byte 0
@@ -344,7 +344,7 @@ puckfaceoff:
         jge near .33
         cmp word [FaceoffY], byte 0
         jge near .33
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 0C0h
         cmp eax, 80h
@@ -369,7 +369,7 @@ puckfaceoff:
         call QueueOverlayPanel
         add esp, byte 0Ch
 .31:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         jne short .32
         xor eax, eax
@@ -433,7 +433,7 @@ ChkPenaltyCall:
         jne near .7
         cmp word [ForcePenaltyCall], byte 0
         jne near .2
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 1
         je near .7
         call CarrierInShotArea
@@ -642,13 +642,13 @@ PenaltyChance:
 .5:
         test byte [gmode], 8
         je short .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .6
         cmp byte [dword ebx+0A4h], 6
         setb al
         mov ebx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov cl, byte [eax]
         and ebx, 0FFh
         cmp cl, 6
@@ -673,10 +673,10 @@ ChkNetCrash:
         push ebx
         push edx
         mov edx, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 7
         je near .6
-        mov ebx, dword [PtrPuckZone]
+        mov ebx, dword [puckc]
         xor eax, eax
         movsx ebx, byte [ebx]
         mov al, byte [dword edx+0A4h]
@@ -768,7 +768,7 @@ NetCollide:
         je near .8
         test byte [dword esi+0C0h], 10h
         jne near .8
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -805,7 +805,7 @@ NetCollide:
         mov word [DelayedPen], ax
         mov eax, esi
         call AddPenalty
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov dword [byte ecx+064h], 20h
         mov eax, dword [byte ecx+064h]
@@ -867,7 +867,7 @@ NetCollide2:
         je near .6
         test byte [dword esi+0C0h], 10h
         jne near .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -904,7 +904,7 @@ NetCollide2:
         mov word [DelayedPen], ax
         mov eax, esi
         call AddPenalty
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov dword [byte ecx+064h], 20h
         mov eax, dword [byte ecx+064h]
@@ -1030,7 +1030,7 @@ ChkBodyContact:
         mov word [DelayedPen], ax
         mov eax, ecx
         call AddPenalty
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov dword [byte esi+064h], 20h
         mov eax, dword [byte esi+064h]
@@ -1056,7 +1056,7 @@ ChkBodyContact:
 .10:
         xor edx, edx
 .11:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movzx edi, byte [dword esi+0A4h]
         movsx eax, byte [eax]
         cmp edi, eax
@@ -1289,7 +1289,7 @@ checkint:
         je short .1
         xor ebx, ebx
         mov bl, dh
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         movsx edx, byte [edx]
         cmp ebx, edx
         je short .1

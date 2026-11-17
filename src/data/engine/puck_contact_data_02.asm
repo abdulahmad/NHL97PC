@@ -6,16 +6,16 @@ bits 32
 section s_168B60 progbits alloc noexec write align=1
 extern SortCords, hmtmstruct, HomeTeamRecord, AwayTeamRecord
 extern AwayTeamRecord, HomeIcePlayers, AwayIcePlayers
-global LineSlotPositions, LineSlotOffsets, LineReplaceTable, SlotJoyMap, LineReplaceOrder, PenaltyMinutes, PenaltyFlags, PenaltyPaCodes
+global LineSlotPositions, lineslotgroups, lineslotgroupstart, SlotJoyMap, LineReplaceOrder, PenaltyMinutes, PenaltyFlags, PenaltyPaCodes
 global PenaltyTypes, PacketLinkOpen, PacketLinkMode, PacketSize, StandingsColumns, PlayoffColumns, PtrPuckTarget, PtrPuckState
-global PtrPuckOwner, PtrPuckMotion, PtrPuckZone, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, ResetPlayerSpots
-global PeriodLengths, ProgressTimes, ProgressLimit, str_Punct_InProgress, LineChangeKeys
+global PtrPuckOwner, PtrPuckMotion, puckc, PtrPuckFlags, PtrPuckObject, PtrHomeIce, PtrAwayIce, ResetPlayerSpots
+global PerTimeTab, ProgressTimes, ProgressLimit, str_Punct_InProgress, LineChangeKeys
 LineSlotPositions:                              ; position per line slot; used by CanPlayLineSlot,
                                                 ; FixLineSlot, InitGameLines ...
         db 00h,00h,02h,01h,01h,00h
 LineReplaceOrder:                               ; line replacement order; used by PickLineReplacement
         db 00h,01h,00h
-LineSlotOffsets:                                ; offset per line slot; used by PickLineReplacement
+lineslotgroups:                                 ; offset per line slot; used by PickLineReplacement
         db 00h,03h,06h,09h,0FFh,01h,04h,07h,0Ah,0FFh,02h,05h,08h,0Bh,0FFh,0Ch
         db 0Eh,010h,0FFh,0Dh,0Fh,011h,0FFh,012h,017h,01Ch,020h,00h,03h,06h,09h,0FFh
         db 013h,018h,01Dh,021h,01h,04h,07h,0Ah,0FFh,014h,019h,02h,05h,08h,0Bh,0FFh
@@ -26,7 +26,7 @@ LineSlotOffsets:                                ; offset per line slot; used by 
         db 0Ah,0FFh,028h,02Ch,02Fh,032h,0Ch,0Eh,010h,0FFh,029h,02Dh,030h,033h,0Dh,0Fh
         db 011h,0FFh,02Eh,031h,027h,02Bh,01h,04h,07h,0Ah,0FFh,02Fh,032h,028h,02Ch,0Ch
         db 0Eh,010h,0FFh,030h,033h,029h,02Dh,0Dh,0Fh,011h,0FFh
-LineReplaceTable:                               ; line replacement table; used by PickLineReplacement
+lineslotgroupstart:                             ; line replacement table; used by PickLineReplacement
         db 00h,05h,0Ah,00h,05h,0Ah,00h,05h,0Ah,00h,05h,0Ah,0Fh,013h,0Fh,013h
         db 0Fh,013h,017h,020h,029h,030h,038h,017h,020h,029h,030h,038h,040h,049h,052h,05Ah
         db 040h,049h,052h,05Ah,05h,05h,062h,069h,072h,07Ah,062h,069h,072h,07Ah,082h,08Bh
@@ -55,7 +55,7 @@ PtrPuckOwner:                                   ; pointer to the puck owner reco
         dd AwayTeamRecord+536h
 PtrPuckMotion:                                  ; pointer to the puck motion record; used by FaceDirFromMotion
         dd AwayTeamRecord+540h
-PtrPuckZone:                                    ; pointer to the puck zone record; used by AimAtPuckTarget,
+puckc:                                          ; pointer to the puck zone record; used by AimAtPuckTarget,
                                                 ; BlockShotMove, CanReachPuck ...
         dd AwayTeamRecord+5D0h
         dd SortCords
@@ -75,7 +75,7 @@ PtrAwayIce:                                     ; pointer to the away players on
         dd AwayIcePlayers
         dd hmtmstruct
         dd hmtmstruct
-PeriodLengths:                                  ; period length per setting; used by DrawPauseClock,
+PerTimeTab:                                     ; period length per setting; used by DrawPauseClock,
                                                 ; PeriodLengthSetting
         db 02Ch,01h,058h,02h,0B0h,04h,0B0h,04h
 PenaltyMinutes:                                 ; minutes per penalty type; used by AddPenalty2
