@@ -6,15 +6,15 @@ extern __STOSB, assinsert, asspsclear, assreplace, AutoLineData, AwayControlSlot
 extern AwayTeamRecord, AwCounters, AwLineState, AwPlayerSlots, AwRosterMap, AwScore, AwTeamData, awtmstruct
 extern BenchPlayerTable, BenchRequest, ChantState, ClearOverlayWindows, CommentaryEvent, DebugModelIndex, DebugModelRefresh, DefendFlags
 extern DefenseByDefense, DefenseByOffense, DoGameFrame, DrawJerseyLettering, EndPenaltyShot, F64_0p01, F64_0p013, FaceoffRequest
-extern FaceoffSpot, FaceoffSpotPosition, FaceoffZone, ForwardsByDefense, ForwardsByOffense, gameclock, GameObjects, GameOptionFlags
+extern FaceoffSpot, FaceoffSpotPosition, FaceoffZone, ForwardsByDefense, ForwardsByOffense, gameclock, GameObjects, gameopts
 extern GameSettings, GameTick, GetPlayerJerseyNumber, gmode, GoalieTarget, gsp, HmCounters, HmLineState
 extern HmPlayerSlots, HmRosterMap, HmScore, HmTeamData, hmtmstruct, holdreset, HomeControlSlot, HomeGoalieOff
 extern HomeIceSlots, homelines, HomeTeamRecord, InitPlayerAnims, LastPlayerTouch, LastTouchPlayer, LineChangeAway, LineChangeHome
 extern LinePickOrder, LinePlayerOffsets, LinePlayerOrder, LinePlayersAway, LinePlayersHome, LinePlayerSlots, LoadGoalieMask, LogPeriodEnd
-extern ObjectPositions, OneTimerTarget, PaEvent, PassState, PenaltyBoxCount, PenaltyPending, PenaltyTeam, penshotlive
-extern penshotmode, penshottimer, PeriodLength, PeriodLengths, PersonnelTable, PickBenchSeat, PlayerAssignWords, PlayerControlWords
-extern PlayerPointsTable, PlayerStartDist, PlayerStartRecords, PlayerStartScale, PlayFlags, PtrPuckFlags, PtrPuckObject, PtrPuckOwner
-extern PtrPuckState, PtrPuckTarget, PtrPuckZone, PuckFlags, PuckOwnerTeam, puckx, PuckZone, QueueMusicRestart
+extern ObjectPositions, OneTimerTarget, PaEvent, PassState, PBnum, PenBuf, PenaltyTeam, penshotlive
+extern penshotmode, penshottimer, PeriodLength, PerTimeTab, PersonnelTable, PickBenchSeat, PlayerAssignWords, PlayerControlWords
+extern PlayerPointsTable, PlayerStartDist, PlayerStartRecords, PlayerStartScale, gmode2, PtrPuckFlags, PtrPuckObject, PtrPuckOwner
+extern PtrPuckState, PtrPuckTarget, puckc, PuckFlags, PuckOwnerTeam, puckx, PuckZone, QueueMusicRestart
 extern randomd0, RefreshFaceTextures, regd1, ReplayPlaying, ResetAnimTimer, ResetCoachModes, ResetPlayerSpots, ResetSceneCamera
 extern SeasonActive, SetCameraMode, SetModelSlotValue, Setplass, SetPlayerTarget, SetupPlayerModel, ShootSpotY, ShowCameraView
 extern SlotAssign, SortCords, StatsPanelOn, StatsPanelPlayer, StopAllSfx, UpdateCoachModes, UpdateFaceTextures, UpdateGameDisplay
@@ -69,7 +69,7 @@ SetupFaceoffPlayers:
         push edx
         push esi
         sub esp, byte 4
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 20h
         jne near .3
         mov eax, hmtmstruct
@@ -102,7 +102,7 @@ SetupFaceoffPlayers:
         mov eax, dword [PtrPuckFlags]
         fild word [esp]
         fstp dword [byte eax+028h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0Ch
         mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+038h], 0
@@ -167,7 +167,7 @@ ClearPlayerFlags:
         xor bl, bl
         mov byte [dword edx+PenaltyTeam], bl
         inc eax
-        mov byte [dword edx+PenaltyPending], bl
+        mov byte [dword edx+PenBuf], bl
         cmp ax, 20h
         jl short .1
         pop edx
@@ -189,7 +189,7 @@ ClearPlayerFlags:
         mov word [FaceoffSpot], dx
         mov word [FaceoffZone], dx
         mov word [holdreset], dx
-        mov word [PlayFlags], dx
+        mov word [gmode2], dx
         mov word [PuckFlags], dx
 .2:
         movsx edx, ax
@@ -197,7 +197,7 @@ ClearPlayerFlags:
         xor bl, bl
         mov byte [dword edx+PenaltyTeam], bl
         inc eax
-        mov byte [dword edx+PenaltyPending], bl
+        mov byte [dword edx+PenBuf], bl
         cmp ax, 20h
         jl short .2
         pop edx
@@ -388,7 +388,7 @@ ResetBench:
 .1:
         movsx eax, cx
         xor dl, dl
-        mov byte [dword eax+PenaltyBoxCount], dl
+        mov byte [dword eax+PBnum], dl
         mov edx, 1Bh
 .2:
         movsx eax, dx
@@ -403,7 +403,7 @@ ResetBench:
         je short .6
 .3:
         movsx eax, cx
-        inc byte [dword eax+PenaltyBoxCount]
+        inc byte [dword eax+PBnum]
         jmp short .6
 .4:
         mov di, word [byte eax+050h]
@@ -924,7 +924,7 @@ SetupTeamForIntermission:
         mov eax, edx
         call reenergizeteam
         mov word [byte edx+02h], 0
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         je short .3
         mov si, word [byte ecx+0Eh]
@@ -1806,14 +1806,14 @@ PeriodLengthSetting:
         jne short .4
         cmp word [gsp], byte 3
         jl short .4
-        mov ax, word [PeriodLengths]
+        mov ax, word [PerTimeTab]
         ret
 .4:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 13h
         shr eax, 1Eh
-        mov ax, word [nosplit eax*2+PeriodLengths]
+        mov ax, word [nosplit eax*2+PerTimeTab]
         ret
         push ebx
         push edx
@@ -2128,10 +2128,10 @@ StartPeriod:
         mov eax, dword [PtrPuckFlags]
         call assreplace
         call SetCameraMode
-        mov bl, byte [PlayFlags]
+        mov bl, byte [gmode2]
         or bl, 4
         mov edx, 1
-        mov byte [PlayFlags], bl
+        mov byte [gmode2], bl
         call DoGameFrame
         call DoGameFrame
         mov dword [GameTick], edx
@@ -2277,7 +2277,7 @@ ReleaseBoxPlayers:
         add eax, ebx
         cmp byte [dword eax+0B2h], 19h
         jne short .11
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         jne near .19
         mov edx, edi
@@ -2314,7 +2314,7 @@ ReleaseBoxPlayers:
         je short .19
         cmp eax, byte 1Ah
         je short .19
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         jne short .14
         mov eax, edi

@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1120A progbits alloc exec nowrite align=1
 extern __STOSB, awtmstruct, BreakawayFlag, ChantIndex, ChantPlayed, ChantState, ChkMenuMusic, CrowdChantTable
-extern forcepldata, GameOptionFlags, gsp, hmtmstruct, MusicFileName, QueueMusicRestart, rand_, ReplayPlaying
+extern forcepldata, gameopts, gsp, hmtmstruct, MusicFileName, QueueMusicRestart, rand_, ReplayPlaying
 extern RequestMusicStop, SetCrowdMood, setpersonel, StartMusicTrack
 global PickCrowdChant, StartCrowdMusicJumpTable, StartCrowdMusic, StartCrowdMusic_26, StartCrowdMusic_4F, StartCrowdMusic_78, StartCrowdMusic_A6, RestartGameMusic
         db 08Bh,0C0h
@@ -84,7 +84,7 @@ PickCrowdChant:
         xor edx, edx
         call __STOSB
         xor al, al
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov byte [ChantState], al
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
@@ -189,7 +189,7 @@ StartCrowdMusic_A6:
 .1:
         mov eax, 8
         call SetCrowdMood
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 20h
         jne near .6
         cmp dword [ReplayPlaying], byte 0

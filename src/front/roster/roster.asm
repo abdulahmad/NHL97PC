@@ -6,7 +6,7 @@ extern AllocMemBlock, BlankMenuItem, BlitArt, BlitShape, BuildRosterLines, Check
 extern CreateBitmap, DbKeyBuffer, DeletionCount, DrawArt, DrawFrameBox, DrawHighlightBar, DrawRatingBars_157, DrawRatingBars_158
 extern DrawScreenBackground, DrawScrollBar, DrawShadedLogo, DrawShadowBox, DrawShapeBlended, DrawTextAligned, ExitScreen, FadeInScreen
 extern FillRect, FindGameRecord, FindPlayerRecord, FindPlayerStat, FindShape, FindShapeList, FindTeamRecord, FreeBitmap
-extern FreeExhibitionFile, FreeLogoArt, FreeMemBlock, FreeScrollList, FrontMusicOn, GameOptionFlags, GameSettings, GetLangText
+extern FreeExhibitionFile, FreeLogoArt, FreeMemBlock, FreeScrollList, FrontMusicOn, gameopts, GameSettings, GetLangText
 extern InitMenuItems, InitScrollList, InitShapeListBox, KeysEqual, LoadDataFile, LoadFakeExhibition, LoadFileAllocQuiet, LoadFrontEndSfx
 extern LoadTeamLogo, MakeColor, MeasureText, memset_, MusicEnabled, PlayerOverall, PlayerRatingsScreen, PlayMenuSfx
 extern PlayoffStarted, PlayoffTeams, PlayoffUserActive, PlayoffUserHuman, PlayoffUserLocked, PlaySfx, PositionAbbrev, PresentScreen
@@ -1491,7 +1491,7 @@ InitRosterData:
 .1:
         test eax, eax
         jne near .35
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         shr edx, 1Ah

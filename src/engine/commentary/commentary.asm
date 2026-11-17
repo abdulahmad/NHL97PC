@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_1DEE1 progbits alloc exec nowrite align=1
 extern __CHP, BreakawayFlag, CommentaryEvent, F64_576, gmode, holdreset, LastTouchPlayer, OneTimerTarget
-extern PlayerControlFlags, PlayFlags, PtrPuckFlags, PtrPuckZone, randomd0, SetCrowdMood, SimFrames, SortCords
+extern PlayerControlFlags, gmode2, PtrPuckFlags, puckc, randomd0, SetCrowdMood, SimFrames, SortCords
 extern StoppageFlag, vecdist
 global CrowdForPuckZone, CrowdForPlayer, ShotChanceCommentary, LineChangeCommentary
         db 08Dh,040h,00h
@@ -170,7 +170,7 @@ ShotChanceCommentary:
 .2:
         test byte [holdreset], 40h
         je short .5
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dh, byte [eax]
         test dh, dh
         jl short .5
@@ -216,7 +216,7 @@ ShotChanceCommentary:
         add esp, byte 8
         cmp eax, 0D20h
         jae short .7
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov ch, byte [eax]
         test ch, ch
         jl short .9
@@ -264,7 +264,7 @@ LineChangeCommentary:
         jne short .3
         cmp word [BreakawayFlag], byte 0
         jne short .3
-        mov cl, byte [PlayFlags]
+        mov cl, byte [gmode2]
         test cl, 20h
         je short .4
         test byte [dword ebx+0BFh], 40h
@@ -274,7 +274,7 @@ LineChangeCommentary:
 .1:
         test byte [dword ebx+0BFh], 40h
         jne short .4
-        test byte [PlayFlags], 40h
+        test byte [gmode2], 40h
         jne short .4
 .2:
         mov edx, 0A001h

@@ -5,7 +5,7 @@ section s_9E35E progbits alloc exec nowrite align=1
 extern AllocMemBlock, AwayPanelLayer, AwayPanelPos, AwayPanelShapes, AwayPanelTeam, AwayPanelTick, BlankMenuItem, BlitArt
 extern BlitShape2, ClearLinkAbort, CreateBitmap, CreditsKeyFlag, DrawArt, DrawProgressBar, DrawScreenBackground, DrawTeamLogoBanner
 extern ExhibitionData, ExitScreen, FadeInScreen, FindShape, FindShapeList, FreeBitmap, FreeExhibitionFile, FreeMemBlock
-extern GameOptionFlags, GetLangText, GlobalSetVersion, HideLinkBox, HomePanelLayer, HomePanelPos, HomePanelShapes, HomePanelTeam
+extern gameopts, GetLangText, GlobalSetVersion, HideLinkBox, HomePanelLayer, HomePanelPos, HomePanelShapes, HomePanelTeam
 extern HomePanelTick, IndexDialogShapeMid, IndexSoundMode, IndexSoundPlayed, InitMenuItems, LinkGameActive, LinkReceiveBlock, LinkSendBlock
 extern LinkTransferSetup, LoadDataFile, LoadExhibitionFile, PanelTeamBase, PanelTeamNameShift, PickDemoTeams, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4
 extern PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PlayMenuSfx, PlaySfx, PresentScreen, rand_
@@ -1074,13 +1074,13 @@ TeamSelectScreen_94F:
         cmp dword [byte ebp+072h], byte 0FFFFFFFFh
         jne near TeamSelectScreen_B61.32
         mov edx, dword [byte ebp+07Ah]
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         and edx, byte 3Fh
         and dword [byte eax+01h], 0FFF03FFFh
         shl edx, 0Eh
         or dword [byte eax+01h], edx
         mov edx, dword [byte ebp+076h]
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         push byte 3
         and edx, byte 3Fh
         and word [byte eax+03h], 0FC0Fh
@@ -1268,7 +1268,7 @@ TeamSelectScreen_B61:
         and eax, byte 3Fh
         and word [TeamSelectMode], 0FC0Fh
         shl eax, 14h
-        mov dword [GameOptionFlags], GlobalSetVersion
+        mov dword [gameopts], GlobalSetVersion
         or dword [TeamSelectFlags], eax
 .39:
         cmp dword [byte ebp+066h], byte 0

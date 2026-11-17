@@ -5,11 +5,11 @@ section s_2720F progbits alloc exec nowrite align=1
 extern __CHP, AngleOfVector, assreplace, AwayEbenPlayer, AwayGoalieOff, AwayTeamRecord, BenchRequest, changeplayer
 extern check4bench, ChkShoot, ClearPlayerFlags, CommentaryEvent, doplayeracc, F32_144, F32_144_assleavebox, F32_144_asspenalty
 extern F32_144_asspsclear, F32_40, F32_48_assleavebox, F32_96, F32_96_assleaveice, F32_96_asspenalty, F32_96_asspsclear, F64_240
-extern F64_3312, F64_720, FaceoffRequest, FaceoffZone, forcepldata, FreeBoxSeat, gameclock, GameOptionFlags
+extern F64_3312, F64_720, FaceoffRequest, FaceoffZone, forcepldata, FreeBoxSeat, gameclock, gameopts
 extern GetSeatPos, gmode, GoToBoxAnim, gsp, hmtmstruct, HomeEbenPlayer, HomeGoalieOff, HomeTeamRecord
-extern LeaveBoxAnim, MoveBoxToBenchSeat, PassPending, PassPlayer, PenaltyAnimPos, PenaltyAnimTime, PenaltyBoxCount, PenaltyCameraScene
-extern penshotlive, penshotmode, penshottimer, PickBoxSeat, PlayerAssignWords, PlayerPointsTable, PlayerScoreTable, PlayFlags
-extern PlaySfxVolume, PtrPuckFlags, PtrPuckObject, PtrPuckZone, randomd0, regd1, ResetAnimTimer, SetCrowdMood
+extern LeaveBoxAnim, MoveBoxToBenchSeat, PassPending, PassPlayer, PenaltyAnimPos, PenaltyAnimTime, PBnum, PenaltyCameraScene
+extern penshotlive, penshotmode, penshottimer, PickBoxSeat, PlayerAssignWords, PlayerPointsTable, PlayerScoreTable, gmode2
+extern PlaySfxVolume, PtrPuckFlags, PtrPuckObject, puckc, randomd0, regd1, ResetAnimTimer, SetCrowdMood
 extern SetFaceBlink, SetFaceExpression, SetFaceMouth, SetPenaltyBoxDoor, Setplass, setplayer, SetPlayerTarget, SetSkateSpeedFromRating
 extern SetSlotPlayer, SetSPA, SitDownAnim, SlotAssign, slotteam, SortCords, StandUpAnim, StatsPanelOn
 extern StatsPanelPlayer, StopObject, UpdateLinesForAbsent, ZoneTargetX, ZoneTargetY
@@ -68,7 +68,7 @@ assscore:
         mov ebx, eax
         xor ecx, ecx
         mov cl, byte [dword eax+0A4h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx edx, byte [eax]
         cmp ecx, edx
         jne short .1
@@ -380,7 +380,7 @@ assbench:
         jne near .22
         test byte [dword ebx+0C0h], 10h
         jne short .1
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         je short .2
 .1:
         mov al, byte [dword ebx+0BFh]
@@ -708,7 +708,7 @@ PutBoxPlayerOnBench:
 ;-----------------------------------------------------------------------------
 ; ReleaseBoxToBench                               27A78  97 PC, low confidence
 ; From puckfaceoff2: every player flagged in the box (flag 8) on both teams
-; goes to the bench (position 8002h), box counts PenaltyBoxCount down
+; goes to the bench (position 8002h), box counts PBnum down
 ;-----------------------------------------------------------------------------
 ReleaseBoxToBench:
         push ebx
@@ -731,12 +731,12 @@ ReleaseBoxToBench:
         mov eax, ebx
         call MoveBoxToBenchSeat
         mov word [byte esi+050h], 8002h
-        mov dl, byte [dword ebx+PenaltyBoxCount]
+        mov dl, byte [dword ebx+PBnum]
         test dl, dl
         jle short .3
         mov dh, dl
         dec dh
-        mov byte [dword ebx+PenaltyBoxCount], dh
+        mov byte [dword ebx+PBnum], dh
 .3:
         inc ecx
         cmp cx, byte 19h
@@ -1210,7 +1210,7 @@ PenShotStart:
         mov word [byte ebx+08h], ax
         mov eax, 9
         call SetCrowdMood
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov al, byte [FaceoffRequest]
         mov ecx, 3E8h
         mov byte [edx], al
@@ -1245,7 +1245,7 @@ asspenshot:
         mov ebx, eax
         xor edx, edx
         mov dl, byte [dword eax+0A4h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         cmp edx, eax
         jne short .1
@@ -1899,7 +1899,7 @@ assdopen:
         xor edx, edx
         test ch, 40h
         setne dl
-        inc byte [dword edx+PenaltyBoxCount]
+        inc byte [dword edx+PBnum]
         mov word [dword ebx+0A9h], 0FFFFh
 .1:
         pop edx
@@ -1958,7 +1958,7 @@ assepen:
         test byte [dword ebx+0BFh], 40h
         setne al
         and eax, 0FFh
-        dec byte [dword eax+PenaltyBoxCount]
+        dec byte [dword eax+PBnum]
         mov ch, byte [dword ebx+0BFh]
         mov edx, 1
         test ch, 40h
@@ -2140,7 +2140,7 @@ ResetFaceoffAssigns:
         db 090h
         push ebx
         push edx
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         test byte [byte edx+02h], 20h
         jne short .6
         cmp word [gsp], byte 0
@@ -2165,7 +2165,7 @@ ResetFaceoffAssigns:
         ret
         db 08Dh,040h,00h
         push edx
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 7
         jne short .7
         mov eax, dword [PtrPuckObject]

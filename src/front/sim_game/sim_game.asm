@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_789F0 progbits alloc exec nowrite align=1
 extern AutoLineData, AwayBackupGoalie, AwayGoalTotals, AwayRosterData, AwayShotTotals, AwaySimGoals, AwaySimShots, FindGameRecord
-extern FindPlayerRecord, FindPlayerStat, GameOptionFlags, HomeBackupGoalie, HomeGoalTotals, HomeInjuredCount, homelines, HomeRosterData
+extern FindPlayerRecord, FindPlayerStat, gameopts, HomeBackupGoalie, HomeGoalTotals, HomeInjuredCount, homelines, HomeRosterData
 extern HomeShotTotals, HomeSimGoals, HomeSimShots, HomeTeamRating, memset_, PaEventValue, PeriodAwayTeam, PeriodHomeTeam
 extern PlayerOverall, PlayoffDbKey, PlayoffRandomSeed, rand_, RandomCrowdDelay, ReadTeamStats, SeasonDbKey, SeasonRandomSeed
 extern SeasonUserTeam, ServiceIdle, SimGameBlankPair, SimGameResult, srand_, str_D_SimulateGame, ThreeStarsCount, ZeroMem
@@ -435,7 +435,7 @@ SimulateGame:
         sar edx, 1Fh
         idiv ebx
         mov dword [dword esp+014E8h], eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 18h
         jne short .24
         mov eax, dword [dword esp+014E4h]
@@ -1567,7 +1567,7 @@ SimulateGame:
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E8h]
         mov word [dword edx+HomeRosterData+1C99h], ax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 18h
         jne short .121
         mov word [dword edx+HomeRosterData+1C91h], 384h
@@ -1615,7 +1615,7 @@ SimulateGame:
         imul edx, ebx, dword 125h
         mov eax, dword [dword esp+014E4h]
         mov word [dword edx+AwayRosterData+1C99h], ax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 18h
         jne short .126
         mov word [dword edx+AwayRosterData+1C91h], 384h

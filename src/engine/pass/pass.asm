@@ -7,7 +7,7 @@ extern F64_0p6_StartDropPassAnim, F64_0p6_StartPassAnim, F64_0p785398_StartPassA
 extern F64_6p28319_StartDropPassAnim, F64_6p28319_StartPassAnim, F64_6p28319_StartShotAnim, F64_neg3p14159_StartDropPassAnim, F64_neg3p14159_StartPassAnim, F64_neg3p14159_StartShotAnim, F64_neg6p28319_StartDropPassAnim, F64_neg6p28319_StartPassAnim
 extern F64_neg6p28319_StartShotAnim, GetAnimId, gmode, IF@ATAN2, IF@DFMOD, IsCameraOnPuck, LastTouchPlayer, MoveFuncPair
 extern MoveFuncTable, MoveState, onetimerplayer, OneTimerReady, PassFrom, PassReceiver, PassTo, PickSkateAnim
-extern PlaySfxVolume, PtrPuckFlags, PtrPuckZone, randomd0, ResetAnimTimer, SetAnimFrame, SetFaceBlink, SetFaceExpression
+extern PlaySfxVolume, PtrPuckFlags, puckc, randomd0, ResetAnimTimer, SetAnimFrame, SetFaceBlink, SetFaceExpression
 extern SetFaceMouth, SetSPA, ShotAnimFrames, ShotState, ShotTarget, ShotType, SortCords, SpeedScale
 extern StepMove, StrideSpeeds, TryStickTouch
 global StartPassAnim, PassAnimFrame, StartDropPassAnim, StartShotAnim, StartOneTimerAnim, StartWristShotAnim, StartPuckReceiveAnim, ReceivePassMove
@@ -191,7 +191,7 @@ PassAnimFrame:
         mov ebx, dword [dword eax+0F6h]
         xor edx, edx
         mov ebx, dword [ebx]
-        mov esi, dword [PtrPuckZone]
+        mov esi, dword [puckc]
         mov dl, byte [dword eax+0A4h]
         mov ecx, dword [byte ebx+028h]
         movsx esi, byte [esi]
@@ -473,7 +473,7 @@ StartOneTimerAnim:
         push dword 3F800000h
         call SetSPA
         xor edx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [dword ecx+0A4h]
         movsx eax, byte [eax]
         cmp edx, eax
@@ -503,7 +503,7 @@ StartWristShotAnim:
         sub esp, byte 0Ch
         mov ecx, eax
         mov esi, dword [dword eax+0F6h]
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov esi, dword [esi]
         movsx edx, byte [edx]
         xor eax, eax
@@ -608,7 +608,7 @@ StartPuckReceiveAnim:
         xor eax, eax
         mov al, bh
         mov dword [byte ebp-04h], eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov ebx, dword [byte ebp-04h]
         movsx eax, byte [eax]
         cmp eax, ebx
@@ -909,7 +909,7 @@ ReceivePassMove:
         mov edx, eax
         mov ecx, dword [byte eax+02Ch]
         mov eax, dword [dword ecx+0F6h]
-        mov esi, dword [PtrPuckZone]
+        mov esi, dword [puckc]
         mov ebx, dword [dword ecx+0FAh]
         mov eax, dword [eax]
         movzx edi, byte [dword ecx+0A4h]
@@ -1055,7 +1055,7 @@ PassMove:
         mov eax, edi
         call PassAnimFrameForType
         xor edx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [dword ebx+0A4h]
         movsx eax, byte [eax]
         cmp edx, eax
@@ -1096,7 +1096,7 @@ PassMove:
         test dl, 2
         je near .28
 .6:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov eax, dword [dword ebx+0FAh]
         mov dword [byte ebx+064h], 10h

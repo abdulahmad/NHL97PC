@@ -5,10 +5,10 @@ bits 32
 %include "hockey.inc"
 section s_19A740 progbits alloc noexec write align=1
 extern str_ULTRASND
-global GusIrqLatchBits, GusStreamVoiceA, GusStreamVoiceStereo, GusStreamVoiceB, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts
-global DmaAddressPorts, DmaCountPorts, GusOpenCount, GusStreamRefillA, GusStreamRefillB, GusStreamSrcA, GusStreamHalfA, GusStreamBusyA
-global GusStreamSrcB, GusStreamHalfB, GusStreamBusyB, GusStreamActive, GusStreamBufSize, GusStreamHalfSize, GusStreamQuarterSize, GusRefillSrc
-global GusRefillDest, GusRefillLength, GusStreamCardA, GusStreamCardB, GusStreamCardEnd, GusStreamStartLo, GusStreamEndLo, StrToLongLimits
+global GusIrqLatchBits, GusStreamVoiceLeft, GusStreamVoiceStereo, GusStreamVoiceRight, DmaPagePorts, DmaMaskPorts, DmaModePorts, DmaClearPorts
+global DmaAddressPorts, DmaCountPorts, GusOpenCount, GusStreamRefillLeft, GusStreamRefillRight, GusStreamSrcLeft, GusStreamHalfLeft, GusStreamBusyLeft
+global GusStreamSrcRight, GusStreamHalfRight, GusStreamBusyRight, GusStreamActive, GusStreamBufSize, GusStreamHalfSize, GusStreamQuarterSize, GusRefillSrc
+global GusRefillDest, GusRefillLength, GusStreamCardLeft, GusStreamCardRight, GusStreamCardEnd, GusStreamStartLo, GusStreamEndLo, StrToLongLimits
 global DmaLastHalf, GusEnvVarName, GusStreamLoopLo, GusStreamLoopHi, GusStreamStartHi, GusStreamEndHi
 GusEnvVarName:                                  ; points to the name of the environment variable that holds
                                                 ; the card settings; used by GusGetEnvConfig
@@ -19,41 +19,41 @@ GusOpenCount:                                   ; number of times the card has b
 GusIrqLatchBits:                                ; latch register bits for each IRQ line the card can use; used
                                                 ; by GusOpenCard, GusSetIrqDmaLatches
         db 00h,00h,01h,03h,00h,02h,00h,04h,00h,00h,00h,05h,06h,00h,00h,07h
-GusStreamRefillA:                               ; set when the first streaming channel needs its next half
+GusStreamRefillLeft:                            ; set when the first streaming channel needs its next half
                                                 ; buffer; used by GusServiceStream, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamRefillB:                               ; set when the second streaming channel needs its next half
+GusStreamRefillRight:                           ; set when the second streaming channel needs its next half
                                                 ; buffer; used by GusDriverUpdate, GusServiceStream,
                                                 ; GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamSrcA:                                  ; source pointer of the first streaming channel; used by
+GusStreamSrcLeft:                               ; source pointer of the first streaming channel; used by
                                                 ; GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamHalfA:                                 ; which half buffer of the first streaming channel is being
+GusStreamHalfLeft:                              ; which half buffer of the first streaming channel is being
                                                 ; filled; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamBusyA:                                 ; set while the first streaming channel is playing; used by
+GusStreamBusyLeft:                              ; set while the first streaming channel is playing; used by
                                                 ; GusServiceStream, GusStreamBusy, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamSrcB:                                  ; source pointer of the second streaming channel; used by
+GusStreamSrcRight:                              ; source pointer of the second streaming channel; used by
                                                 ; GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamHalfB:                                 ; which half buffer of the second streaming channel is being
+GusStreamHalfRight:                             ; which half buffer of the second streaming channel is being
                                                 ; filled; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamBusyB:                                 ; set while the second streaming channel is playing; used by
+GusStreamBusyRight:                             ; set while the second streaming channel is playing; used by
                                                 ; GusServiceStream, GusStreamBusy, GusStreamVoiceIrq
         db 00h,00h,00h,00h
 GusStreamActive:                                ; set while the stream voices are running; used by
                                                 ; GusStartStream, GusStopStreamVoices, GusStreamVoiceIrq
         db 00h,00h,00h,00h
-GusStreamVoiceA:                                ; voice number of the first streaming channel; used by
+GusStreamVoiceLeft:                             ; voice number of the first streaming channel; used by
                                                 ; GusStartStream, GusStopStreamVoices, GusStreamVoiceIrq
         db 00h,00h,00h,00h
 GusStreamVoiceStereo:                           ; set when the stream uses a second (stereo) voice; used by
                                                 ; GusStartStream, GusStopStreamVoices
         db 00h,00h,00h,00h
-GusStreamVoiceB:                                ; voice number of the second streaming channel; used by
+GusStreamVoiceRight:                            ; voice number of the second streaming channel; used by
                                                 ; GusStartStream, GusStopStreamVoices, GusStreamVoiceIrq
         db 00h,00h,00h,00h
 GusStreamBufSize:                               ; size of the stream buffer in card memory; used by
@@ -73,10 +73,10 @@ GusRefillDest:                                  ; card address the half buffer i
 GusRefillLength:                                ; length of the half buffer being copied; used by
                                                 ; GusRefillStreamChannel
         db 00h,00h,00h,00h
-GusStreamCardA:                                 ; card memory address of the first streaming channel's buffer;
+GusStreamCardLeft:                              ; card memory address of the first streaming channel's buffer;
                                                 ; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
-GusStreamCardB:                                 ; card memory address of the second streaming channel's
+GusStreamCardRight:                             ; card memory address of the second streaming channel's
                                                 ; buffer; used by GusRefillStreamChannel, GusStartStream
         db 00h,00h,00h,00h
 GusStreamCardEnd:                               ; end of the stream buffers in card memory; used by

@@ -14,15 +14,15 @@ extern F64_4272_a2touchpuck, F64_4272_ChkDelayedOffside, F64_4272_pucknorm_body,
 extern F64_6p28319_PuckHitsGoalie, F64_6p28319_PuckPlayerContact, F64_6p28319_PuckToStick, F64_DeflectScale, F64_neg0p698132, F64_neg12_a2offsides, F64_neg12_ChkOffsides, F64_neg12_MarkTwoLinePlayers
 extern F64_neg12_PuckIChk, F64_neg1435, F64_neg24, F64_neg3p14159_DeflectPuck, F64_neg3p14159_PuckToStick, F64_neg4276, F64_neg6p28319_DeflectPuck, F64_neg6p28319_PuckToStick
 extern FaceoffCenter, FaceoffDropCameraScene, FaceoffPuckDrop, FaceoffPuckX, FaceoffPuckY, FaceoffRequest, FaceoffSpot, FaceoffSpotPosition
-extern FaceoffZone, forcepldata, GameOptionFlags, GameSettings, GiveControl, gmode, GoalLineFlag, HmGoalieOnIce
+extern FaceoffZone, forcepldata, gameopts, GameSettings, GiveControl, gmode, GoalLineFlag, HmGoalieOnIce
 extern HmPlayerFlags, HmPlayersInBox, hmtmstruct, holdreset, HomeTeamRecord, hypot_, IcingTeam, IF@ATAN2
 extern IF@DFMOD, iflags, InputActive, LastPlayerTouch, LastTouchPlayer, LastTouchTeam, ObjectFramePos, OneTimerPasser
 extern onetimerplayer, OneTimerReady, OneTimerTarget, PassDistX, PassDistY, PassPending, PassReceiver, penshotlive
-extern penshotmode, PenShotStart, penshottimer, PeriodOver, PlayerAssignWords, PlayerControlFlags, PlayerPastLine, PlayFlags
+extern penshotmode, PenShotStart, penshottimer, PeriodOver, PlayerAssignWords, PlayerControlFlags, PlayerPastLine, gmode2
 extern PlaySfxOr, PlaySfxVolume, PtrAwayIce, PtrHomeIce, PtrPuckFlags, PtrPuckObject, PtrPuckOwner, PtrPuckState
-extern PtrPuckTarget, PtrPuckZone, PuckBounceOffPlayer, PuckChasers, PuckDeflect, PuckFlags, PuckHitFlag, PuckOwner
+extern PtrPuckTarget, puckc, PuckBounceOffPlayer, PuckChasers, PuckDeflect, PuckFlags, PuckHitFlag, PuckOwner
 extern PuckOwnerTeam, PuckPathTable, PuckStickTimers, puckx, pucky, PuckZone, PunchPointId, QueueOverlayPanel
-extern randomd0, RandomPuckSpin, ReachScale, RefFaceoffAnim, RefState, RefTarget, ReleaseBoxToBench, RemoveOverlayPanel
+extern randomd0, RandomPuckSpin, ReachScale, RefFaceoffAnim, RefState, RefStep, ReleaseBoxToBench, RemoveOverlayPanel
 extern ReplaceFaceoffPlayers, ReplayPlaying, ResetBench, RestartGameMusic, SetCameraMode, SetCrowdMood, SetFaceBlink, SetFaceExpression
 extern SetFaceMouth, SetPenaltyBoxDoor, setpersonel, SetPlayerTarget, SetSlotPlayer, SetTeamColours, SlotAssign, SlotPlayers
 extern SlotPuckPlayer, slotteam, SortCords, SpeedScale, StartOneTimerAnim, StartPuckReceiveAnim, StartWhistleStop, StatsPanelOn
@@ -43,7 +43,7 @@ PlayerGetsPuck:
         push esi
         push edi
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, byte [dword edx+0A4h]
         mov byte [eax], bl
         call SetCameraMode
@@ -283,7 +283,7 @@ DeflectPuck:
         sub esp, byte 1Ch
         and esp, byte 0FFFFFFF8h
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl near .2
         mov eax, dword [PtrPuckFlags]
@@ -356,7 +356,7 @@ DeflectPuck:
         mov dword [byte esp+04h], eax
         fild dword [byte esp+04h]
         fstp dword [byte edx+030h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov eax, edx
         call RandomPuckSpin
@@ -393,7 +393,7 @@ DeflectPuck:
         mov dword [byte esp+08h], eax
         fild dword [byte esp+08h]
         fstp dword [byte edx+030h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         add esp, byte 10h
         pop edx
@@ -454,7 +454,7 @@ KnockPuckAway:
         push dword [byte eax+020h]
         mov eax, 417h
         call PlaySfxVolume
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         test byte [gmode], 1
         jne short .1
@@ -504,7 +504,7 @@ PuckHitsPlayer:
         push ebp
         mov edi, eax
         mov ebx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl near .13
         cmp word [dword ebx+0A9h], byte 0
@@ -516,7 +516,7 @@ PuckHitsPlayer:
         cmp eax, 9Ah
         jne near .12
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         mov ecx, eax
         shl ecx, 5
@@ -728,7 +728,7 @@ PuckHitsGoalie:
         jne short .1
         cmp eax, byte 61h
         je near .14
-        test byte [PlayFlags], 10h
+        test byte [gmode2], 10h
         jne near .14
         mov eax, 5
         call randomd0
@@ -753,7 +753,7 @@ PuckHitsGoalie:
         mov eax, dword [PtrPuckFlags]
         cmp dword [byte eax+038h], 41A00000h
         jl near .6
-        test byte [PlayFlags], 10h
+        test byte [gmode2], 10h
         jne short .2
         cmp word [onetimerplayer], byte 0
         jl near .6
@@ -800,7 +800,7 @@ PuckHitsGoalie:
         mov eax, dword [PtrPuckFlags]
         fstp dword [byte eax+040h]
         mov dword [byte ecx+064h], 10h
-        test byte [PlayFlags], 10h
+        test byte [gmode2], 10h
         je near .13
         cmp byte [dword ecx+0A4h], 6
         setb al
@@ -902,7 +902,7 @@ PuckHitsGoalie:
         fnstsw ax
         sahf
         jae near .12
-        test byte [PlayFlags], 10h
+        test byte [gmode2], 10h
         je short .11
         mov eax, 5
         call randomd0
@@ -924,7 +924,7 @@ PuckHitsGoalie:
         mov eax, esi
         mov dword [byte ecx+064h], 10h
         call RandomPuckSpin
-        mov dl, byte [PlayFlags]
+        mov dl, byte [gmode2]
         mov edi, 417h
         test dl, 10h
         je near .13
@@ -1013,7 +1013,7 @@ PuckHitsGoalie:
         mov eax, edi
         push dword [byte esi+020h]
         call PlaySfxVolume
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         cmp byte [dword ecx+0A4h], 0Ch
         je short .14
@@ -1052,13 +1052,13 @@ PuckToStick:
         and esp, byte 0FFFFFFF8h
         mov dword [byte esp+0Ch], eax
         mov ecx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .1
         cmp byte [dword ecx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and edx, 0FFh
         cmp byte [eax], 6
         setl al
@@ -1077,7 +1077,7 @@ PuckToStick:
         sub eax, byte 19h
         imul eax, dword 125h
         add esi, 1D42h
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         add esi, eax
         mov al, byte [edx]
         test al, al
@@ -1176,7 +1176,7 @@ PuckToStick:
         add eax, SortCords
         call StartOneTimerAnim
 .8:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov dl, byte [PuckFlags]
         and dl, 0F3h
@@ -1392,7 +1392,7 @@ PuckToStick_469:
         mov eax, dword [PtrPuckFlags]
         mov word [byte eax+06Dh], 3
         mov dword [byte ecx+064h], 0Ah
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
 .26:
         mov esp, ebp
@@ -1416,10 +1416,10 @@ ChkDelayedOffside:
         sub esp, byte 4
         and esp, byte 0FFFFFFF8h
         mov edx, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 8
         je short .1
-        test byte [PlayFlags], 80h
+        test byte [gmode2], 80h
         je short .1
         cmp word [BenchRequest], byte 0
         jne short .1
@@ -1508,7 +1508,7 @@ PuckPlayerContact:
         and esp, byte 0FFFFFFF8h
         mov esi, eax
         mov ecx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1521,7 +1521,7 @@ PuckPlayerContact:
         mov eax, dword [dword ecx+0F6h]
         mov eax, dword [eax]
         mov edx, dword [byte eax+028h]
-        mov bl, byte [PlayFlags]
+        mov bl, byte [gmode2]
         and edx, 0FFFFh
         test bl, 10h
         je short .1
@@ -1559,10 +1559,10 @@ PuckPlayerContact:
         call PuckBounceOffPlayer
         test eax, eax
         je near .7
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge near .10
-        test byte [PlayFlags], 10h
+        test byte [gmode2], 10h
         je near .3
         xor eax, eax
         mov bx, word [PuckOwnerTeam]
@@ -1580,10 +1580,10 @@ PuckPlayerContact:
         jne near .12
         mov eax, ecx
         call a2touchpuck
-        mov al, byte [PlayFlags]
+        mov al, byte [gmode2]
         or al, 10h
         mov edx, dword [PtrPuckFlags]
-        mov byte [PlayFlags], al
+        mov byte [gmode2], al
         fld dword [byte edx+038h]
         fmul dword [F32_7_PuckPlayerContact]
         fmul dword [F32_0p125_PuckPlayerContact]
@@ -1608,7 +1608,7 @@ PuckPlayerContact:
         mov dword [byte esp+0Ch], eax
         fild dword [byte esp+0Ch]
         fstp dword [byte edx+030h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov eax, ecx
         call CrowdForPuckZone
@@ -1703,7 +1703,7 @@ PuckPlayerContact:
         pop ebx
         ret
 .8:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge near .12
         mov eax, dword [byte ecx+050h]
@@ -1854,7 +1854,7 @@ ChkTwoLinePass:
         push ecx
         push edx
         push esi
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         test byte [byte edx+01h], 10h
         jne short .1
         xor eax, eax
@@ -1951,7 +1951,7 @@ a2offsides:
         push edx
         push esi
         mov ecx, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 8
         jne short .1
         xor eax, eax
@@ -2091,7 +2091,7 @@ a2touchpuck:
 .5:
         cmp word [dword ecx+0A9h], byte 0
         je short .6
-        and byte [PlayFlags], 0EFh
+        and byte [gmode2], 0EFh
 .6:
         mov eax, ecx
         call a2offsides
@@ -2255,7 +2255,7 @@ a2touchpuck:
 .10:
         cmp word [ZoneTargetY], byte 0
         jl short .12
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .12
         mov dx, word [AwPlayersInBox]
@@ -2270,7 +2270,7 @@ a2touchpuck:
 .11:
         cmp word [ZoneTargetY], byte 0
         jl short .12
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 20h
         je short .12
         or byte [iflags], 4
@@ -2298,7 +2298,7 @@ PuckIChk:
         je near .6
         test ah, 1
         jne near .6
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge near .6
         test byte [iflags], 2
@@ -2372,7 +2372,7 @@ PuckEntersZone:
         jne short .1
         cmp word [penshotmode], byte 0
         jne short .1
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx edx, byte [eax]
         mov eax, edx
         shl eax, 5
@@ -2402,7 +2402,7 @@ PuckEntersZone:
         jne short .4
         cmp dword [ReplayPlaying], byte 0
         jne short .4
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 5
         setg al
         and eax, 0FFh
@@ -2431,7 +2431,7 @@ ChkOffsides:
         push esi
         push edi
         push ebp
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 8
         je near .8
         cmp word [penshotlive], byte 0
@@ -2499,7 +2499,7 @@ ChkOffsides:
         sahf
         jae near .20
         call PuckEntersZone
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 8
         je near .20
         test byte [gmode], 2
@@ -2592,7 +2592,7 @@ ChkOffsides:
         sahf
         jbe near .20
         call PuckEntersZone
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 8
         je near .20
         test byte [gmode], 2
@@ -2691,7 +2691,7 @@ MarkTwoLinePlayers:
         mov ebp, esp
         sub esp, byte 8
         and esp, byte 0FFFFFFF8h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 10h
         je near .10
         test byte [gmode], 2
@@ -2819,7 +2819,7 @@ pucknorm_body:
         mov ebp, esp
         sub esp, byte 10h
         mov dword [byte ebp-04h], eax
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov ah, byte [edx]
         test ah, ah
         jl near .35
@@ -3085,7 +3085,7 @@ pucknorm_body:
         mov bl, byte [dword edi+0BFh]
         test bl, 40h
         jne near .32
-        mov cl, byte [PlayFlags]
+        mov cl, byte [gmode2]
         test cl, 20h
         je near .28
         test cl, 40h
@@ -3159,7 +3159,7 @@ pucknorm_body:
         and eax, 0FFh
         xor eax, edx
         je near .50
-        mov dh, byte [PlayFlags]
+        mov dh, byte [gmode2]
         test dh, 20h
         je short .31
         test dh, 40h
@@ -3523,7 +3523,7 @@ puckfaceoff2:
         mov dword [byte eax+060h], edx
         test edx, edx
         jle short .2
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 20h
         je short .1
         cmp word [penshotmode], byte 0
@@ -3533,7 +3533,7 @@ puckfaceoff2:
         jne short .2
         cmp dword [RefState], byte 0
         jne short .2
-        cmp dword [RefTarget], byte 0
+        cmp dword [RefStep], byte 0
         jge near .45
         call AllInPlace
         test eax, eax
@@ -3556,7 +3556,7 @@ puckfaceoff2:
         mov word [BenchRequest], cx
         call StopObject
         mov bh, byte [PuckFlags]
-        mov cl, byte [PlayFlags]
+        mov cl, byte [gmode2]
         mov word [PuckZone], si
         mov word [OneTimerTarget], si
         mov word [OneTimerPasser], si
@@ -3567,7 +3567,7 @@ puckfaceoff2:
         xor esi, esi
         mov byte [PuckFlags], bh
         xor ebx, ebx
-        mov byte [PlayFlags], cl
+        mov byte [gmode2], cl
         mov dword [FaceoffCenter], ebx
         mov dword [PuckChasers], ebx
         call SetPenaltyBoxDoor
@@ -3583,7 +3583,7 @@ puckfaceoff2:
         sar eax, 10h
         xor esi, ebx
         call RemoveOverlayPanel
-        mov al, byte [PlayFlags]
+        mov al, byte [gmode2]
         mov dl, byte [AwPlayerFlags]
         mov byte [iflags], ch
         mov dword [InputActive], ebx
@@ -3592,25 +3592,25 @@ puckfaceoff2:
         mov ecx, 0FFFFFFFFh
         and al, 7Ah
         and dl, 0EFh
-        mov byte [PlayFlags], al
+        mov byte [gmode2], al
         mov word [onetimerplayer], cx
         mov byte [AwPlayerFlags], dl
         xor eax, eax
-        mov dh, byte [PlayFlags]
+        mov dh, byte [gmode2]
         xor eax, ebx
         or dh, 5
         mov word [GoalLineFlag], ax
         mov ah, byte [HmPlayerFlags]
         mov ebx, 0FFFFFFFFh
         and ah, 0EFh
-        mov byte [PlayFlags], dh
+        mov byte [gmode2], dh
         mov byte [HmPlayerFlags], ah
         mov ax, word [FaceoffSpot]
         mov dx, word [penshotmode]
         mov word [LastPlayerTouch], ax
         mov word [LastTouchTeam], ax
         mov ax, word [FaceoffZone]
-        mov dword [RefTarget], ebx
+        mov dword [RefStep], ebx
         mov word [StoppageFlag], ax
         mov word [PassDistY], ax
         test dx, dx
@@ -3636,7 +3636,7 @@ puckfaceoff2:
         mov eax, dword [PtrPuckFlags]
         fild word [byte esp+010h]
         fstp dword [byte eax+028h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0Ch
 .4:
         mov eax, dword [PtrPuckFlags]
@@ -3807,7 +3807,7 @@ puckfaceoff2:
         inc eax
         cmp edx, eax
         jne short .19
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 2
         je short .18
         mov edx, esi
@@ -3824,11 +3824,11 @@ puckfaceoff2:
         add ebx, byte 2
         cmp ecx, byte 8
         jl short .17
-        mov dh, byte [PlayFlags]
+        mov dh, byte [gmode2]
         mov bl, byte [gmode]
         and dh, 0FAh
         and bl, 0FEh
-        mov byte [PlayFlags], dh
+        mov byte [gmode2], dh
         mov byte [gmode], bl
         and byte [dword edi+0C0h], 0FEh
         or byte [holdreset], 10h

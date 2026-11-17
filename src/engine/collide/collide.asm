@@ -22,7 +22,7 @@ extern F64_neg3p14159_CheckForPenalty, F64_neg3p14159_CheckPlayerVsBoards, F64_n
 extern F64_neg3p14159_StickContact, F64_neg4_CheckPlayerVsBoards, F64_neg6p28319_BodyBounce, F64_neg6p28319_BodyCollide, F64_neg6p28319_CheckBoardsContact, F64_neg6p28319_CheckContactForce, F64_neg6p28319_CheckContactVelocity, F64_neg6p28319_checkcx
 extern F64_neg6p28319_CheckForPenalty, F64_neg6p28319_HitDirection, F64_neg6p28319_HitKnockback, F64_neg6p28319_ResolveBodyCheck, F64_neg6p28319_ResolvePlayerContact, F64_neg6p28319_StartFallAnim, F64_neg6p28319_StickContact, gmode
 extern hypot_, IF@ATAN2, IF@DFMOD, MoveAnimIds, MoveContactFlags, ObjectFramePos, PlaySfxVolume, PtrAwayIce
-extern PtrHomeIce, PtrPuckFlags, PtrPuckZone, PuckGroundHeight, PuckHeightAt, PuckHitsNet, PuckOwnerTeam, randomd0
+extern PtrHomeIce, PtrPuckFlags, puckc, PuckGroundHeight, PuckHeightAt, PuckHitsNet, PuckOwnerTeam, randomd0
 extern ReplayPlaying, ResetAnimTimer, SetFaceBlink, SetFaceExpression, SetFaceMouth, SetSPA, SkateAnimSpeeds, SortCords
 extern StartCheckedAnim, StickContactPts, StickPointId, str_Punct_LoadAnimData, StrideSpeeds, vecdist, VecDot
 global CheckBoardsContact, CheckContactVelocity, CheckContactForce, BodyCollide, BodyBounce, CheckForPenalty, CheckPlayerVsBoards, PlayerBoardsTest
@@ -2917,7 +2917,7 @@ HitCrowdReaction:
         pop ecx
         ret
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .2
         xor eax, eax
@@ -4246,7 +4246,7 @@ checkcx:
         add eax, edx
         cmp eax, byte 0Ah
         jg near .31
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor ebx, ebx
         movsx eax, byte [eax]
         mov bl, byte [dword esi+0A4h]
@@ -4292,7 +4292,7 @@ checkcx:
         mov eax, esi
         call StartFallAnim
         xor ebx, ebx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, byte [dword esi+0A4h]
         movsx eax, byte [eax]
         cmp ebx, eax
@@ -4305,7 +4305,7 @@ checkcx:
         mov edx, esi
         mov eax, edi
         call HitCrowdReaction
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov dword [byte esi+064h], 32h
         or byte [dword esi+0BFh], 20h
@@ -4391,7 +4391,7 @@ checkcx:
         push dword [byte esp+04Ch]
         call ResolveBodyCheck
         xor ecx, ecx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov cl, byte [dword esi+0A4h]
         movsx ebx, byte [eax]
         cmp ecx, ebx
@@ -4830,7 +4830,7 @@ ResolvePlayerContact:
         xor edx, edx
         xor ebx, ebx
         call SetFaceBlink
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, byte [dword edi+0A4h]
         movsx edx, byte [eax]
         cmp ebx, edx
@@ -4974,7 +4974,7 @@ ResolvePlayerContact:
         xor edx, edx
         call SetFaceBlink
         xor edx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [dword esi+0A4h]
         movsx ebx, byte [eax]
         cmp edx, ebx
@@ -5019,7 +5019,7 @@ StickContact:
         xor eax, eax
         jmp near .14
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]

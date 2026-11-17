@@ -7,7 +7,7 @@ extern BuildAutoLines, ClearScreen, ConvertArtNew, ConvertArtXY, CreateBitmap, D
 extern DrawPortrait, DrawScreenBackground, DrawShadedLogo, DrawShadowBox, DrawShape, DrawStatHeader, DrawTextAligned, EditLinesMode
 extern EditLinesPage, EditLinesScreenJumpTable, EditLinesTeam, ExitScreen, FadeInScreen, FillRect, FindBestForSlot_68, FindGameRecord
 extern FindShape, FindShapeQuiet, FreeBitmap, FreeMemBlock, FreeScrollList, FreeTempArt, FrontMusicOn, FrontShapeFile
-extern GameOptionFlags, GetLangText, homelines, InitListBox, InitMenuItems, InitScrollList, InitShapeListBox, KbdIdleCall
+extern gameopts, GetLangText, homelines, InitListBox, InitMenuItems, InitScrollList, InitShapeListBox, KbdIdleCall
 extern KeysEqual, LinesArtDigits, LinesArtFile, LinesCardBitmap, LinesCardLayout, LinesCardX, LinesCardY, LinesCellArt
 extern LinesCellBitmap, LinesChangedInGame, LinesCircleShape, LinesDefenceCount, LinesDefenceGrid, LinesDefenceKeyBase, LinesDefenceList, LinesDefenceListShapes
 extern LinesDefenceStatKeys, LinesFontFile, LinesForwardChoice, LinesForwardCount, LinesForwardGrid, LinesForwardList, LinesForwardListShapes, LinesForwardShape
@@ -1270,7 +1270,7 @@ EditLinesSetup:
         xor edi, edi
         test eax, eax
         jne short .2
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
 .1:
@@ -1279,7 +1279,7 @@ EditLinesSetup:
 .2:
         cmp eax, byte 1
         jne short .3
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         jmp short .1

@@ -4,7 +4,7 @@ bits 32
 section s_5DF43 progbits alloc exec nowrite align=1
 extern ChangeAnim, checkplcoll, F32_0p5_StickHandleScaled, F32_0p5_StickHandleSpeed, F32_neg10_PlaySkateSounds, F64_0p00872665, F64_0p25_PlaySkateSounds, F64_0p2_PlaySkateSounds
 extern F64_0p785398_PuckOnStickPhysics, F64_1p1, F64_1p1_StickHandleSpeed, F64_2p35619, F64_neg0p00872665, F64_neg0p1, F64_neg0p2, F64_neg1p6
-extern gmode, MoveFuncPair, MoveFuncTable, MoveState, PlayerCollisions, PlaySfxVolume, PtrPuckZone, PuckHeightAt
+extern gmode, MoveFuncPair, MoveFuncTable, MoveState, PlayerCollisions, PlaySfxVolume, puckc, PuckHeightAt
 extern SkateStrideTable, SortCords, StartAnimNow, StickReachX, StickReachY, StickReachZ, StrideSpeeds
 global GetStickBladePos, PlaySkateSounds, MovePlayer, PuckOnStickPhysics, PuckOnStickFromState, StickHandleTarget, StickHandleScaled, StickHandleSpeed
 global IsSkateAnim, IsStopAnim, StartCheckedAnim, StartNextMove
@@ -307,7 +307,7 @@ PuckOnStickPhysics:
         test bx, bx
         jne short .2
         mov dl, byte [dword edx+0A4h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and edx, 0FFh
         movsx eax, byte [eax]
         cmp edx, eax
@@ -508,7 +508,7 @@ PuckOnStickPhysics:
 .15:
         cmp word [dword edx+0A9h], byte 0
         jle short .16
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor ebx, ebx
         movsx eax, byte [eax]
         mov bl, byte [dword edx+0A4h]
@@ -570,7 +570,7 @@ PuckOnStickPhysics:
         jle short .21
         xor ebx, ebx
         mov bl, al
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         cmp ebx, eax
         je short .22
@@ -614,7 +614,7 @@ PuckOnStickPhysics:
 .25:
         cmp word [dword edx+0A9h], byte 0
         jle short .26
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor ebx, ebx
         movsx eax, byte [eax]
         mov bl, byte [dword edx+0A4h]
@@ -715,7 +715,7 @@ PuckOnStickPhysics:
         cmp word [dword edx+0A9h], byte 0
         jle short .34
         xor ebx, ebx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, ch
         movsx eax, byte [eax]
         cmp ebx, eax
@@ -774,7 +774,7 @@ PuckOnStickPhysics:
         cmp word [dword edx+0A9h], byte 0
         jle short .39
         xor ebx, ebx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov bl, ch
         movsx eax, byte [eax]
         cmp ebx, eax
@@ -822,7 +822,7 @@ PuckOnStickPhysics:
         jle short .44
         xor ebx, ebx
         mov bl, al
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         cmp ebx, eax
         je short .45
@@ -893,7 +893,7 @@ StickHandleTarget:
         test cx, cx
         jne short .2
         mov dl, byte [dword eax+0A4h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and edx, 0FFh
         movsx eax, byte [eax]
         cmp edx, eax

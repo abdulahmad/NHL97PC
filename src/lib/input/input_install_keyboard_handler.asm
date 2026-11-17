@@ -6,8 +6,8 @@ extern AddExitHandler, AssertFileName, AssertLine, AssertMessage, AssertPreserve
 extern ClipRight, ClipTopRow, DosGetVector, DosSetVector, DrawDestBuffer, DrawDestOffset, DrawDestPitch, ExitGraphics
 extern ExitHandler, KbdCapsLock, KbdDataSelector, KbdHandlerInstalled, KbdInsertMode, KbdPauseState, KbdPrefixByte, KeyBuffer
 extern KeyBufferHead, KeyBufferMask, KeyBufferTail, KeyDownTable, KeyStateTable, PrintScreen, RestoreDS, SavedInt16Offset
-extern SavedInt16Selector, SavedKbdVecOffset, SavedKbdVecSelector, SavedRealKbdOffset, SavedRealKbdSegment, ScanToAscii, ScanToAsciiCaps, ScanToAsciiCapsShift
-extern ScanToAsciiCtrl, ScanToAsciiShift, ScreenBitsPerPixel, ScreenBuffer, ScreenHeight, StoreLittleEndian, str_FILESLINED, VesaSetBank
+extern SavedInt16Selector, SavedKbdVecOffset, SavedKbdVecSelector, SavedRealKbdOffset, SavedRealKbdSegment, KeyMapNormal, KeyMapCaps, KeyMapAlt
+extern KeyMapCtrl, KeyMapShift, ScreenBitsPerPixel, ScreenBuffer, ScreenHeight, StoreLittleEndian, str_FILESLINED, VesaSetBank
 global __saved_DS, RestoreDSEnd, InstallKeyboardHandler, RemoveKeyboardHandler, KeyboardISR, IretStub, Int16Handler, Int16Service
 global IsKeyDown, BiosKeyCall, AssertFail, AssertFailEntry, PlotPixel, PlotPixelAt
 __saved_DS:                                     ; used by RestoreDS, start
@@ -177,7 +177,7 @@ KeyboardISR:
         jne short .13
         test byte [KbdCapsLock], 1
         jne near .17
-        mov al, byte [dword ebx+ScanToAscii]
+        mov al, byte [dword ebx+KeyMapNormal]
 .7:
         cmp al, 80h
         jae short .12
@@ -213,7 +213,7 @@ KeyboardISR:
         and ah, 7Fh
         jmp short .8
 .13:
-        mov al, byte [dword ebx+ScanToAsciiShift]
+        mov al, byte [dword ebx+KeyMapShift]
         cmp ebx, byte 37h
         jne short .7
         cmp dword [KbdHandlerInstalled], byte 0
@@ -222,7 +222,7 @@ KeyboardISR:
         call PrintScreen
         jmp short .7
 .14:
-        mov al, byte [dword ebx+ScanToAsciiCtrl]
+        mov al, byte [dword ebx+KeyMapCtrl]
         cmp ebx, byte 1
         jne near .7
         jmp short .19
@@ -230,10 +230,10 @@ KeyboardISR:
         test byte [KeyStateTable+1Dh], 1
         jne short .18
 .16:
-        mov al, byte [dword ebx+ScanToAsciiCapsShift]
+        mov al, byte [dword ebx+KeyMapAlt]
         jmp near .7
 .17:
-        mov al, byte [dword ebx+ScanToAsciiCaps]
+        mov al, byte [dword ebx+KeyMapCaps]
         jmp near .7
 .18:
         test byte [KeyStateTable+53h], 1

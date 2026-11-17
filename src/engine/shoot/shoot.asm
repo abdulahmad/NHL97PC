@@ -4,7 +4,7 @@ bits 32
 section s_6AB85 progbits alloc exec nowrite align=1
 extern a2touchpuck, AdvanceMoveAnim, BreakawayFlag, ClearAnimFlags, CommentaryEvent, EndMove, F32_2_ShotMove, F32_6_ShotMove
 extern F64_120, gmode, hypot_, IF@ATAN2, LastTouchPlayer, MoveFlags, NearestPlayer, ObjectFramePos
-extern OneTimerPasser, OneTimerReady, PickSkateAnim, PlayFlags, PlaySfxVolume, PtrPuckFlags, PtrPuckZone, PuckFlags
+extern OneTimerPasser, OneTimerReady, PickSkateAnim, gmode2, PlaySfxVolume, PtrPuckFlags, puckc, PuckFlags
 extern randomd0, ReplayPlaying, SetAnimFlags, SetAnimFrame, SetFaceBlink, SetFaceExpression, SetFaceMouth, ShotAnimFrames
 extern ShotSpeed, ShotTarget, ShotTimer, StepMove, StickPointId, StickReach
 global ShotReach, ShotMove
@@ -119,7 +119,7 @@ ShotMove:
         xor ebx, ebx
         mov word [OneTimerReady], bx
 .4:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -143,10 +143,10 @@ ShotMove:
         inc word [dword eax+020DBh]
 .7:
         and byte [PuckFlags], 0F7h
-        mov dh, byte [PlayFlags]
+        mov dh, byte [gmode2]
         or dh, 10h
-        mov eax, dword [PtrPuckZone]
-        mov byte [PlayFlags], dh
+        mov eax, dword [puckc]
+        mov byte [gmode2], dh
         mov byte [eax], 0FFh
         cmp word [ShotTimer], byte 0
         jge short .8
@@ -398,7 +398,7 @@ ShotMove:
         mov eax, dword [byte ebp-08h]
         cmp dword [byte eax+020h], byte 0
         je short .37
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]

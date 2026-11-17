@@ -8,7 +8,7 @@ extern CheckDiskSpace, CloseSpeechChannels, CommentaryClip, CommentaryCurrent, C
 extern CommentaryPrev, CommentaryPriority, CommentarySpeaker, CommentaryTime, CreateMenuBitmap, CurrentArchiveName, DosCloseFile, DosOpenReadOnly
 extern DosReadFile, DosSeekFile, F64_0p5_SayPlayerCall, F64_0p5_SayRandomFiller, F64_0p5_SaySaveCall, F64_0p5_SayShotCall, FileClose, FileExists
 extern FileLength, FileOpen, FileReadRecord, FileSeek, FileSizePath, FileWriteRecord, FindShape, FindSpeechClip
-extern FreeMemBlock, FreeMenuBitmap, FrontShapeFile, FrontTextFile, GameOptionFlags, GameSettings, GameSoundsOn, HideWorkingBox
+extern FreeMemBlock, FreeMenuBitmap, FrontShapeFile, FrontTextFile, gameopts, GameSettings, GameSoundsOn, HideWorkingBox
 extern HomeInjuredCount, HomePlayerRecords, HomeRosterData, HomeSpeechLoaded, HomeSpeechNames, HomeTeamRating, InitSpeechBank, InitSpeechChannels
 extern LoadClipIfMissing, LoadDataFile, LoadDataFileLib, LoadFileToBlockPlain, LoadSpeechBlock, LoadTeamSpeech, MakeColor, MakeDataPath
 extern MakeDirPath, MusicOptions, OpenResourceArchive, OpenSpeechBanks, OpenSpeechStreamFile, PaEventValue, PaNameRanges, PaQueueClip
@@ -401,7 +401,7 @@ InitSpeechBanks:
         sub esp, 178h
         cmp dword [SoundCardType], byte 0
         jne near .84
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         mov eax, dword [byte eax+01h]
         shl edx, 0Ch
@@ -5547,7 +5547,7 @@ CommentaryEvent_1CB2:
         mov dword [byte ebp+03Ah], eax
         cmp eax, byte 2
         jge near .246
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 0FC000h
         cmp eax, 68000h

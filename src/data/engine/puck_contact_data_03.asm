@@ -5,8 +5,8 @@ bits 32
 %include "hockey.inc"
 section s_19CB71 progbits alloc noexec write align=1
 global ShotFlagsReset, NearestPlayer, NearestTeam, GoalieOut, OneTimerFlag, iflags, IcingTeam, gmode
-global PuckFlags, PlayFlags, holdreset, RefSignal, GoalScorerFlags, FaceoffWinner, seed, GameFrame
-global penshottimer, puckx, RefTarget, RefPlayer, SlotPlayers, SlotPuckPlayer, InputSlotPlayers, bholdtimer
+global PuckFlags, gmode2, holdreset, RefSignal, GoalScorerFlags, FaceoffWinner, seed, GameFrame
+global penshottimer, puckx, RefStep, RefPlayer, SlotPlayers, SlotPuckPlayer, InputSlotPlayers, bholdtimer
 global InputActive, PassButtonTimes, InputSlotState, PassButtonHeld, PuckChasers, FaceoffCenter, ChangePlayer, LastChangePlayer
 global slotteam, ProgressTimer, ShotTarget, ShotTimer, ShotType, ShotSpeed, ShotPending, PassPlayer
 global PassPending, PassTarget, ShootButtonTime, LastTouchTeam, PassDistX, PassDistY, PassReceiver, onetimerplayer
@@ -146,7 +146,7 @@ seed:                                           ; used by PlayGame, RunDemoGame,
 PuckFlags:                                      ; puck flags; used by ChkBodyContact, ChkShoot,
                                                 ; ClearPlayerFlags ...
         db 00h,00h
-PlayFlags:                                      ; play state flags; used by BlockShotMove, ChkAIShoot,
+gmode2:                                         ; play state flags; used by BlockShotMove, ChkAIShoot,
                                                 ; ChkDelayedOffside ...
         db 00h,00h
 holdreset:                                      ; hold reset flags; used by ClearPlayerFlags, Endfaceoff,
@@ -201,7 +201,7 @@ GoalLineFlag:                                   ; referee goal line flag; used b
 BreakawayFlag:                                  ; breakaway in progress; used by AddPenalty2,
                                                 ; CarrierInShotArea, CheckFightOdds ...
         db 00h,00h,00h,00h
-RefTarget:                                      ; referee target (-1 none); used by AddPenalty2, InProgress,
+RefStep:                                        ; referee target (-1 none); used by AddPenalty2, InProgress,
                                                 ; InitGameVars ...
         db 0FFh,0FFh,0FFh,0FFh
 RefSignal:                                      ; referee signal; used by InProgress, InitGameVars,

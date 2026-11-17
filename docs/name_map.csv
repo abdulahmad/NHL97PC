@@ -7609,7 +7609,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1689C0,PlayerAssignOrder,byte_1689C0,new,low,player assignment order for Setplass,src/data/engine/game_camera_data_02.asm
 1689C8,FaceoffSpotX,word_1689C8,new,low,face-off spot X,src/data/engine/game_camera_data_02.asm
 1689CA,FaceoffSpotY,word_1689CA,new,low,face-off spot Y,src/data/engine/game_camera_data_02.asm
-1689E4,FaceoffSpotIndex,byte_1689E4,new,low,face-off spot per zone,src/data/engine/game_camera_data_02.asm
+1689E4,apl,byte_1689E4,94G,high,faceoff slot list: same contents as 95/96 PC apl (puckfaceoff2 .apl),src/data/engine/game_camera_data_02.asm
 1689FC,ExtraAttackerSpots,unk_1689FC,new,low,extra attacker positions for assextra4,src/data/engine/game_camera_data_02.asm
 168A24,ExtraAttackerFlags,unk_168A24,new,low,extra attacker flags for assextra4,src/data/engine/game_camera_data_02.asm
 168A4C,OnsideOffsetX,word_168A4C,new,low,onside skate offset X,src/data/engine/intro_assign_data_01.asm
@@ -7624,19 +7624,19 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 168B1C,ShotTargetY,dword_168B1C,new,low,shot target Y,src/data/engine/intro_assign_data_01.asm
 168B60,LineSlotPositions,byte_168B60,new,low,position per line slot,src/data/engine/puck_contact_data_02.asm
 168B66,LineReplaceOrder,dword_168B66,new,low,line replacement order,src/data/engine/puck_contact_data_02.asm
-168B69,LineSlotOffsets,byte_168B69,new,low,offset per line slot,src/data/engine/puck_contact_data_02.asm
-168C04,LineReplaceTable,byte_168C04,new,low,line replacement table,src/data/engine/puck_contact_data_02.asm
+168B69,lineslotgroups,byte_168B69,95PC,high,line slots grouped by position: same contents as 95/96 PC lineslotgroups,src/data/engine/puck_contact_data_02.asm
+168C04,lineslotgroupstart,byte_168C04,95PC,high,start index of each group in lineslotgroups: same contents as 95/96 PC,src/data/engine/puck_contact_data_02.asm
 168C38,ResetPlayerSpots,unk_168C38,new,low,player spots used by ResetPlayers,src/data/engine/puck_contact_data_02.asm
 168CD8,PtrPuckTarget,off_168CD8,new,low,pointer to the puck target record,src/data/engine/puck_contact_data_02.asm
 168CE0,PtrPuckState,off_168CE0,new,low,pointer to the puck state record,src/data/engine/puck_contact_data_02.asm
 168CE8,PtrPuckOwner,off_168CE8,new,low,pointer to the puck owner record,src/data/engine/puck_contact_data_02.asm
 168CEC,PtrPuckMotion,off_168CEC,new,low,pointer to the puck motion record,src/data/engine/puck_contact_data_02.asm
-168CF0,PtrPuckZone,off_168CF0,new,low,pointer to the puck zone record,src/data/engine/puck_contact_data_02.asm
+168CF0,puckc,off_168CF0,94G,medium,the puck carrier pointer: 33 routines in common with 95/96 PC puckc,src/data/engine/puck_contact_data_02.asm
 168CFC,PtrPuckFlags,off_168CFC,new,low,pointer to the puck flags,src/data/engine/puck_contact_data_02.asm
 168D04,PtrPuckObject,off_168D04,new,low,pointer to the puck object,src/data/engine/puck_contact_data_02.asm
 168D08,PtrHomeIce,off_168D08,new,low,pointer to the home players on the ice,src/data/engine/puck_contact_data_02.asm
 168D0C,PtrAwayIce,off_168D0C,new,low,pointer to the away players on the ice,src/data/engine/puck_contact_data_02.asm
-168D18,PeriodLengths,word_168D18,new,low,period length per setting,src/data/engine/puck_contact_data_02.asm
+168D18,PerTimeTab,word_168D18,95PC,high,period length per setting: same contents as 95/96 PC PerTimeTab,src/data/engine/puck_contact_data_02.asm
 168D20,PenaltyMinutes,dword_168D20,new,low,minutes per penalty type,src/data/engine/puck_contact_data_02.asm
 168D8E,PenaltyFlags,dword_168D8E,new,low,flags per penalty type,src/data/engine/puck_contact_data_02.asm
 168DA4,PenaltyPaCodes,dword_168DA4,new,low,announcer code per penalty type,src/data/engine/puck_contact_data_02.asm
@@ -8192,8 +8192,8 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16E3F4,TimerTicks,dword_16E3F4,new,low,timer interrupt tick count,src/data/front/overlay_data_01.asm
 16E3F8,TimerTickStep,dword_16E3F8,new,low,ticks added per timer interrupt,src/data/front/overlay_data_01.asm
 16E3FC,TimerRate,dword_16E3FC,new,low,timer divisor and chain rate,src/data/front/overlay_data_01.asm
-16E402,TimerOldVector,dword_16E402,new,low,"the original timer interrupt handler, chained from the timer ISR and restored on exit",src/data/front/overlay_data_01.asm
-16E406,TimerSavedSelector,word_16E406,new,low,selector of the previous timer handler,src/data/front/overlay_data_01.asm
+16E402,oldint8off,dword_16E402,95PC,medium,saved timer interrupt offset: same users as 95/96 PC oldint8off,src/data/front/overlay_data_01.asm
+16E406,oldint8sel,word_16E406,95PC,medium,saved timer interrupt selector: same users as 95/96 PC oldint8sel,src/data/front/overlay_data_01.asm
 16E408,GoalieTickData,dword_16E408,new,low,goalie tick data pointers,src/data/front/overlay_data_01.asm
 16E410,TimerInISR,dword_16E410,new,low,nonzero while the timer ISR is running its callbacks (re-entry guard),src/data/front/overlay_data_01.asm
 16E414,__8087,,95PC,medium,NHL95PC D4B9C (refset): referenced by the same 2 matched functions,
@@ -8309,7 +8309,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16F5C0,ArtRowFuncs8,off_16F5C0,new,low,row conversion routine per art format (8-bit),src/data/lib/ea/ea_queue_find_data_01.asm
 16F684,ArtRowFuncs16,off_16F684,new,low,row conversion routine per art format (16-bit),src/data/lib/ea/ea_queue_find_data_01.asm
 16F748,ArtFormatCodes,byte_16F748,new,low,art format code bytes,src/data/lib/ea/ea_queue_find_data_01.asm
-16F77C,RandState,dword_16F77C,new,low,random generator state (5 dwords),src/data/lib/watcom/watcom_random32_data_01.asm
+16F77C,RandomState,dword_16F77C,95PC,high,random generator state: same as 95/96 PC RandomState (Random32),src/data/lib/watcom/watcom_random32_data_01.asm
 16F790,RandIndex,dword_16F790,new,low,random generator step counter,src/data/lib/watcom/watcom_random32_data_01.asm
 16F794,RemapTable,byte_16F794,new,low,colour remap table,src/data/lib/watcom/watcom_random32_data_01.asm
 16F894,VesaBank,dword_16F894,new,low,current VESA bank,src/data/lib/watcom/watcom_random32_data_01.asm
@@ -8451,11 +8451,11 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1707FC,KbdPrefixByte,byte_1707FC,new,low,extended (E0h) scan code prefix seen,src/data/lib/input/input_install_keyboard_handler_data_01.asm
 170800,KbdInsertMode,byte_170800,new,low,insert toggle,src/data/lib/input/input_install_keyboard_handler_data_01.asm
 170804,KbdPauseState,byte_170804,new,low,pause key state,src/data/lib/input/input_install_keyboard_handler_data_01.asm
-170810,ScanToAscii,byte_170810,new,low,"scan code to ASCII, no shift",src/data/lib/input/input_install_keyboard_handler_data_01.asm
-17086B,ScanToAsciiShift,byte_17086B,new,low,scan code to ASCII with shift,src/data/lib/input/input_install_keyboard_handler_data_01.asm
-1708C6,ScanToAsciiCaps,byte_1708C6,new,low,scan code to ASCII with caps lock,src/data/lib/input/input_install_keyboard_handler_data_01.asm
-170921,ScanToAsciiCtrl,byte_170921,new,low,scan code to ASCII with control,src/data/lib/input/input_install_keyboard_handler_data_01.asm
-17097C,ScanToAsciiCapsShift,byte_17097C,new,low,scan code to ASCII with caps lock and shift,src/data/lib/input/input_install_keyboard_handler_data_01.asm
+170810,KeyMapNormal,byte_170810,95PC,high,scan code to ASCII map: same contents as 95 PC KeyMapNormal,src/data/lib/input/input_install_keyboard_handler_data_01.asm
+17086B,KeyMapShift,byte_17086B,95PC,high,shifted map: same contents as 95 PC KeyMapShift,src/data/lib/input/input_install_keyboard_handler_data_01.asm
+1708C6,KeyMapCaps,byte_1708C6,95PC,high,caps lock map: same contents as 95 PC KeyMapCaps,src/data/lib/input/input_install_keyboard_handler_data_01.asm
+170921,KeyMapCtrl,byte_170921,95PC,high,control map: same contents as 95 PC KeyMapCtrl,src/data/lib/input/input_install_keyboard_handler_data_01.asm
+17097C,KeyMapAlt,byte_17097C,95PC,high,same contents as 95 PC KeyMapAlt,src/data/lib/input/input_install_keyboard_handler_data_01.asm
 1709D8,AssertLine,dword_1709D8,new,low,line number of the failed assertion,src/data/lib/input/input_install_keyboard_handler_data_01.asm
 1709DC,str_FILESLINED,asc_1709DC,new,high,"string ""FILE %s LINE %d """,src/data/lib/input/input_install_keyboard_handler_data_01.asm
 1709ED,AssertFileName,dword_1709ED,new,low,file name of the failed assertion,src/data/lib/input/input_install_keyboard_handler_data_01.asm
@@ -8695,26 +8695,26 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19A740,GusEnvVarName,off_19A740,new,low,points to the name of the environment variable that holds the card settings,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A744,GusOpenCount,dword_19A744,new,low,number of times the card has been opened without a matching close,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A748,GusIrqLatchBits,byte_19A748,new,low,latch register bits for each IRQ line the card can use,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A758,GusStreamRefillA,dword_19A758,new,low,set when the first streaming channel needs its next half buffer,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A75C,GusStreamRefillB,dword_19A75C,new,low,set when the second streaming channel needs its next half buffer,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A760,GusStreamSrcA,dword_19A760,new,low,source pointer of the first streaming channel,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A764,GusStreamHalfA,dword_19A764,new,low,which half buffer of the first streaming channel is being filled,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A768,GusStreamBusyA,dword_19A768,new,low,set while the first streaming channel is playing,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A76C,GusStreamSrcB,dword_19A76C,new,low,source pointer of the second streaming channel,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A770,GusStreamHalfB,dword_19A770,new,low,which half buffer of the second streaming channel is being filled,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A774,GusStreamBusyB,dword_19A774,new,low,set while the second streaming channel is playing,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A758,GusStreamRefillLeft,dword_19A758,new,medium,same users as 96 PC GusStreamRefillLeft,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A75C,GusStreamRefillRight,dword_19A75C,new,medium,same users as 96 PC GusStreamRefillRight,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A760,GusStreamSrcLeft,dword_19A760,new,medium,same position as 96 PC GusStreamSrcLeft in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A764,GusStreamHalfLeft,dword_19A764,new,medium,same position as 96 PC GusStreamHalfLeft in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A768,GusStreamBusyLeft,dword_19A768,new,medium,same position as 96 PC GusStreamBusyLeft in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A76C,GusStreamSrcRight,dword_19A76C,new,medium,same position as 96 PC GusStreamSrcRight in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A770,GusStreamHalfRight,dword_19A770,new,medium,same position as 96 PC GusStreamHalfRight in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A774,GusStreamBusyRight,dword_19A774,new,medium,same position as 96 PC GusStreamBusyRight in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A778,GusStreamActive,dword_19A778,new,low,set while the stream voices are running,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A77C,GusStreamVoiceA,byte_19A77C,new,low,voice number of the first streaming channel,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A77C,GusStreamVoiceLeft,byte_19A77C,new,medium,same position as 96 PC GusStreamVoiceLeft in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A780,GusStreamVoiceStereo,byte_19A780,new,low,set when the stream uses a second (stereo) voice,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A784,GusStreamVoiceB,byte_19A784,new,low,voice number of the second streaming channel,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A784,GusStreamVoiceRight,byte_19A784,new,medium,same position as 96 PC GusStreamVoiceRight in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A788,GusStreamBufSize,dword_19A788,new,low,size of the stream buffer in card memory,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A78C,GusStreamHalfSize,dword_19A78C,new,low,size of one half of the stream buffer,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A790,GusStreamQuarterSize,dword_19A790,new,low,quarter of the stream buffer size,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A794,GusRefillSrc,dword_19A794,new,low,source pointer of the half buffer being copied,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A798,GusRefillDest,dword_19A798,new,low,card address the half buffer is copied to,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A79C,GusRefillLength,dword_19A79C,new,low,length of the half buffer being copied,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A7A0,GusStreamCardA,dword_19A7A0,new,low,card memory address of the first streaming channel's buffer,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
-19A7A4,GusStreamCardB,dword_19A7A4,new,low,card memory address of the second streaming channel's buffer,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A7A0,GusStreamCardLeft,dword_19A7A0,new,medium,same position as 96 PC GusStreamCardLeft in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
+19A7A4,GusStreamCardRight,dword_19A7A4,new,medium,same position as 96 PC GusStreamCardRight in the same routines,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A7A8,GusStreamCardEnd,dword_19A7A8,new,low,end of the stream buffers in card memory,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A7AC,GusStreamLoopLo,word_19A7AC,new,low,low word of the stream voices' loop point,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
 19A7AE,GusStreamLoopHi,word_19A7AE,new,low,high word of the stream voices' loop point,src/data/lib/sound/snd_gus_get_env_config_data_01.asm
@@ -8810,12 +8810,12 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19C3EE,FaceoffAwayPlayer,word_19C3EE,new,low,away face-off player,src/data/engine/period_data_01.asm
 19C3F0,AwaySpareCount,word_19C3F0,new,low,"away team word cleared at game start, never read",src/data/engine/period_data_01.asm
 19C3F2,AwaySpareFlag,word_19C3F2,new,low,"away team word cleared at game start, never read",src/data/engine/period_data_01.asm
-19C3F4,AssignFuncTable,off_19C3F4,new,low,assignment routine per player role,src/data/engine/period_data_01.asm
+19C3F4,asstab,off_19C3F4,94G,high,"the assignment routine table: same routines as 94 Genesis/95/96 PC asstab, read by updateplayers",src/data/engine/period_data_01.asm
 19C534,CompLineRows,unk_19C534,97PC,low,computer line rows: player order per line type,src/data/engine/period_data_01.asm
 19C5F4,CompLineTable,off_19C5F4,new,low,computer line row per line type,src/data/engine/period_data_01.asm
 19C620,LinePickOrder,byte_19C620,new,low,line pick order,src/data/engine/period_data_01.asm
 19C628,RimTargetX,word_19C628,new,low,rim target X,src/data/engine/period_data_01.asm
-19C62A,RimTargetY,word_19C62A,new,low,rim target Y,src/data/engine/period_data_01.asm
+19C62A,dirtab_y,word_19C62A,95PC,medium,"direction table, y part: same contents as 95/96 PC dirtab_y",src/data/engine/period_data_01.asm
 19C648,InitRtnsEntry,unk_19C648,new,low,start up routine entry,src/data/engine/period_data_01.asm
 19C67E,FiniRtnsEntry,unk_19C67E,new,low,shut down routine entry,src/data/engine/period_data_01.asm
 19C690,VideoCodePtr,dword_19C690,new,low,video code pointer,src/data/engine/period_data_01.asm
@@ -8859,9 +8859,9 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CA1C,GusInitTable,unk_19CA1C,new,low,Gravis register initialisation table,src/data/lib/watcom/watcom_utoa_data_01.asm
 19CA28,kaufmfont,,96PC,high,NHL96PC 151598 (position): same fixup of sub_DB13C,
 19CA2F,ProgressRecord,dword_19CA2F,new,low,progress record,src/data/engine/logic_data_01.asm
-19CA30,PenaltyPending,byte_19CA30,new,low,penalty pending,src/data/engine/logic_data_01.asm
+19CA30,PenBuf,byte_19CA30,94G,medium,"pending penalty buffer: same users as 95/96 PC PenBuf (AddPenalty2, ClearPlayerFlags)",src/data/engine/logic_data_01.asm
 19CA31,PenaltyTeam,byte_19CA31,new,low,team taking the penalty,src/data/engine/logic_data_01.asm
-19CA32,PenaltySlots,byte_19CA32,new,low,penalty slots,src/data/engine/logic_data_01.asm
+19CA32,penmintab,byte_19CA32,95PC,medium,"penalty minutes per slot: same users as 95/96 PC penmintab (AddPenalty2, InProgress, PenGoalStuff)",src/data/engine/logic_data_01.asm
 19CA33,PenaltyQueue,byte_19CA33,new,low,penalty queue,src/data/engine/logic_data_01.asm
 19CA88,PadSlotA,dword_19CA88,new,low,first pad slot record,src/data/engine/logic_data_01.asm
 19CA8C,PadSlotB,dword_19CA8C,new,low,second pad slot record,src/data/engine/logic_data_01.asm
@@ -8901,7 +8901,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CB6A,ZoneFlags,dword_19CB6A,new,low,zone flags,src/data/engine/logic_data_01.asm
 19CB6C,regd1,,96PC,medium,NHL96PC 165980 (refset): referenced by the same 2 matched functions,
 19CB6D,BenchSlotTable,dword_19CB6D,new,low,bench slot table,src/data/engine/logic_data_01.asm
-19CB70,PenaltyBoxCount,byte_19CB70,new,low,players in the penalty box,src/data/engine/logic_data_01.asm
+19CB70,PBnum,byte_19CB70,94G,medium,"players in the penalty box: same users as 95/96 PC PBnum (AddPenalty, assdopen, asspenalty, ResetBench)",src/data/engine/logic_data_01.asm
 19CB71,ShotFlagsReset,byte_19CB71,new,low,shot flags cleared at game start,src/data/engine/puck_contact_data_03.asm
 19CB72,ProgressTimer,word_19CB72,new,low,game progress (icing/offside wait) timer,src/data/engine/puck_contact_data_03.asm
 19CB74,NearestPlayer,byte_19CB74,new,low,player nearest the puck,src/data/engine/puck_contact_data_03.asm
@@ -8950,7 +8950,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CBC2,gmode,byte_19CBC2,new,low,game mode flags,src/data/engine/puck_contact_data_03.asm
 19CBC4,seed,dword_19CBC4,94G,low,randomd0's state (94G seed),src/data/engine/puck_contact_data_03.asm
 19CBC8,PuckFlags,byte_19CBC8,new,low,puck flags,src/data/engine/puck_contact_data_03.asm
-19CBCA,PlayFlags,byte_19CBCA,new,low,play state flags,src/data/engine/puck_contact_data_03.asm
+19CBCA,gmode2,byte_19CBCA,94G,medium,game mode flag word: 21 routines in common with 95/96 PC gmode2,src/data/engine/puck_contact_data_03.asm
 19CBCC,holdreset,byte_19CBCC,new,low,hold reset flags,src/data/engine/puck_contact_data_03.asm
 19CBD0,GameFrame,dword_19CBD0,new,low,game frame counter,src/data/engine/puck_contact_data_03.asm
 19CBD4,PeriodLength,word_19CBD4,new,low,period length,src/data/engine/puck_contact_data_03.asm
@@ -8970,7 +8970,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 19CBF0,PenCntDwn,word_19CBF0,new,low,penalty countdown,src/data/engine/puck_contact_data_03.asm
 19CBF2,GoalLineFlag,word_19CBF2,new,low,referee goal line flag,src/data/engine/puck_contact_data_03.asm
 19CBF4,BreakawayFlag,word_19CBF4,new,low,breakaway in progress,src/data/engine/puck_contact_data_03.asm
-19CBF8,RefTarget,dword_19CBF8,new,low,referee target (-1 none),src/data/engine/puck_contact_data_03.asm
+19CBF8,RefStep,dword_19CBF8,94G,medium,"referee step: same users as 95/96 PC RefStep (AddPenalty2, InProgress)",src/data/engine/puck_contact_data_03.asm
 19CBFC,RefSignal,byte_19CBFC,new,low,referee signal,src/data/engine/puck_contact_data_03.asm
 19CC00,RefPlayer,dword_19CC00,new,low,referee player (-1 none),src/data/engine/puck_contact_data_03.asm
 19CC02,SlotPlayers,dword_19CC02,new,low,player per control slot,src/data/engine/puck_contact_data_03.asm
@@ -9363,7 +9363,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 1AC8E4,ControlSetup,unk_1AC8E4,new,low,control setup per player,src/data/front/speech_bss_02.asm
 1AC93C,ControlSetupFlags,byte_1AC93C,new,low,control setup flags,src/data/front/speech_bss_02.asm
 1AC940,SeasonUserTeam,dword_1AC940,new,low,user team in the season,src/data/front/speech_bss_02.asm
-1AC944,GameOptionFlags,dword_1AC944,new,low,game option flags,src/data/front/speech_bss_02.asm
+1AC944,gameopts,dword_1AC944,95PC,medium,"pointer to the game options: 27 routines in common with 95/96 PC gameopts, loaded the same way",src/data/front/speech_bss_02.asm
 1AC948,GlobalSetName,byte_1AC948,new,low,name stored in GLOBAL.SET,src/data/front/speech_bss_02.asm
 1AC95B,GlobalSetPad,byte_1AC95B,new,low,GLOBAL.SET padding,src/data/front/speech_bss_02.asm
 1AC95D,LinkSettings,unk_1AC95D,new,low,link settings,src/data/front/speech_bss_02.asm

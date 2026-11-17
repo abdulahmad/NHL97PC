@@ -4,12 +4,12 @@ bits 32
 section s_240CE progbits alloc exec nowrite align=1
 extern __CHP, assreplace, AwayGoalieOff, BreakawayFlag, ChkOneTimerSpot, ChkShoot, ClearLastPasser, CommentaryEvent
 extern CrowdForPuckZone, DefendFlags, doplayeracc, F32_0p166667, F64_0p785398_CanReceivePass, F64_0p785398_MakePass, F64_1080, F64_3p14159_CanReceivePass
-extern F64_4272, F64_480, F64_576_RimPuck, ForceShoot, gameclock, GameOptionFlags, gmode, HomeGoalieOff
+extern F64_4272, F64_480, F64_576_RimPuck, ForceShoot, gameclock, gameopts, gmode, HomeGoalieOff
 extern hypot_, IF@ATAN2, LastPlayerTouch, LastTouchPlayer, OneTimerPasser, onetimerplayer, OneTimerReady, onetimershot
 extern OneTimerTarget, PassDistX, PassDistY, PassFrom, PassPending, PassReceiver, PassState, PassTarget
-extern PassTargetAngle, PassTo, penshotlive, PickSkateAnim, PlayFlags, PtrAwayIce, PtrHomeIce, PtrPuckFlags
-extern PtrPuckOwner, PtrPuckTarget, PtrPuckZone, PuckFlags, PuckOwner, PuckZone, randomd0, regd1
-extern ReplayPlaying, RimTargetX, RimTargetY, ShootSpotX, ShootSpotY, SortCords, SpeedScale, StartDropPassAnim
+extern PassTargetAngle, PassTo, penshotlive, PickSkateAnim, gmode2, PtrAwayIce, PtrHomeIce, PtrPuckFlags
+extern PtrPuckOwner, PtrPuckTarget, puckc, PuckFlags, PuckOwner, PuckZone, randomd0, regd1
+extern ReplayPlaying, RimTargetX, dirtab_y, ShootSpotX, ShootSpotY, SortCords, SpeedScale, StartDropPassAnim
 extern StartPassAnim, StoppageFlag, vecdist, vtoa, ZoneFlags, ZoneTargetX, ZoneTargetY
 global BuildPassTargets, CreditPass, assonetimer, CarrierInShotArea, CanReceivePass, MakePass, RimPuck, StartPass
 global TargetInAngle, AIPassDecision, ChkAIShoot
@@ -330,7 +330,7 @@ assonetimer:
         push esi
         push edi
         mov ebx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [eax]
         test dl, dl
         jge near .7
@@ -363,7 +363,7 @@ assonetimer:
         mov dh, dl
         or dh, 1
         mov byte [dword ebx+0BFh], dh
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .5
         test dh, 40h
@@ -427,7 +427,7 @@ assonetimer:
         call doplayeracc
         jmp near .12
 .8:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor ecx, ecx
         movsx edx, byte [eax]
         mov cl, byte [dword ebx+0A4h]
@@ -515,7 +515,7 @@ CarrierInShotArea:
         push edi
         push ebp
         xor edx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov word [PuckZone], dx
         mov dl, byte [eax]
         test dl, dl
@@ -856,7 +856,7 @@ MakePass:
         mov ebx, edx
         and byte [PuckFlags], 0F7h
         mov dword [byte ecx+064h], 10h
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+038h], 0
@@ -1218,7 +1218,7 @@ RimPuck:
         mov cx, word [nosplit edx*4+RimTargetX]
         mov edi, 55h
         add eax, ecx
-        mov si, word [nosplit edx*4+RimTargetY]
+        mov si, word [nosplit edx*4+dirtab_y]
         mov word [byte esp+06h], ax
         mov edx, 9000h
         mov ax, word [byte ebx+0Eh]
@@ -1494,7 +1494,7 @@ AIPassDecision:
         cmp dword [dword esi+0E2h], 5A0h
         jg near .36
 .3:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 10h
         je short .4
         test byte [dword esi+0C0h], 80h
@@ -1959,7 +1959,7 @@ ChkAIShoot:
         pop ebx
         ret
 .10:
-        test byte [PlayFlags], 80h
+        test byte [gmode2], 80h
         je short .11
         xor eax, eax
         pop edi

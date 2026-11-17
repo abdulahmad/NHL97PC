@@ -5,7 +5,7 @@ section s_A64FC progbits alloc exec nowrite align=1
 extern AllStarArena, AutoLineData, BlankMenuItem, BlitArt, ClearScreen, ClearThreeStars, ConvertArtXY, CreateBitmap
 extern CreateBitmapDefault, DrawArt, DrawFrameBox, DrawPortrait, DrawScreenBackground, DrawShadedLogo, DrawShadowBox, DrawShapeAtOwnPos
 extern DrawShapeCore, DrawThreeStarStats, DrawThreeStarStats_4A8, ExitScreen, FadeInScreen, FindShape, FindShapeQuiet, FreeBitmap
-extern FreeLogoArt, FreeMemBlock, GameOptionFlags, GameSettings, GoldStarShapes, homelines, InitListBox, InitMenuItems
+extern FreeLogoArt, FreeMemBlock, gameopts, GameSettings, GoldStarShapes, homelines, InitListBox, InitMenuItems
 extern InitShapeListBox, IsAllStarDay, LinkGameSetup_8CB, LoadDataFile, LoadTeamLogo, LoadThreeStarsArt, MakeColor, memmove_
 extern OpenArtArchive, OpenDataLibrary, OpenResourceArchive, PaEvent, PickThreeStars, PlayoffTeamNames, PlayoffTeams, PlayoffUserIndex
 extern PostGameArtFile, PostGameLayer, PostGameShapeFile, PresentScreen, ProjectModelBounds, Random32, RunMenu, ScreenFrameItem
@@ -25,7 +25,7 @@ PlayArenaAnnouncement:
         push edx
         push esi
         push edi
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 0FC000h
         movsx esi, word [AllStarArena]
@@ -34,7 +34,7 @@ PlayArenaAnnouncement:
         cmp eax, 6C000h
         jne short .4
 .1:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         and eax, 3F00000h
         cmp eax, 1A00000h
@@ -42,7 +42,7 @@ PlayArenaAnnouncement:
         cmp eax, 1B00000h
         jne short .4
 .2:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -58,7 +58,7 @@ PlayArenaAnnouncement:
 .4:
         test byte [GameSettings], 70h
         jne short .5
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -76,7 +76,7 @@ PlayArenaAnnouncement:
         jne short .6
         cmp dword [SeasonActive], byte 0
         jne short .6
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -143,7 +143,7 @@ PlayArenaAnnouncement:
         lea eax, [byte ebx+01h]
 .17:
         mov edi, dword [nosplit eax*4+PlayoffTeamNames]
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         shl edx, 0Ch
         mov eax, dword [byte eax+01h]
@@ -829,12 +829,12 @@ PostGameScreen:
         call DrawShadowBox
         cmp word [dword edi+ThreeStarsTeam], byte 0
         jne short .24
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         jmp short .25
 .24:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
 .25:

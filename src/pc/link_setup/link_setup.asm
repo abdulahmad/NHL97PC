@@ -4,7 +4,7 @@ bits 32
 section s_A3280 progbits alloc exec nowrite align=1
 extern AllocMemBlock, bcopy, BlankMenuItem, BlitArt, BlitShape, ClearLinkAbort, ClearLinkCounters, ClearScreen
 extern ControlSetupFlags, ConvertArtKeepPos, ConvertArtXY, CreateBitmap, DrawArt, DrawLinkStatusText, DrawMatchBanner, DrawScreenBackground
-extern DrawTeamLogoBanner, ExitScreen, FadeInScreen, FindShape, FreeBitmap, FreeMemBlock, FrontMusicOn, GameOptionFlags
+extern DrawTeamLogoBanner, ExitScreen, FadeInScreen, FindShape, FreeBitmap, FreeMemBlock, FrontMusicOn, gameopts
 extern GameRunning, GameSettings, GetLangText, GripDriverPtr, GripPortWord, InitLinkSettings, InitMenuItems, InitSlotTable
 extern LinkAwayChoice, LinkButtonLetters, LinkButtonX, LinkButtonY, LinkGameActive, LinkHomeChoice, LinkLogoFile, LinkPlayerCount
 extern LinkReceiveBlock, LinkScreensDone, LinkSendBlock, LinkSetupArt, LinkSetupBuffer, LinkSetupCount, LinkSetupCursorCol, LinkSetupCursorFlags
@@ -399,7 +399,7 @@ LinkGameSetup:
         jl short .21
 .20:
         imul edx, esi, byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, byte 5
         add eax, edx
         inc eax
@@ -532,7 +532,7 @@ LinkGameSetup:
         jl short .25
 .24:
         imul edx, esi, byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, byte 5
         mov ebx, 1
         add eax, edx
@@ -571,7 +571,7 @@ LinkGameSetup:
         jl short .29
 .28:
         imul edx, esi, byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, byte 5
         mov ecx, 1
         add eax, edx
@@ -1338,7 +1338,7 @@ LinkSetupScreen:
         movsx eax, word [byte eax+0Eh]
         mov dword [byte ebx+02Ah], eax
         imul eax, dword [byte ebp-018h], byte 21h
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov dword [byte ebp-010h], eax
         movsx eax, word [byte edx+eax+05h]
         cmp eax, byte 0FFFFFFFFh
@@ -1705,7 +1705,7 @@ LinkSetupScreen:
         mov eax, dword [byte eax+02Ch]
         movsx eax, word [byte eax+0Eh]
         mov dword [byte ebx+02Ah], eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov dword [byte ebp-0Ch], eax
         movsx eax, word [byte edx+eax+05h]
         cmp eax, byte 0FFFFFFFFh
@@ -1978,7 +1978,7 @@ RunLinkGameScreens:
         mov dword [byte ebp-010h], 0FFFFFFFFh
         xor esi, esi
 .1:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov al, byte [dword esi+eax+010Dh]
         and al, 7
         movzx edi, al
@@ -2029,7 +2029,7 @@ RunLinkGameScreens_30:
         mov dword [LinkSetupSlots], eax
         lea eax, [byte ebp-02Ch]
         push eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, 10Dh
         push eax
         call bcopy
@@ -2452,7 +2452,7 @@ RunLinkGameScreens_112:
         push dword [LinkShapeFile]
         call FindShape
         mov ebx, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         add esp, byte 8
@@ -2480,7 +2480,7 @@ RunLinkGameScreens_112:
         push dword [LinkShapeFile]
         call FindShape
         mov ebx, eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         add esp, byte 8
@@ -2520,7 +2520,7 @@ RunLinkGameScreens_112:
         add esp, byte 8
         push eax
         call BlitShape
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         and edx, 0FC000h
         add esp, byte 4
@@ -2557,7 +2557,7 @@ RunLinkGameScreens_112:
         shr eax, 1Ah
         call DrawTeamLogoBanner
 .48:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         and edx, 3F00000h
         cmp edx, 1700000h
@@ -2635,7 +2635,7 @@ RunLinkGameScreens_112:
         jl short .54
 .53:
         imul edx, esi, byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, byte 5
         add eax, edx
         inc eax
@@ -2769,7 +2769,7 @@ RunLinkGameScreens_112:
         jl short .58
 .57:
         imul edx, esi, byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, byte 5
         mov ebx, 1
         add eax, edx
@@ -2808,7 +2808,7 @@ RunLinkGameScreens_112:
         jl short .62
 .61:
         imul edx, esi, byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, byte 5
         mov ecx, 1
         add eax, edx
@@ -3605,7 +3605,7 @@ RunLinkGameScreens_112:
 .91:
         cmp esi, dword [LinkPlayerCount]
         jl short .90
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         push byte 8
         add eax, 10Dh
         push eax
@@ -3679,7 +3679,7 @@ RunLinkGameScreens_112:
 .98:
         xor esi, esi
 .99:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov al, byte [dword esi+eax+010Dh]
         and al, 7
         movzx edi, al

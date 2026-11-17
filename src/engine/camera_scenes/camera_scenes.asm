@@ -9,7 +9,7 @@ extern CameraViewPair, CameraViewSel, CameraViewX, CameraViewY, CameraZoom, Draw
 extern F32_2000_PenaltySceneStep, F32_2040_PenaltyCameraDistance, F32_750, F32_neg1000_FaceoffCloseupScene, F32_neg1000_MenuOrbitScene, F32_neg1500, F32_neg200, F32_neg2000_FaceoffCameraScene2
 extern F32_neg300, F32_neg400, F32_neg700_MenuOrbitScene, F32_neg750, F64_0p01_OpeningCameraStep, F64_30, F64_3p14159_OpeningCameraStep, F64_6p28319_OpeningCameraStep
 extern F64_neg3p14159_OpeningCameraStep, F64_neg6p28319_OpeningCameraStep, FaceoffCloseupInit, FaceoffDropScene, FaceoffSweepInit, FadeGamePalette, FightCameraReady, FightCameraStart
-extern FightSceneActive, FightSceneState, FightSceneTimer, FreeMemBlock, GameOptionFlags, GetCameraTarget, gmode, GoalCameraFrom
+extern FightSceneActive, FightSceneState, FightSceneTimer, FreeMemBlock, gameopts, GetCameraTarget, gmode, GoalCameraFrom
 extern GoalCameraTo, GoalSceneActive, GoalSceneCamFrom, GoalSceneCamTo, hypot_, IntermissionActive, IntermissionCamPath, IntermissionTimes
 extern LoadOpeningArt, LoadResourceDataShared, MenuCamPos, MenuCamTarget, MenuOrbitAngle, ObjectPositions, OpeningCamActive, OpeningCamData
 extern OpeningCamFrame, OpeningCamFrames, PenaltyCamDistance, PenaltyCamTimer, PenaltySceneDist, PenaltySceneYaw, PenShotSceneState, PenShotSceneTimer
@@ -77,7 +77,7 @@ CanStartCameraScene:
         jne short .6
         cmp eax, byte 7
         jne short .2
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         test byte [byte edx+02h], 20h
         jne short .6
 .2:
@@ -2097,7 +2097,7 @@ FaceoffDropCameraScene:
         mov dword [CameraPathActive], 8
         cmp byte [CameraScenesOn], 0
         je short .1
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 20h
         jne short .2
 .1:

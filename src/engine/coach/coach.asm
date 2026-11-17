@@ -4,7 +4,7 @@ bits 32
 section s_2DE92 progbits alloc exec nowrite align=1
 extern __CHP, AwayGoalieOff, AwCoachDefense, AwCoachGoalie, AwCoachLines, AwCoachOffense, AwCoachTimer, awtmstruct
 extern CommentaryEvent, CompLineTable, DelayedPen, F32_0p01, F32_40_ChkTiredPlayer, FaceoffDropX, FaceoffDropY, FaceoffSlots
-extern FaceoffX, FaceoffY, gameclock, GameOptionFlags, gmode, GoalieOut, gsp, HmCoachDefense
+extern FaceoffX, FaceoffY, gameclock, gameopts, gmode, GoalieOut, gsp, HmCoachDefense
 extern HmCoachGoalie, HmCoachLines, HmCoachOffense, HmCoachTimer, HmLineState, hmtmstruct, HomeGoalieOff, HomeSkaters
 extern LastTouchPlayer, MessagePanel, PuckFlags, QueueOverlayPanel, randomd0, RemoveOverlayPanel, setpersonel, SortCords
 extern StatsPanelPlayer
@@ -324,7 +324,7 @@ RestoreBenchEnergy:
         ret
         push ebx
         push edx
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         test byte [byte edx+01h], 0C0h
         je short .6
         mov edx, dword [dword eax+0A3h]
@@ -365,7 +365,7 @@ ChkTiredPlayer:
         je near .7
         cmp byte [dword edx+0A4h], 0Ch
         je near .7
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         je near .7
         mov eax, 28h
@@ -938,7 +938,7 @@ ResetCoachModes:
         mov word [byte edx+04h], 0
         mov ax, word [byte edx+04h]
         mov word [byte ebx+04h], ax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 0C0h
         je short .5
         cmp word [gsp], byte 0
@@ -1302,7 +1302,7 @@ StartFaceoffLineChange:
         push ecx
         push edx
         push esi
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         test byte [byte edx+01h], 0C0h
         je near .5
         mov edx, dword [dword eax+0FEh]

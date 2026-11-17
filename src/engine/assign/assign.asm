@@ -4,9 +4,9 @@ bits 32
 section s_1E207 progbits alloc exec nowrite align=1
 extern __CHP, AIBodyCheck, AngleOfVector, BenchRequest, doplayeracc, F32_10_CanReachPuck, F32_1392, F32_24
 extern F32_4272, F32_neg1392, F32_neg4272, F64_0p159155_ChkPokeOrCheck, F64_0p392699_ChkPokeOrCheck, F64_65536_ChkPokeOrCheck, F64_768, FaceoffRequest
-extern FaceoffTakers, FindManToCover, gameclock, GameOptionFlags, GameSettings, gmode, hypot_, PassPending
-extern PassPlayer, PlayerAssignOrder, PlayerAssignPtrs, PlayFlags, PokeCheckAnim, PtrPuckFlags, PtrPuckObject, PtrPuckOwner
-extern PtrPuckTarget, PtrPuckZone, randomd0, regd1, SetSkateSpeedFromRating, SortCords, StatsPanelOn, StatsPanelPlayer
+extern FaceoffTakers, FindManToCover, gameclock, gameopts, GameSettings, gmode, hypot_, PassPending
+extern PassPlayer, PlayerAssignOrder, PlayerAssignPtrs, gmode2, PokeCheckAnim, PtrPuckFlags, PtrPuckObject, PtrPuckOwner
+extern PtrPuckTarget, puckc, randomd0, regd1, SetSkateSpeedFromRating, SortCords, StatsPanelOn, StatsPanelPlayer
 extern StickReach, vtoa, ZoneFlags, ZoneTargetX, ZoneTargetY
 global assreplace, assinsert, assexit, AimAtPuckTarget, SetZoneFlags, CanReachPuck, TryPokePuck, RandomPokeCheck
 global ChkPokeOrCheck, check4bench, SwapPosition, SwapPositionJumpTable, ChkForwardSwap, GetDefensePartner, ChkSwapWithPartner, asscoverdefd
@@ -76,7 +76,7 @@ AimAtPuckTarget:
         push edx
         sub esp, byte 4
         mov ebx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [eax]
         test dl, dl
         jge short .1
@@ -90,7 +90,7 @@ AimAtPuckTarget:
         shl eax, 3
         add eax, SortCords
 .2:
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         xor ecx, ecx
         movsx edx, byte [edx]
         mov cl, byte [dword ebx+0A4h]
@@ -283,14 +283,14 @@ CanReachPuck:
         push edx
         sub esp, byte 18h
         mov ebx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .1
         cmp byte [dword ebx+0A4h], 6
         setb al
         xor edx, edx
         mov dl, al
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 6
         setl al
         and eax, 0FFh
@@ -468,7 +468,7 @@ CanReachPuck:
         pop ebx
         ret
 .16:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov cl, byte [eax]
         test cl, cl
         jge short .19
@@ -606,7 +606,7 @@ RandomPokeCheck:
         push edx
         sub esp, byte 8
         mov edx, eax
-        mov bl, byte [PlayFlags]
+        mov bl, byte [gmode2]
         mov eax, 8
         test bl, 20h
         je short .1
@@ -614,7 +614,7 @@ RandomPokeCheck:
         xor ecx, ecx
         and bl, 40h
         mov cl, bl
-        mov bx, word [PlayFlags]
+        mov bx, word [gmode2]
         xor bh, bh
         and bl, 40h
         movsx ebx, bx
@@ -680,7 +680,7 @@ ChkPokeOrCheck:
         mov al, byte [dword ecx+0CFh]
         sub edx, eax
         mov eax, edx
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         test byte [byte edx+01h], 7
         je short .1
         mov edx, eax
@@ -780,7 +780,7 @@ ChkPokeOrCheck:
 .16:
         test byte [dword ecx+0BFh], 8
         jne near .23
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ebx+0A4h]
@@ -1105,7 +1105,7 @@ check4bench:
         pop ebx
         ret
 .11:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ebx+0A4h]
@@ -1833,7 +1833,7 @@ asscoverdefd:
         mov eax, edx
         shl eax, 5
         add eax, edx
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         shl eax, 3
         mov cl, byte [edx]
         add eax, SortCords
@@ -1843,7 +1843,7 @@ asscoverdefd:
         setb dl
         xor ecx, ecx
         mov cl, dl
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         cmp byte [edx], 6
         setl dl
         and edx, 0FFh
@@ -2040,12 +2040,12 @@ asscoverdefo:
         xor eax, eax
         mov al, byte [dword ebx+0C6h]
         mov dword [byte ebx+05Ah], eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .5
         cmp byte [dword ebx+0A4h], 6
         setb al
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov cl, byte [edx]
         and eax, 0FFh
         cmp cl, 6
@@ -2053,7 +2053,7 @@ asscoverdefo:
         and edx, 0FFh
         cmp edx, eax
         jne short .5
-        test byte [PlayFlags], 80h
+        test byte [gmode2], 80h
         je short .5
         mov eax, dword [dword ebx+0AEh]
         sar eax, 18h
@@ -2076,13 +2076,13 @@ asscoverdefo:
 .6:
         cmp word [regd1], 5A0h
         jl near .10
-        test byte [PlayFlags], 20h
+        test byte [gmode2], 20h
         je short .7
         mov al, byte [dword ebx+0BFh]
         xor edx, edx
         and al, 40h
         mov dl, al
-        mov ax, word [PlayFlags]
+        mov ax, word [gmode2]
         xor ah, ah
         and al, 40h
         cwde
@@ -2096,13 +2096,13 @@ asscoverdefo:
         cmp word [regd1], 750h
         jge near .17
 .9:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl near .17
         cmp byte [dword ebx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov cl, byte [eax]
         and edx, 0FFh
         cmp cl, 6

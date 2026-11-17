@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_FBE40 progbits alloc exec nowrite align=1
 extern BiosKeyFunc, GetTicks, KbdIdleHook, RestoreDS, tickcount, TickDeadlinePassed, timercallbacks, TimerFraction
-extern TimerFractionHigh, TimerInISR, TimerOldCount, TimerOldVector, TimerRate, TimerStep, TimerTicks, TimerTickStep
+extern TimerFractionHigh, TimerInISR, TimerOldCount, oldint8off, TimerRate, TimerStep, TimerTicks, TimerTickStep
 global KbdGetKey, KbdIdleCall, KbdPeekKey, SetKbdIdleHook, WaitKey, KbdFlush, RunTimerCallbacks, TimerISR
 global addtimer
 ;-----------------------------------------------------------------------------
@@ -171,7 +171,7 @@ TimerISR:
         je short .1
         add dword [TimerTickStep], eax
         pushf
-        call far [TimerOldVector]
+        call far [oldint8off]
         jmp short .2
 .1:
         mov al, 20h

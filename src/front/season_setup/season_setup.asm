@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_C5F81 progbits alloc exec nowrite align=1
 extern BlitArt, BlitShape, BlitShape2, ConvertArtNew, ConvertArtXY, CreateBitmap, DrawArt, DrawShadedLogo
-extern FindShape, FreeBitmap, FreeMemBlock, FrontMusicOn, FrontShapeFile, GameOptionFlags, GameSettings, GlobalSetVersion
+extern FindShape, FreeBitmap, FreeMemBlock, FrontMusicOn, FrontShapeFile, gameopts, GameSettings, GlobalSetVersion
 extern InitMenuItems, LoadDataFile, LoadFrontEndSfx, MenuScreenBitmap, MusicEnabled, PlayoffOptionBits, PlayoffOptionFlags, PlayoffStarted
 extern PlaySfx, PresentScreen, rand_, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC
 extern RosterScreen_3B9, RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF
@@ -123,7 +123,7 @@ SeasonSetupScreen:
         je short .1
         call MusicEnabled
 .1:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov edx, dword [byte eax+01h]
         and byte [byte ebp+07Dh], 0F8h
         and edx, byte 7
@@ -1049,7 +1049,7 @@ SeasonSetupScreen_F19:
         jne near .39
         lea edx, [byte ebp+07Ch]
         mov ebx, dword [byte edx+01h]
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
 .38:
         and ebx, byte 7
         and byte [byte eax+01h], 0F8h

@@ -7,14 +7,14 @@ extern ChangePlayer, checkob, ChkPokeOrCheck, CreditPass, DefendFlags, DoCheckBu
 extern F64_0p159155_DoPassButton, F64_0p159155_DoShootButton, F64_0p159155_FaceDirFromMotion, F64_0p159155_JoySkate, F64_0p392699_ChkPassTo, F64_0p392699_doinput, F64_0p392699_DoPassButton, F64_0p392699_DoShootButton
 extern F64_0p392699_FaceDirFromMotion, F64_0p392699_JoySkate, F64_0p75, F64_0p785398_doplayeracc, F64_0p785398_SetSkateDir, F64_240_ChkGrabPuckOnSwitch, F64_65536_ChkPassTo, F64_65536_doinput
 extern F64_65536_DoPassButton, F64_65536_DoShootButton, F64_65536_FaceDirFromMotion, F64_65536_JoySkate, FaceoffDrawAnim, FaceoffSlots, FaceoffSwipeAnim, FaceoffWinner
-extern FaceoffX, FaceoffY, fofdata2, GameOptionFlags, gmode, GoalieTarget, HmLineState, HmPlayerEnergy
+extern FaceoffX, FaceoffY, fofdata2, gameopts, gmode, GoalieTarget, HmLineState, HmPlayerEnergy
 extern HmPlayersInBox, HomeControlSlot, HomeEbenPlayer, HomeGoalieOff, HomeSkaters, HomeTeamRecord, HumanStickAction, hypot_
 extern InputActive, InputButtons, InputDir, InputSlotPlayers, InputState, JoyButtonsTable, JoyStateTable, LineChangeAway
 extern LineChangeCommentary, LineChangeHome, LineChangeKeys, ObjectFramePos, OneTimerPasser, onetimerplayer, OneTimerReady, PadSlotA
 extern PadSlotB, PadStates, PassButtonHeld, PassButtonTimes, PassDistX, PassDistY, PassPlayer, PassReceiver
 extern PassState, PassTarget, penshotlive, penshotmode, PickShotTarget, PlayerControlFlags, PlayerControlWords, PlayerStateFlags
-extern PlayFlags, PtrPuckFlags, PtrPuckMotion, PtrPuckOwner, PtrPuckTarget, PtrPuckZone, PuckChasers, PuckFlags
-extern PuckOwnerTeam, QueueOverlayPanel, randomd0, ReachForPuckAnim, regd1, ReplayPlaying, RimTargetX, RimTargetY
+extern gmode2, PtrPuckFlags, PtrPuckMotion, PtrPuckOwner, PtrPuckTarget, puckc, PuckChasers, PuckFlags
+extern PuckOwnerTeam, QueueOverlayPanel, randomd0, ReachForPuckAnim, regd1, ReplayPlaying, RimTargetX, dirtab_y
 extern SetAnimFrame, setpersonel, ShootButtonTime, ShotAnimFrames, ShotSpeed, ShotState, ShotTarget, ShotTimer
 extern ShotType, SlotAssign, SlotJoyMap, SlotPlayers, slotteam, SortCords, SpeedScale, StartFaceoffLineChange
 extern StartOneTimerAnim, StartPass, StartShot, StickPointId, StickReachX, UpdateShot, vtoa, ZoneFlags
@@ -329,7 +329,7 @@ changeplayer:
 .8:
         cmp ax, word [byte esp+08h]
         jne near .14
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 2
         je near .13
         mov eax, dword [byte esp+06h]
@@ -543,7 +543,7 @@ AutoSwitchToCarrier:
         push ecx
         push esi
         mov ecx, edx
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         test byte [byte edx+02h], 2
         je short .1
         mov edx, dword [dword eax+0FEh]
@@ -759,7 +759,7 @@ RequestLineChange:
 LineChangeKey:
         push ebx
         push ecx
-        mov ebx, dword [GameOptionFlags]
+        mov ebx, dword [gameopts]
         test byte [byte ebx+01h], 0C0h
         jne short .1
         xor eax, eax
@@ -963,7 +963,7 @@ FaceDirFromMotion:
         mov ebx, eax
         xor edx, edx
         mov dl, byte [dword eax+0A4h]
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movsx eax, byte [eax]
         cmp edx, eax
         je near .7
@@ -1655,7 +1655,7 @@ DoShootButton:
         mov cx, word [nosplit eax*4+RimTargetX]
         add edx, ecx
         mov word [ShootButtonTime], dx
-        mov ax, word [nosplit eax*4+RimTargetY]
+        mov ax, word [nosplit eax*4+dirtab_y]
         mov dx, word [byte ebx+0Eh]
         add eax, edx
         mov word [PassTarget], ax
@@ -1857,7 +1857,7 @@ onetimershot:
         mov ecx, eax
         mov eax, dword [dword eax+0F6h]
         mov eax, dword [eax]
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov eax, dword [byte eax+028h]
         mov bl, byte [edx]
         and eax, 0FFFFh
@@ -1867,7 +1867,7 @@ onetimershot:
         cmp dword [byte edx+060h], byte 0FFFFFFE0h
         jge near .7
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -1887,7 +1887,7 @@ onetimershot:
         mov eax, ecx
         call assexit
 .4:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ecx+0A4h]
@@ -2101,7 +2101,7 @@ doinput:
         xor edi, edi
         mov word [nosplit esi*2+LineChangeHome], di
 .10:
-        test byte [PlayFlags], 1
+        test byte [gmode2], 1
         je short .11
         mov eax, ebx
         call faceoffinput
@@ -2189,7 +2189,7 @@ doinput:
 .18:
         cmp dword [bholdtimer], byte 0
         jne short .19
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ebx+0A4h]
@@ -2207,7 +2207,7 @@ doinput:
 .19:
         test byte [dword ebx+0BFh], 20h
         je near .28
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         movzx edi, byte [dword ebx+0A4h]
         movsx eax, byte [edx]
         cmp edi, eax
@@ -2225,7 +2225,7 @@ doinput:
         cmp byte [dword ebx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and edx, 0FFh
         cmp byte [eax], 6
         setl al
@@ -2362,7 +2362,7 @@ doinput:
         pop ebx
         ret
 .28:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         xor edx, edx
         movsx eax, byte [eax]
         mov dl, byte [dword ebx+0A4h]
@@ -2590,13 +2590,13 @@ doinput:
         jne near .55
         cmp word [ZoneTargetY], byte 8
         jge near .23
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .43
         cmp byte [dword ebx+0A4h], 6
         setb al
         mov edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and edx, 0FFh
         cmp byte [eax], 6
         setl al
@@ -2661,7 +2661,7 @@ doinput:
         jne near .50
         test byte [dword ebx+0C0h], 4
         jne short .47
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge short .47
         test byte [regd1], 20h
@@ -2695,7 +2695,7 @@ doinput:
         jne near .55
         jmp near .54
 .50:
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         cmp byte [edx], 0
         jge near .52
         test byte [regd1], 20h

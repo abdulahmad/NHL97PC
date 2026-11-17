@@ -9,10 +9,10 @@ global __8087, JoyCalibrating, JoyButtons, JoyButtonsPrev, JoyDirection, JoyDirT
 global JoyCalibrateTicks, JoyReadTimeout, JoyAxisX1, JoyAxisY1, JoyAxisX2, JoyAxisY2, JoyAxisMask, str_P_ReadJoystickPorts
 global JoyX1Min, JoyX1Center, JoyX1Max, JoyX1Settle, JoyY1Min, JoyY1Max, JoyDeadZone, JoyY1MinSeen
 global JoyY1Center, JoyY1MaxSeen, JoyY1Settle, JoyX2Min, JoyX2Max, JoyXScale, JoyYScale, KbdIdleHook
-global TimerTicks, TimerTickStep, TimerRate, TimerOldVector, GoalieTickData, TimerInISR, LastTickCount, GraphicsModeSet
+global TimerTicks, TimerTickStep, TimerRate, oldint8off, GoalieTickData, TimerInISR, LastTickCount, GraphicsModeSet
 global MousePresent, mousex, mousey, MouseMoved, MouseHideCount, MouseInitDone, ViewScreenWidth, ViewScreenHeight
 global MenuScreenBitmap, VideoModeCount, SelectedVideoMode, ScreenModeWidth, ScreenModeHeight, DefaultModeWidth, DefaultModeHeight, str_StackOverflow
-global tickcount, tickdeadline, RandSeed, TimerSavedSelector, SavedStackSegment
+global tickcount, tickdeadline, RandSeed, oldint8sel, SavedStackSegment
 JoyCalibrateTicks:                              ; timer ticks counted during joystick calibration; used by
                                                 ; CalibrateJoystick
         db 00h,00h,00h,00h
@@ -102,11 +102,11 @@ TimerTickStep:                                  ; ticks added per timer interrup
         db 00h,00h,00h,00h
 TimerRate:                                      ; timer divisor and chain rate; used by InstallTimer, TimerISR
         db 00h,010h,00h,00h,00h,00h
-TimerOldVector:                                 ; the original timer interrupt handler, chained from the timer
+oldint8off:                                     ; the original timer interrupt handler, chained from the timer
                                                 ; ISR and restored on exit; used by InstallTimer,
                                                 ; RestoreTimer, TimerISR
         db 00h,00h,00h,00h
-TimerSavedSelector:                             ; selector of the previous timer handler; used by
+oldint8sel:                                     ; selector of the previous timer handler; used by
                                                 ; InstallTimer, RestoreTimer
         db 00h,00h
 GoalieTickData:                                 ; goalie tick data pointers; used by GoalieTick

@@ -5,7 +5,7 @@ section s_AADEF progbits alloc exec nowrite align=1
 extern AddReplayIndexEntry, AllocCrusherBuffers, AllocMemBlock, AllStarDay, AppendToTransfer, AwayUserSlot, bcopy, CheckLeagueInjuries
 extern ClearLinkAbort, ClearScreen, ClockFontLarge, ClockFontSmall, ControlSetup, ConvertArtNew, CopyControlSettings, CopyToTransfer
 extern CreateBitmap, CreateExhibitionFile, DaysToYear, DbKeyBuffer, DrawShapeBlended, FindGameRecord, FindReplayIndexEntry, FindShape
-extern FreeBitmap, FreeFrontEnd, FreeLangText, FreeMemBlock, FreeTransferBuffers, GameLogoBitmap, GameLogoShape, GameOptionFlags
+extern FreeBitmap, FreeFrontEnd, FreeLangText, FreeMemBlock, FreeTransferBuffers, GameLogoBitmap, GameLogoShape, gameopts
 extern GameSettings, GetLangText, HideWorkingBox, HomeUserSlot, InIntermission, InitFrontEnd, InitGameAudio, InitGameSounds
 extern KeyboardControls, KeysEqual, LinesChangedInGame, LinkGameActive, LinkReceiveBlock, LinkReceiveData, LinkSendBlock, LinkSendData
 extern LinkSyncMenu, LoadDataFileLib, LoadFileAlloc, LoadLangTextB, memcmp_, memcpy_, OpenDataLibrary, OpenReplayFile
@@ -57,7 +57,7 @@ LoadGameLogos:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -148,7 +148,7 @@ LoadGameLogos:
         mov eax, 3
         call SecondsToSamples
         call WaitSoundTime
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah

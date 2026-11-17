@@ -10,7 +10,7 @@ extern F64_576_GoalieMoves, F64_6p28319_GoalieMoves, F64_6p28319_GoalieSave, F64
 extern F64_neg6p28319_GoalieMoves, F64_neg6p28319_GoalieSave, GameSettings, GetAnimId, gmode, GoalieAnimData, GoalieAnimFiles, GoalieAnimFrame
 extern GoalieAnimPoses, GoalieAnimTime, GoalieMoveLimit, GoalieMoveTable, GoaliePosTarget, hypot_, IF@ATAN2, IF@DFMOD
 extern IsCameraOnPuck, MoveAnimIds, ObjectFramePos, onetimerplayer, OneTimerReady, PassReceiver, PeriodOver, PickSkateAnim
-extern PlayerGetsPuck, PlaySfxVolume, PtrPuckFlags, PtrPuckOwner, PtrPuckTarget, PtrPuckZone, PuckOwnerTeam, ReachScale
+extern PlayerGetsPuck, PlaySfxVolume, PtrPuckFlags, PtrPuckOwner, PtrPuckTarget, puckc, PuckOwnerTeam, ReachScale
 extern ResetAnimTimer, SetSPA, SortCords, StepMove, str_FADING, str_LOOP, str_MASTER, str_MIRROR
 extern str_SCALED, str_SLAVE, VecDot, VecLength
 global GoalieCoverMove, GoalieRecoverMove, GoalieIdleMove, StartGoalieSave, StartGoalieStance, PickSaveAnim, SaveDirection, goaliesave
@@ -106,7 +106,7 @@ GoalieCoverMove:
 .9:
         mov dword [byte esi+064h], eax
         xor edx, edx
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [dword esi+0A4h]
         movsx ebx, byte [eax]
         cmp edx, ebx
@@ -208,7 +208,7 @@ GoalieRecoverMove:
         and esi, 0FFFFh
         test ah, 80h
         je near .5
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge near .2
         mov ebx, dword [PtrPuckFlags]
@@ -232,7 +232,7 @@ GoalieRecoverMove:
         fnstsw ax
         sahf
         jae short .1
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [dword ecx+0A4h]
         mov byte [eax], dl
         jmp short .2
@@ -266,7 +266,7 @@ GoalieRecoverMove:
         fnstsw ax
         sahf
         jae short .2
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         mov al, byte [dword ecx+0A4h]
         mov byte [edx], al
 .2:
@@ -810,7 +810,7 @@ goaliesave:
         sub esp, byte 68h
         and esp, byte 0FFFFFFF8h
         mov esi, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [eax]
         mov ecx, dword [PtrPuckFlags]
         test dl, dl
@@ -1240,7 +1240,7 @@ GoalieMoves:
 .3:
         test byte [gmode], 1
         jne near .26
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov cl, byte [eax]
         test cl, cl
         jl short .4
@@ -1507,7 +1507,7 @@ GoalieMoves:
         jl short .15
         cmp edi, byte 13h
         jg short .15
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp cl, byte [eax]
         jle near .21
 .15:

@@ -6,7 +6,7 @@ extern __STOSB, AllocMemBlock, AllocStatTable, AwayPeriodShots, BlankMenuItem, B
 extern CloseGameDatabase, ConvertArtNew, ConvertArtXY, CreateBitmap, DeleteUserRecord, DrawArt, DrawPortrait, DrawScreenBackground
 extern DrawScrollBar, DrawShadedLogo, DrawStatTableArt, DrawStatTableRows, DrawTextAligned, EditTextField, ExitScreen, ExportStatTable
 extern FadeInScreen, FindShape, FreeBitmap, FreeExhibitionFile, FreeMemBlock, FreeScrollList, FreeStatTable, FrontShapeFile
-extern GameLogCount, GameOptionFlags, GameSettings, GetLangText, GoalieStatRecords, HomePeriodShots, InitMenuItems, InitScrollList
+extern GameLogCount, gameopts, GameSettings, GetLangText, GoalieStatRecords, HomePeriodShots, InitMenuItems, InitScrollList
 extern LinkGameActive, LinkSyncMenu, LinkSyncScreen, LoadDataFile, LoadExhibitionFile, LoadNameIndex, LoadUserRecord, MakeColor
 extern MakeDirPath, MeasureText, MenuScreenBitmap, NameIndexCount, NameIndexFree, NameIndexLimit, NameIndexLoad, NameIndexNew
 extern NameIndexPath, NameIndexRemove, NameIndexSave, OpenGameDatabase, PlayerStatRecords, PlayoffColumns, PlayoffCurrentRound, PlayoffFinalRound
@@ -70,11 +70,11 @@ ParseUserName:
         push ebx
         push edx
         imul edx, eax, byte 21h
-        mov ebx, dword [GameOptionFlags]
+        mov ebx, dword [gameopts]
         mov eax, 0F8h
         mov word [byte edx+ebx+05h], 0FFFFh
         call GetLangText
-        mov ebx, dword [GameOptionFlags]
+        mov ebx, dword [gameopts]
         add ebx, byte 5
         add edx, ebx
         lea ebx, [byte edx+02h]
@@ -266,7 +266,7 @@ DeleteUser:
         xor ebx, ebx
 .2:
         imul ecx, ebx, byte 21h
-        mov edi, dword [GameOptionFlags]
+        mov edi, dword [gameopts]
         mov eax, dword [byte ebp+07Eh]
         add edi, ecx
         inc eax
@@ -277,7 +277,7 @@ DeleteUser:
         mov eax, 0F8h
         mov word [byte edi+05h], 0FFFFh
         call GetLangText
-        mov edi, dword [GameOptionFlags]
+        mov edi, dword [gameopts]
         add edi, byte 5
         add edi, ecx
         inc edi
@@ -428,7 +428,7 @@ CopyUserName:
         push esi
         mov ecx, eax
         mov ebx, edx
-        mov esi, dword [GameOptionFlags]
+        mov esi, dword [gameopts]
         xor eax, eax
 .4:
         imul edx, eax, byte 21h
@@ -992,7 +992,7 @@ UserLogScreen:
         cmp dword [byte ebp+07Ah], byte 0Eh
         jl short .7
         imul eax, dword [byte ebp+066h], byte 21h
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         movsx eax, word [byte edx+eax+05h]
         mov dword [byte ebp+076h], eax
         test eax, eax
@@ -1124,7 +1124,7 @@ UserLogScreen_77D:
         jl near UserLogScreen_8CA.35
         mov eax, dword [byte ebp+066h]
         mov ecx, dword [byte ebp+076h]
-        mov ebx, dword [GameOptionFlags]
+        mov ebx, dword [gameopts]
         mov dword [byte ebp+052h], eax
         xor eax, eax
 .22:
@@ -1154,10 +1154,10 @@ UserLogScreen_77D:
         jmp near UserLogScreen_8CA.35
 .25:
         imul edx, dword [byte ebp+066h], byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov ebx, dword [byte ebp+076h]
         mov word [byte edx+eax+05h], bx
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, byte 5
         add eax, edx
         lea ebx, [byte eax+02h]
@@ -1200,11 +1200,11 @@ UserLogScreen_8CA:
         jne short .28
 .27:
         imul edx, dword [byte ebp+066h], byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov word [byte edx+eax+05h], 0FFFFh
         mov eax, 0F8h
         call GetLangText
-        mov ebx, dword [GameOptionFlags]
+        mov ebx, dword [gameopts]
         add ebx, byte 5
         add edx, ebx
         lea ebx, [byte edx+02h]
@@ -1231,10 +1231,10 @@ UserLogScreen_8CA:
         imul ebx, dword [byte ebp+066h], byte 21h
         mov eax, dword [byte ebp+04Ah]
         mov dx, word [byte eax+066h]
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         dec edx
         mov word [byte ebx+eax+05h], dx
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         lea ecx, [byte eax+05h]
         movsx edx, word [byte ebx+eax+05h]
         mov eax, dword [byte ebp+04Ah]
@@ -1485,7 +1485,7 @@ UpdateUserRecords:
         call LoadUserList
 .1:
         imul edx, dword [byte ebp+06Ah], byte 21h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         movsx edx, word [byte edx+eax+05h]
         cmp edx, byte 0FFFFFFFFh
         je near .55
@@ -1518,7 +1518,7 @@ UpdateUserRecords:
         je short .3
         add ebx, ebx
 .3:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         add eax, dword [byte ebp+06Ah]
         test byte [dword eax+010Dh], 80h
         jne short .4
@@ -1608,17 +1608,17 @@ UpdateUserRecords:
         je near .15
         cmp ecx, dword [byte ebp+06Eh]
         jge short .13
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
         shr edx, 1Ah
         add dword [dword ebp+edx*4-0226h], eax
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 6
         shr edx, 1Ah
         add dword [dword ebp+edx*4-019Ah], eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
 .12:
@@ -1630,14 +1630,14 @@ UpdateUserRecords:
         jmp near .19
 .13:
         jle near .19
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
         mov edi, dword [byte ebp+066h]
         shr edx, 1Ah
         add eax, dword [byte edi+ebp+01Eh]
         sub dword [dword ebp+edx*4-0226h], eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah
@@ -1646,37 +1646,37 @@ UpdateUserRecords:
         jge short .14
         mov dword [dword eax+ebp-0226h], 0
 .14:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         jmp near .18
 .15:
         cmp ecx, dword [byte ebp+06Eh]
         jge short .16
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 6
         shr edx, 1Ah
         add dword [dword ebp+edx*4-0226h], eax
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 0Ch
         shr edx, 1Ah
         add dword [dword ebp+edx*4-019Ah], eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         jmp near .12
 .16:
         jle short .19
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         mov edx, dword [byte edx+01h]
         shl edx, 6
         mov edi, dword [byte ebp+066h]
         shr edx, 1Ah
         add eax, dword [byte edi+ebp+01Eh]
         sub dword [dword ebp+edx*4-0226h], eax
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 6
         shr eax, 1Ah
@@ -1685,7 +1685,7 @@ UpdateUserRecords:
         jge short .17
         mov dword [dword eax+ebp-0226h], 0
 .17:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
 .18:
@@ -1719,7 +1719,7 @@ UpdateUserRecords:
         cmp byte [nosplit eax*8+ScoringLogTeam], 0
         je near .29
 .23:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+02h], 18h
         jne short .24
         movsx eax, dx
@@ -3646,7 +3646,7 @@ UserRecordsScreen_AA5:
         lea eax, [byte ebp-08h]
         call LoadUserList
         imul eax, esi, byte 21h
-        mov edx, dword [GameOptionFlags]
+        mov edx, dword [gameopts]
         movsx edx, word [byte edx+eax+05h]
         mov eax, dword [byte ebp-08h]
         lea ebx, [byte ebp-03Ch]

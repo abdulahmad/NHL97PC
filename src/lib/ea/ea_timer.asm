@@ -4,9 +4,9 @@
 bits 32
 %include "hockey.inc"
 section s_FC008 progbits alloc exec nowrite align=1
-extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, TimerRate, TimerOldVector, str_D_UpdateFrameRate, TimerCalibration
+extern __STOSD, _dos_getvect_, _dos_setvect_, str_TIMERSTACK, TimerRate, oldint8off, str_D_UpdateFrameRate, TimerCalibration
 extern MessageBoxActive, timercallbacks, TimerFraction, TimerStep, TimerOldCount, AddExitHandler, AllocMemBlock, FreeMemBlock
-extern TimerISR, TimerSavedSelector
+extern TimerISR, oldint8sel
 global RestoreTimer, RemoveTimerCallback, InstallTimer
 ;-----------------------------------------------------------------------------
 ; RemoveTimerCallback                             FC008  97 PC, low confidence
@@ -77,9 +77,9 @@ RestoreTimer:
         push ebx
         push ecx
         push edx
-        cmp dword [TimerOldVector], byte 0
+        cmp dword [oldint8off], byte 0
         jne short .1
-        cmp word [TimerSavedSelector], byte 0
+        cmp word [oldint8sel], byte 0
         je short .2
 .1:
         mov edx, 21h
@@ -88,18 +88,18 @@ RestoreTimer:
         or al, 3
         out dx, al
         mov eax, 8
-        mov cx, word [TimerSavedSelector]
-        mov ebx, dword [TimerOldVector]
+        mov cx, word [oldint8sel]
+        mov ebx, dword [oldint8off]
         mov edx, 40h
         call _dos_setvect_
         xor al, al
         out dx, al
         xor ebx, ebx
         out dx, al
-        mov word [TimerSavedSelector], bx
+        mov word [oldint8sel], bx
         xor ebx, ebx
         mov edx, 21h
-        mov dword [TimerOldVector], ebx
+        mov dword [oldint8off], ebx
         sub eax, eax
         in al, dx
         and al, 0FCh
@@ -124,9 +124,9 @@ InstallTimer:
         push esi
         push edi
         push ebp
-        cmp dword [TimerOldVector], byte 0
+        cmp dword [oldint8off], byte 0
         jne short .1
-        cmp word [TimerSavedSelector], byte 0
+        cmp word [oldint8sel], byte 0
         jne short .1
         mov ebx, dword [MessageBoxActive]
         push ebx
@@ -142,8 +142,8 @@ InstallTimer:
         in al, dx
         or al, 3
         out dx, al
-        mov esi, dword [TimerOldVector]
-        mov bx, word [TimerSavedSelector]
+        mov esi, dword [oldint8off]
+        mov bx, word [oldint8sel]
         test esi, esi
         jne short .2
         test bx, bx
@@ -156,9 +156,9 @@ InstallTimer:
         mov ebx, TimerISR
         call _dos_getvect_
         mov ecx, cs
-        mov dword [TimerOldVector], eax
+        mov dword [oldint8off], eax
         mov eax, 8
-        mov word [TimerSavedSelector], dx
+        mov word [oldint8sel], dx
         call _dos_setvect_
         push RestoreTimer
         call AddExitHandler

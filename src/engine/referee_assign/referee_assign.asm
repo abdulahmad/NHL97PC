@@ -4,11 +4,11 @@ bits 32
 section s_28D87 progbits alloc exec nowrite align=1
 extern AimAtPuckTarget, AllInPlace, AngleOfVector, AssistOne, AssistTwo, awtmstruct, BreakawayFlag, F32_96_assrefdrop
 extern F32_96_assrefgoalline, F32_96_assrefpenshot, F32_96_assrefsignal, F32_96_assrefwhistle, F64_2040, F64_4800, FaceoffSpot, FaceoffWinner
-extern FaceoffZone, gameclock, GameOptionFlags, gameover, GoalJudgeTest, GoalLineFlag, GoalLinePuckTest, GoalScorer
+extern FaceoffZone, gameclock, gameopts, gameover, GoalJudgeTest, GoalLineFlag, GoalLinePuckTest, GoalScorer
 extern gsp, hmtmstruct, IsCameraOnPuck, PaEvent, PenaltyShotCameraScene, penshotmode, penshottimer, PeriodOver
-extern PlaySfxVolume, PtrPuckFlags, PtrPuckObject, PtrPuckOwner, PtrPuckState, PtrPuckTarget, PtrPuckZone, QueueOverlayPanel
+extern PlaySfxVolume, PtrPuckFlags, PtrPuckObject, PtrPuckOwner, PtrPuckState, PtrPuckTarget, puckc, QueueOverlayPanel
 extern randomd0, RefAtDotAnim, RefDodgePuck, RefGoalLineAnim, RefGoalPaAnim, RefPlayer, RefSignal, RefSignalAnim
-extern RefState, RefTarget, RefWhistleAnim, regd1, ReleaseBoxPlayers, SetFaceBlink, SetSkateSpeedFromRating, SortCords
+extern RefState, RefStep, RefWhistleAnim, regd1, ReleaseBoxPlayers, SetFaceBlink, SetSkateSpeedFromRating, SortCords
 extern StartCrowdMusic, StartWhistleStop, StatsPanelOn, StatsPanelPlayer, StopObject, TriggerCameraFlashes, WhistleTime, ZoneFlags
 extern ZoneTargetX, ZoneTargetY
 global assrefpenshot, assrefsignal, assrefwhistle, assrefgoalpa, assrefgoalline, assreffollow, assrefdrop, assrefatdot
@@ -34,7 +34,7 @@ assrefpenshot:
         mov dh, dl
         and dh, 0FDh
         mov byte [dword ebx+0BFh], dh
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 7
         jne short .1
         mov eax, dword [PtrPuckObject]
@@ -109,7 +109,7 @@ assrefpenshot:
         jne near .6
         lea ebp, [esi+esi]
         mov dword [byte ebx+060h], ebp
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov eax, dword [PtrPuckFlags]
         call StopObject
@@ -190,7 +190,7 @@ assrefpenshot:
         lea ecx, [byte eax+01h]
         mov dword [byte ebx+038h], eax
         mov dword [byte ebx+060h], ecx
-        mov dword [RefTarget], eax
+        mov dword [RefStep], eax
         add esp, byte 1Ch
         pop ebp
         pop esi
@@ -209,7 +209,7 @@ assrefpenshot:
         call PlaySfxVolume
         mov edx, 0FFFFFFFFh
         mov dword [byte ebx+060h], 64h
-        mov dword [RefTarget], edx
+        mov dword [RefStep], edx
 .12:
         add esp, byte 1Ch
         pop ebp
@@ -469,7 +469,7 @@ assrefsignal:
 ; assrefwhistle                                293A8  95 PC, medium confidence
 ;
 ; Referee assignment 35h: on a stoppage (clock 0, or a tie broken in the last period) sets RefStep
-; (RefTarget) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise
+; (RefStep) -1, the puck to assignment 42h (puckfaceoff) and the referee to 33h (assrefatdot); otherwise
 ; skates the referee along
 ;-----------------------------------------------------------------------------
 assrefwhistle:
@@ -511,14 +511,14 @@ assrefwhistle:
         or dh, 2
         mov esi, 0FFFFFFFFh
         mov byte [dword ebx+0BFh], dh
-        mov dword [RefTarget], esi
+        mov dword [RefStep], esi
         jmp near .9
 .3:
         mov dh, byte [dword ebx+0BFh]
         and dh, 0FDh
         mov ecx, 1
         mov byte [dword ebx+0BFh], dh
-        mov dword [RefTarget], ecx
+        mov dword [RefStep], ecx
         mov eax, dword [dword ebx+0EEh]
         mov dword [eax], 44FF0000h
         mov eax, dword [dword ebx+0EEh]
@@ -684,7 +684,7 @@ assrefgoalpa:
         or ch, 2
         mov eax, 0FFFFFFFFh
         mov byte [dword ebx+0BFh], ch
-        mov dword [RefTarget], eax
+        mov dword [RefStep], eax
         add esp, byte 8
         pop edi
         pop esi
@@ -699,7 +699,7 @@ assrefgoalpa:
         and dh, 0FDh
         mov esi, 1
         mov byte [dword ebx+0BFh], dh
-        mov dword [RefTarget], esi
+        mov dword [RefStep], esi
         mov dword [byte ebx+060h], 0
         call ReleaseBoxPlayers
         mov eax, dword [WhistleTime]
@@ -712,7 +712,7 @@ assrefgoalpa:
         call StartWhistleStop
         or byte [dword ebx+0C1h], 10h
 .6:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .7
         mov byte [eax], 0FFh
@@ -729,7 +729,7 @@ assrefgoalpa:
 .7:
         cmp dword [byte ebx+060h], 1E0h
         jl short .8
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0Ch
         call PeriodOver
         mov eax, dword [PtrPuckFlags]
@@ -1002,7 +1002,7 @@ assreffollow:
         db 081h,0E8h,0E0h,01h,00h,00h           ; insn: sub eax,1E0h
         mov word [regd1], ax
 .5:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 7
         jne short .6
         mov eax, dword [PtrPuckObject]
@@ -1090,7 +1090,7 @@ assrefdrop:
         mov cl, dl
         and cl, 0FDh
         mov byte [dword ebx+0BFh], cl
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 7
         jne short .2
         mov eax, dword [PtrPuckObject]
@@ -1147,7 +1147,7 @@ assrefdrop:
         mov eax, ebx
         mov byte [dword ebx+0C1h], dh
         call StartWhistleStop
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0Ch
         call PeriodOver
         add esp, byte 1Ch
@@ -1211,7 +1211,7 @@ assrefdrop:
         mov edx, 33h
         mov byte [dword ebx+eax+0B2h], dl
         or byte [dword ebx+0BFh], 2
-        mov dword [RefTarget], 0FFFFFFFFh
+        mov dword [RefStep], 0FFFFFFFFh
 .12:
         add esp, byte 1Ch
         pop edx
@@ -1252,7 +1252,7 @@ assrefatdot:
         mov byte [dword ebx+0C1h], cl
         call StartWhistleStop
         call PeriodOver
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 7
         jne short .2
         mov eax, dword [PtrPuckObject]

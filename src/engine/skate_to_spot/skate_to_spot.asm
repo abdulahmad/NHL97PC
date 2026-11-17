@@ -5,7 +5,7 @@ section s_72759 progbits alloc exec nowrite align=1
 extern AdvanceMoveAnim, assreplace, BodyPointId, EndMove, F32_0p5_SkateToBenchStep, F64_3p14159_SkateToBenchStep, F64_3p14159_SkateToSpotStep, F64_6p28319_SkateToBenchStep
 extern F64_6p28319_SkateToSpotStep, F64_neg3p14159_SkateToBenchStep, F64_neg3p14159_SkateToSpotStep, F64_neg6p28319_SkateToBenchStep, F64_neg6p28319_SkateToSpotStep, FaceoffSpot, FaceoffZone, GetAnimId
 extern hypot_, IF@ATAN2, IF@DFMOD, IsCameraOnPuck, LimitSkateSpeed, MoveFlags, MovePlayer, ObjectFramePos
-extern PeriodOver, PickSkateAnim, PlaySfxVolume, PtrPuckFlags, PtrPuckState, PtrPuckZone, ResetAnimTimer, SetModelHeading
+extern PeriodOver, PickSkateAnim, PlaySfxVolume, PtrPuckFlags, PtrPuckState, puckc, ResetAnimTimer, SetModelHeading
 extern SetSPA, SortCords, SpeedScale, StatsPanelOn, StepMove
 global SkateToBenchStep, SkateToBenchMove, SimpleAnimMove, SkateToSpotStep, SkateToSpotMove, PuckRetrieveMove, PeriodEndMove, PeriodEndSkateMove
         db 08Dh,040h,00h
@@ -474,7 +474,7 @@ PuckRetrieveMove:
         jge short .1
         mov dword [byte esi+064h], 1Eh
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0FFh
         mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+030h], 0C1200000h
@@ -520,7 +520,7 @@ PeriodEndMove:
 .1:
         cmp dword [byte ecx+04h], byte 2Bh
         jne near .4
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0Ch
         mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+038h], 0
@@ -597,7 +597,7 @@ PeriodEndSkateMove:
         mov esi, dword [byte eax+02Ch]
         cmp edx, byte 0Fh
         jne near .3
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov byte [eax], 0Ch
         mov eax, dword [PtrPuckFlags]
         mov dword [byte eax+038h], 0

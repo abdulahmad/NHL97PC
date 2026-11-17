@@ -10,7 +10,7 @@ extern F32_0p003125_PickReplayScreen, F32_0p003125_ReplayMenuScreen, F32_0p00312
 extern F64_0p5_DrawReplayEntry, F64_0p5_DrawReplayTimeline, F64_0p5_PickReplayScreen, F64_0p5_ReplayMenuScreen, F64_0p5_ReplayScreen, FadeGamePalette, FillPolygon, FillRect
 extern FillRectColor, FillRectCorners, FindReplayIndexEntry, FindShape, FreeAnimStates, FreeAnimTables, FreeBitmap, FreeFrontEnd
 extern FreeGameGraphics, FreeInverseTable, FreeLangText, FreeMemBlock, FreeMenuBitmap, FreeVideoBuffer, FrontFonts, FrontMusicOn
-extern FrontShapeFile, FrontTextFile, GameObjects, GameOptionFlags, GameSettings, GetLangText, GetVideoModeList, GlobalSetVersion
+extern FrontShapeFile, FrontTextFile, GameObjects, gameopts, GameSettings, GetLangText, GetVideoModeList, GlobalSetVersion
 extern gmode, InGameMenuRequest, InitAnimPoints, InitFrontEnd, InitGameDisplay, InitGameGraphics, InitGameVideo, InitMenuItems
 extern InitReplayBuffer, IsInputRecording, IsReplayRecording, LinkGameActive, LinkReceiveBlock, LinkSendBlock, LinkSyncMenu, LoadDataFile
 extern LoadDataFileLib, LoadIndexFile, LoadLangTextB, LoadNameIndex, LoadReplayData, LoadReplayHeader, MakeColor, MakeDirPath
@@ -333,7 +333,7 @@ LoadReplay:
         mov eax, dword [ReplayLoadBuffer]
         mov edx, 20h
         call LoadReplayHeader
-        mov dword [GameOptionFlags], GlobalSetVersion
+        mov dword [gameopts], GlobalSetVersion
         call ResetReplayBuffer
         mov eax, 34h
         call AllocAnimStates

@@ -5,15 +5,15 @@ section s_32181 progbits alloc exec nowrite align=1
 extern assinsert, assreplace, AwayEbenPlayer, AwayGoalsPeriod, AwayPlayerRecords, AwCoachGoalie, AwLineState, AwPenaltyPlayer
 extern AwPlayerFlags, AwPlayersInBox, AwScore, awtmstruct, BenchRequest, BreakawayFlag, ClearOverlayWindows, CommentaryEvent
 extern DefenseByDefense, DelayedPen, EndPenShotScene, ExtraAttacker, F32_neg1392_updatepentime_ut_chk, FaceoffRequest, FaceoffSpot, FaceoffZone
-extern ForwardsByOffense, GameOptionFlags, gmode, goalieflags, GoalieTarget, GoalLineFlag, GoalScorerFlags, gsp
+extern ForwardsByOffense, gameopts, gmode, goalieflags, GoalieTarget, GoalLineFlag, GoalScorerFlags, gsp
 extern HmCoachGoalie, HmLineState, HmPenaltyPlayer, HmPlayerFlags, HmPlayersInBox, HmScore, hmtmstruct, holdreset
 extern HomeEbenPlayer, HomeGoalsPeriod, HomePlayerRecords, LastPlayerTouch, LastTouchPlayer, LastTouchTeam, LinePickOrderFrom1, LogPenalty
-extern MessagePanel, PaEvent, PassDistY, PenaltyBoxCount, PenaltyFlags, PenaltyMinutes, PenaltyPaCodes, PenaltyPending
-extern PenaltyQueue, PenaltyRecord, PenaltySlots, PenaltyTeam, PenaltyTypes, PenCntDwn, penshotlive, penshotmode
-extern penshottimer, PeriodLength, PlayerControlFlags, PlayerStateFlags, PlayFlags, PlaySfxOr, PlaySfxVolume, ProgressCount
+extern MessagePanel, PaEvent, PassDistY, PBnum, PenaltyFlags, PenaltyMinutes, PenaltyPaCodes, PenBuf
+extern PenaltyQueue, PenaltyRecord, penmintab, PenaltyTeam, PenaltyTypes, PenCntDwn, penshotlive, penshotmode
+extern penshottimer, PeriodLength, PlayerControlFlags, PlayerStateFlags, gmode2, PlaySfxOr, PlaySfxVolume, ProgressCount
 extern ProgressLimit, ProgressRecord, ProgressTimer, ProgressTimes, PtrPuckFlags, PtrPuckObject, PtrPuckOwner, PtrPuckTarget
-extern PtrPuckZone, PuckHitFlag, PuckOwner, PuckOwnerTeam, puckx, pucky, QueueOverlayPanel, randomd0
-extern RefPlayer, RefSignal, RefState, RefTarget, regd1, RemoveOverlayPanel, ReplayPlaying, ResetRenderTimers
+extern puckc, PuckHitFlag, PuckOwner, PuckOwnerTeam, puckx, pucky, QueueOverlayPanel, randomd0
+extern RefPlayer, RefSignal, RefState, RefStep, regd1, RemoveOverlayPanel, ReplayPlaying, ResetRenderTimers
 extern SetCrowdMood, Setplass, setplayer, SortCords, SortIndices, StartWhistleStop, StatsPanelOn, StoppageFlag
 extern str_Punct_InProgress, ZoneFlags
 global ChkTwoInBox, AddPenalty, AddPenalty2JumpTable, AddPenalty2, AddPenalty2_2BD, AddPenalty2_2CB, AddPenalty2_2D2, AddPenalty2_308
@@ -135,14 +135,14 @@ AddPenalty:
         je near .4
         cmp dx, byte 5
         jne short .2
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 8
         je near .5
         jmp near .4
 .2:
         cmp dx, byte 6
         jne short .3
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         test byte [byte eax+01h], 10h
         je short .5
         movsx ebx, bx
@@ -156,13 +156,13 @@ AddPenalty:
         test byte [dword ecx+0BFh], 40h
         setne al
         and eax, 0FFh
-        cmp byte [dword eax+PenaltyBoxCount], 8
+        cmp byte [dword eax+PBnum], 8
         jge short .5
         mov eax, ecx
         call ChkTwoInBox
         test eax, eax
         je short .5
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov esi, dword [byte eax+01h]
         and esi, byte 7
         lea eax, [nosplit esi*4+00h]
@@ -239,11 +239,11 @@ AddPenalty2:
         jl near .13
         test byte [dword ecx+0BFh], 40h
         je short .6
-        cmp byte [PenaltyPending], 0
+        cmp byte [PenBuf], 0
         je short .5
         cmp byte [PenaltyTeam], 6
         jge short .5
-        cmp byte [PenaltySlots], 0
+        cmp byte [penmintab], 0
         je short .5
         mov eax, 504h
         xor edx, edx
@@ -259,7 +259,7 @@ AddPenalty2:
         je short .10
         cmp di, byte 1Dh
         je short .10
-        cmp byte [PenaltyPending], 0
+        cmp byte [PenBuf], 0
         jne short .9
         cmp word [HmPlayersInBox], byte 6
         jge short .7
@@ -318,18 +318,18 @@ AddPenalty2:
         call CommentaryEvent
         add esp, byte 8
 .13:
-        mov bl, byte [PenaltyPending]
+        mov bl, byte [PenBuf]
         xor eax, eax
         xor edx, edx
         test bl, bl
         jne near AddPenalty2_354.28
 .14:
         mov bl, byte [byte ebp-04h]
-        mov byte [dword eax+PenaltyPending], bl
+        mov byte [dword eax+PenBuf], bl
         mov bl, byte [dword ecx+0A4h]
         mov byte [dword eax+PenaltyTeam], bl
         mov bl, byte [byte ebp-08h]
-        mov byte [dword eax+PenaltySlots], bl
+        mov byte [dword eax+penmintab], bl
         cmp byte [dword ecx+0A6h], 19h
         jge short .16
         test bl, 4
@@ -355,7 +355,7 @@ AddPenalty2:
         jb short .16
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        or byte [dword eax+PenaltySlots], 10h
+        or byte [dword eax+penmintab], 10h
 .16:
         cmp word [byte ebp-08h], byte 0
         jne near AddPenalty2_354.22
@@ -568,9 +568,9 @@ AddPenalty2_354:
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
         xor dl, dl
-        mov byte [dword eax+PenaltySlots], dl
+        mov byte [dword eax+penmintab], dl
         mov byte [dword eax+PenaltyTeam], dl
-        mov byte [dword eax+PenaltyPending], dl
+        mov byte [dword eax+PenBuf], dl
         mov esp, ebp
         pop ebp
         pop edi
@@ -582,7 +582,7 @@ AddPenalty2_354:
         inc edx
         cmp eax, byte 60h
         jge near AddPenalty2_2CB
-        cmp byte [dword eax+PenaltyPending], 0
+        cmp byte [dword eax+PenBuf], 0
         je near AddPenalty2.14
         jmp short .28
         db 08Bh,0C0h
@@ -591,7 +591,7 @@ AddPenalty2_354:
         je short .29
         mov edx, 1
         mov word [BreakawayFlag], ax
-        mov dword [RefTarget], edx
+        mov dword [RefStep], edx
         cmp ax, 7
         sete al
         and eax, 0FFh
@@ -623,7 +623,7 @@ Stop4Pen:
         movsx edx, dx
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov bl, byte [dword eax+PenaltyPending]
+        mov bl, byte [dword eax+PenBuf]
         mov dl, byte [dword eax+PenaltyTeam]
         mov ah, byte [gmode]
         and dl, 7Fh
@@ -817,7 +817,7 @@ Stop4Pen:
 ; updatepwrplay                                  32B68  94G, medium confidence
 ;
 ; The power play state part (called from updatepentime here): players on ice home minus away; sets /
-; clears the power play flag (PlayFlags 20h, 40h visitors) and counts a power play (+20CBh) and a
+; clears the power play flag (gmode2 20h, 40h visitors) and counts a power play (+20CBh) and a
 ; shorthanded situation (+20BDh) when it starts; no display
 ;-----------------------------------------------------------------------------
 updatepwrplay:
@@ -830,35 +830,35 @@ updatepwrplay:
         mov edx, hmtmstruct
         sub ax, cx
         jne short .1
-        and byte [PlayFlags], 0DFh
+        and byte [gmode2], 0DFh
         pop edx
         pop ecx
         pop ebx
         ret
 .1:
-        mov cx, word [PlayFlags]
+        mov cx, word [gmode2]
         and cl, 9Fh
         test ax, ax
         jle short .2
-        mov al, byte [PlayFlags]
+        mov al, byte [gmode2]
         mov edx, ebx
         mov ebx, hmtmstruct
         test al, 40h
         je short .4
         jmp short .3
 .2:
-        test byte [PlayFlags], 40h
+        test byte [gmode2], 40h
         jne short .4
         or cl, 40h
 .3:
-        mov word [PlayFlags], cx
+        mov word [gmode2], cx
 .4:
-        mov ah, byte [PlayFlags]
+        mov ah, byte [gmode2]
         test ah, 20h
         jne short .5
         mov cl, ah
         or cl, 20h
-        mov byte [PlayFlags], cl
+        mov byte [gmode2], cl
         cmp dword [ReplayPlaying], byte 0
         jne short .5
         mov eax, dword [dword ebx+0108h]
@@ -888,7 +888,7 @@ chkatop:
         cmp eax, 0FFFFFA90h
         jge near .6
 .1:
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov dl, byte [eax]
         test dl, dl
         jl short .2
@@ -929,7 +929,7 @@ chkatop:
         pop edx
         ret
         db 090h
-        mov ah, byte [PlayFlags]
+        mov ah, byte [gmode2]
         test ah, 20h
         je short .9
         cmp dword [ReplayPlaying], byte 0
@@ -1077,7 +1077,7 @@ PenGoalStuff:
         je near .14
         movsx edx, ax
         lea edx, [edx+edx*2]
-        mov cl, byte [dword edx+PenaltySlots]
+        mov cl, byte [dword edx+penmintab]
         test cl, 14h
         jne short .13
         test cl, 3
@@ -1098,13 +1098,13 @@ PenGoalStuff:
         movsx esi, bx
         lea edx, [edx+edx*2]
         lea esi, [esi+esi*2]
-        mov cl, byte [dword edx+PenaltyPending]
-        mov byte [dword esi+PenaltyPending], cl
+        mov cl, byte [dword edx+PenBuf]
+        mov byte [dword esi+PenBuf], cl
         mov cl, byte [dword edx+PenaltyTeam]
         mov byte [dword esi+PenaltyTeam], cl
-        mov dl, byte [dword edx+PenaltySlots]
+        mov dl, byte [dword edx+penmintab]
         inc ebx
-        mov byte [dword esi+PenaltySlots], dl
+        mov byte [dword esi+penmintab], dl
         jmp short .16
 .14:
         movsx edx, ax
@@ -1124,17 +1124,17 @@ PenGoalStuff:
         movsx edx, ax
         lea edx, [edx+edx*2]
         xor cl, cl
-        mov byte [dword edx+PenaltySlots], cl
+        mov byte [dword edx+penmintab], cl
         mov byte [dword edx+PenaltyTeam], cl
-        mov byte [dword edx+PenaltyPending], cl
+        mov byte [dword edx+PenBuf], cl
 .16:
         inc eax
 .17:
         movsx edx, ax
         lea edx, [edx+edx*2]
-        cmp byte [dword edx+PenaltyPending], 0
+        cmp byte [dword edx+PenBuf], 0
         jne near .9
-        cmp byte [PenaltyPending], 0
+        cmp byte [PenBuf], 0
         jne short .18
         cmp word [MessagePanel], byte 7
         jne short .18
@@ -1260,7 +1260,7 @@ updatepentime_ut_chk:
         mov edx, SortCords
         shl eax, 3
         add edx, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         movzx edi, byte [dword edx+0A4h]
         movsx esi, byte [eax]
         cmp edi, esi
@@ -1270,7 +1270,7 @@ updatepentime_ut_chk:
         cmp byte [dword edx+0A4h], 6
         setb al
         mov esi, eax
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         and esi, 0FFh
         cmp byte [eax], 6
         setl al
@@ -1472,7 +1472,7 @@ updatepentime:
         mov word [PeriodLength], si
         call updatepwrplay
         call chkatop
-        mov bl, byte [PlayFlags]
+        mov bl, byte [gmode2]
         test bl, 20h
         je short .3
         cmp dword [ReplayPlaying], byte 0
@@ -1514,13 +1514,13 @@ checkfornewpen:
         mov bh, byte [dword eax+PenaltyTeam]
         test cl, 4
         jne near .11
-        cmp byte [dword eax+PenaltySlots], 0
+        cmp byte [dword eax+penmintab], 0
         je near .10
         cmp bl, 1Ch
         je near .10
         cmp bl, 1Dh
         je near .10
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         mov cl, byte [eax]
         test cl, cl
         jl short .2
@@ -1654,7 +1654,7 @@ checkfornewpen:
 .16:
         movsx eax, dx
         lea eax, [eax+eax*2]
-        mov bl, byte [dword eax+PenaltyPending]
+        mov bl, byte [dword eax+PenBuf]
         test bl, bl
         jne near .1
 .17:
@@ -1990,7 +1990,7 @@ InProgress:
         cmp byte [dword edx+eax+0B2h], 44h
         je near .56
 .1:
-        cmp byte [PenaltyPending], 0
+        cmp byte [PenBuf], 0
         jne near .9
         cmp dword [RefPlayer], byte 0
         jge near .56
@@ -2088,7 +2088,7 @@ InProgress:
         xor dl, dl
         jmp short .12
 .10:
-        cmp dl, byte [dword eax+PenaltySlots]
+        cmp dl, byte [dword eax+penmintab]
         je short .11
         mov byte [RefSignal], bl
 .11:
@@ -2096,7 +2096,7 @@ InProgress:
 .12:
         movsx eax, si
         lea eax, [eax+eax*2]
-        cmp dl, byte [dword eax+PenaltyPending]
+        cmp dl, byte [dword eax+PenBuf]
         jne short .10
         dec esi
         movsx edx, si
@@ -2112,8 +2112,8 @@ InProgress:
         jge near .56
         xor ah, ah
         mov byte [dword edx+PenaltyTeam], ah
-        mov byte [dword edx+PenaltyPending], ah
-        mov byte [dword edx+PenaltySlots], ah
+        mov byte [dword edx+PenBuf], ah
+        mov byte [dword edx+penmintab], ah
         jmp near .1
 .13:
         and al, 7Fh
@@ -2125,7 +2125,7 @@ InProgress:
         jne near .56
         mov bl, byte [dword edx+PenaltyTeam]
         and bl, 7Fh
-        mov al, byte [dword edx+PenaltyPending]
+        mov al, byte [dword edx+PenBuf]
         mov byte [dword edx+PenaltyTeam], bl
         mov byte [byte ebp-04h], al
         mov eax, dword [dword edi+0FEh]
@@ -2135,16 +2135,16 @@ InProgress:
         jne near .15
         call SetupPenaltyShot
         xor al, al
-        mov byte [dword edx+PenaltySlots], al
+        mov byte [dword edx+penmintab], al
         mov byte [dword edx+PenaltyTeam], al
-        mov byte [dword edx+PenaltyPending], al
+        mov byte [dword edx+PenBuf], al
         xor ah, ah
         mov al, bh
         cmp ax, 3
         je short .14
         mov ecx, 1
         mov word [BreakawayFlag], ax
-        mov dword [RefTarget], ecx
+        mov dword [RefStep], ecx
         cmp ax, 7
         sete al
         and eax, 0FFh
@@ -2171,7 +2171,7 @@ InProgress:
         pop ebx
         ret
 .15:
-        cmp byte [dword edx+PenaltySlots], 0
+        cmp byte [dword edx+penmintab], 0
         je near .20
         cmp bh, 0Eh
         jb near .19
@@ -2192,7 +2192,7 @@ InProgress:
         and bl, 0EFh
         sub eax, byte 0Ch
         mov cx, word [nosplit ebx*2+ProgressTimes]
-        mov bl, byte [dword edx+PenaltySlots]
+        mov bl, byte [dword edx+penmintab]
         or eax, ecx
         test bl, 10h
         je short .17
@@ -2238,7 +2238,7 @@ InProgress:
 .20:
         movsx eax, si
         lea eax, [eax+eax*2]
-        mov cl, byte [dword eax+PenaltySlots]
+        mov cl, byte [dword eax+penmintab]
         test cl, cl
         je short .21
         test cl, 10h
@@ -2246,7 +2246,7 @@ InProgress:
 .21:
         movsx eax, si
         lea eax, [eax+eax*2]
-        test byte [dword eax+PenaltySlots], 10h
+        test byte [dword eax+penmintab], 10h
         je near .28
         mov eax, dword [dword edi+0A3h]
         sar eax, 18h
@@ -2281,19 +2281,19 @@ InProgress:
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        test byte [dword eax+PenaltySlots], 7
+        test byte [dword eax+penmintab], 7
         jne near .30
         xor cl, cl
         mov byte [dword eax+PenaltyTeam], cl
-        mov byte [dword eax+PenaltyPending], cl
-        mov byte [dword eax+PenaltySlots], cl
+        mov byte [dword eax+PenBuf], cl
+        mov byte [dword eax+penmintab], cl
         xor eax, eax
         mov al, byte [byte ebp-04h]
         cmp ax, 3
         je short .25
         mov ebx, 1
         mov word [BreakawayFlag], ax
-        mov dword [RefTarget], ebx
+        mov dword [RefStep], ebx
         cmp ax, 7
         sete al
         and eax, 0FFh
@@ -2305,7 +2305,7 @@ InProgress:
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov al, byte [dword eax+PenaltySlots]
+        mov al, byte [dword eax+penmintab]
         xor ebx, ebx
         and al, 10h
         mov bl, al
@@ -2357,9 +2357,9 @@ InProgress:
 .28:
         xor dh, dh
         mov byte [dword eax+PenaltyTeam], dh
-        mov byte [dword eax+PenaltyPending], dh
+        mov byte [dword eax+PenBuf], dh
         mov si, word [GoalLineFlag]
-        mov byte [dword eax+PenaltySlots], dh
+        mov byte [dword eax+penmintab], dh
         test si, si
         je short .29
         cmp byte [byte ebp-04h], 7
@@ -2371,13 +2371,13 @@ InProgress:
         je near .56
         mov edx, 1
         mov word [BreakawayFlag], ax
-        mov dword [RefTarget], edx
+        mov dword [RefStep], edx
         jmp near .55
 .30:
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov al, byte [dword eax+PenaltySlots]
+        mov al, byte [dword eax+penmintab]
         and al, 7
         cmp al, 2
         jb short .31
@@ -2430,7 +2430,7 @@ InProgress:
         movsx edx, si
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov al, byte [dword eax+PenaltySlots]
+        mov al, byte [dword eax+penmintab]
         xor ebx, ebx
         and al, 10h
         mov bl, al
@@ -2539,7 +2539,7 @@ InProgress:
         mov dword [byte ebp-0Ch], eax
         lea eax, [nosplit edx*4+00h]
         sub eax, edx
-        mov dl, byte [dword eax+PenaltySlots]
+        mov dl, byte [dword eax+penmintab]
         and ch, 0FDh
         cmp dl, 1
         jne short .47
@@ -2564,7 +2564,7 @@ InProgress:
 .48:
         movsx edx, ax
         lea edx, [edx+edx*2]
-        mov bh, byte [dword edx+PenaltySlots]
+        mov bh, byte [dword edx+penmintab]
         cmp bh, 1
         je short .49
         cmp bh, 2
@@ -2626,7 +2626,7 @@ InProgress:
         je short .56
         mov edi, 1
         mov word [BreakawayFlag], ax
-        mov dword [RefTarget], edi
+        mov dword [RefStep], edi
 .55:
         cmp ax, 7
         sete al
@@ -2665,18 +2665,18 @@ InProgress_8B2:
 .57:
         mov ebx, edx
         add eax, byte 3
-        mov cl, byte [dword ebx+PenaltyPending]
+        mov cl, byte [dword ebx+PenBuf]
         add edx, byte 3
         test cl, cl
         je short InProgress_96E
-        cmp byte [dword eax+PenaltySlots], 0
+        cmp byte [dword eax+penmintab], 0
         je short .57
-        mov al, byte [PlayFlags]
+        mov al, byte [gmode2]
         mov edx, 0FFFFFFFFh
         or al, 4
         mov ebx, 1
-        mov byte [PlayFlags], al
-        mov eax, dword [PtrPuckZone]
+        mov byte [gmode2], al
+        mov eax, dword [puckc]
         mov word [ProgressTimer], dx
         mov word [GoalLineFlag], bx
         mov byte [eax], 0FFh
@@ -2724,7 +2724,7 @@ chkprogress:
         mov word [ProgressTimer], bx
         test bx, bx
         jge short .1
-        or byte [PlayFlags], 4
+        or byte [gmode2], 4
 .1:
         test byte [gmode], 4
         je short InProgress_96E

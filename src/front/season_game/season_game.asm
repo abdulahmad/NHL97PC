@@ -5,7 +5,7 @@ section s_3812E progbits alloc exec nowrite align=1
 extern AllStarDay, AllStarLogoArt, BlankMenuItem, BlitArt, BlitShape, BuildAllStarTeams, ClearScreen, ConvertArtNew
 extern CreateBitmap, DaysToYear, DrawArt, DrawFrameBox, DrawScreenBackground, DrawShadedLogo, DrawShadowBox, DrawShapeBlended
 extern DrawTextAligned, ExitScreen, FadeInScreen, FillStatBar, FindGameRecord, FindNextSeasonGame, FindShape, FindShapeQuiet
-extern FinishLeagueGame, FreeBitmap, FreeDbBlock, FreeLogoArt, FreeMemBlock, FrontMusicOn, GameOptionFlags, GameSettings
+extern FinishLeagueGame, FreeBitmap, FreeDbBlock, FreeLogoArt, FreeMemBlock, FrontMusicOn, gameopts, GameSettings
 extern GetLangText, InitMenuItems, InitShapeListBox, LoadDataFile, LoadFrontEndSfx, LoadTeamLogo, MakeColor, MatchupLogoArt
 extern MatchupLogoIds, MatchupLogoPos, MenuScreenBitmap, MusicEnabled, OpenArtArchive, OpenDataLibrary, OpenLeagueFile, PeriodAwayTeam
 extern PeriodHomeTeam, PlayoffTeams, PlayoffUserActive, PlayoffUserHuman, PlayoffUserIndex, PlayoffUserReplay, PlaySfx, PresentScreen
@@ -1977,10 +1977,10 @@ StartNextSeasonGame:
         cmp ax, word [SeasonDate]
         jbe short .5
         call BuildAllStarTeams
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         and dword [byte eax+01h], 0FFF03FFFh
         or dword [byte eax+01h], 68000h
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         and word [byte eax+03h], 0FC0Fh
         or word [byte eax+03h], 1B0h
         mov dword [SeasonPlayedFlag], 1
@@ -2001,7 +2001,7 @@ StartNextSeasonGame:
         jne short .6
         mov edx, dword [byte edx+020h]
         movsx edx, byte [edx+ebx]
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         and edx, byte 3Fh
         and dword [byte eax+01h], 0FFF03FFFh
         shl edx, 0Eh
@@ -2019,7 +2019,7 @@ StartNextSeasonGame:
         mov edx, dword [byte edx+020h]
         movsx edx, byte [edx+ebx]
         mov edx, dword [nosplit edx*4+PlayoffTeams]
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         and edx, byte 3Fh
         and dword [byte eax+01h], 0FFF03FFFh
         shl edx, 0Eh
@@ -2031,7 +2031,7 @@ StartNextSeasonGame:
         movsx edx, byte [byte edx+ebx+01h]
         mov edx, dword [nosplit edx*4+PlayoffTeams]
 .7:
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         and edx, byte 3Fh
         and word [byte eax+03h], 0FC0Fh
         shl edx, 14h

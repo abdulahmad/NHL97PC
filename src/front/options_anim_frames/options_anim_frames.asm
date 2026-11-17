@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_10A67 progbits alloc exec nowrite align=1
-extern __STOSB, CalibrateJoystick, ChantIndex, ChantPlayed, ChantState, CrowdChantTable, GameOptionFlags, GripDriverData
+extern __STOSB, CalibrateJoystick, ChantIndex, ChantPlayed, ChantState, CrowdChantTable, gameopts, GripDriverData
 extern GripDriverPtr, GripFarCall, GripFlags, GripPortWord, GripReady, JoyAxisSecondX, JoyAxisSecondY, JoyAxisValues
 extern JoyAxisY, JoyPortMask, ResetJoystickRange, str_DOSJoystick, strcpy_
 global SetupOptionsAnim, DrawOptionsAnimFrame, UpdateOptionsAnim
@@ -612,7 +612,7 @@ UpdateOptionsAnim:
         call __STOSB
         xor ah, ah
         mov byte [ChantState], ah
-        mov eax, dword [GameOptionFlags]
+        mov eax, dword [gameopts]
         mov eax, dword [byte eax+01h]
         shl eax, 0Ch
         shr eax, 1Ah

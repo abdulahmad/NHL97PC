@@ -8,7 +8,7 @@ extern F64_0p0001, F64_0p00347222, F64_0p2_RefDodgePuck, F64_0p349066, F64_0p6, 
 extern F64_0p8, F64_1p0472, F64_1p2_PokeCheckAnim, F64_1p5708, F64_3p14159_ReachForPuckAnim, F64_3p14159_TryBodyCheck, F64_6p28319_ReachForPuckAnim, F64_6p28319_TryBodyCheck
 extern F64_96, F64_neg3p14159_GoToBoxAnim, F64_neg3p14159_ReachForPuckAnim, F64_neg3p14159_TryBodyCheck, F64_neg6p28319_ReachForPuckAnim, F64_neg6p28319_TryBodyCheck, GetAnimId, GetStickBladePos
 extern gmode, hypot_, IF@ATAN2, IF@DFMOD, LimitSkateSpeed, MoveFlags, NetCollide, NetCollide2
-extern PickSaveAnim, PickSkateAnim, PlaySfxAt, PlaySfxVolume, PtrPuckFlags, PtrPuckZone, randomd0, ResetAnimTimer
+extern PickSaveAnim, PickSkateAnim, PlaySfxAt, PlaySfxVolume, PtrPuckFlags, puckc, randomd0, ResetAnimTimer
 extern SaveDirection, SetFaceBlink, SetFaceExpression, SetFaceMouth, SetModelHeading, SetObjectHidden, SetSPA, SetSPAInPlace
 extern SortCords, SteerAndAccel, StepMove, str_C_FaceoffSwipeAnim, str_O_FaceoffStanceMove, str_U_FaceoffDrawAnim, StrideSpeeds, TryPokePuck
 global FaceoffStanceMove, RunSimpleMove, FaceoffMoveResult, FaceoffMove, MoveWithSfx, RandomFollowMove, ShoutMove, BodyMove
@@ -1038,7 +1038,7 @@ RefDodgePuck:
         jne near .4
         test byte [dword esi+0BFh], 20h
         jne near .4
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jge near .4
         mov edx, dword [PtrPuckFlags]
@@ -1861,20 +1861,20 @@ DoCheckButton:
         call TryPokePuck
         test eax, eax
         jne near .5
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 0
         jl short .1
         cmp byte [dword esi+0A4h], 6
         setb al
         xor edx, edx
         mov dl, al
-        mov eax, dword [PtrPuckZone]
+        mov eax, dword [puckc]
         cmp byte [eax], 6
         setl al
         and eax, 0FFh
         xor eax, edx
         je short .1
-        mov edx, dword [PtrPuckZone]
+        mov edx, dword [puckc]
         movsx edx, byte [edx]
         mov eax, edx
         shl eax, 5

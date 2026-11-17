@@ -5,11 +5,11 @@ bits 32
 %include "hockey.inc"
 section s_16F77C progbits alloc noexec write align=1
 extern bcopy_, BuildUniformArt_3CC, CopyPalette16, CopyPalette24, CopyPalette32
-global RemapTable, VesaBankShift, RemapByte, IdentityRemap, PuckArrowColors, RandState
+global RemapTable, VesaBankShift, RemapByte, IdentityRemap, PuckArrowColors, RandomState
 global RandIndex, VesaBank, VesaBankFunc, PaletteReadFunc, VideoModeIndex, ModeTableWidth
 global ModeTableHeight, ModeTableBpp, ModeTableNumber, VesaModeInfo, VesaWindowActive, RowTableBytes, RowTable, LimbShadeEnabled
 global ViewInterlaced, FrameBlitFuncs
-RandState:                                      ; random generator state (5 dwords); used by Random32,
+RandomState:                                    ; random generator state (5 dwords); used by Random32,
                                                 ; SeedRandom
         db 056h,0Eh,02Dh,0F2h
         db 0E9h,026h,031h,088h

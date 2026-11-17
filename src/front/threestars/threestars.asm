@@ -3,7 +3,7 @@ bits 32
 %include "hockey.inc"
 section s_A728C progbits alloc exec nowrite align=1
 extern AutoLineData, AwayPlayerRecords, AwayRosterData, BlitArt, BlitShape, DrawTextAligned, FindShape, GameLogCount
-extern GameOptionFlags, GameSettings, GameStatsSpeechCount, GetLangText, GoldStarShapes, HomeInjuredCount, homelines, HomePlayerRecords
+extern gameopts, GameSettings, GameStatsSpeechCount, GetLangText, GoldStarShapes, HomeInjuredCount, homelines, HomePlayerRecords
 extern HomeRosterData, MeasureText, memset_, PenaltyLogCount, PeriodAwayTeam, PeriodHomeTeam, PlaySfx, PostGameLastSpeech
 extern PostGameLayer, qsort_, Random32, ScoringLogCount, sprintf_, StarFrameShapes, StopAllSfx, str_DCS
 extern str_DSS2, ThreeStarsChoice, ThreeStarsCount, ThreeStarsLayers, ThreeStarsPlayer, ThreeStarsPoints, ThreeStarsPos, ThreeStarsSoundOn
@@ -53,7 +53,7 @@ StarBonus:
         push esi
         push edi
         mov ebx, eax
-        mov ecx, dword [GameOptionFlags]
+        mov ecx, dword [gameopts]
         mov ecx, dword [byte ecx+01h]
         shl ecx, 13h
         mov edx, 5

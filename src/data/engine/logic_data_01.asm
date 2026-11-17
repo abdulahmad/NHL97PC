@@ -4,7 +4,7 @@
 bits 32
 %include "hockey.inc"
 section s_19CA2F progbits alloc noexec write align=1
-global PenaltyPending, PenaltyTeam, PenaltySlots, PenaltyQueue, PenaltyBoxCount, ProgressRecord, PadSlotA, PadSlotB
+global PenBuf, PenaltyTeam, penmintab, PenaltyQueue, PBnum, ProgressRecord, PadSlotA, PadSlotB
 global ProgressCount, FaceoffSlots, RefState, InputState, InputButtons, InputDir, ShotState, LastTouchPlayer
 global PassFrom, PassTo, PuckHitFlag, GameRunning, DefendTarget, ShootSpotX, ExtraAttacker, ZoneTargetX
 global ZoneFlags, BenchSlotTable, regd1, JoyStateTable, FaceoffX, FaceoffDropX, FaceoffY, FaceoffDropY
@@ -12,13 +12,13 @@ global GameVarClear, JoyButtonsTable, LineChangeHome, LineChangeAway, LineChange
 global DefendFlags, ShootSpotY, GoalieTarget, ZoneTargetY
 ProgressRecord:                                 ; progress record; used by InProgress
         db 00h
-PenaltyPending:                                 ; penalty pending; used by AddPenalty2, ClearPlayerFlags,
+PenBuf:                                         ; penalty pending; used by AddPenalty2, ClearPlayerFlags,
                                                 ; DelayedPenaltyEnd ...
         db 00h
 PenaltyTeam:                                    ; team taking the penalty; used by AddPenalty2,
                                                 ; ClearPlayerFlags, DelayedPenaltyEnd ...
         db 00h
-PenaltySlots:                                   ; penalty slots; used by AddPenalty2, InProgress, PenGoalStuff
+penmintab:                                      ; penalty slots; used by AddPenalty2, InProgress, PenGoalStuff
                                                 ; ...
         db 00h
 PenaltyQueue:                                   ; penalty queue; used by Stop4Pen
@@ -137,6 +137,6 @@ regd1:                                          ; used by AimAtPuckTarget, Chase
 BenchSlotTable:                                 ; bench slot table; used by FindBenchSlot, FreeBoxSeat,
                                                 ; MoveBoxToBenchSeat ...
         db 00h,00h,00h
-PenaltyBoxCount:                                ; players in the penalty box; used by AddPenalty,
+PBnum:                                          ; players in the penalty box; used by AddPenalty,
                                                 ; InitGameVars, ReleaseBoxToBench ...
         db 00h
