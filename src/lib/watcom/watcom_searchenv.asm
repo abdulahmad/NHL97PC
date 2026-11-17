@@ -1,0 +1,120 @@
+; Watcom C runtime: _searchenv_.
+bits 32
+%include "hockey.inc"
+section s_F9B40 progbits alloc exec nowrite align=1
+extern __set_errno_, access_, ErrnoPtr, getcwd_, getenv_, strcat_, strcpy_, strlen_
+global _searchenv_
+;-----------------------------------------------------------------------------
+; _searchenv_                                                   F9B40  library
+; Run-time library _searchenv: finds a file on the paths of an environment variable
+;-----------------------------------------------------------------------------
+_searchenv_:
+        push ecx
+        push esi
+        push edi
+        enter 4, 0
+        mov ecx, eax
+        mov edi, edx
+        mov esi, ebx
+        call ErrnoPtr
+        mov eax, dword [eax]
+        xor edx, edx
+        mov dword [byte ebp-04h], eax
+        mov eax, ecx
+        call access_
+        test eax, eax
+        jne short .3
+        mov eax, ebx
+        movzx ebx, byte [ecx]
+        cmp ebx, byte 5Ch
+        je short .2
+        cmp ebx, byte 2Eh
+        je short .2
+        cmp ebx, byte 2Fh
+        je short .2
+        cmp byte [ecx], 0
+        je short .1
+        movzx ebx, byte [byte ecx+01h]
+        cmp ebx, byte 3Ah
+        je short .2
+.1:
+        mov edx, 90h
+        mov eax, esi
+        call getcwd_
+        mov eax, esi
+        call strlen_
+        add eax, esi
+        movzx ebx, byte [byte eax-01h]
+        cmp ebx, byte 5Ch
+        je short .2
+        mov byte [eax], 5Ch
+        inc eax
+.2:
+        mov edx, ecx
+        call strcpy_
+        leave
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.3:
+        mov eax, edi
+        call getenv_
+        mov ebx, eax
+        test eax, eax
+        je near .9
+.4:
+        cmp byte [ebx], 0
+        je near .9
+        mov eax, esi
+.5:
+        cmp byte [ebx], 0
+        je short .6
+        movzx edi, byte [ebx]
+        cmp edi, byte 3Bh
+        je short .6
+        mov dl, byte [ebx]
+        inc ebx
+        mov byte [eax], dl
+        inc eax
+        jmp short .5
+.6:
+        cmp eax, esi
+        je short .8
+        movzx edi, byte [byte eax-01h]
+        cmp edi, byte 5Ch
+        je short .7
+        cmp edi, byte 2Fh
+        je short .7
+        cmp edi, byte 3Ah
+        je short .7
+        mov byte [eax], 5Ch
+        inc eax
+.7:
+        mov edx, ecx
+        mov byte [eax], 0
+        call strcat_
+        mov eax, esi
+        xor edx, edx
+        call access_
+        test eax, eax
+        jne short .8
+        mov eax, dword [byte ebp-04h]
+        call __set_errno_
+        leave
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.8:
+        cmp byte [ebx], 0
+        je short .9
+        inc ebx
+        jmp short .4
+.9:
+        mov byte [esi], 0
+        leave
+        pop edi
+        pop esi
+        pop ecx
+        ret

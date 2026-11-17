@@ -1,0 +1,830 @@
+; Sound: DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, AdvanceStreamOffset, AudioNullFunc and 17 more.
+bits 32
+%include "hockey.inc"
+section s_1072D6 progbits alloc exec nowrite align=1
+extern AddExitHandler, addtimer, AudioDriverCloseFns, AudioDriverDetectFns, AudioDriverNum, AudioDriverOpenFns, AudioDriverUpdateFns, AudioExitHooked
+extern AudioLeave, AudioTimerOn, ChannelHandleTable, ChannelPitchTable, ChannelRampTable, ChannelTimeTable, ChannelVolumeTable, CloseDigitalAudio
+extern DetectSoundCard, GusDetect, MixerFadeChannel, MixerSamplesLeft, MixerSetPanVolume, MixerSetPitch, MixerStartSample, ProbeSoundPorts
+extern ReadLittleEndian, ReadSoundscapeIni, RemoveTimerCallback, SampleBitsTable, SampleChannelsTable, SampleFormatSize, SampleInfoTable, SampleRateTable
+extern SoundscapeCodecReady
+global WssBasePorts, DetectAudioDriver, OpenAudioDriver, CloseAudioDriver, AdvanceStreamOffset, AudioNullFunc, StartTmplSample, StartPatchSampleJumpTable
+global StartPatchSample, StartPatchSample_B1, StartPatchSample_C2, StartPatchSample_D3, StartPatchSample_E7, StartPatchSample_FB, StartPatchSample_10F, StartPatchSample_123
+global StartPatchSample_135, StartPatchSample_140, ParsePatchTags, AudioDriverUpdate, ApplyChannelVolume, FadeOutChannel, ChannelTimeLeft, SetChannelPitch
+global InitStreamHeader, PickSampleRate, SampleRateResults, SampleRateResults_1, SampleRateResults_7, SampleRateResults_D, SampleRateResults_13, SampleRateResults_19
+global DetectAudioHardware
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+WssBasePorts:                                   ; used by ProbeSoundPorts
+        db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
+;-----------------------------------------------------------------------------
+; DetectAudioDriver                              1072F0  97 PC, low confidence
+; Calls the detect function of an audio driver (1..6)
+;-----------------------------------------------------------------------------
+DetectAudioDriver:
+        cmp eax, byte 1
+        jl short .1
+        cmp eax, byte 6
+        jle short .2
+.1:
+        xor eax, eax
+        ret
+.2:
+        shl eax, 4
+        call dword [dword eax+AudioDriverDetectFns]
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; OpenAudioDriver                                107308  97 PC, low confidence
+; Opens an audio driver, starts the audio timer and registers the close at
+; exit
+;-----------------------------------------------------------------------------
+OpenAudioDriver:
+        push ebx
+        push ecx
+        push esi
+        push ebp
+        mov ebx, edx
+        shl ebx, 4
+        call dword [dword ebx+AudioDriverOpenFns]
+        mov ebx, eax
+        test eax, eax
+        jge short .1
+        xor edx, edx
+.1:
+        mov dword [AudioDriverNum], edx
+        cmp dword [AudioTimerOn], byte 0
+        jne short .2
+        mov esi, 1
+        push AudioLeave
+        mov dword [AudioTimerOn], esi
+        call addtimer
+        add esp, byte 4
+.2:
+        cmp dword [AudioExitHooked], byte 0
+        jne short .3
+        push CloseDigitalAudio
+        mov ebp, 1
+        call AddExitHandler
+        add esp, byte 4
+        mov dword [AudioExitHooked], ebp
+.3:
+        mov eax, ebx
+        pop ebp
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; CloseAudioDriver                               107370  97 PC, low confidence
+; Stops the audio timer and closes the current audio driver
+;-----------------------------------------------------------------------------
+CloseAudioDriver:
+        push ebx
+        push ecx
+        push edx
+        cmp dword [AudioTimerOn], byte 0
+        je short .1
+        push AudioLeave
+        call RemoveTimerCallback
+        xor ebx, ebx
+        add esp, byte 4
+        mov dword [AudioTimerOn], ebx
+.1:
+        mov eax, dword [AudioDriverNum]
+        shl eax, 4
+        xor ecx, ecx
+        call dword [dword eax+AudioDriverCloseFns]
+        mov dword [AudioDriverNum], ecx
+        xor eax, eax
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; AdvanceStreamOffset                            1073B0  97 PC, low confidence
+; Adds a byte count to a stream's read offset
+;-----------------------------------------------------------------------------
+AdvanceStreamOffset:
+        test edx, edx
+        jne short .1
+        lea edx, [byte eax+018h]
+.1:
+        add dword [byte eax+018h], edx
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; AudioNullFunc                                  1073BC  97 PC, low confidence
+; Empty audio driver entry: returns 0
+;-----------------------------------------------------------------------------
+AudioNullFunc:
+        xor eax, eax
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; StartTmplSample                                1073C0  97 PC, low confidence
+; Checks a TMpl sample header, records its format and starts it on a mixer
+; channel
+;-----------------------------------------------------------------------------
+StartTmplSample:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 0Ch
+        mov edi, ebx
+        mov dword [esp], ecx
+        mov ebx, dword [byte esp+028h]
+        xor ecx, ecx
+        mov esi, dword [eax]
+        mov dword [byte esp+08h], ecx
+        mov ecx, eax
+        cmp esi, 6C704D54h
+        je short .1
+        mov eax, 0FFFFFFF9h
+        jmp near .8
+.1:
+        cmp byte [byte eax+04h], 0
+        je short .2
+        mov eax, 0FFFFFFF5h
+        add esp, byte 0Ch
+        pop ebp
+        pop edi
+        pop esi
+        ret 14h
+.2:
+        cmp byte [byte eax+05h], 10h
+        jne short .3
+        mov dword [byte esp+08h], 1
+.3:
+        mov ah, byte [byte ecx+06h]
+        cmp ah, 2
+        jne short .4
+        or byte [byte esp+08h], ah
+.4:
+        cmp byte [byte ecx+07h], 2
+        jne short .5
+        or byte [byte esp+08h], 10h
+.5:
+        cmp edx, byte 2
+        jne short .6
+        mov ah, byte [byte esp+08h]
+        or ah, 8
+        mov esi, 0FFFFFFFFh
+        mov byte [byte esp+08h], ah
+        xor eax, eax
+        mov ebp, esi
+        jmp short .7
+.6:
+        mov eax, dword [byte ecx+0Ch]
+        mov esi, dword [byte ecx+010h]
+        mov ebp, dword [byte ecx+014h]
+.7:
+        mov dword [byte esp+04h], eax
+        mov dx, word [byte ecx+0Ah]
+        mov word [nosplit edi*8+SampleRateTable], dx
+        mov dl, byte [byte ecx+05h]
+        mov byte [nosplit edi*8+SampleBitsTable], dl
+        mov dl, byte [byte ecx+06h]
+        mov byte [nosplit edi*8+SampleChannelsTable], dl
+        xor edx, edx
+        mov dl, byte [byte ecx+07h]
+        mov eax, dword [byte esp+020h]
+        mov dword [nosplit edi*8+SampleInfoTable], edx
+        mov edx, dword [byte esp+024h]
+        call SampleFormatSize
+        push eax
+        mov edx, dword [byte esp+0Ch]
+        push edx
+        mov ebx, dword [byte esp+024h]
+        push ebx
+        mov eax, dword [byte esp+0Ch]
+        push eax
+        xor eax, eax
+        mov ax, word [byte ecx+0Ah]
+        push eax
+        sub ebp, esi
+        push ebp
+        push esi
+        mov edx, dword [byte esp+020h]
+        push edx
+        mov ebx, dword [byte ecx+018h]
+        push ebx
+        push edi
+        call MixerStartSample
+        add esp, byte 28h
+        xor eax, eax
+.8:
+        add esp, byte 0Ch
+        pop ebp
+        pop edi
+        pop esi
+        ret 14h
+        db 08Dh,040h,00h
+StartPatchSampleJumpTable:                      ; jump table for the switch cases of StartPatchSample
+        dd StartPatchSample_D3
+        dd StartPatchSample_E7
+        dd StartPatchSample_10F
+        dd StartPatchSample_FB
+        dd StartPatchSample_C2
+        dd StartPatchSample_123
+        dd StartPatchSample_135
+        dd StartPatchSample_140
+        dd StartPatchSample_140
+        dd StartPatchSample_B1
+;-----------------------------------------------------------------------------
+; StartPatchSample                               1074E8  97 PC, low confidence
+; Reads the tag list of a patch sample and starts it on a mixer channel
+;-----------------------------------------------------------------------------
+StartPatchSample:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 24h
+        mov esi, edx
+        mov dword [byte esp+04h], ebx
+        mov dword [byte esp+08h], ecx
+        mov edi, 0FFFFFFFFh
+        mov ebx, 1
+        xor edx, edx
+        mov ecx, 10h
+        mov dword [byte esp+0Ch], edx
+        mov dword [esp], edx
+        mov dword [byte esp+018h], edx
+        mov ebp, edi
+        mov edx, 5622h
+        mov dword [byte esp+020h], ebx
+        mov dword [byte esp+014h], edx
+        xor edx, edx
+        mov dword [byte esp+01Ch], ecx
+        mov dword [byte esp+010h], edx
+        test eax, eax
+        je short .1
+        mov eax, 0FFFFFFF9h
+        jmp near StartPatchSample_140.11
+.1:
+        mov ah, byte [esi]
+        cmp ah, 0FFh
+        je near StartPatchSample_140.3
+        cmp esi, 0FEh
+        je near StartPatchSample_140.3
+        inc esi
+        xor ebx, ebx
+        xor ecx, ecx
+        mov bl, byte [esi]
+        mov cl, ah
+        cmp ebx, 0FFh
+        jne short .2
+        inc esi
+        mov edx, 4
+        mov eax, esi
+        call ReadLittleEndian
+        mov ebx, eax
+        add esi, byte 3
+.2:
+        inc esi
+        cmp ecx, 80h
+        jl near StartPatchSample_140
+        sub ecx, 81h
+        cmp ecx, byte 9
+        ja near StartPatchSample_140
+        jmp dword [nosplit cs:ecx*4+StartPatchSampleJumpTable]
+StartPatchSample_B1:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov dword [byte esp+0Ch], eax
+        add esi, ebx
+        jmp short StartPatchSample.1
+StartPatchSample_C2:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov dword [byte esp+018h], eax
+        add esi, ebx
+        jmp short StartPatchSample.1
+StartPatchSample_D3:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov dword [byte esp+01Ch], eax
+        add esi, ebx
+        jmp near StartPatchSample.1
+StartPatchSample_E7:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov dword [byte esp+020h], eax
+        add esi, ebx
+        jmp near StartPatchSample.1
+StartPatchSample_FB:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov dword [byte esp+014h], eax
+        add esi, ebx
+        jmp near StartPatchSample.1
+StartPatchSample_10F:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov dword [byte esp+010h], eax
+        add esi, ebx
+        jmp near StartPatchSample.1
+StartPatchSample_123:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov edi, eax
+        add esi, ebx
+        jmp near StartPatchSample.1
+StartPatchSample_135:
+        mov edx, ebx
+        mov eax, esi
+        call ReadLittleEndian
+        mov ebp, eax
+StartPatchSample_140:
+        add esi, ebx
+        jmp near StartPatchSample.1
+.3:
+        cmp dword [byte esp+01Ch], byte 10h
+        jne short .4
+        or byte [esp], 1
+.4:
+        cmp dword [byte esp+020h], byte 2
+        jne short .5
+        or byte [esp], 2
+.5:
+        cmp dword [byte esp+010h], byte 2
+        jne short .6
+        or byte [esp], 10h
+.6:
+        cmp dword [byte esp+010h], byte 7
+        jne short .7
+        or byte [esp], 20h
+.7:
+        cmp dword [byte esp+04h], byte 2
+        jne short .8
+        mov cl, byte [esp]
+        mov edi, 0FFFFFFFFh
+        xor ebx, ebx
+        or cl, 8
+        mov dword [byte esp+018h], ebx
+        mov ebp, edi
+        mov byte [esp], cl
+.8:
+        cmp edi, byte 0FFFFFFFFh
+        jge short .9
+        mov edi, 0FFFFFFFFh
+.9:
+        cmp ebp, byte 0FFFFFFFFh
+        jge short .10
+        mov ebp, 0FFFFFFFFh
+.10:
+        mov eax, dword [byte esp+08h]
+        mov ebx, dword [byte esp+014h]
+        mov word [nosplit eax*8+SampleRateTable], bx
+        mov bl, byte [byte esp+01Ch]
+        mov byte [nosplit eax*8+SampleBitsTable], bl
+        mov bl, byte [byte esp+020h]
+        mov byte [nosplit eax*8+SampleChannelsTable], bl
+        mov ebx, dword [byte esp+010h]
+        mov edx, dword [byte esp+040h]
+        mov dword [nosplit eax*8+SampleInfoTable], ebx
+        mov ebx, dword [byte esp+044h]
+        mov eax, dword [byte esp+03Ch]
+        call SampleFormatSize
+        push eax
+        mov ecx, dword [byte esp+04h]
+        push ecx
+        mov esi, dword [byte esp+040h]
+        push esi
+        mov eax, dword [byte esp+040h]
+        push eax
+        mov edx, dword [byte esp+024h]
+        push edx
+        sub ebp, edi
+        push ebp
+        push edi
+        mov ebx, dword [byte esp+034h]
+        push ebx
+        mov ecx, dword [byte esp+02Ch]
+        push ecx
+        mov esi, dword [byte esp+02Ch]
+        push esi
+        call MixerStartSample
+        add esp, byte 28h
+        xor eax, eax
+.11:
+        add esp, byte 24h
+        pop ebp
+        pop edi
+        pop esi
+        ret 14h
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ParsePatchTags                                 10770C  97 PC, low confidence
+; Walks a patch tag list and reads the values of the known tags
+;-----------------------------------------------------------------------------
+ParsePatchTags:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov ecx, eax
+        mov dword [esp], edx
+        mov ah, byte [eax]
+        xor ebp, ebp
+        xor edi, edi
+        cmp ah, 0FFh
+        je near .6
+.1:
+        cmp ecx, 0FEh
+        je short .6
+        inc ecx
+        xor ebx, ebx
+        mov bl, byte [ecx]
+        movzx esi, byte [byte ecx-01h]
+        cmp ebx, 0FFh
+        jne short .2
+        inc ecx
+        mov edx, 4
+        mov eax, ecx
+        call ReadLittleEndian
+        mov ebx, eax
+        add ecx, byte 3
+.2:
+        inc ecx
+        cmp esi, 80h
+        jl short .5
+        cmp esi, 88h
+        jb short .5
+        jbe short .3
+        cmp esi, 8Ah
+        je short .4
+        jmp short .5
+.3:
+        mov edx, ebx
+        mov eax, ecx
+        call ReadLittleEndian
+        mov ebp, eax
+        jmp short .5
+.4:
+        mov edi, ecx
+.5:
+        add ecx, ebx
+        cmp byte [ecx], 0FFh
+        jne short .1
+.6:
+        mov eax, dword [esp]
+        add eax, ebp
+        mov dword [edi], eax
+        xor eax, eax
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; AudioDriverUpdate                              107798  97 PC, low confidence
+; Calls the update function of the current audio driver; followed by the
+; channel pan update
+;-----------------------------------------------------------------------------
+AudioDriverUpdate:
+        mov eax, dword [AudioDriverNum]
+        shl eax, 4
+        call dword [dword eax+AudioDriverUpdateFns]
+        ret
+        db 090h
+        push ebx
+        push ecx
+        mov ebx, eax
+        mov ecx, edx
+        shl eax, 4
+        add eax, ebx
+        mov eax, dword [nosplit eax*4+ChannelHandleTable]
+        sar eax, 18h
+        push eax
+        push edx
+        push ebx
+        call MixerSetPanVolume
+        add esp, byte 0Ch
+        xor eax, eax
+        pop ecx
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; ApplyChannelVolume                             1077D0  97 PC, low confidence
+; Sets a mixer channel's volume and pan from the channel table
+;-----------------------------------------------------------------------------
+ApplyChannelVolume:
+        push ebx
+        push ecx
+        mov ebx, eax
+        shl eax, 4
+        add eax, ebx
+        push edx
+        mov al, byte [nosplit eax*4+ChannelVolumeTable]
+        and eax, 0FFh
+        push eax
+        push ebx
+        call MixerSetPanVolume
+        add esp, byte 0Ch
+        xor eax, eax
+        pop ecx
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; FadeOutChannel                                 1077F8  97 PC, low confidence
+; Fades out and stops a mixer channel
+;-----------------------------------------------------------------------------
+FadeOutChannel:
+        push ecx
+        push edx
+        push eax
+        call MixerFadeChannel
+        add esp, byte 4
+        xor eax, eax
+        pop edx
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; ChannelTimeLeft                                107808  97 PC, low confidence
+; Returns how long a channel has left to play, from its remaining samples and
+; rate
+;-----------------------------------------------------------------------------
+ChannelTimeLeft:
+        push ebx
+        push ecx
+        push edx
+        mov ebx, eax
+        push eax
+        call MixerSamplesLeft
+        add esp, byte 4
+        test eax, eax
+        jl near .3
+        mov edx, eax
+        shl eax, 2
+        sub eax, edx
+        shl eax, 3
+        add edx, eax
+        xor ecx, ecx
+        shl edx, 2
+        mov cx, word [nosplit ebx*8+SampleRateTable]
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ecx
+        mov ecx, eax
+        mov eax, ebx
+        shl eax, 4
+        add eax, ebx
+        xor edx, edx
+        mov ebx, dword [nosplit eax*4+ChannelPitchTable]
+        mov dl, byte [nosplit eax*4+ChannelTimeTable]
+        sar ebx, 10h
+        mov al, byte [nosplit eax*4+ChannelRampTable]
+        and eax, 0FFh
+        call SampleFormatSize
+        mov ebx, eax
+        test eax, eax
+        jl short .1
+        mov edx, ecx
+        lea eax, [nosplit edx*4+00h]
+        add eax, edx
+        shl eax, 4
+        mov edx, eax
+        shl eax, 4
+        sub eax, edx
+        mov edx, eax
+        add ebx, 4B0h
+        jmp short .2
+.1:
+        lea edx, [dword eax-04B0h]
+        imul edx, ecx
+        mov ebx, 0FFFFFB50h
+        mov eax, edx
+.2:
+        sar edx, 1Fh
+        idiv ebx
+.3:
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; SetChannelPitch                                1078AC  97 PC, low confidence
+; Sets a mixer channel's playback rate from its sample format and pitch
+;-----------------------------------------------------------------------------
+SetChannelPitch:
+        push ebx
+        push ecx
+        push esi
+        mov ecx, eax
+        mov esi, edx
+        mov edx, eax
+        shl eax, 4
+        add eax, ecx
+        xor edx, ecx
+        mov ebx, dword [nosplit eax*4+ChannelPitchTable]
+        mov dl, byte [nosplit eax*4+ChannelTimeTable]
+        sar ebx, 10h
+        mov eax, esi
+        call SampleFormatSize
+        push eax
+        push ecx
+        call MixerSetPitch
+        add esp, byte 8
+        xor eax, eax
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; InitStreamHeader                               1078E4  97 PC, low confidence
+; Clears or fills the header of an audio stream block from the channel format
+;-----------------------------------------------------------------------------
+InitStreamHeader:
+        push ecx
+        push esi
+        mov ecx, edx
+        lea edx, [nosplit ebx*8+00h]
+        add edx, SampleRateTable
+        mov ebx, dword [byte edx+04h]
+        cmp ebx, byte 2
+        jne short .4
+        mov word [eax], 0
+        mov word [byte eax+02h], 0
+        mov word [byte eax+04h], 0
+        mov word [byte eax+06h], 0
+        mov bh, byte [byte edx+03h]
+        lea esi, [byte eax+08h]
+        cmp bh, 1
+        jne short .2
+        mov ebx, 2
+        mov edx, ecx
+        mov eax, ecx
+        sar edx, 1Fh
+        idiv ebx
+        test edx, edx
+        je short .1
+        inc ecx
+.1:
+        sar ecx, 1
+.2:
+        xor edx, edx
+        test ecx, ecx
+        jle short .9
+        mov eax, esi
+.3:
+        inc edx
+        mov byte [eax], 0
+        inc eax
+        cmp edx, ecx
+        jge short .9
+        jmp short .3
+.4:
+        test ebx, ebx
+        jne short .9
+        cmp byte [byte edx+03h], 2
+        jne short .5
+        add ecx, ecx
+.5:
+        mov bh, byte [byte edx+02h]
+        cmp bh, 10h
+        jne short .7
+        xor edx, edx
+        test ecx, ecx
+        jle short .9
+.6:
+        inc edx
+        mov word [eax], 0
+        add eax, byte 2
+        cmp edx, ecx
+        jge short .9
+        jmp short .6
+.7:
+        cmp bh, 8
+        jne short .9
+        xor edx, edx
+        test ecx, ecx
+        jle short .9
+.8:
+        inc edx
+        mov byte [eax], 0
+        inc eax
+        cmp edx, ecx
+        jl short .8
+.9:
+        pop esi
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; PickSampleRate                                 107988  97 PC, low confidence
+; Picks an output sample rate from the requested DMA buffer size
+;-----------------------------------------------------------------------------
+PickSampleRate:
+        cmp eax, 400h
+        jb short .2
+        jbe short SampleRateResults_7
+        cmp eax, 1000h
+        jb short .1
+        jbe short SampleRateResults_D
+        cmp eax, 2000h
+        je short SampleRateResults_13
+        jmp short SampleRateResults_19
+.1:
+        cmp eax, 800h
+        jmp short SampleRateResults_19
+.2:
+        cmp eax, 100h
+        jb short SampleRateResults_19
+        jbe short .3
+        cmp eax, 200h
+        je short SampleRateResults_1
+        jmp short SampleRateResults_19
+.3:
+        mov eax, 1F40h
+        lea eax, [byte eax+00h]
+;-----------------------------------------------------------------------------
+; SampleRateResults                              1079C4  97 PC, low confidence
+; The return points of the sample rate picker: 11025, 16000, 32000, 44100 or
+; 22050 Hz
+;-----------------------------------------------------------------------------
+SampleRateResults:
+        ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_1                                     1079C5  97 PC, low confidence
+; Sample rate picker result: 11025 Hz
+;-----------------------------------------------------------------------------
+SampleRateResults_1:
+        mov eax, 2B11h
+        ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_7                                     1079CB  97 PC, low confidence
+; Sample rate picker result: 16000 Hz
+;-----------------------------------------------------------------------------
+SampleRateResults_7:
+        mov eax, 3E80h
+        ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_D                                     1079D1  97 PC, low confidence
+; Sample rate picker result: 32000 Hz
+;-----------------------------------------------------------------------------
+SampleRateResults_D:
+        mov eax, 7D00h
+        ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_13                                    1079D7  97 PC, low confidence
+; Sample rate picker result: 44100 Hz
+;-----------------------------------------------------------------------------
+SampleRateResults_13:
+        mov eax, 0AC44h
+        ret
+;-----------------------------------------------------------------------------
+; SampleRateResults_19                                    1079DD  97 PC, low confidence
+; Sample rate picker result: 22050 Hz
+;-----------------------------------------------------------------------------
+SampleRateResults_19:
+        mov eax, 5622h
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; DetectAudioHardware                            1079E4  97 PC, low confidence
+; Tries each sound card detector in turn and returns the driver number that
+; answers
+;-----------------------------------------------------------------------------
+DetectAudioHardware:
+        call GusDetect
+        test eax, eax
+        jl short .1
+        mov eax, 1
+        ret
+.1:
+        call ReadSoundscapeIni
+        test eax, eax
+        jl short .2
+        call SoundscapeCodecReady
+        test eax, eax
+        jl short .2
+        mov eax, 6
+        ret
+.2:
+        call DetectSoundCard
+        test eax, eax
+        jl short .3
+        ret
+.3:
+        call ProbeSoundPorts
+        test eax, eax
+        jl short .4
+        mov eax, 2
+        ret
+.4:
+        mov eax, 0FFFFFFFEh
+        ret
+        db 08Bh,0C0h

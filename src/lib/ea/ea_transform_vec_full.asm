@@ -1,0 +1,65 @@
+; EA library: TransformVecFull.
+bits 32
+%include "hockey.inc"
+section s_10CF34 progbits alloc exec nowrite align=1
+global TransformVecFull
+;-----------------------------------------------------------------------------
+; TransformVecFull                               10CF34  97 PC, low confidence
+; Multiplies a vector by a 3x3 matrix with 64-bit products
+;-----------------------------------------------------------------------------
+TransformVecFull:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov esi, dword [byte esp+014h]
+        mov ebx, dword [byte esp+018h]
+        mov edi, dword [byte esp+01Ch]
+        mov eax, dword [esi]
+        imul dword [ebx]
+        LD mov, ebp, eax
+        mov eax, dword [byte esi+04h]
+        LD mov, ecx, edx
+        imul dword [byte ebx+0Ch]
+        LD add, ebp, eax
+        mov eax, dword [byte esi+08h]
+        LD adc, ecx, edx
+        imul dword [byte ebx+018h]
+        LD add, eax, ebp
+        LD adc, edx, ecx
+        shrd eax, edx, 10h
+        mov dword [edi], eax
+        mov eax, dword [esi]
+        imul dword [byte ebx+04h]
+        LD mov, ebp, eax
+        mov eax, dword [byte esi+04h]
+        LD mov, ecx, edx
+        imul dword [byte ebx+010h]
+        LD add, ebp, eax
+        mov eax, dword [byte esi+08h]
+        LD adc, ecx, edx
+        imul dword [byte ebx+01Ch]
+        LD add, eax, ebp
+        LD adc, edx, ecx
+        shrd eax, edx, 10h
+        mov dword [byte edi+04h], eax
+        mov eax, dword [esi]
+        imul dword [byte ebx+08h]
+        LD mov, ebp, eax
+        mov eax, dword [byte esi+04h]
+        LD mov, ecx, edx
+        imul dword [byte ebx+014h]
+        LD add, ebp, eax
+        mov eax, dword [byte esi+08h]
+        LD adc, ecx, edx
+        imul dword [byte ebx+020h]
+        LD add, eax, ebp
+        LD adc, edx, ecx
+        shrd eax, edx, 10h
+        mov dword [byte edi+08h], eax
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 00h

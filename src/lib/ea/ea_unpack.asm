@@ -1,0 +1,183 @@
+; EA library: unpack, UnpackShared, UnpackPlain, UnpackedSize.
+bits 32
+%include "hockey.inc"
+section s_106EC0 progbits alloc exec nowrite align=1
+extern PrepareBankSampleData, RefPackSize, RefPackUnpack, UnpackBytePairs
+global unpack, UnpackShared, UnpackPlain, UnpackedSize
+;-----------------------------------------------------------------------------
+; unpack                                      106EC0  96 PC, medium confidence
+; EA library: unpacks a compressed block (the packed size is in its big-endian header)
+;-----------------------------------------------------------------------------
+unpack:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        mov edi, dword [byte esp+014h]
+        mov esi, dword [byte esp+018h]
+        mov ecx, 3
+        mov ebx, edi
+        lea eax, [byte edi+02h]
+        mov eax, dword [eax]
+        bswap eax
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        mov ebp, eax
+        mov ah, byte [byte edi+01h]
+        xor edx, edx
+        cmp ah, 0FBh
+        je short .1
+        cmp ah, 32h
+        jne near .8
+.1:
+        mov al, byte [ebx]
+        and al, 0FEh
+        cmp al, 32h
+        jb short .3
+        jbe short .5
+        cmp al, 46h
+        jb short .2
+        jbe short .6
+        cmp al, 4Ah
+        je short .7
+        jmp short .8
+.2:
+        cmp al, 34h
+        je short .5
+        jmp short .8
+.3:
+        cmp al, 10h
+        jb short .8
+        jbe short .4
+        cmp al, 30h
+        je short .5
+        jmp short .8
+.4:
+        push byte 1
+        push esi
+        push ebx
+        call RefPackSize
+        mov edx, eax
+        add esp, byte 0Ch
+        jmp short .8
+.5:
+        push byte 1
+        push esi
+        push ebx
+        call RefPackUnpack
+        mov edx, eax
+        add esp, byte 0Ch
+        jmp short .8
+.6:
+        push esi
+        push ebx
+        call UnpackBytePairs
+        mov edx, eax
+        add esp, byte 8
+        jmp short .8
+.7:
+        push esi
+        push ebx
+        call PrepareBankSampleData
+        add esp, byte 8
+        mov edx, ebp
+.8:
+        mov eax, edx
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; UnpackShared                                   106F64  97 PC, low confidence
+; Unpacks compressed data in shared mode
+;-----------------------------------------------------------------------------
+UnpackShared:
+        push ebx
+        push byte 1
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call unpack
+        add esp, byte 0Ch
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; UnpackPlain                                    106F7C  97 PC, low confidence
+; Unpacks compressed data
+;-----------------------------------------------------------------------------
+UnpackPlain:
+        push ebx
+        push byte 0
+        mov edx, dword [byte esp+010h]
+        push edx
+        mov ebx, dword [byte esp+010h]
+        push ebx
+        call unpack
+        add esp, byte 0Ch
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; UnpackedSize                                   106F94  97 PC, low confidence
+; Returns the unpacked size from a compressed data header
+;-----------------------------------------------------------------------------
+UnpackedSize:
+        push ebx
+        push esi
+        mov ebx, dword [byte esp+0Ch]
+        mov ecx, 3
+        mov esi, ebx
+        lea eax, [byte ebx+02h]
+        mov eax, dword [eax]
+        bswap eax
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        mov ecx, eax
+        mov ah, byte [byte ebx+01h]
+        xor edx, edx
+        cmp ah, 0FBh
+        je short .1
+        cmp ah, 32h
+        jne short .5
+.1:
+        mov al, byte [esi]
+        and al, 0FEh
+        cmp al, 32h
+        jb short .3
+        jbe short .4
+        cmp al, 46h
+        jb short .2
+        jbe short .4
+        cmp al, 4Ah
+        je short .4
+        mov eax, edx
+        pop esi
+        pop ebx
+        ret
+.2:
+        cmp al, 34h
+        je short .4
+        mov eax, edx
+        pop esi
+        pop ebx
+        ret
+.3:
+        cmp al, 10h
+        jb short .5
+        jbe short .4
+        cmp al, 30h
+        jne short .5
+.4:
+        mov edx, ecx
+.5:
+        mov eax, edx
+        pop esi
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h

@@ -1,0 +1,895 @@
+; Watcom C runtime: __setenvp_, _SetMaxPrec_, DoEFormat_, DoFFormat_, AdjField_ and 7 more.
+bits 32
+%include "hockey.inc"
+section s_138FCE progbits alloc exec nowrite align=1
+extern ___env_mask, __CHP, __cvt_, __get_std_stream_, __Nan_Inf_, __set_EDOM_, __set_ERANGE_, _environ
+extern _Envptr, _Envptr_w4, _nfree_, _nmalloc_, _Scale10V_, DecimalToInt64, floor_, fputc_
+extern fputs_, HugeValHi, HugeValLo, IF@LOG10, MatherrHook, MaxPrecision, memset_, RunTimeErrorMessages
+extern str_In
+global __setenvp_, _SetMaxPrec_, DoEFormat_, DoEFormat__A1, DoFFormat_, AdjField_, _FtoS_, strtod_
+global _set_matherr_, __rterrmsg_, _matherr_, outp_, inp_
+;-----------------------------------------------------------------------------
+; __setenvp_                                                   138FCE  library
+; Run-time library: builds the environment pointer table at start-up
+;-----------------------------------------------------------------------------
+__setenvp_:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push es
+        push fs
+        cmp dword [_environ], byte 0
+        jne near .10
+        mov fs, word [_Envptr_w4]
+        xor ecx, ecx
+        xor dl, dl
+        mov eax, fs
+        mov edi, dword [_Envptr]
+        mov es, eax
+        mov eax, edi
+.1:
+        cmp dl, byte [es:eax]
+        je short .4
+.2:
+        mov dh, byte [es:eax]
+        lea ebx, [byte eax+01h]
+        cmp dl, dh
+        je short .3
+        mov eax, ebx
+        jmp short .2
+.3:
+        inc ecx
+        mov eax, ebx
+        jmp short .1
+.4:
+        sub eax, edi
+        jne short .5
+        mov eax, 1
+.5:
+        call _nmalloc_
+        mov edx, eax
+        mov ebx, eax
+        test eax, eax
+        je near .10
+        mov eax, ecx
+        shl eax, 2
+        add eax, byte 4
+        add eax, ecx
+        call _nmalloc_
+        test eax, eax
+        je short .9
+        mov dword [_environ], eax
+        xor esi, esi
+        mov eax, fs
+        xor ecx, ecx
+        mov es, eax
+        mov eax, edi
+.6:
+        cmp byte [es:eax], 0
+        je short .8
+        mov edx, dword [_environ]
+        mov dword [ecx+edx], ebx
+.7:
+        mov dl, byte [es:eax]
+        inc eax
+        mov byte [ebx], dl
+        inc ebx
+        test dl, dl
+        jne short .7
+        add ecx, byte 4
+        inc esi
+        jmp short .6
+.8:
+        mov edx, dword [_environ]
+        mov dword [ecx+edx], 0
+        add ecx, byte 4
+        add edx, ecx
+        mov ebx, esi
+        mov dword [___env_mask], edx
+        mov eax, edx
+        xor edx, edx
+        call memset_
+        jmp short .10
+.9:
+        mov eax, edx
+        call _nfree_
+.10:
+        pop fs
+        pop es
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; _SetMaxPrec_                                                 1390A2  library
+; Run-time library: limits the precision of a float format
+;-----------------------------------------------------------------------------
+_SetMaxPrec_:
+        mov dword [MaxPrecision], eax
+        ret
+;-----------------------------------------------------------------------------
+; DoEFormat_                                                   1390A8  library
+; Run-time library: formats a float in %e style
+;-----------------------------------------------------------------------------
+DoEFormat_:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4
+        mov edi, eax
+        mov esi, edx
+        mov dword [esp], ecx
+        mov eax, ebx
+        test edx, edx
+        jge short .1
+        mov cl, 2Dh
+        neg esi
+        jmp short .2
+.1:
+        mov cl, 2Bh
+.2:
+        mov ebx, 64h
+        mov edx, 3
+        cmp esi, ebx
+        jge short .3
+        mov ebx, 0Ah
+        mov edx, 2
+        cmp esi, ebx
+        jge short .3
+        mov edx, 1
+        mov ebx, edx
+.3:
+        test eax, eax
+        jne short .4
+        mov eax, 2
+        cmp edx, byte 3
+        jne short .4
+        mov eax, edx
+.4:
+        lea ebp, [byte eax+01h]
+        cmp ebp, dword [esp]
+        jg short .8
+        cmp edx, eax
+        jg short .7
+        mov byte [edi], cl
+.5:
+        inc edi
+        cmp eax, edx
+        jle short .6
+        dec eax
+        mov byte [edi], 30h
+        jmp short .5
+.6:
+        mov edx, esi
+        mov eax, esi
+        sar edx, 1Fh
+        idiv ebx
+        mov edx, esi
+        add eax, byte 30h
+        sar edx, 1Fh
+        mov byte [edi], al
+        mov eax, esi
+        idiv ebx
+        mov esi, edx
+        mov eax, ebx
+        mov edx, ebx
+        mov ebx, 0Ah
+        sar edx, 1Fh
+        idiv ebx
+        inc edi
+        mov ebx, eax
+        test eax, eax
+        jne short .6
+        jmp short .8
+.7:
+        lea ebp, [byte edx+01h]
+.8:
+        mov eax, ebp
+        add esp, byte 4
+        pop ebp
+        pop edi
+DoEFormat__A1:
+        pop esi
+        ret
+;-----------------------------------------------------------------------------
+; DoFFormat_                                                   13914B  library
+; Run-time library: formats a float in %f style
+;-----------------------------------------------------------------------------
+DoFFormat_:
+        push esi
+        mov esi, ebx
+        test ecx, ecx
+        jne short .1
+        test ebx, ebx
+        jg short .1
+        mov byte [eax], 30h
+        inc eax
+        mov byte [eax], 2Eh
+        inc eax
+        pop esi
+        ret
+.1:
+        test esi, esi
+        jle short .2
+        mov bl, byte [edx]
+        test bl, bl
+        je short .2
+        inc edx
+        dec esi
+        mov byte [eax], bl
+        inc eax
+        jmp short .1
+.2:
+        test esi, esi
+        jle short .4
+.3:
+        dec esi
+        mov byte [eax], 30h
+        inc eax
+        test esi, esi
+        jg short .3
+.4:
+        mov byte [eax], 2Eh
+        inc eax
+        test ecx, ecx
+        jle short .6
+.5:
+        test esi, esi
+        je short .6
+        inc esi
+        mov byte [eax], 30h
+        inc eax
+        dec ecx
+        jne short .5
+.6:
+        test ecx, ecx
+        jle short DoEFormat__A1
+.7:
+        mov bh, byte [edx]
+        test bh, bh
+        je short .8
+        inc edx
+        mov byte [eax], bh
+        inc eax
+        dec ecx
+        jne short .7
+.8:
+        test ecx, ecx
+        je short DoEFormat__A1
+        dec ecx
+        mov byte [eax], 30h
+        inc eax
+        jmp short .8
+;-----------------------------------------------------------------------------
+; AdjField_                                                    1391AE  library
+; Run-time library: pads a formatted number to its field width
+;-----------------------------------------------------------------------------
+AdjField_:
+        push ebp
+        mov ebp, esp
+        push ecx
+        push esi
+        push edi
+        sub esp, byte 8
+        mov edi, eax
+        mov esi, edx
+        cmp edx, ebx
+        je short .5
+        mov dword [byte ebp-014h], edi
+        mov al, byte [byte eax+01h]
+        lea edx, [ebx+edi]
+        mov byte [byte ebp-010h], al
+        lea eax, [esi+edi]
+.1:
+        dec eax
+        dec edx
+        mov cl, byte [eax]
+        dec esi
+        mov byte [edx], cl
+        mov ecx, dword [byte ebp-014h]
+        dec ebx
+        cmp eax, ecx
+        jne short .1
+        xor eax, ecx
+        mov al, byte [edi]
+        cmp eax, byte 2Eh
+        jne short .2
+        dec ebx
+        mov byte [edi+ebx], 30h
+        jmp short .4
+.2:
+        cmp eax, byte 2Bh
+        je short .3
+        cmp eax, byte 2Dh
+        jne short .4
+.3:
+        xor eax, eax
+        mov al, byte [byte ebp-010h]
+        cmp eax, byte 2Eh
+        jne short .4
+        mov byte [edi+ebx], 30h
+        dec ebx
+        mov dl, byte [edi]
+        mov byte [edi+ebx], dl
+.4:
+        mov edx, 20h
+        mov eax, edi
+        call memset_
+.5:
+        lea esp, [byte ebp-0Ch]
+        pop edi
+        pop esi
+        pop ecx
+        pop ebp
+        ret
+;-----------------------------------------------------------------------------
+; _FtoS_                                                       13921F  library
+; Run-time library: a float to a string
+;-----------------------------------------------------------------------------
+_FtoS_:
+        push ebp
+        mov ebp, esp
+        push esi
+        push edi
+        sub esp, byte 38h
+        mov edi, dword [byte ebp+08h]
+        mov dword [byte ebp-0Ch], eax
+        mov ch, cl
+        lea eax, [byte ebp-040h]
+        push eax
+        mov esi, dword [byte edx+04h]
+        push esi
+        mov eax, dword [edx]
+        push eax
+        call __Nan_Inf_
+        test eax, eax
+        je short .4
+        mov eax, dword [byte ebp-0Ch]
+        xor esi, esi
+        jmp short .3
+.1:
+        cmp esi, edi
+        jge short .2
+        mov byte [eax], dh
+.2:
+        inc eax
+        inc esi
+.3:
+        mov dh, byte [byte esi+ebp-040h]
+        test dh, dh
+        jne short .1
+        jmp near .24
+.4:
+        mov cl, byte [byte ebp+018h]
+        mov al, cl
+        cmp eax, byte 47h
+        jne near .10
+        fld qword [edx]
+        fabs
+        fstp qword [byte ebp-02Ch]
+        mov esi, dword [byte ebp-028h]
+        mov eax, dword [byte ebp-02Ch]
+        test esi, 7FFFFFFFh
+        jne short .5
+        test eax, eax
+        je short .9
+.5:
+        fld qword [byte ebp-02Ch]
+        call IF@LOG10
+        fstp qword [byte ebp-02Ch]
+        mov eax, dword [byte ebp-028h]
+        push eax
+        mov esi, dword [byte ebp-02Ch]
+        push esi
+        call floor_
+        call __CHP
+        fistp dword [byte ebp-014h]
+        mov eax, dword [byte ebp-014h]
+        cmp eax, byte 0FFFFFFFCh
+        jl short .6
+        cmp ebx, eax
+        jg short .7
+.6:
+        mov cl, 45h
+        jmp short .10
+.7:
+        fldz
+        fcomp qword [byte ebp-02Ch]
+        fnstsw ax
+        sahf
+        ja short .8
+        inc dword [byte ebp-014h]
+.8:
+        mov esi, dword [byte ebp-014h]
+        sub ebx, esi
+        test esi, esi
+        jge short .9
+        dec ebx
+.9:
+        xor esi, esi
+        mov cl, 46h
+        mov dword [byte ebp+0Ch], esi
+.10:
+        xor eax, eax
+        mov al, cl
+        cmp eax, byte 45h
+        jne short .12
+        mov eax, ebx
+        mov esi, dword [byte ebp+0Ch]
+        neg eax
+        cmp eax, esi
+        jge short .11
+        lea eax, [byte ebx+02h]
+        cmp eax, esi
+        jg short .12
+.11:
+        mov edx, 2Ah
+        mov eax, dword [byte ebp-0Ch]
+        mov ebx, edi
+        call memset_
+        jmp near .25
+.12:
+        xor eax, eax
+        mov al, byte [byte ebp+018h]
+        mov esi, ebx
+        cmp eax, byte 45h
+        jne short .14
+        mov eax, dword [byte ebp+0Ch]
+        test eax, eax
+        jle short .13
+        lea esi, [byte ebx+01h]
+        jmp short .14
+.13:
+        jge short .14
+        lea esi, [eax+ebx]
+.14:
+        mov eax, dword [edx]
+        mov dword [byte ebp-024h], eax
+        mov eax, dword [byte edx+04h]
+        mov ebx, dword [byte ebp-024h]
+        mov dword [byte ebp-020h], eax
+        test eax, 7FFFFFFFh
+        jne short .15
+        test ebx, ebx
+        je short .16
+.15:
+        xor eax, eax
+        mov al, cl
+        cmp eax, byte 45h
+        je short .16
+        mov eax, dword [byte ebp+0Ch]
+        test eax, eax
+        je short .16
+        push eax
+        mov ebx, dword [byte ebp-020h]
+        push ebx
+        mov eax, dword [byte ebp-024h]
+        push eax
+        call _Scale10V_
+        fstp qword [byte ebp-024h]
+.16:
+        lea eax, [byte ebp-040h]
+        push eax
+        xor eax, eax
+        mov al, cl
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        lea eax, [byte ebp-01Ch]
+        push eax
+        push esi
+        mov edx, dword [byte ebp-020h]
+        push edx
+        mov ebx, dword [byte ebp-024h]
+        push ebx
+        call __cvt_
+        mov eax, dword [byte ebp-0Ch]
+        mov edx, dword [byte ebp-018h]
+        mov dword [byte ebp-010h], eax
+        inc eax
+        test edx, edx
+        je short .17
+        mov edx, dword [byte ebp-0Ch]
+        mov dword [byte ebp-010h], eax
+        mov byte [edx], 2Dh
+        jmp short .18
+.17:
+        test ch, ch
+        je short .18
+        mov edx, dword [byte ebp-0Ch]
+        mov dword [byte ebp-010h], eax
+        mov byte [edx], 2Bh
+.18:
+        xor edx, edx
+        mov dl, cl
+        lea eax, [byte edi+01h]
+        cmp edx, byte 45h
+        jne short .22
+        mov edx, dword [byte ebp+0Ch]
+        mov ecx, esi
+        sub ecx, edx
+        cmp edi, ecx
+        jl near .23
+        mov eax, dword [byte ebp-010h]
+        mov ebx, edx
+        lea edx, [byte ebp-040h]
+        call DoFFormat_
+        mov ebx, dword [byte ebp-0Ch]
+        mov dl, byte [byte ebp+014h]
+        mov esi, eax
+        mov dword [byte ebp-010h], eax
+        sub esi, ebx
+        test dl, dl
+        je short .19
+        cmp esi, edi
+        jge short .19
+        mov byte [eax], dl
+        inc eax
+        inc esi
+        mov dword [byte ebp-010h], eax
+.19:
+        mov ecx, dword [byte ebp-020h]
+        mov eax, dword [byte ebp-024h]
+        test ecx, 7FFFFFFFh
+        jne short .20
+        test eax, eax
+        je short .21
+.20:
+        mov eax, dword [byte ebp+0Ch]
+        sub dword [byte ebp-01Ch], eax
+.21:
+        mov ebx, dword [byte ebp+010h]
+        mov edx, dword [byte ebp-01Ch]
+        mov ecx, edi
+        mov eax, dword [byte ebp-010h]
+        sub ecx, esi
+        call DoEFormat_
+        add esi, eax
+        jmp short .24
+.22:
+        mov ebx, dword [byte ebp-010h]
+        mov edx, dword [byte ebp-01Ch]
+        mov ecx, dword [byte ebp-0Ch]
+        inc edx
+        sub ebx, ecx
+        add edx, esi
+        add edx, ebx
+        cmp edi, edx
+        jl short .23
+        mov ebx, dword [byte ebp-01Ch]
+        lea edx, [byte ebp-040h]
+        mov eax, dword [byte ebp-010h]
+        mov ecx, esi
+        mov esi, dword [byte ebp-0Ch]
+        call DoFFormat_
+        sub eax, esi
+.23:
+        mov esi, eax
+.24:
+        cmp esi, edi
+        jg near .11
+        mov eax, dword [byte ebp-0Ch]
+        mov ebx, edi
+        mov edx, esi
+        call AdjField_
+.25:
+        lea esp, [byte ebp-08h]
+        pop edi
+        pop esi
+        pop ebp
+        ret 14h
+;-----------------------------------------------------------------------------
+; strtod_                                                      139459  library
+; Run-time library strtod: a string to a double
+;-----------------------------------------------------------------------------
+strtod_:
+        push ebp
+        mov ebp, esp
+        push ebx
+        push ecx
+        push esi
+        push edi
+        sub esp, byte 28h
+        push edx
+        mov dword [byte ebp-014h], eax
+.1:
+        mov bl, byte [eax]
+        xor edx, edx
+        mov dl, bl
+        cmp edx, byte 20h
+        je short .2
+        cmp edx, byte 9
+        jl short .3
+        cmp edx, byte 0Dh
+        jg short .3
+.2:
+        inc eax
+        jmp short .1
+.3:
+        xor edx, edx
+        xor cl, cl
+        mov dl, bl
+        lea ebx, [byte eax+01h]
+        cmp edx, byte 2Bh
+        je short .4
+        cmp edx, byte 2Dh
+        jne short .5
+        mov cl, 1
+.4:
+        mov eax, ebx
+.5:
+        xor ebx, ebx
+        mov dh, 30h
+        mov dword [byte ebp-01Ch], ebx
+.6:
+        mov dl, byte [eax]
+        mov ch, cl
+        movzx esi, dl
+        and ch, 8
+        inc eax
+        cmp esi, byte 2Eh
+        jne short .7
+        movzx esi, ch
+        test esi, esi
+        jne short .11
+        or cl, 8
+        jmp short .6
+.7:
+        cmp esi, byte 30h
+        jl short .11
+        cmp esi, byte 39h
+        jg short .11
+        movzx esi, ch
+        test esi, esi
+        je short .8
+        inc dword [byte ebp-01Ch]
+.8:
+        or dh, dl
+        movzx esi, dh
+        cmp esi, byte 30h
+        je short .10
+        cmp ebx, byte 11h
+        jge short .9
+        mov byte [byte ebx+ebp-038h], dl
+.9:
+        inc ebx
+.10:
+        or cl, 4
+        jmp short .6
+.11:
+        mov dh, cl
+        and dh, 4
+        movzx edi, dh
+        xor esi, esi
+        test edi, edi
+        je near .21
+        and edx, 0FFh
+        cmp edx, byte 65h
+        je short .12
+        cmp edx, byte 45h
+        jne near .19
+.12:
+        lea edx, [byte eax-01h]
+        mov dword [byte ebp-018h], edx
+        mov dl, byte [eax]
+        lea edi, [byte eax+01h]
+        and edx, 0FFh
+        cmp edx, byte 2Bh
+        je short .13
+        cmp edx, byte 2Dh
+        jne short .14
+        or cl, 2
+.13:
+        mov eax, edi
+.14:
+        and cl, 0FBh
+.15:
+        mov dl, byte [eax]
+        and edx, 0FFh
+        cmp edx, byte 30h
+        jl short .17
+        cmp edx, byte 39h
+        jg short .17
+        cmp esi, 3E8h
+        jge short .16
+        imul esi, byte 0Ah
+        add edx, esi
+        lea esi, [byte edx-030h]
+.16:
+        or cl, 4
+        inc eax
+        jmp short .15
+.17:
+        mov dl, cl
+        and dl, 2
+        and edx, 0FFh
+        je short .18
+        neg esi
+.18:
+        mov dl, cl
+        and dl, 4
+        and edx, 0FFh
+        jne short .20
+        mov eax, dword [byte ebp-018h]
+        jmp short .20
+.19:
+        dec eax
+.20:
+        mov dword [byte ebp-014h], eax
+.21:
+        sub esi, dword [byte ebp-01Ch]
+        cmp ebx, byte 11h
+        jle short .22
+        sub ebx, byte 11h
+        add esi, ebx
+        mov ebx, 11h
+.22:
+        test ebx, ebx
+        jle short .23
+        xor eax, eax
+        mov al, byte [byte ebx+ebp-039h]
+        cmp eax, byte 30h
+        jne short .23
+        inc esi
+        dec ebx
+        jmp short .22
+.23:
+        test ebx, ebx
+        jne short .24
+        mov dword [byte ebp-024h], ebx
+        mov dword [byte ebp-020h], ebx
+        jmp near .30
+.24:
+        xor ah, ah
+        lea edx, [byte ebp-024h]
+        mov byte [byte ebx+ebp-038h], ah
+        lea eax, [byte ebp-038h]
+        call DecimalToInt64
+        lea eax, [byte esi+ebx-01h]
+        cmp eax, 134h
+        jle short .26
+        call __set_ERANGE_
+        mov al, cl
+        and al, 1
+        and eax, 0FFh
+        je short .25
+        fld qword [HugeValLo]
+        jmp short .29
+.25:
+        mov eax, dword [HugeValLo]
+        mov dword [byte ebp-024h], eax
+        mov eax, dword [HugeValHi]
+        mov dword [byte ebp-020h], eax
+        jmp short .30
+.26:
+        cmp eax, 0FFFFFECCh
+        jge short .27
+        xor ecx, ecx
+        call __set_ERANGE_
+        mov dword [byte ebp-024h], ecx
+        mov dword [byte ebp-020h], ecx
+        jmp short .30
+.27:
+        test esi, esi
+        je short .28
+        push esi
+        mov edx, dword [byte ebp-020h]
+        push edx
+        mov ebx, dword [byte ebp-024h]
+        push ebx
+        call _Scale10V_
+        fstp qword [byte ebp-024h]
+.28:
+        mov al, cl
+        and al, 1
+        and eax, 0FFh
+        je short .30
+        fld qword [byte ebp-024h]
+.29:
+        fchs
+        fstp qword [byte ebp-024h]
+.30:
+        mov edx, dword [byte ebp-03Ch]
+        test edx, edx
+        je short .31
+        mov eax, dword [byte ebp-014h]
+        mov dword [edx], eax
+.31:
+        fld qword [byte ebp-024h]
+        lea esp, [byte ebp-010h]
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        pop ebp
+        ret
+;-----------------------------------------------------------------------------
+; _set_matherr_                                                13964C  library
+; Run-time library: installs the matherr handler
+;-----------------------------------------------------------------------------
+_set_matherr_:
+        mov dword [MatherrHook], eax
+        ret
+;-----------------------------------------------------------------------------
+; __rterrmsg_                                                  139652  library
+; Run-time library: prints a run-time error message
+;-----------------------------------------------------------------------------
+__rterrmsg_:
+        push ebx
+        push ecx
+        push esi
+        mov esi, eax
+        mov ecx, edx
+        mov eax, 2
+        call __get_std_stream_
+        mov ebx, eax
+        mov eax, esi
+        mov edx, ebx
+        mov eax, dword [nosplit eax*4+RunTimeErrorMessages]
+        call fputs_
+        mov eax, str_In
+        mov edx, ebx
+        call fputs_
+        mov edx, ebx
+        mov eax, ecx
+        call fputs_
+        mov eax, 0Ah
+        mov edx, ebx
+        call fputc_
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; _matherr_                                                    13969A  library
+; Run-time library matherr: the default math error handler
+;-----------------------------------------------------------------------------
+_matherr_:
+        push ebx
+        push edx
+        mov ebx, eax
+        call dword [MatherrHook]
+        test eax, eax
+        jne short .2
+        mov edx, dword [byte ebx+04h]
+        mov eax, dword [ebx]
+        call __rterrmsg_
+        cmp dword [ebx], byte 1
+        jne short .1
+        call __set_EDOM_
+        jmp short .2
+.1:
+        call __set_ERANGE_
+.2:
+        fld qword [byte ebx+018h]
+        pop edx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; outp_                                                        1396C9  library
+; Run-time library outp: writes a byte to an I/O port
+;-----------------------------------------------------------------------------
+outp_:
+        push ebx
+        mov ebx, eax
+        mov al, dl
+        mov edx, ebx
+        out dx, al
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; inp_                                                         1396D3  library
+; Run-time library inp: reads a byte from an I/O port
+;-----------------------------------------------------------------------------
+inp_:
+        push edx
+        mov edx, eax
+        sub eax, eax
+        in al, dx
+        pop edx
+        ret
+        db 00h,00h,00h,00h,00h

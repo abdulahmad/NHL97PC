@@ -1,0 +1,90 @@
+; EA library: AngleFromDelta.
+bits 32
+%include "hockey.inc"
+section s_11313C progbits alloc exec nowrite align=1
+extern AngleOctantTable
+global AngleFromDelta, AngleFromDeltaJumpTable
+;-----------------------------------------------------------------------------
+; AngleFromDelta                                 11313C  97 PC, low confidence
+; Returns the angle of a 2D vector from the ratio of its components
+;-----------------------------------------------------------------------------
+AngleFromDelta:
+        push ebp
+        LD mov, ebp, esp
+        push ebx
+        LD xor, ebx, ebx
+        mov ecx, dword [byte ebp+0Ch]
+        mov edx, dword [byte ebp+08h]
+        LD or, ecx, ecx
+        jge short .1
+        or ebx, byte 8
+        neg ecx
+.1:
+        LD or, edx, edx
+        jge short .2
+        or ebx, byte 10h
+        neg edx
+.2:
+        LD cmp, edx, ecx
+        jl short .3
+        je short .4
+        xchg ecx, edx
+        or ebx, byte 4
+.3:
+        LD xor, eax, eax
+        div ecx
+        shr eax, 18h
+        adc eax, byte 0
+        movzx eax, byte [dword eax+AngleOctantTable]
+        jmp dword [dword cs:ebx+AngleFromDeltaJumpTable]
+.4:
+        mov eax, 80h
+        jmp dword [dword cs:ebx+AngleFromDeltaJumpTable]
+AngleFromDeltaJumpTable:                        ; jump table for the switch cases of AngleFromDelta
+        dd .2
+        dd .1
+        dd .3
+        dd .4
+        dd .5
+        dd .6
+        dd .7
+        dd .8
+.1:
+        neg eax
+        add eax, 100h
+.2:
+        pop ebx
+        leave
+        ret
+.3:
+        neg eax
+        add eax, 200h
+        pop ebx
+        leave
+        ret
+.4:
+        add eax, 100h
+        pop ebx
+        leave
+        ret
+.5:
+        neg eax
+        pop ebx
+        leave
+        ret
+.6:
+        sub eax, 100h
+        pop ebx
+        leave
+        ret
+.7:
+        sub eax, 200h
+        pop ebx
+        leave
+        ret
+.8:
+        neg eax
+        sub eax, 100h
+        pop ebx
+        leave
+        ret

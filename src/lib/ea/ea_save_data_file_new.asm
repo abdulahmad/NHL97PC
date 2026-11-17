@@ -1,0 +1,28 @@
+; EA library: SaveDataFileNew.
+bits 32
+%include "hockey.inc"
+section s_11B0D0 progbits alloc exec nowrite align=1
+extern MessageBoxActive, savefileblocka
+global SaveDataFileNew
+;-----------------------------------------------------------------------------
+; SaveDataFileNew                                11B0D0  97 PC, low confidence
+; Saves a memory block to a file, creating it
+;-----------------------------------------------------------------------------
+SaveDataFileNew:
+        sub esp, byte 28h
+        mov eax, dword [byte esp+030h]
+        mov dword [esp], eax
+        mov eax, dword [byte esp+034h]
+        mov dword [byte esp+014h], eax
+        mov eax, dword [MessageBoxActive]
+        push byte 1
+        mov dword [byte esp+01Ch], eax
+        lea eax, [byte esp+04h]
+        push eax
+        mov edx, dword [byte esp+034h]
+        push edx
+        call savefileblocka
+        add esp, byte 0Ch
+        add esp, byte 28h
+        ret
+        db 090h

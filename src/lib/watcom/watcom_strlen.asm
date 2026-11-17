@@ -1,0 +1,72 @@
+; Watcom C runtime: strlen_, stricmp_.
+bits 32
+%include "hockey.inc"
+section s_10ADAA progbits alloc exec nowrite align=1
+global strlen_, stricmp_
+;-----------------------------------------------------------------------------
+; strlen_                                                      10ADAA  library
+; Run-time library strlen: the length of a string
+;-----------------------------------------------------------------------------
+strlen_:
+        push ecx
+        push edi
+        mov edi, eax
+        push es
+        mov eax, ds
+        mov es, eax
+        sub ecx, ecx
+        dec ecx
+        xor eax, eax
+        repne scasb
+        not ecx
+        dec ecx
+        pop es
+        mov eax, ecx
+        pop edi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; stricmp_                                                     10ADC3  library
+; Run-time library stricmp: compares two strings, ignoring case
+;-----------------------------------------------------------------------------
+stricmp_:
+        push ebx
+        push ecx
+        mov ebx, eax
+.1:
+        mov al, byte [ebx]
+        xor ecx, ecx
+        mov ah, byte [edx]
+        mov cl, al
+        cmp ecx, byte 41h
+        jl short .2
+        cmp ecx, byte 5Ah
+        jg short .2
+        add al, 20h
+.2:
+        xor ecx, ecx
+        mov cl, ah
+        cmp ecx, byte 41h
+        jl short .3
+        cmp ecx, byte 5Ah
+        jg short .3
+        add ah, 20h
+.3:
+        cmp al, ah
+        jne short .4
+        test ah, ah
+        je short .4
+        inc ebx
+        inc edx
+        jmp short .1
+.4:
+        xor edx, edx
+        mov dl, al
+        mov al, ah
+        and eax, 0FFh
+        sub edx, eax
+        mov eax, edx
+        pop ecx
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h

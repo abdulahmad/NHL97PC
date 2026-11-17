@@ -1,0 +1,699 @@
+; EA library: DebugSetLine, DebugShowLines, DebugStatusLine, SelectFont, FreeBitmap and 5 more.
+bits 32
+%include "hockey.inc"
+section s_FC88C progbits alloc exec nowrite align=1
+extern _dos_getdate_, _dos_gettime_, bcopy, BlitCore, ConvertArtPalette16, CurrentFont, DebugBackColor, DebugLineScale
+extern DebugLineTable, DebugLineWidth, DebugLineY, DebugMode, DebugTextColor, FontAscent, FontDescent, FontFirstChar
+extern FontFlags, FontGlyphCount, FontGlyphTable, FontHeight, FontKernTable, FontLastChar, FontSpacing, FontWidth
+extern FreeMemBlock, LinkTextFont, NextTextByte, NextTextChar, PaletteWords, PrepareTextDraw, removewindow, ScreenBitsPerPixel
+extern ShadeTable, ShapeDrawDest, ShapeRowFunc, ShapeRowFuncTable, sprintf_, str_02d3s02d, str_2d02d02d, TextAlign
+extern TextColor, TextNextCharFn, vsprintf_, ZeroMem
+global DebugSetLine, DebugShowLinesJumpTable, DebugShowLines, DebugShowLines_BA, DebugShowLines_CB, DebugShowLines_11F, DebugShowLines_149, DebugShowLines_153
+global DebugStatusLine, SelectFont, FreeBitmap, FreeBitmap_30, CopyRowKeyed8, CopyRowKeyed16, CopyRowKeyed24, CopyRowKeyed32
+global CopyRowKeyed32_1C, DrawShapeCore
+;-----------------------------------------------------------------------------
+; DebugSetLine                                    FC88C  97 PC, low confidence
+; Formats a debug message into one of the on-screen debug lines
+;-----------------------------------------------------------------------------
+DebugSetLine:
+        push ebx
+        push esi
+        sub esp, 104h
+        mov ebx, dword [dword esp+0110h]
+        mov edx, dword [dword esp+0114h]
+        cmp dword [DebugMode], byte 2
+        jl short .2
+        test ebx, ebx
+        jl short .1
+        cmp ebx, byte 50h
+        jge short .1
+        test edx, edx
+        jl short .1
+        cmp edx, byte 19h
+        jge short .1
+        lea eax, [nosplit edx*4+00h]
+        add eax, edx
+        shl eax, 4
+        add eax, ebx
+        add eax, eax
+        mov dword [DebugLineWidth], eax
+.1:
+        lea eax, [dword esp+011Ch]
+        lea ebx, [dword esp+0100h]
+        mov edx, dword [dword esp+0118h]
+        mov dword [dword esp+0100h], eax
+        mov eax, esp
+        xor esi, esi
+        call vsprintf_
+        mov eax, esp
+        mov dword [dword esp+0100h], esi
+        call DebugShowLines
+.2:
+        add esp, 104h
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h
+DebugShowLinesJumpTable:                        ; jump table for the switch cases of DebugShowLines
+        dd DebugShowLines_BA
+        dd DebugShowLines_CB
+        dd DebugShowLines_11F
+        dd DebugShowLines_149
+        dd DebugShowLines_153
+;-----------------------------------------------------------------------------
+; DebugShowLines                                  FC924  97 PC, low confidence
+; Draws the on-screen debug lines when debug output is on
+;-----------------------------------------------------------------------------
+DebugShowLines:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 0Ch
+        mov ebx, dword [DebugLineWidth]
+        mov esi, dword [DebugLineY]
+        mov edx, eax
+        cmp dword [DebugMode], byte 2
+        jl near DebugShowLines_153.8
+        mov edi, eax
+        sub ecx, ecx
+        dec ecx
+        xor eax, eax
+        repne scasb
+        not ecx
+        dec ecx
+        xor ebp, ebp
+        mov eax, ecx
+        mov dword [esp], ecx
+        xor cl, cl
+        test eax, eax
+        jle near DebugShowLines_153.8
+        mov edi, edx
+.1:
+        mov esi, dword [DebugLineY]
+        mov ebx, dword [DebugLineWidth]
+        cmp cl, 0Eh
+        jne short .2
+        mov al, byte [edi]
+        xor cl, cl
+        mov byte [DebugBackColor], al
+        jmp near DebugShowLines_153.7
+.2:
+        mov cl, byte [edi]
+        cmp cl, 20h
+        jb short .3
+        call DebugStatusLine
+        xor ah, ah
+        mov al, byte [DebugBackColor]
+        mov esi, dword [DebugLineY]
+        shl eax, 8
+        mov ebx, dword [DebugLineWidth]
+        mov dword [byte esp+08h], eax
+        xor ah, ah
+        mov edx, dword [byte esp+08h]
+        mov al, cl
+        add ebx, byte 2
+        add edx, eax
+        mov eax, esi
+        mov word [byte ebx+eax-02h], dx
+        jmp near DebugShowLines_153.7
+.3:
+        mov al, cl
+        sub al, 8
+        cmp al, 4
+        ja near DebugShowLines_153.7
+        and eax, 0FFh
+        jmp dword [nosplit cs:eax*4+DebugShowLinesJumpTable]
+DebugShowLines_BA:
+        cmp ebx, byte 2
+        jl near DebugShowLines_153.7
+        sub ebx, byte 2
+        jmp near DebugShowLines_153.7
+DebugShowLines_CB:
+        cmp byte [DebugLineScale], 1
+        jbe near DebugShowLines_153.7
+        mov dword [byte esp+04h], 0A0h
+        mov edx, ebx
+        mov eax, ebx
+        sar edx, 1Fh
+        idiv dword [byte esp+04h]
+        imul eax, dword 0A0h
+        mov edx, ebx
+        sub edx, eax
+        mov dword [byte esp+04h], eax
+        mov eax, edx
+        sar edx, 1Fh
+        LD sub, eax, edx
+        sar eax, 1
+        xor ebx, ebx
+        mov edx, eax
+        mov bl, byte [DebugLineScale]
+        sar edx, 1Fh
+        idiv ebx
+        inc eax
+        imul eax, ebx
+        mov ebx, dword [byte esp+04h]
+        add eax, eax
+        add ebx, eax
+        jmp short DebugShowLines_153.7
+DebugShowLines_11F:
+        mov eax, ebx
+        mov edx, ebx
+        mov ebx, 0A0h
+        sar edx, 1Fh
+        idiv ebx
+        lea ebx, [byte eax+01h]
+        imul ebx, dword 0A0h
+        mov dword [DebugLineWidth], ebx
+        call DebugStatusLine
+        mov ebx, dword [DebugLineWidth]
+        jmp short DebugShowLines_153.7
+DebugShowLines_149:
+        xor ebx, ebx
+        mov bl, byte [DebugTextColor]
+        jmp short DebugShowLines_153.6
+DebugShowLines_153:
+        cmp dword [DebugMode], byte 2
+        jl short .5
+        xor eax, eax
+.4:
+        mov dword [esi+eax], 0
+        add eax, byte 4
+        cmp eax, 0FA0h
+        jl short .4
+.5:
+        xor ebx, ebx
+        mov bl, byte [DebugTextColor]
+        mov dword [DebugLineY], esi
+.6:
+        imul ebx, dword 0A0h
+.7:
+        mov eax, dword [esp]
+        inc edi
+        inc ebp
+        mov dword [DebugLineWidth], ebx
+        cmp ebp, eax
+        jl near DebugShowLines.1
+.8:
+        mov ebx, dword [DebugLineWidth]
+        add esp, byte 0Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; DebugStatusLine                                 FCACC  97 PC, low confidence
+; Formats the date, time and frame counter into the debug status line
+;-----------------------------------------------------------------------------
+DebugStatusLine:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        cmp dword [DebugLineWidth], 0FA0h
+        jl short .1
+        xor edx, edx
+        mov eax, 19h
+        mov dl, byte [DebugTextColor]
+        sub eax, edx
+        lea ebx, [byte eax-01h]
+        lea eax, [nosplit ebx*4+00h]
+        add eax, ebx
+        shl eax, 5
+        push eax
+        lea eax, [nosplit edx*4+00h]
+        add eax, edx
+        mov ebx, dword [DebugLineY]
+        shl eax, 5
+        add eax, ebx
+        inc edx
+        push eax
+        lea eax, [nosplit edx*4+00h]
+        add eax, edx
+        shl eax, 5
+        add eax, ebx
+        push eax
+        call bcopy
+        add esp, byte 0Ch
+        mov eax, dword [DebugLineY]
+        push dword 0A0h
+        add eax, 0F00h
+        push eax
+        mov esi, 0F00h
+        call ZeroMem
+        add esp, byte 8
+        mov dword [DebugLineWidth], esi
+.1:
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        push ebx
+        mov ebx, dword [DebugLineY]
+        cmp dword [DebugMode], byte 2
+        jl short .3
+        xor eax, eax
+.2:
+        mov dword [ebx+eax], 0
+        add eax, byte 4
+        cmp eax, 0FA0h
+        jl short .2
+.3:
+        mov dword [DebugLineY], ebx
+        pop ebx
+        ret
+        db 090h
+        mov eax, dword [byte esp+04h]
+        test eax, eax
+        jl short .4
+        cmp eax, byte 18h
+        jg short .4
+        mov byte [DebugTextColor], al
+.4:
+        ret
+        db 090h
+        mov al, byte [byte esp+04h]
+        mov byte [DebugBackColor], al
+        ret
+        db 08Bh,0C0h
+        mov eax, dword [byte esp+04h]
+        cmp eax, byte 1
+        jl short .5
+        mov byte [DebugLineScale], al
+.5:
+        ret
+        db 090h
+        mov eax, dword [byte esp+04h]
+        shl eax, 0Fh
+        add eax, 0B0000h
+        mov dword [DebugLineY], eax
+        ret
+        db 08Bh,0C0h
+        push ebx
+        push ecx
+        push esi
+        sub esp, byte 0Ch
+        mov ebx, eax
+        mov ecx, edx
+        mov eax, esp
+        call _dos_getdate_
+        lea eax, [byte esp+08h]
+        xor edx, edx
+        call _dos_gettime_
+        mov dx, word [byte esp+02h]
+        mov esi, 64h
+        mov eax, edx
+        sar edx, 1Fh
+        idiv esi
+        xor eax, eax
+        mov al, byte [byte esp+01h]
+        push edx
+        mov edx, dword [nosplit eax*4+DebugLineTable]
+        xor eax, eax
+        push edx
+        mov al, byte [byte esp+08h]
+        push eax
+        push str_02d3s02d
+        push ebx
+        call sprintf_
+        add esp, byte 14h
+        xor eax, eax
+        mov al, byte [byte esp+0Ah]
+        push eax
+        xor eax, eax
+        mov al, byte [byte esp+0Dh]
+        push eax
+        xor eax, eax
+        mov al, byte [byte esp+010h]
+        push eax
+        push str_2d02d02d
+        push ecx
+        call sprintf_
+        add esp, byte 14h
+        add esp, byte 0Ch
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; SelectFont                                      FCC40  97 PC, low confidence
+; Makes a font current: reads its spacing and height and sets the text
+; pointers
+;-----------------------------------------------------------------------------
+SelectFont:
+        push ebx
+        push esi
+        mov edx, dword [byte esp+0Ch]
+        mov eax, dword [byte edx+0Dh]
+        sar eax, 18h
+        mov dword [FontAscent], eax
+        mov eax, dword [byte edx+0Eh]
+        sar eax, 18h
+        mov dword [FontDescent], eax
+        mov eax, dword [byte edx+0Fh]
+        mov ecx, 64h
+        sar eax, 18h
+        mov esi, 1
+        mov dword [FontHeight], eax
+        mov eax, dword [byte edx+010h]
+        mov dword [TextColor], edx
+        sar eax, 18h
+        mov dword [FontFlags], ecx
+        mov dword [FontWidth], eax
+        mov ecx, eax
+        mov eax, dword [FontHeight]
+        mov ebx, dword [byte edx+01Ch]
+        add ecx, eax
+        mov dword [CurrentFont], esi
+        mov eax, ecx
+        add ebx, edx
+        xor eax, ecx
+        mov dword [FontKernTable], ebx
+        mov ax, word [byte edx+0Ah]
+        mov dword [LinkTextFont], ecx
+        mov dword [FontLastChar], eax
+        mov eax, dword [byte edx+014h]
+        mov dword [FontFirstChar], ecx
+        lea ecx, [edx+eax]
+        mov eax, ebx
+        mov dword [FontGlyphCount], ecx
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        mov dword [TextAlign], eax
+        mov ecx, dword [byte ebx+02h]
+        mov eax, ebx
+        sar ecx, 10h
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        imul eax, ecx
+        add eax, byte 7
+        and al, 0F8h
+        sar eax, 3
+        mov dword [FontGlyphTable], eax
+        mov eax, dword [byte edx+0Ch]
+        sar eax, 10h
+        and eax, byte 3
+        cmp eax, byte 2
+        jne short .1
+        mov dword [TextNextCharFn], NextTextChar
+        jmp short .4
+.1:
+        cmp dword [FontLastChar], 0FFh
+        jle short .2
+        mov dword [TextNextCharFn], NextTextChar
+        xor ecx, ecx
+        call PrepareTextDraw
+        mov dword [FontSpacing], ecx
+        pop esi
+        pop ebx
+        ret
+.2:
+        mov ecx, 2
+        lea eax, [byte edx+020h]
+        mov eax, dword [byte ecx+eax-04h]
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        cmp eax, 0FFh
+        jbe short .3
+        mov dword [TextNextCharFn], NextTextChar
+        xor ecx, ecx
+        call PrepareTextDraw
+        mov dword [FontSpacing], ecx
+        pop esi
+        pop ebx
+        ret
+.3:
+        mov dword [TextNextCharFn], NextTextByte
+.4:
+        xor ecx, ecx
+        call PrepareTextDraw
+        mov dword [FontSpacing], ecx
+        pop esi
+        pop ebx
+        ret
+        db 00h,00h
+;-----------------------------------------------------------------------------
+; FreeBitmap                                      FCD90  97 PC, low confidence
+; Removes a bitmap's two windows (+28h, +30h, removewindow) and frees it
+; (FreeMemBlock)
+;-----------------------------------------------------------------------------
+FreeBitmap:
+        push ebx
+        mov edx, dword [byte esp+08h]
+        mov ebx, dword [byte edx+028h]
+        test ebx, ebx
+        je short .1
+        mov eax, ebx
+        call removewindow
+.1:
+        mov ecx, dword [byte edx+030h]
+        test ecx, ecx
+        je short .2
+        mov eax, ecx
+        call removewindow
+.2:
+        push edx
+        call FreeMemBlock
+        add esp, byte 4
+        pop ebx
+        ret
+        db 00h,00h,00h,00h
+FreeBitmap_30:
+        push ecx
+        push esi
+        push edi
+        mov edi, eax
+        mov ecx, edx
+        mov esi, ebx
+        xor eax, eax
+        test ebx, ebx
+        jle short .9
+.3:
+        mov edx, eax
+        sar edx, 1
+        add edx, edi
+        test al, 1
+        je short .4
+        xor ebx, ebx
+        mov bl, byte [edx]
+        sar ebx, 4
+        jmp short .5
+.4:
+        mov dl, byte [edx]
+        xor ebx, ebx
+        and dl, 0Fh
+        mov bl, dl
+.5:
+        mov dl, bl
+        test bl, bl
+        je short .8
+        mov ebx, eax
+        sar ebx, 1
+        add ebx, ecx
+        test al, 1
+        je short .6
+        mov bl, byte [ebx]
+        and bl, 0Fh
+        and ebx, 0FFh
+        and edx, 0FFh
+        shl edx, 4
+        jmp short .7
+.6:
+        mov bl, byte [ebx]
+        and bl, 0F0h
+        and ebx, 0FFh
+        and edx, 0FFh
+.7:
+        or edx, ebx
+        mov ebx, eax
+        sar ebx, 1
+        mov byte [ecx+ebx], dl
+.8:
+        inc eax
+        cmp eax, esi
+        jl short .3
+.9:
+        pop edi
+        pop esi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; CopyRowKeyed8                                   FCE34  97 PC, low confidence
+; Copies a row of 8-bit pixels, skipping transparent (FFh) ones
+;-----------------------------------------------------------------------------
+CopyRowKeyed8:
+        push ecx
+.1:
+        mov cl, byte [eax]
+        inc eax
+        cmp cl, 0FFh
+        je short .2
+        mov byte [edx], cl
+.2:
+        inc edx
+        dec ebx
+        jne short .1
+        pop ecx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; CopyRowKeyed16                                  FCE48  97 PC, low confidence
+; Copies a row of 16-bit pixels, skipping transparent (zero) ones
+;-----------------------------------------------------------------------------
+CopyRowKeyed16:
+        push ecx
+.1:
+        mov cx, word [eax]
+        test cx, cx
+        je short .2
+        mov word [edx], cx
+.2:
+        add eax, byte 2
+        add edx, byte 2
+        dec ebx
+        jne short .1
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; CopyRowKeyed24                                  FCE60  97 PC, low confidence
+; Copies a row of 24-bit pixels, skipping transparent (zero) ones
+;-----------------------------------------------------------------------------
+CopyRowKeyed24:
+        push ecx
+        push esi
+        push edi
+        mov esi, eax
+        mov edi, 3
+.1:
+        mov ecx, edi
+        mov eax, esi
+        mov eax, dword [byte ecx+eax-04h]
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        test eax, eax
+        je short .2
+        mov al, byte [esi]
+        mov byte [edx], al
+        mov al, byte [byte esi+01h]
+        mov byte [byte edx+01h], al
+        mov al, byte [byte esi+02h]
+        mov byte [byte edx+02h], al
+.2:
+        add esi, byte 3
+        add edx, byte 3
+        dec ebx
+        jne short .1
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; CopyRowKeyed32                                  FCEA0  97 PC, low confidence
+; Copies a row of 32-bit pixels, skipping those with zero alpha
+;-----------------------------------------------------------------------------
+CopyRowKeyed32:
+        push ecx
+        push esi
+.1:
+        mov ecx, dword [eax]
+        mov esi, ecx
+        shr esi, 18h
+        test esi, esi
+        je short .2
+        mov dword [edx], ecx
+.2:
+        add eax, byte 4
+        add edx, byte 4
+        dec ebx
+        jne short .1
+        pop esi
+        pop ecx
+        ret
+        db 090h
+CopyRowKeyed32_1C:
+        push ecx
+        push esi
+        push edi
+        mov edi, dword [ShapeDrawDest]
+        mov esi, edi
+.3:
+        mov cl, byte [eax]
+        cmp cl, 0FFh
+        je short .4
+        and ecx, 0FFh
+        mov cx, word [esi+ecx*2]
+        mov word [edx], cx
+.4:
+        inc eax
+        add edx, byte 2
+        dec ebx
+        jne short .3
+        mov dword [ShapeDrawDest], edi
+        pop edi
+        pop esi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; DrawShapeCore                                   FCEEC  97 PC, low confidence
+; Draws a shape: sets up its palette and blits it through the blit engine
+;-----------------------------------------------------------------------------
+DrawShapeCore:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, 400h
+        mov esi, dword [dword esp+0414h]
+        mov eax, esi
+        mov eax, dword [eax]
+        and eax, byte 7Fh
+        mov al, byte [dword eax+ShadeTable]
+        mov edx, eax
+        cmp eax, byte 4
+        jne short .1
+        xor edi, edi
+        jmp short .2
+.1:
+        mov edi, 0FFh
+.2:
+        xor ebx, ebx
+        mov ebp, dword [nosplit edi*4+PaletteWords]
+        mov dword [ShapeRowFunc], ebx
+        mov dword [nosplit edi*4+PaletteWords], ebx
+        cmp edx, byte 8
+        jne short .3
+        cmp byte [ScreenBitsPerPixel], 10h
+        jne short .3
+        mov edx, esp
+        mov eax, esi
+        call ConvertArtPalette16
+        mov dword [ShapeDrawDest], eax
+        mov dword [ShapeRowFunc], CopyRowKeyed32_1C
+.3:
+        mov ecx, ShapeRowFuncTable
+        mov ebx, dword [dword esp+041Ch]
+        mov edx, dword [dword esp+0418h]
+        mov eax, esi
+        call BlitCore
+        mov dword [nosplit edi*4+PaletteWords], ebp
+        add esp, 400h
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 08Bh,0C0h

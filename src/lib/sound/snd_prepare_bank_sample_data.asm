@@ -1,0 +1,1294 @@
+; Sound: PrepareBankSampleData, LoadSampleHeader, PlayPatlSample, PlaySoundEntry, GusDetect and 9 more.
+bits 32
+%include "hockey.inc"
+section s_127FB6 progbits alloc exec nowrite align=1
+extern AdvanceStreamOffset, AllocMemData, AudioEnter, AudioLeaveCheck, AudioNullFunc, ChannelSampleTable, DacBuffer, DacBufPos
+extern DacBufSize, DacDriverBuffer, DacDriverRunning, DacIrq, DacPort, DacPortBits, DacPortTable, DacRateTable
+extern DacState, DmaPlayedHalf, FreeMemBlock, GusClose, GusDriverBasePort, GusDriverCardMem, GusDriverConfig, GusDriverDma
+extern GusDriverDmaBuf, GusDriverFound, GusDriverIrq, GusDriverIsOpen, GusDriverRunning, GusDriverStreaming, GusGetEnvConfig, GusMemAlloc
+extern GusOpen, GusProbePort, GusServiceStream, GusStartStream, GusStopStream, GusStreamBusy, GusStreamRefillB, memset_
+extern MixerFillBuffer, MixerInit, MixNoise, PatlChannelParams, PatlDefaultPitch, PickSampleRate, PlayPatchNote, PlayPatchNote_4E8
+extern ReadBlasterPort, SetChannelCount, StartChannel, StartTmplSample, str_DMABUFFER, str_DMABUFFER2, UpdateChannels, WssCodecStart
+extern WssCodecStop, WssDmaSize, WssFormat, WssSetVolume
+global PrepareBankSampleDataJumpTable, PrepareBankSampleData, PrepareBankSampleData_B3, PrepareBankSampleData_F0, PrepareBankSampleData_FD, PrepareBankSampleData_124, PrepareBankSampleData_1B0, LoadSampleHeader
+global PlayPatlSample, PlaySoundEntry, GusDetect, GusDriverStartStream, GusDriverCaps, GusDriverOpen, GusDriverClose, GusDriverUpdate
+global WssBasePortsBlaster, BlasterCodeList, DacDriverCaps, DacDriverOpen, DacDriverClose, DacDriverUpdate
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+PrepareBankSampleDataJumpTable:                 ; jump table for the switch cases of PrepareBankSampleData
+        dd PrepareBankSampleData_B3
+        dd PrepareBankSampleData_F0
+        dd PrepareBankSampleData_FD
+        dd PrepareBankSampleData_124
+;-----------------------------------------------------------------------------
+; PrepareBankSampleData                          127FD0  97 PC, low confidence
+; Reads a sample's header and points the stream functions at its data
+;-----------------------------------------------------------------------------
+PrepareBankSampleData:
+        push ebx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 14h
+        mov edx, dword [byte esp+028h]
+        xor ah, ah
+        mov byte [byte esp+010h], ah
+        mov eax, dword [byte esp+02Ch]
+        mov ecx, 2
+        mov dword [byte esp+04h], eax
+        mov eax, edx
+        mov eax, dword [eax]
+        bswap eax
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        mov ebx, eax
+        lea eax, [byte edx+02h]
+        cmp ebx, 4B31h
+        jne short .1
+        mov ecx, 2
+        mov eax, dword [eax]
+        bswap eax
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        add edx, byte 4
+        jmp short .2
+.1:
+        mov ecx, 3
+        mov eax, dword [eax]
+        bswap eax
+        neg ecx
+        lea ecx, [nosplit ecx*8+020h]
+        shr eax, cl
+        add edx, byte 5
+.2:
+        mov dword [byte esp+08h], eax
+        mov dword [byte esp+0Ch], edx
+        mov eax, dword [byte esp+08h]
+        mov dword [esp], eax
+        test eax, eax
+        jle near PrepareBankSampleData_124.7
+.3:
+        mov eax, dword [byte esp+0Ch]
+        mov al, byte [eax]
+        mov ah, al
+        and ah, 3Fh
+        movzx ebp, ah
+        mov ecx, dword [byte esp+0Ch]
+        and eax, 0FFh
+        inc ecx
+        sar eax, 6
+        mov dword [byte esp+0Ch], ecx
+        cmp eax, byte 3
+        ja near PrepareBankSampleData_124.6
+        jmp dword [nosplit cs:eax*4+PrepareBankSampleDataJumpTable]
+PrepareBankSampleData_B3:
+        mov esi, dword [byte esp+0Ch]
+        mov edi, dword [byte esp+04h]
+        mov ecx, ebp
+        mov edx, dword [byte esp+08h]
+        push edi
+        mov eax, ecx
+        shr ecx, 2
+        repne movsd
+        LD mov, cl, al
+        and cl, 3
+        repne movsb
+        pop edi
+        mov edi, dword [byte esp+0Ch]
+        sub edx, ebp
+        mov eax, dword [byte esp+04h]
+        mov dword [byte esp+08h], edx
+        add edi, ebp
+        add eax, ebp
+        mov dword [byte esp+0Ch], edi
+        mov dword [byte esp+04h], eax
+        jmp near PrepareBankSampleData_124.6
+PrepareBankSampleData_F0:
+        mov al, byte [ecx]
+        lea ebx, [byte ecx+01h]
+        mov byte [byte esp+010h], al
+        mov dword [byte esp+0Ch], ebx
+PrepareBankSampleData_FD:
+        mov eax, dword [byte esp+04h]
+        mov ecx, dword [byte esp+04h]
+        xor edx, edx
+        mov ebx, ebp
+        mov dl, byte [byte esp+010h]
+        mov esi, dword [byte esp+08h]
+        call memset_
+        add ecx, ebp
+        sub esi, ebp
+        mov dword [byte esp+04h], ecx
+        mov dword [byte esp+08h], esi
+        jmp short PrepareBankSampleData_124.6
+PrepareBankSampleData_124:
+        mov edx, dword [byte esp+04h]
+        lea esi, [byte ecx+01h]
+        mov ah, byte [ecx]
+        mov dword [byte esp+0Ch], esi
+        lea edi, [byte edx+01h]
+        mov byte [edx], ah
+        mov edx, dword [byte esp+08h]
+        and ah, 0F0h
+        mov dword [byte esp+04h], edi
+        sub edx, ebp
+        dec ebp
+        mov dword [byte esp+08h], edx
+        test ebp, ebp
+        jle short .6
+.4:
+        mov edx, dword [byte esp+0Ch]
+        mov al, byte [edx]
+        xor edx, edx
+        xor ebx, ebx
+        mov dl, al
+        mov bl, ah
+        sar edx, 4
+        or edx, ebx
+        mov ebx, dword [byte esp+04h]
+        mov ecx, dword [byte esp+04h]
+        dec ebp
+        mov byte [ebx], dl
+        mov ebx, dword [byte esp+0Ch]
+        inc ecx
+        inc ebx
+        mov dword [byte esp+04h], ecx
+        mov dword [byte esp+0Ch], ebx
+        test ebp, ebp
+        jle short .5
+        and al, 0Fh
+        lea esi, [byte ecx+01h]
+        dec ebp
+        or al, ah
+        mov dword [byte esp+04h], esi
+        mov byte [ecx], al
+.5:
+        test ebp, ebp
+        jg short .4
+.6:
+        cmp dword [byte esp+08h], byte 0
+        jg near PrepareBankSampleData.3
+.7:
+        mov eax, dword [esp]
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        pop ebx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+PrepareBankSampleData_1B0:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 0Ch
+        mov ecx, eax
+        mov dword [byte esp+04h], edx
+        mov ebp, ebx
+        mov ebx, 0FFFFFFFFh
+        xor edx, edx
+        mov ah, byte [byte eax+05h]
+        mov dword [byte esp+08h], edx
+        mov dword [esp], ebx
+        test ah, ah
+        je short .8
+        mov eax, ebx
+        jmp near .19
+.8:
+        lea eax, [byte ecx+0Ch]
+        mov esi, dword [byte ecx+0Ch]
+        add esi, eax
+        xor edi, edi
+        mov dword [byte ecx+0Ch], esi
+        xor esi, esi
+        jmp near .14
+.9:
+        mov edx, dword [byte ecx+0Ch]
+        lea eax, [edx+esi]
+        cmp dword [byte eax+018h], byte 0
+        je short .10
+        lea ebx, [byte eax+018h]
+        add ebx, dword [byte edx+018h]
+        mov dword [byte eax+018h], ebx
+.10:
+        mov eax, dword [byte ecx+0Ch]
+        add eax, esi
+        cmp dword [byte eax+01Ch], byte 0
+        je short .11
+        lea edx, [byte eax+01Ch]
+        mov ebx, dword [byte eax+01Ch]
+        add edx, ebx
+        mov dword [byte eax+01Ch], edx
+.11:
+        mov eax, dword [byte ecx+0Ch]
+        lea edx, [eax+esi]
+        cmp dword [byte edx+020h], byte 0
+        je short .12
+        lea ebx, [byte eax+020h]
+        add ebx, dword [byte eax+020h]
+        mov dword [byte edx+020h], ebx
+.12:
+        mov eax, dword [byte ecx+0Ch]
+        add eax, esi
+        lea edx, [byte eax+024h]
+        mov ebx, dword [byte eax+024h]
+        add edx, ebx
+        mov dword [byte eax+024h], edx
+        mov eax, dword [byte ecx+0Ch]
+        mov ebx, ebp
+        add eax, esi
+        mov edx, dword [byte esp+04h]
+        add eax, byte 28h
+        call AdvanceStreamOffset
+        mov dword [byte esp+08h], eax
+        test eax, eax
+        jge short .13
+        dec edi
+        mov dword [esp], edi
+        jmp short .15
+.13:
+        add esi, byte 44h
+        inc edi
+.14:
+        xor eax, eax
+        mov al, byte [byte ecx+07h]
+        cmp edi, eax
+        jl short .9
+.15:
+        mov esi, dword [esp]
+        cmp esi, byte 0FFFFFFFFh
+        jle short .17
+        test esi, esi
+        jl short .18
+        mov eax, dword [esp]
+        mov edx, eax
+        shl edx, 4
+        add edx, eax
+        xor esi, esi
+        shl edx, 2
+.16:
+        mov eax, dword [byte ecx+0Ch]
+        add eax, esi
+        add eax, byte 28h
+        add esi, byte 44h
+        call AudioNullFunc
+        cmp esi, edx
+        jg short .18
+        jmp short .16
+.17:
+        mov byte [byte ecx+05h], 1
+.18:
+        mov eax, dword [byte esp+08h]
+.19:
+        add esp, byte 0Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; LoadSampleHeader                               128280  97 PC, low confidence
+; Loads a sample of a PATl bank or a PT patch into the sound driver
+;-----------------------------------------------------------------------------
+LoadSampleHeader:
+        cmp dword [eax], 6C544150h
+        je near PrepareBankSampleData_1B0
+        cmp word [eax], 5450h
+        je near PlayPatchNote_4E8
+        mov eax, 0FFFFFFFFh
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; PlayPatlSample                                 1282A0  97 PC, low confidence
+; Checks a PATl sample header and starts it on a channel with its pitch,
+; volume and pan
+;-----------------------------------------------------------------------------
+PlayPatlSample:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 14h
+        mov edi, eax
+        mov dword [esp], edx
+        mov ebp, ecx
+        xor esi, esi
+        test eax, eax
+        jne short .1
+        mov eax, 0FFFFFFF8h
+        jmp near .36
+.1:
+        cmp dword [eax], 6C544150h
+        je short .2
+        mov eax, 0FFFFFFF9h
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.2:
+        cmp byte [byte eax+04h], 1
+        je short .3
+        mov eax, 0FFFFFFF5h
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.3:
+        cmp ecx, byte 0FFFFFFFFh
+        jne short .4
+        mov ebp, 7Fh
+.4:
+        test ebp, ebp
+        jl short .5
+        cmp ebp, byte 7Fh
+        jle short .6
+.5:
+        mov eax, 0FFFFFFF8h
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.6:
+        cmp ebx, byte 0FFFFFFFFh
+        jne short .7
+        mov ebx, 3Ch
+.7:
+        test ebx, ebx
+        jl short .8
+        cmp ebx, byte 7Fh
+        jle short .9
+.8:
+        mov eax, 0FFFFFFF8h
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.9:
+        xor eax, eax
+        xor edx, edx
+        jmp short .12
+.10:
+        mov esi, dword [byte edi+0Ch]
+        add esi, edx
+        xor ecx, ecx
+        mov cl, byte [esi]
+        cmp ebp, ecx
+        jl short .11
+        xor ecx, ecx
+        mov cl, byte [byte esi+01h]
+        cmp ebp, ecx
+        jg short .11
+        xor ecx, ecx
+        mov cl, byte [byte esi+02h]
+        cmp ebx, ecx
+        jl short .11
+        xor ecx, ecx
+        mov cl, byte [byte esi+03h]
+        cmp ebx, ecx
+        jle short .13
+.11:
+        add edx, byte 44h
+        inc eax
+.12:
+        xor ecx, ecx
+        mov cl, byte [byte edi+07h]
+        cmp eax, ecx
+        jl short .10
+.13:
+        xor edx, edx
+        mov dl, byte [byte edi+07h]
+        cmp eax, edx
+        jne short .14
+        mov eax, 0FFFFFFFFh
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.14:
+        cmp dword [byte esp+02Ch], byte 0FFFFFFFFh
+        jne short .15
+        mov dword [byte esp+02Ch], 7Fh
+.15:
+        mov ecx, dword [byte esp+02Ch]
+        test ecx, ecx
+        jl short .16
+        cmp ecx, byte 7Fh
+        jle short .17
+.16:
+        mov eax, 0FFFFFFF8h
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.17:
+        cmp dword [byte esp+028h], byte 0FFFFFFFFh
+        jne short .18
+        mov dword [byte esp+028h], 40h
+.18:
+        mov eax, dword [byte esp+028h]
+        test eax, eax
+        jl short .19
+        cmp eax, byte 7Fh
+        jle short .20
+.19:
+        mov eax, 0FFFFFFF8h
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.20:
+        xor edx, edx
+        xor eax, eax
+        mov dl, byte [byte edi+0Ah]
+        mov al, byte [byte esi+010h]
+        add eax, edx
+        sub eax, byte 40h
+        mov dl, byte [byte esi+011h]
+        mov dword [byte esp+010h], eax
+        test dl, dl
+        je short .21
+        mov eax, dword [byte esi+0Eh]
+        sar eax, 18h
+        mov ecx, dword [byte esp+010h]
+        call MixNoise
+        add ecx, eax
+        mov dword [byte esp+010h], ecx
+.21:
+        cmp dword [byte esp+010h], byte 7Fh
+        jle short .22
+        mov dword [byte esp+010h], 7Fh
+.22:
+        cmp dword [byte esp+010h], byte 0
+        jge short .23
+        xor eax, eax
+        mov dword [byte esp+010h], eax
+.23:
+        mov eax, dword [byte esp+010h]
+        add eax, dword [byte esp+028h]
+        sub eax, byte 40h
+        mov dword [byte esp+028h], eax
+        test eax, eax
+        jge short .24
+        xor eax, eax
+        mov dword [byte esp+028h], eax
+.24:
+        cmp dword [byte esp+028h], byte 7Fh
+        jle short .25
+        mov dword [byte esp+028h], 7Fh
+.25:
+        mov eax, dword [byte esi+01Ch]
+        test eax, eax
+        je short .26
+        add eax, dword [byte esp+028h]
+        movsx eax, byte [eax]
+        mov dword [byte esp+028h], eax
+.26:
+        cmp dword [byte esp+030h], byte 0FFFFFFFFh
+        jne short .27
+        xor eax, eax
+        mov al, byte [byte esi+0Ch]
+        mov dword [byte esp+030h], eax
+.27:
+        mov eax, dword [byte edi+06h]
+        mov edx, dword [byte esi+012h]
+        sar eax, 10h
+        sar edx, 10h
+        add eax, edx
+        xor edx, edx
+        mov dl, byte [byte esi+09h]
+        sub edx, ebx
+        mov dword [byte esp+0Ch], eax
+        lea eax, [nosplit edx*4+00h]
+        sub eax, edx
+        shl eax, 3
+        add eax, edx
+        mov edx, dword [byte esp+0Ch]
+        shl eax, 2
+        sub edx, eax
+        mov dword [byte esp+0Ch], edx
+        cmp word [byte esi+016h], byte 0
+        je short .28
+        mov eax, dword [byte esi+014h]
+        sar eax, 10h
+        mov ebx, dword [byte esp+0Ch]
+        call MixNoise
+        add ebx, eax
+        mov dword [byte esp+0Ch], ebx
+.28:
+        mov ecx, dword [byte esi+020h]
+        test ecx, ecx
+        je short .29
+        mov edx, dword [byte esp+030h]
+        lea eax, [ecx+edx]
+        movsx eax, byte [eax]
+        mov dword [byte esp+030h], eax
+.29:
+        cmp dword [byte esp+024h], byte 0FFFFFFFFh
+        je short .30
+        mov cl, byte [byte esp+024h]
+        mov eax, 1
+        shl eax, cl
+        mov ebx, 65h
+        mov dword [byte esp+04h], eax
+        jmp short .31
+.30:
+        mov eax, dword [byte esi+04h]
+        xor ebx, ebx
+        mov dword [byte esp+04h], eax
+        mov bl, byte [byte esi+08h]
+.31:
+        call AudioEnter
+        mov ecx, PatlChannelParams
+        xor edx, edx
+        mov eax, dword [byte esp+04h]
+        mov dl, byte [byte esi+0Fh]
+        call UpdateChannels
+        mov edx, eax
+        mov dword [byte esp+08h], eax
+        test eax, eax
+        jge short .32
+        call AudioLeaveCheck
+        mov eax, edx
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.32:
+        shl eax, 4
+        add eax, edx
+        mov ebx, ChannelSampleTable
+        shl eax, 2
+        add ebx, eax
+        mov eax, dword [byte esi+018h]
+        mov dword [byte ebx+038h], eax
+        mov eax, dword [byte esi+01Ch]
+        mov dword [byte ebx+03Ch], eax
+        mov eax, dword [byte esi+020h]
+        mov dword [byte ebx+040h], eax
+        mov al, byte [byte edi+06h]
+        mov byte [byte ebx+0Eh], al
+        mov eax, dword [byte esp+02Ch]
+        mov dword [byte ebx+014h], 0
+        shl eax, 10h
+        mov dword [byte ebx+01Ch], eax
+        mov eax, dword [byte edi+08h]
+        mov edx, dword [byte esi+0Fh]
+        sar eax, 18h
+        sar edx, 18h
+        imul edx, eax
+        mov ecx, 7Fh
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ecx
+        mov edx, eax
+        mov eax, dword [byte esi+010h]
+        sar eax, 18h
+        call MixNoise
+        add edx, eax
+        cmp edx, ecx
+        jle short .33
+        mov edx, ecx
+.33:
+        test edx, edx
+        jge short .34
+        xor edx, edx
+.34:
+        imul edx, ebp
+        mov ecx, 7Fh
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ecx
+        mov byte [byte ebx+02Ch], al
+        mov al, byte [byte esp+010h]
+        mov byte [byte ebx+02Eh], al
+        mov al, byte [byte esp+028h]
+        mov byte [byte ebx+0Ch], al
+        mov eax, dword [byte esp+0Ch]
+        mov word [byte ebx+08h], ax
+        mov al, byte [byte esi+0Dh]
+        mov byte [byte ebx+030h], al
+        mov al, byte [byte esp+030h]
+        mov byte [byte ebx+02Fh], al
+        mov eax, dword [byte esi+024h]
+        mov dword [byte ebx+034h], eax
+        mov ebp, 3
+        mov eax, dword [byte ebx+034h]
+        mov dword [byte ebx+020h], 0
+        xor edx, edx
+        mov eax, dword [eax]
+        div ebp
+        mov dword [byte ebx+028h], eax
+        mov eax, dword [byte ebx+034h]
+        mov eax, dword [byte eax+04h]
+        shl eax, 10h
+        mov byte [byte ebx+032h], 0
+        mov dword [byte ebx+024h], eax
+        mov al, byte [byte esi+0Ah]
+        mov byte [byte ebx+031h], al
+        mov al, byte [byte esi+0Bh]
+        mov byte [byte ebx+033h], al
+        mov al, byte [esp]
+        mov byte [byte ebx+0Ah], al
+        mov eax, dword [byte esp+08h]
+        xor edx, edx
+        call StartChannel
+        mov eax, dword [PatlDefaultPitch]
+        mov dl, byte [byte esi+0Eh]
+        sar eax, 18h
+        imul edx, eax
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ecx
+        mov ebp, dword [byte esp+030h]
+        push eax
+        mov ecx, dword [byte esp+010h]
+        xor eax, eax
+        push ecx
+        mov al, byte [byte ebx+030h]
+        xor edx, edx
+        push eax
+        mov dl, byte [byte edi+06h]
+        mov eax, dword [byte ebx+02Ah]
+        push ebp
+        sar eax, 18h
+        mov ecx, dword [byte esp+038h]
+        push eax
+        mov ebx, dword [byte esp+01Ch]
+        lea eax, [byte esi+028h]
+        call StartTmplSample
+        mov ebx, eax
+        test eax, eax
+        jge short .35
+        mov eax, dword [byte esp+08h]
+        push eax
+        call SetChannelCount
+        add esp, byte 4
+        mov dword [PatlChannelParams], ebx
+.35:
+        call AudioLeaveCheck
+        mov eax, dword [PatlChannelParams]
+.36:
+        add esp, byte 14h
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+;-----------------------------------------------------------------------------
+; PlaySoundEntry                                 128680  97 PC, low confidence
+; Plays a PATl sample or a PT patch note, by its header type
+;-----------------------------------------------------------------------------
+PlaySoundEntry:
+        push esi
+        push edi
+        push ebp
+        test eax, eax
+        jne short .1
+        mov eax, 0FFFFFFF8h
+        jmp short .4
+.1:
+        cmp dword [eax], 6C544150h
+        jne short .2
+        mov ebp, dword [byte esp+01Ch]
+        push ebp
+        mov esi, dword [byte esp+01Ch]
+        push esi
+        mov edi, dword [byte esp+01Ch]
+        push edi
+        mov ebp, dword [byte esp+01Ch]
+        push ebp
+        call PlayPatlSample
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.2:
+        cmp word [eax], 5450h
+        jne short .3
+        mov edi, dword [byte esp+01Ch]
+        push edi
+        mov ebp, dword [byte esp+01Ch]
+        push ebp
+        mov esi, dword [byte esp+01Ch]
+        push esi
+        mov edi, dword [byte esp+01Ch]
+        push edi
+        call PlayPatchNote
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+.3:
+        mov eax, 0FFFFFFF9h
+.4:
+        pop ebp
+        pop edi
+        pop esi
+        ret 10h
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; GusDetect                                      1286F0  97 PC, low confidence
+; Reads the card settings from the environment and probes for the card
+;-----------------------------------------------------------------------------
+GusDetect:
+        push edx
+        mov eax, GusDriverConfig
+        call GusGetEnvConfig
+        test eax, eax
+        jne short .1
+        mov eax, 0FFFFFFFDh
+        pop edx
+        ret
+.1:
+        xor eax, eax
+        mov edx, 1
+        mov ax, word [GusDriverBasePort]
+        mov dword [GusDriverFound], edx
+        call GusProbePort
+        test eax, eax
+        jne short .2
+        mov eax, 0FFFFFFFEh
+        pop edx
+        ret
+.2:
+        mov dword [GusDriverRunning], edx
+        mov eax, edx
+        pop edx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; GusDriverStartStream                           128734  97 PC, low confidence
+; Allocates the DMA buffer, opens the card, allocates card memory and starts
+; the stream
+;-----------------------------------------------------------------------------
+GusDriverStartStream:
+        push ecx
+        push edx
+        push ebp
+        test eax, eax
+        jl near .11
+        push dword 200h
+        push dword 2000h
+        push str_DMABUFFER
+        call AllocMemData
+        add esp, byte 0Ch
+        mov dword [GusDriverDmaBuf], eax
+        test eax, eax
+        jne short .1
+        mov dword [GusDriverStreaming], eax
+        mov eax, 0FFFFFFFAh
+        pop ebp
+        pop edx
+        pop ecx
+        ret
+.1:
+        mov edx, eax
+        and edx, 0FFFFh
+        mov dword [GusDriverStreaming], eax
+        cmp edx, 0F000h
+        jle short .2
+        and eax, 0F0000h
+        add eax, 10000h
+        mov dword [GusDriverDmaBuf], eax
+.2:
+        cmp dword [GusDriverIsOpen], byte 0
+        jne near .10
+        cmp dword [GusDriverRunning], byte 0
+        jne short .6
+        cmp dword [GusDriverFound], byte 0
+        jne short .4
+        mov eax, GusDriverConfig
+        call GusGetEnvConfig
+        test eax, eax
+        jne short .3
+        mov eax, 0FFFFFFFDh
+        pop ebp
+        pop edx
+        pop ecx
+        ret
+.3:
+        mov dword [GusDriverFound], 1
+.4:
+        xor eax, eax
+        mov ax, word [GusDriverBasePort]
+        call GusProbePort
+        test eax, eax
+        jne short .5
+        mov eax, 0FFFFFFFEh
+        pop ebp
+        pop edx
+        pop ecx
+        ret
+.5:
+        mov dword [GusDriverRunning], 1
+.6:
+        mov edx, 1Ch
+        mov ah, byte [GusDriverDma]
+        mov word [GusDriverConfig], dx
+        cmp ah, 7
+        jbe short .8
+        mov dl, byte [GusDriverIrq]
+        cmp dl, 7
+        ja short .7
+        mov byte [GusDriverIrq], ah
+        mov byte [GusDriverDma], dl
+        jmp short .8
+.7:
+        mov byte [GusDriverDma], 5
+.8:
+        mov eax, GusDriverConfig
+        call GusOpen
+        test eax, eax
+        je short .9
+        mov eax, 0FFFFFFFBh
+        pop ebp
+        pop edx
+        pop ecx
+        ret
+.9:
+        mov ebp, 1
+        mov eax, 1004h
+        mov dword [GusDriverIsOpen], ebp
+        call GusMemAlloc
+        push dword 1000h
+        push eax
+        mov dword [GusDriverCardMem], eax
+        mov eax, dword [GusDriverDmaBuf]
+        push eax
+        call GusStartStream
+        add esp, byte 0Ch
+.10:
+        xor eax, eax
+.11:
+        pop ebp
+        pop edx
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; GusDriverCaps                                  128878  97 PC, low confidence
+; Returns the format flags the Gravis driver supports
+;-----------------------------------------------------------------------------
+GusDriverCaps:
+        mov eax, 808h
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; GusDriverOpen                                  128880  97 PC, low confidence
+; Checks the requested format, detects the card, starts the stream and
+; initialises the mixer
+;-----------------------------------------------------------------------------
+GusDriverOpen:
+        push ecx
+        push edx
+        test al, 8
+        jne short .1
+        mov eax, 0FFFFFFF4h
+        pop edx
+        pop ecx
+        ret
+.1:
+        mov eax, GusDriverConfig
+        call GusGetEnvConfig
+        test eax, eax
+        jne short .2
+        mov eax, 0FFFFFFFDh
+        jmp short .4
+.2:
+        xor eax, eax
+        mov edx, 1
+        mov ax, word [GusDriverBasePort]
+        mov dword [GusDriverFound], edx
+        call GusProbePort
+        test eax, eax
+        jne short .3
+        mov eax, 0FFFFFFFEh
+        jmp short .4
+.3:
+        mov dword [GusDriverRunning], edx
+        mov eax, edx
+.4:
+        test eax, eax
+        jle short .5
+        call GusDriverStartStream
+        test eax, eax
+        jl short .5
+        push SetChannelCount
+        push dword 5622h
+        push byte 3
+        call MixerInit
+        mov eax, 3
+        add esp, byte 0Ch
+.5:
+        pop edx
+        pop ecx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; GusDriverClose                                 1288F8  97 PC, low confidence
+; Closes the card, stops the stream and frees the DMA buffer
+;-----------------------------------------------------------------------------
+GusDriverClose:
+        push ebx
+        push ecx
+        push edx
+        push ebp
+        cmp dword [GusDriverIsOpen], byte 0
+        je short .1
+        xor ebx, ebx
+        call GusClose
+        mov dword [GusDriverFound], ebx
+        mov dword [GusDriverRunning], ebx
+        mov dword [GusDriverIsOpen], ebx
+.1:
+        cmp dword [GusDriverStreaming], byte 0
+        je short .2
+        call GusStopStream
+        mov ebp, dword [GusDriverStreaming]
+        push ebp
+        call FreeMemBlock
+        xor eax, eax
+        add esp, byte 4
+        mov dword [GusDriverStreaming], eax
+.2:
+        pop ebp
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; GusDriverUpdate                                128948  97 PC, low confidence
+; Mixes the next half buffer and copies it to the card while the stream runs
+;-----------------------------------------------------------------------------
+GusDriverUpdate:
+        push ecx
+        push edx
+        cmp dword [GusDriverIsOpen], byte 0
+        je short .1
+        call GusStreamBusy
+        test eax, eax
+        je short .1
+        mov edx, dword [GusStreamRefillB]
+        mov eax, dword [GusDriverDmaBuf]
+        shl edx, 0Bh
+        push dword 200h
+        add eax, edx
+        push eax
+        call MixerFillBuffer
+        add esp, byte 8
+        call GusServiceStream
+.1:
+        pop edx
+        pop ecx
+        ret
+        db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+WssBasePortsBlaster:                            ; used by ReadBlasterPort
+        db 030h,05h,00h,00h,04h,06h,00h,00h,080h,0Eh,00h,00h,040h,0Fh,00h,00h
+BlasterCodeList:                                ; used by ReadBlasterPort
+        db 011h,00h,00h,00h,012h,00h,00h,00h,0FFh,0FFh,0FFh,0FFh,013h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; DacDriverCaps                                  1289B0  97 PC, low confidence
+; Returns the format flags the timer-driven DAC driver supports
+;-----------------------------------------------------------------------------
+DacDriverCaps:
+        mov eax, 3F0Bh
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; DacDriverOpen                                  1289B8  97 PC, low confidence
+; Sets up timer-driven DAC output: picks the rate, allocates the buffer,
+; starts the mixer and timer
+;-----------------------------------------------------------------------------
+DacDriverOpen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov edx, eax
+        mov ecx, eax
+        mov ebx, 1
+        and ecx, 0FF00h
+        call DacDriverCaps
+        and eax, ecx
+        test dl, 1
+        je short .1
+        xor esi, esi
+        jmp short .4
+.1:
+        test dl, 2
+        je short .2
+        mov esi, 2
+        jmp short .4
+.2:
+        test dl, 8
+        jne short .3
+        mov eax, 0FFFFFFF4h
+        jmp near .20
+.3:
+        mov esi, 3
+.4:
+        call PickSampleRate
+        mov dword [DacBufSize], eax
+        cmp eax, 3E80h
+        jb short .6
+        jbe near .10
+        cmp eax, 7D00h
+        jb short .5
+        jbe near .12
+        cmp eax, 0AC44h
+        je near .13
+        jmp near .15
+.5:
+        cmp eax, 5622h
+        je near .11
+        jmp near .15
+.6:
+        cmp eax, 1F40h
+        jb short .7
+        jbe short .8
+        cmp eax, 2B11h
+        je short .9
+        jmp near .15
+.7:
+        cmp eax, 157Ch
+        jne near .15
+        mov edx, 801h
+        mov ebx, 8
+        jmp short .14
+.8:
+        mov eax, 800h
+        mov ebx, 4
+        mov dword [WssFormat], eax
+        jmp short .15
+.9:
+        mov ebp, 803h
+        mov ebx, 4
+        mov dword [WssFormat], ebp
+        jmp short .15
+.10:
+        mov edi, 802h
+        mov ebx, 2
+        mov dword [WssFormat], edi
+        jmp short .15
+.11:
+        mov ecx, 807h
+        mov ebx, 2
+        mov dword [WssFormat], ecx
+        jmp short .15
+.12:
+        mov dword [WssFormat], 806h
+        mov ebx, 1
+        jmp short .15
+.13:
+        mov edx, 80Bh
+        mov ebx, 1
+.14:
+        mov dword [WssFormat], edx
+.15:
+        lea ecx, [nosplit esi*4+00h]
+        sub ecx, esi
+        xor eax, eax
+        mov edi, dword [WssFormat]
+        mov al, byte [dword ecx+DacPortTable]
+        or edi, eax
+        mov eax, 400h
+        mov edx, eax
+        sar edx, 1Fh
+        idiv ebx
+        mov dword [DacBuffer], eax
+        xor eax, eax
+        mov al, byte [dword ecx+DacRateTable]
+        imul ebx, eax
+        mov eax, 2000h
+        mov edx, eax
+        sar edx, 1Fh
+        idiv ebx
+        mov dword [WssDmaSize], eax
+        shr eax, 1
+        mov dword [DacPort], eax
+        mov eax, dword [WssDmaSize]
+        push dword 200h
+        add eax, eax
+        push eax
+        push str_DMABUFFER2
+        mov dword [WssFormat], edi
+        call AllocMemData
+        add esp, byte 0Ch
+        mov dword [DacBufPos], eax
+        test eax, eax
+        jne short .16
+        mov dword [DacDriverBuffer], eax
+        mov eax, 0FFFFFFFAh
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.16:
+        mov ebx, 10000h
+        mov edx, eax
+        mov ebp, dword [WssDmaSize]
+        and edx, 0FFFFh
+        sub ebx, ebp
+        mov dword [DacDriverBuffer], eax
+        cmp edx, ebx
+        jbe short .17
+        and eax, 0F0000h
+        add eax, 10000h
+        mov dword [DacBufPos], eax
+.17:
+        call ReadBlasterPort
+        mov ebx, eax
+        test eax, eax
+        jge short .18
+        mov ebp, dword [DacDriverBuffer]
+        push ebp
+        call FreeMemBlock
+        xor eax, eax
+        add esp, byte 4
+        mov dword [DacDriverBuffer], eax
+        mov eax, ebx
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.18:
+        sar eax, 10h
+        push SetChannelCount
+        mov dword [DacIrq], eax
+        mov eax, dword [DacBufSize]
+        push eax
+        lea eax, [nosplit esi*4+00h]
+        sub eax, esi
+        mov al, byte [dword eax+DacPortBits]
+        and eax, 0FFh
+        push eax
+        call MixerInit
+        add esp, byte 0Ch
+        mov edx, dword [DacBuffer]
+        push edx
+        mov ecx, dword [DacBufPos]
+        push ecx
+        mov esi, eax
+        call MixerFillBuffer
+        mov edi, dword [DacBuffer]
+        add esp, byte 8
+        mov eax, dword [DacBufPos]
+        mov ebp, dword [DacPort]
+        push edi
+        add eax, ebp
+        push eax
+        call MixerFillBuffer
+        add esp, byte 8
+        mov eax, dword [DacBufPos]
+        push eax
+        push ebx
+        call WssCodecStart
+        mov ebx, eax
+        add esp, byte 8
+        test eax, eax
+        jg short .19
+        mov edx, dword [DacDriverBuffer]
+        push edx
+        call FreeMemBlock
+        add esp, byte 4
+        xor ecx, ecx
+        mov eax, ebx
+        mov dword [DacDriverBuffer], ecx
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.19:
+        push byte 7Fh
+        mov edi, 1
+        call WssSetVolume
+        mov eax, esi
+        add esp, byte 4
+        shl eax, 10h
+        mov dword [DacDriverRunning], edi
+        or al, 3
+.20:
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; DacDriverClose                                 128C70  97 PC, low confidence
+; Restores the timer and frees the DAC buffer
+;-----------------------------------------------------------------------------
+DacDriverClose:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        cmp dword [DacDriverBuffer], byte 0
+        je short .1
+        call WssCodecStop
+        mov ebx, dword [DacDriverBuffer]
+        push ebx
+        call FreeMemBlock
+        xor ecx, ecx
+        add esp, byte 4
+        mov dword [DacDriverBuffer], ecx
+.1:
+        xor esi, esi
+        mov dword [DacDriverRunning], esi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; DacDriverUpdate                                128CA8  97 PC, low confidence
+; Acknowledges the interrupt and mixes the next block of DAC output
+;-----------------------------------------------------------------------------
+DacDriverUpdate:
+        push ebx
+        push ecx
+        push edx
+        mov edx, dword [DacIrq]
+        mov eax, dword [DacPort]
+        call DmaPlayedHalf
+        mov dword [DacState], eax
+        test eax, eax
+        jl short .1
+        cmp dword [DacDriverRunning], byte 0
+        je short .1
+        mov ebx, dword [DacBuffer]
+        mov edx, dword [DacBufPos]
+        push ebx
+        add eax, edx
+        push eax
+        call MixerFillBuffer
+        add esp, byte 8
+.1:
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 08Dh,040h,00h
