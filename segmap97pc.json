@@ -10,11 +10,41 @@
  "cseg01": [
   {
    "start": 65536,
-   "end": 77884,
+   "end": 68199,
    "module": "front_10010",
    "obj": 1,
-   "file": "front/front_10010.asm",
+   "file": "pc/grip/grip.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 68199,
+   "end": 70154,
+   "module": "front_options_anim_frames",
+   "file": "front/options_anim_frames/options_anim_frames.asm",
+   "desc": "Options screen animation: set-up, frames and updates.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 70154,
+   "end": 70916,
+   "module": "front_crowd_music",
+   "file": "front/crowd_music/crowd_music.asm",
+   "desc": "Crowd chants and game music restarts.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 70916,
+   "end": 77884,
+   "module": "engine_period",
+   "file": "engine/period/period.asm",
+   "desc": "Game and period set-up: teams, benches and penalty boxes, lines on the ice, the clock and starting goalies.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
   },
   {
    "start": 77884,
@@ -66,59 +96,463 @@
   },
   {
    "start": 275832,
-   "end": 285676,
+   "end": 298352,
    "module": "front_43578",
    "obj": 1,
-   "file": "front/front_43578.asm",
-   "note": "placeholder"
-  },
-  {
-   "start": 285676,
-   "end": 298352,
-   "module": "front_45BEC",
-   "obj": 1,
-   "file": "front/front_45BEC.asm",
+   "file": "front/speech/speech.asm",
    "note": "placeholder"
   },
   {
    "start": 298352,
-   "end": 337776,
+   "end": 303687,
    "module": "front_48D70",
    "obj": 1,
    "file": "front/front_48D70.asm",
    "note": "placeholder"
   },
   {
+   "obj": 1,
+   "start": 303687,
+   "end": 306032,
+   "module": "front_music_stream",
+   "file": "front/music_stream/music_stream.asm",
+   "desc": "Music and movie streams: the stream timer, stream audio and background audio.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 306032,
+   "end": 308382,
+   "module": "pc_data_files",
+   "file": "pc/data_files/data_files.asm",
+   "desc": "Data files: paths, loading from files and libraries, start-up data and the global settings file.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 308382,
+   "end": 310537,
+   "module": "front_game_view",
+   "file": "front/game_view/game_view.asm",
+   "desc": "Game view: model names, game graphics and video, drawing the game frame.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 310537,
+   "end": 311498,
+   "module": "front_camera_flashes",
+   "file": "front/camera_flashes/camera_flashes.asm",
+   "desc": "Stands detail and the camera flashes in the crowd.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 311498,
+   "end": 315025,
+   "module": "front_rink_textures",
+   "file": "front/rink_textures/rink_textures.asm",
+   "desc": "Rink textures: texture pages and tiles, ice textures, board ads and arena art.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 315025,
+   "end": 325289,
+   "module": "front_rink_lines",
+   "file": "front/rink_lines/rink_lines.asm",
+   "desc": "Rink lines and stands: clipped line drawing, circles, arcs, dots, nets, the rink view and markings.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 325289,
+   "end": 329697,
+   "module": "front_crowd",
+   "file": "front/crowd/crowd.asm",
+   "desc": "Crowd and bench reactions, cheers and the goal light.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 329697,
+   "end": 332805,
+   "module": "front_rink_benches",
+   "file": "front/rink_benches/rink_benches.asm",
+   "desc": "Rink sides: boards, glass, benches, bench players and the penalty box.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 332805,
+   "end": 335030,
+   "module": "front_scoreboard",
+   "file": "front/scoreboard/scoreboard.asm",
+   "desc": "The scoreboard and the net art.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 335030,
+   "end": 337776,
+   "module": "front_arena_art",
+   "file": "front/arena_art/arena_art.asm",
+   "desc": "Arena art: rink sides, the arena archive, board and team logos.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
    "start": 337776,
-   "end": 357156,
+   "end": 338498,
    "module": "front_52770",
    "obj": 1,
    "file": "front/front_52770.asm",
    "note": "placeholder"
   },
   {
-   "start": 357156,
-   "end": 494064,
-   "module": "front_57324",
    "obj": 1,
-   "file": "front/front_57324.asm",
-   "note": "placeholder"
+   "start": 338498,
+   "end": 339593,
+   "module": "front_rink_palette",
+   "file": "front/rink_palette/rink_palette.asm",
+   "desc": "Rink palette: ice palette and colour range blends.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 339593,
+   "end": 355043,
+   "module": "front_rink_model",
+   "file": "front/rink_model/rink_model.asm",
+   "desc": "Rink model: lines, model, background and surface, benches, seats and portrait models.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 355043,
+   "end": 374103,
+   "module": "front_player_model",
+   "file": "front/player_model/player_model.asm",
+   "desc": "Player models: team colours, faces, jerseys and uniforms, model parts, markers and names.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 374103,
+   "end": 375137,
+   "module": "front_player_faces",
+   "file": "front/player_faces/player_faces.asm",
+   "desc": "Player faces: face textures and face art.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 375137,
+   "end": 380126,
+   "module": "engine_replay",
+   "file": "engine/replay/replay.asm",
+   "desc": "Instant replay: recording, playing, saving and loading frames.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 380126,
+   "end": 381669,
+   "module": "front_portrait_render",
+   "file": "front/portrait_render/portrait_render.asm",
+   "desc": "Off-screen rendering and the portrait camera.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 381669,
+   "end": 384835,
+   "module": "front_camera",
+   "file": "front/camera/camera.asm",
+   "desc": "Game camera: spline, ease and smoothing, targets, motion and projection.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 384835,
+   "end": 388478,
+   "module": "engine_stickhandle",
+   "file": "engine/stickhandle/stickhandle.asm",
+   "desc": "Stick handling: blade position, skate sounds, moving players and the puck on the stick.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 388478,
+   "end": 389142,
+   "module": "engine_chgplayer",
+   "file": "engine/chgplayer/chgplayer.asm",
+   "desc": "Player switching: the controlled player.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 389142,
+   "end": 396651,
+   "module": "engine_goalie",
+   "file": "engine/goalie/goalie.asm",
+   "desc": "Goalie AI: reading the shot, angles, covering the post and the goalie tick.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 396651,
+   "end": 413925,
+   "module": "engine_skate",
+   "file": "engine/skate/skate.asm",
+   "desc": "Skating moves: idle, stride, glide, turns, stops, crossovers and skate speed.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 413925,
+   "end": 414837,
+   "module": "engine_clock",
+   "file": "engine/clock/clock.asm",
+   "desc": "Whistle stops and the score clock display.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 414837,
+   "end": 417611,
+   "module": "engine_anim_load",
+   "file": "engine/anim_load/anim_load.asm",
+   "desc": "Animation files: skate, shot, action, fall, goalie, referee, fight and cup animations.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 417611,
+   "end": 433044,
+   "module": "engine_puckphys",
+   "file": "engine/puckphys/puckphys.asm",
+   "desc": "Puck physics: stick touches, bounces, posts, nets, boards and glass, the puck carrier and the goal judge.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 433044,
+   "end": 437125,
+   "module": "engine_pass",
+   "file": "engine/pass/pass.asm",
+   "desc": "Passing animations and moves.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 437125,
+   "end": 438590,
+   "module": "engine_shoot",
+   "file": "engine/shoot/shoot.asm",
+   "desc": "Shot reach and shot moves.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 438590,
+   "end": 439167,
+   "module": "engine_puckcarrier",
+   "file": "engine/puckcarrier/puckcarrier.asm",
+   "desc": "Skating and gliding with the puck.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 439167,
+   "end": 458523,
+   "module": "engine_collide",
+   "file": "engine/collide/collide.asm",
+   "desc": "Collisions: boards contact, body checks, hits, falls, penalties and player contact.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 458523,
+   "end": 459555,
+   "module": "engine_player_motion",
+   "file": "engine/player_motion/player_motion.asm",
+   "desc": "Player motion: depth sort, animation poses and facing.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 459555,
+   "end": 466891,
+   "module": "engine_fight",
+   "file": "engine/fight/fight.asm",
+   "desc": "Fights: grabs, punches, blocks, ducks, hits and falls.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 466891,
+   "end": 468825,
+   "module": "engine_celebrate",
+   "file": "engine/celebrate/celebrate.asm",
+   "desc": "Celebrations, dejected skating and cheers.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 468825,
+   "end": 470615,
+   "module": "engine_skate_to_spot",
+   "file": "engine/skate_to_spot/skate_to_spot.asm",
+   "desc": "Skating to the bench or a spot, retrieving the puck and period end moves.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 470615,
+   "end": 471145,
+   "module": "engine_referee",
+   "file": "engine/referee/referee.asm",
+   "desc": "Referee animations: at the dot, faceoff, goal, whistle, signals and the goal line.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 471145,
+   "end": 473916,
+   "module": "engine_checking",
+   "file": "engine/checking/checking.asm",
+   "desc": "Stick checks: poke check, slash, sweep check, hook and dive.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 473916,
+   "end": 477157,
+   "module": "engine_block_shot",
+   "file": "engine/block_shot/block_shot.asm",
+   "desc": "Blocking shots: kneeling and sliding.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 477157,
+   "end": 483089,
+   "module": "engine_goalie_moves",
+   "file": "engine/goalie_moves/goalie_moves.asm",
+   "desc": "Goalie moves: cover, recover, idle, saves, stances and puck deflections.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 483089,
+   "end": 489206,
+   "module": "engine_anim",
+   "file": "engine/anim/anim.asm",
+   "desc": "Animation engine: nodes, files, frames, poses, clocks, blends and states.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 489206,
+   "end": 490120,
+   "module": "front_camera_debug",
+   "file": "front/camera_debug/camera_debug.asm",
+   "desc": "Camera debug view and AI icons.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 490120,
+   "end": 494064,
+   "module": "engine_hockey",
+   "file": "engine/hockey/hockey.asm",
+   "desc": "Game loop: updating players, game over, intermission, periodic events and crowd ambience.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
   },
   {
    "start": 494064,
    "end": 502232,
    "module": "front_789F0",
    "obj": 1,
-   "file": "front/front_789F0.asm",
+   "file": "front/sim_game/sim_game.asm",
    "note": "placeholder"
   },
   {
    "start": 502232,
-   "end": 512089,
+   "end": 506796,
    "module": "front_7A9D8",
    "obj": 1,
-   "file": "front/front_7A9D8.asm",
+   "file": "front/season_schedule/season_schedule.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 506796,
+   "end": 509425,
+   "module": "front_movie",
+   "file": "front/movie/movie.asm",
+   "desc": "Movies: opening the stream, decoding and playing frames.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 509425,
+   "end": 510682,
+   "module": "pc_modem",
+   "file": "pc/modem/modem.asm",
+   "desc": "Modem commands: reset, hang-up, dial, auto answer, connect and results.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 510682,
+   "end": 512089,
+   "module": "front_front_end",
+   "file": "front/front_end/front_end.asm",
+   "desc": "Front end start-up: logo names, front end init and the title screen.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 512089,
@@ -130,211 +564,539 @@
   },
   {
    "start": 542180,
-   "end": 551117,
+   "end": 548093,
    "module": "front_845E4",
    "obj": 1,
-   "file": "front/front_845E4.asm",
+   "file": "front/main_menu/main_menu.asm",
    "note": "placeholder"
   },
   {
-   "start": 551117,
-   "end": 573356,
-   "module": "front_868CD",
    "obj": 1,
-   "file": "front/front_868CD.asm",
-   "note": "placeholder"
+   "start": 548093,
+   "end": 549624,
+   "module": "front_stats_menu",
+   "file": "front/stats_menu/stats_menu.asm",
+   "desc": "The stats menu.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
-   "start": 573356,
+   "obj": 1,
+   "start": 549624,
+   "end": 550896,
+   "module": "front_name_index",
+   "file": "front/name_index/name_index.asm",
+   "desc": "Name index files: new, load, save, remove and count.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 550896,
+   "end": 573016,
+   "module": "pc_modem_setup",
+   "file": "pc/modem_setup/modem_setup.asm",
+   "desc": "Modem and network set-up: phonebook, modem settings, network games and connecting.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 573016,
+   "end": 583479,
+   "module": "front_menu",
+   "file": "front/menu/menu.asm",
+   "desc": "Menus: menu bitmaps and items, running menus and scroll lists.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 583479,
    "end": 584087,
-   "module": "front_8BFAC",
-   "obj": 1,
-   "file": "front/front_8BFAC.asm",
-   "note": "placeholder"
+   "module": "front_lang_text",
+   "file": "front/lang_text/lang_text.asm",
+   "desc": "Language text and position abbreviations.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 584087,
-   "end": 602117,
+   "end": 594569,
    "module": "front_8E997",
    "obj": 1,
-   "file": "front/front_8E997.asm",
+   "file": "front/season_menu/season_menu.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 594569,
+   "end": 599486,
+   "module": "front_standings",
+   "file": "front/standings/standings.asm",
+   "desc": "Standings: sorting and factoids.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 599486,
+   "end": 602117,
+   "module": "front_season_files",
+   "file": "front/season_files/season_files.asm",
+   "desc": "Season files: settings path, year text and title, replays, link transfer set-up, agents, trades and playoff format.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 602117,
    "end": 614974,
    "module": "front_93005",
    "obj": 1,
-   "file": "front/front_93005.asm",
+   "file": "front/playoff/playoff.asm",
    "note": "placeholder"
   },
   {
    "start": 614974,
-   "end": 648030,
+   "end": 642965,
    "module": "front_9623E",
    "obj": 1,
-   "file": "front/front_9623E.asm",
+   "file": "front/edit_lines/edit_lines.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 642965,
+   "end": 648030,
+   "module": "front_auto_lines",
+   "file": "front/auto_lines/auto_lines.asm",
+   "desc": "Automatic lines: sorting the roster by rating and filling the line slots.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 648030,
    "end": 653045,
    "module": "front_9E35E",
    "obj": 1,
-   "file": "front/front_9E35E.asm",
+   "file": "front/team_select/team_select.asm",
    "note": "placeholder"
   },
   {
    "start": 653045,
-   "end": 668288,
+   "end": 660173,
    "module": "front_9F6F5",
    "obj": 1,
-   "file": "front/front_9F6F5.asm",
+   "file": "front/index_pick/index_pick.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 660173,
+   "end": 668288,
+   "module": "pc_link_transfer",
+   "file": "pc/link_transfer/link_transfer.asm",
+   "desc": "League data transfer over the link: sending and receiving files and transfer buffers.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
   },
   {
    "start": 668288,
-   "end": 700992,
+   "end": 681212,
    "module": "front_A3280",
    "obj": 1,
-   "file": "front/front_A3280.asm",
+   "file": "pc/link_setup/link_setup.asm",
    "note": "placeholder"
   },
   {
-   "start": 700992,
-   "end": 706457,
-   "module": "front_AB240",
    "obj": 1,
-   "file": "front/front_AB240.asm",
-   "note": "placeholder"
+   "start": 681212,
+   "end": 684684,
+   "module": "front_postgame",
+   "file": "front/postgame/postgame.asm",
+   "desc": "Arena announcement and the post-game screen.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 684684,
+   "end": 687484,
+   "module": "front_threestars",
+   "file": "front/threestars/threestars.asm",
+   "desc": "Three stars: scoring, picks, stats and art.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 687484,
+   "end": 697493,
+   "module": "front_game_stats",
+   "file": "front/game_stats/game_stats.asm",
+   "desc": "Game stats screens: team and player pages.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 697493,
+   "end": 699887,
+   "module": "front_scoring_log",
+   "file": "front/scoring_log/scoring_log.asm",
+   "desc": "Scoring log: goals, penalties and period ends.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 699887,
+   "end": 705563,
+   "module": "front_play_game",
+   "file": "front/play_game/play_game.asm",
+   "desc": "Playing a menu game: logos, results and finishing a league game.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 705563,
+   "end": 706457,
+   "module": "front_replay_files",
+   "file": "front/replay_files/replay_files.asm",
+   "desc": "Replay files: writing and naming saved replays.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 706457,
-   "end": 728605,
+   "end": 711503,
    "module": "front_AC799",
    "obj": 1,
-   "file": "front/front_AC799.asm",
+   "file": "front/stat_table/stat_table.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 711503,
+   "end": 728605,
+   "module": "front_stats_tables",
+   "file": "front/stats_tables/stats_tables.asm",
+   "desc": "Team and league stats screens and their columns.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 728605,
    "end": 741595,
    "module": "front_B1E1D",
    "obj": 1,
-   "file": "front/front_B1E1D.asm",
+   "file": "pc/users/users.asm",
    "note": "placeholder"
   },
   {
    "start": 741595,
-   "end": 775724,
+   "end": 775707,
    "module": "front_B50DB",
    "obj": 1,
-   "file": "front/front_B50DB.asm",
+   "file": "front/player_cards/player_cards.asm",
    "note": "placeholder"
   },
   {
-   "start": 775724,
-   "end": 790365,
-   "module": "front_BD62C",
    "obj": 1,
-   "file": "front/front_BD62C.asm",
-   "note": "placeholder"
+   "start": 775707,
+   "end": 790365,
+   "module": "front_replay_menu",
+   "file": "front/replay_menu/replay_menu.asm",
+   "desc": "Replay menus: video options, replay controls, timeline and saved replays.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 790365,
-   "end": 804399,
+   "end": 800148,
    "module": "front_C0F5D",
    "obj": 1,
-   "file": "front/front_C0F5D.asm",
+   "file": "front/history/history.asm",
    "note": "placeholder"
   },
   {
-   "start": 804399,
-   "end": 810881,
-   "module": "front_C462F",
    "obj": 1,
-   "file": "front/front_C462F.asm",
-   "note": "placeholder"
+   "start": 800148,
+   "end": 810881,
+   "module": "front_options",
+   "file": "front/options/options.asm",
+   "desc": "Options screens: detail level and sliders.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 810881,
    "end": 816475,
    "module": "front_C5F81",
    "obj": 1,
-   "file": "front/front_C5F81.asm",
+   "file": "front/season_setup/season_setup.asm",
    "note": "placeholder"
   },
   {
    "start": 816475,
-   "end": 857595,
+   "end": 832022,
    "module": "front_C755B",
    "obj": 1,
-   "file": "front/front_C755B.asm",
+   "file": "front/roster/roster.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 832022,
+   "end": 839994,
+   "module": "front_trade",
+   "file": "front/trade/trade.asm",
+   "desc": "Trades: roster limits, slots, rating and applying a trade.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 839994,
+   "end": 841655,
+   "module": "front_jersey",
+   "file": "front/jersey/jersey.asm",
+   "desc": "The jersey screen.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 841655,
+   "end": 846869,
+   "module": "front_roster_edit",
+   "file": "front/roster_edit/roster_edit.asm",
+   "desc": "Roster edit: trade messages, lines after trades, creating and releasing players.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 846869,
+   "end": 855382,
+   "module": "front_create_player",
+   "file": "front/create_player/create_player.asm",
+   "desc": "Create player screen: name, position, hand, size, age and ratings.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 855382,
+   "end": 857595,
+   "module": "front_trade_lists",
+   "file": "front/trade_lists/trade_lists.asm",
+   "desc": "Trade lists: team and player comparisons.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 857595,
-   "end": 864530,
+   "end": 871972,
    "module": "front_D15FB",
    "obj": 1,
-   "file": "front/front_D15FB.asm",
-   "note": "placeholder"
-  },
-  {
-   "start": 864530,
-   "end": 871972,
-   "module": "front_D3112",
-   "obj": 1,
-   "file": "front/front_D3112.asm",
+   "file": "front/pregame/pregame.asm",
    "note": "placeholder"
   },
   {
    "start": 871972,
-   "end": 894573,
+   "end": 878545,
    "module": "front_D4E24",
    "obj": 1,
-   "file": "front/front_D4E24.asm",
+   "file": "front/goalie_mask/goalie_mask.asm",
    "note": "placeholder"
+  },
+  {
+   "obj": 1,
+   "start": 878545,
+   "end": 878813,
+   "module": "front_fade",
+   "file": "front/fade/fade.asm",
+   "desc": "Palette fades.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 878813,
+   "end": 879927,
+   "module": "front_intro",
+   "file": "front/intro/intro.asm",
+   "desc": "The intro movie.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 879927,
+   "end": 883312,
+   "module": "front_credits",
+   "file": "front/credits/credits.asm",
+   "desc": "Credits screen.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 883312,
+   "end": 894573,
+   "module": "pc_db_index",
+   "file": "pc/db_index/db_index.asm",
+   "desc": "Database files: pages and B-tree index keys.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
   },
   {
    "start": 894573,
-   "end": 949613,
+   "end": 902739,
    "module": "front_DA66D",
    "obj": 1,
-   "file": "front/front_DA66D.asm",
+   "file": "pc/database/database.asm",
    "note": "placeholder"
   },
   {
-   "start": 949613,
-   "end": 955433,
-   "module": "front_E7D6D",
    "obj": 1,
-   "file": "front/front_E7D6D.asm",
-   "note": "placeholder"
+   "start": 902739,
+   "end": 924117,
+   "module": "front_league_db",
+   "file": "front/league_db/league_db.asm",
+   "desc": "League records: teams, players, trades, schedules, results, stats, exhibitions and imports.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 924117,
+   "end": 925761,
+   "module": "front_replay_index",
+   "file": "front/replay_index/replay_index.asm",
+   "desc": "Replay index entries.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 925761,
+   "end": 926313,
+   "module": "pc_user_records",
+   "file": "pc/user_records/user_records.asm",
+   "desc": "User records.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 926313,
+   "end": 926581,
+   "module": "pc_mem_util",
+   "file": "pc/mem_util/mem_util.asm",
+   "desc": "Memory helpers: cleared blocks, copies and key compares.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 926581,
+   "end": 927116,
+   "module": "pc_file_io",
+   "file": "pc/file_io/file_io.asm",
+   "desc": "File I/O: exists, delete, create, open, seek, read, write and close.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 927116,
+   "end": 930459,
+   "module": "engine_input",
+   "file": "engine/input/input.asm",
+   "desc": "Game input: keyboard, input driver, joysticks and input recording.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "engine"
+  },
+  {
+   "obj": 1,
+   "start": 930459,
+   "end": 939817,
+   "module": "pc_link",
+   "file": "pc/link/link.asm",
+   "desc": "Serial link: packets, timers, handshake and syncing menus and games.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 939817,
+   "end": 947615,
+   "module": "pc_network",
+   "file": "pc/network/network.asm",
+   "desc": "Network games: IPX sessions, hosting, finding and joining games.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
+  },
+  {
+   "obj": 1,
+   "start": 947615,
+   "end": 949023,
+   "module": "front_options_anim",
+   "file": "front/options_anim/options_anim.asm",
+   "desc": "Options animation screen.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 949023,
+   "end": 955433,
+   "module": "front_season_intro",
+   "file": "front/season_intro/season_intro.asm",
+   "desc": "Season intro: top scorers, team ranks and intro pages.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 955433,
-   "end": 976540,
+   "end": 972487,
    "module": "front_E9429",
    "obj": 1,
-   "file": "front/front_E9429.asm",
+   "file": "front/all_star/all_star.asm",
    "note": "placeholder"
   },
   {
-   "start": 976540,
-   "end": 991393,
-   "module": "front_EE69C",
    "obj": 1,
-   "file": "front/front_EE69C.asm",
-   "note": "placeholder"
+   "start": 972487,
+   "end": 974319,
+   "module": "pc_link_chunks",
+   "file": "pc/link_chunks/link_chunks.asm",
+   "desc": "Link chunk and file transfers.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "pc"
   },
   {
-   "start": 991393,
+   "obj": 1,
+   "start": 974319,
+   "end": 991224,
+   "module": "front_control_setup",
+   "file": "front/control_setup/control_setup.asm",
+   "desc": "Control set-up: key names, keys, pads and players.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
+  },
+  {
+   "obj": 1,
+   "start": 991224,
    "end": 1021116,
-   "module": "front_F20A1",
-   "obj": 1,
-   "file": "front/front_F20A1.asm",
-   "note": "placeholder"
+   "module": "front_pause_menu",
+   "file": "front/pause_menu/pause_menu.asm",
+   "desc": "Pause and in-game menus: pause art, buttons, the clock, intermission and rules.",
+   "conf": "subject split (cleanup phase 2)",
+   "group": "front"
   },
   {
    "start": 1021116,

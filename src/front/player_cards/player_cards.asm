@@ -1,0 +1,10214 @@
+; Player cards: stats, bio, ratings and export.
+bits 32
+%include "hockey.inc"
+section s_B50DB progbits alloc exec nowrite align=1
+extern __CHP, AgeFromBirthDate, AllocMemBlock, AskExportFile, BlankMenuItem, BlitArt, BlitConverted, BlitShape2
+extern CardExportSeparator, ChangeMenuMusic, ClearScreen, CompareRatingColumn, CompareStatColumn, ConvertArtInPlace, ConvertArtNew, ConvertArtXY
+extern CreateBitmap, DrawArt, DrawEditBox, DrawProgressBar, DrawScreenBackground, DrawScrollBar, DrawShapeAtOwnPos, DrawShapeBlended
+extern DrawShapeCore, DrawSpriteScaledBy, DrawStatsBackground, DrawStatTable, DrawTeamLogoBanner, DrawTextAligned, ExitScreen, F64_0p9_DrawPlayerRatingsPage
+extern FadeInScreen, fclose_, FindColorRange, FindGameRecord, FindPlayerRecord, FindPlayerStat, FindShape, FindShapeList
+extern FindTeamRecord, FindTeamStat, fopen_, fprintf_, FreeBitmap, FreeDbBlock, FreeMemBlock, FreeScrollList
+extern FreeStatsBitmap, FrontEndExit, FrontMusicOn, GameSettings, GetLangText, GoalieRatingsHeaderText, GoalieStatRecords, HideLinkBox
+extern InchesToCm, InitMenuItems, InitScrollList, KeysEqual, LinkGameActive, LinkSyncMenu, LinkSyncScreen, LoadDataFile
+extern LoadFrontEndSfx, MakeColor, MenuScreenBitmap, MusicEnabled, OpenArtArchive, OpenArtArchiveErr, OpenDataLibrary, OpenLeagueFile
+extern PlayerStatRecords, PlayerStatsArrowShapes, PlayerStatsPageShapes, PlayerStatsShapeLists, PlayerStatsTitleShapes, PlayMenuSfx, PlayoffDbKey, PlayoffStarted
+extern PlayoffStatsPath, PlayoffTeams, PlayScreenMovie, PlaySfx, PoundsToKg, PresentScreen, qsort_, rand_
+extern RatingsColumn, RatingsColumnBase, RatingsColumnLimit, RatingsCompact, RatingsGoalieBitmap, RatingsGoalieDrawn, RatingsGoalieLast, RatingsGoalieList
+extern RatingsGoalieMode, RatingsGoalieOrder, RatingsGoalieRow, RatingsGoalieShown, RatingsGoalieTick, RatingsHeaderText, RatingsLabelText, RatingsListFont
+extern RatingsPageDrawn, RatingsScrollBar, RatingsShapeCount, RatingsShapeFile, RatingsShapes, RatingsSkaterBitmap, RatingsSkaterDrawn, RatingsSkaterLast
+extern RatingsSkaterList, RatingsSkaterOrder, RatingsSkaterRow, RatingsSkaterShown, RatingsSkaterTick, RatingsSoundPlayed, RatingsTeam, RatingsTeamShapes
+extern RatingsTeamSide, ResetClipWindow, RunMenu, RunScrollList, ScreenFrameItem, ScrollDown, ScrollToMouse, ScrollUp
+extern SeasonActive, SeasonDbKey, SeasonFilePath, SeasonStatsPath, SecondsToSamples, ServiceIdle, SetDrawTarget, SetFullClip
+extern SetHighlightText, SetListSelection, SetNormalText, SetRegionRect, SetScreenTarget, SetScrollBarPos, SetTextColor, ShowLinkMessage
+extern ShowMessageBox, ShowStatScreen, ShowStatsScreen, sprintf_, StatsBackArt, StatsBackItem, StatsCardBackArt, StatsCardBitmap
+extern StatsCardDrawn, StatsCardFrameArt, StatsCardList, StatsCardPlayer, StatsCardPortrait, StatsCardRow, StatsCardShown, StatsCardTick
+extern StatsColumn, StatsMenuDrawn, StatsMenuMode, StatsPlayoffMode, StopAllSfx, str_01d02d, str_0_DrawPlayerStatsText, str_20sD
+extern str_20sD2, str_AB003, str_AB013, str_AB023, str_AB033, str_AB043, str_AB053, str_AB06
+extern str_AB07, str_AB08, str_AB09, str_AB10, str_AB11, str_Ai_PlayerStatsScreen, str_BACK8, str_Curp
+extern str_Curs, str_D02d3, str_D_DrawPlayerRatings, str_DD4, str_FART3, str_LB02d3, str_LB262, str_LH02d2
+extern str_LH262, str_Lroster, str_LT02d, str_LT06, str_Menu5, str_MN00, str_MN02d2, str_MN04
+extern str_MTR1, str_MTRD, str_NOFACEFSH3, str_PlMenu, str_PlReg, str_PlSort, str_Pos, str_POWR2
+extern str_PP00, str_PP01, str_PP01PP02PP03, str_PP02, str_PP04, str_PP05, str_PP05PP06PP07, str_PP06
+extern str_PP08, str_PP09, str_PP09PP10PP11, str_PP10, str_PP12, str_PP13, str_PP13PP14PP15, str_PP14
+extern str_PP16, str_PP17, str_PP17PP18PP19, str_PP18, str_PP20, str_PP21, str_PP21PP22PP23, str_PP22
+extern str_Punct_ExportPlayerCard, str_PWRB, str_Rp, str_Rroster, str_S10, str_S11, str_S8, str_S9
+extern str_S_DrawPlayerBio, str_SC00, str_SC01, str_SC01SC02SC03, str_SC02, str_SC04, str_SC05, str_SC05SC06SC07
+extern str_SC06, str_SC08, str_SC08SC09SC10, str_SC09, str_SC09SC10SC11, str_SC10, str_SC12, str_SC13
+extern str_SC13SC14SC15, str_SC14, str_SC16, str_SC17, str_SC17SC18SC19, str_SC18, str_SC28, str_SC29
+extern str_SC29SC30SC31, str_SC30, str_SD5, str_SD6, str_SDDSD3, str_Space, str_SPHL, str_SPTD
+extern str_SS8, str_SS9, str_SSDD2, str_Teamnum, str_TITL9, str_Wt_ExportPlayerCard, strcat_, strcpy_
+extern tickcount, TintPortrait, WaitSoundTime, WipeScreen, WriteCsvLine
+global DrawStatsCardPage, DrawStatsCardPage_76D, DrawStatsCardPage_776, DrawStatsCardPage_77C, PlayerStatsScreenJumpTable, PlayerStatsScreen, PlayerStatsScreen_975, PlayerStatsScreen_986
+global PlayerStatsScreen_99A, PlayerStatsScreen_9A6, PlayerStatsScreen_9B7, PlayerStatsScreen_9CA, PlayerStatsScreen_9DB, PlayerStatsScreen_B94, PlayerStatsScreen_C43, PlayerStatsScreen_CB4
+global PlayerStatsScreen_DC7, PlayerStatsScreen_10AA, PlayerStatsScreen_1114, DrawSkaterStatLabelJumpTable, DrawSkaterPlayoffStatJumpTable, DrawSkaterSeasonStatJumpTable, DrawSkaterStatJumpTable, DrawGoalieStatLabelJumpTable
+global DrawGoaliePlayoffStatJumpTable, DrawGoalieSeasonStatJumpTable, DrawGoalieStatJumpTable, DrawPlayerStatsText, DrawPlayerStatsText_4C, DrawPlayerStatsText_53, DrawPlayerStatsText_5A, DrawPlayerStatsText_61
+global DrawPlayerStatsText_68, DrawPlayerStatsText_6F, DrawPlayerStatsText_76, DrawPlayerStatsText_7D, DrawPlayerStatsText_84, DrawPlayerStatsText_8B, DrawPlayerStatsText_92, DrawPlayerStatsText_123
+global DrawPlayerStatsText_129, DrawPlayerStatsText_12F, DrawPlayerStatsText_135, DrawPlayerStatsText_14B, DrawPlayerStatsText_151, DrawPlayerStatsText_15A, DrawPlayerStatsText_1C0, DrawPlayerStatsText_1C9
+global DrawPlayerStatsText_1F4, DrawPlayerStatsText_200, DrawPlayerStatsText_21C, DrawPlayerStatsText_225, DrawPlayerStatsText_22E, DrawPlayerStatsText_237, DrawPlayerStatsText_240, DrawPlayerStatsText_249
+global DrawPlayerStatsText_252, DrawPlayerStatsText_25A, DrawPlayerStatsText_263, DrawPlayerStatsText_26C, DrawPlayerStatsText_275, DrawPlayerStatsText_2AA, DrawPlayerStatsText_2B3, DrawPlayerStatsText_2B9
+global DrawPlayerStatsText_2BF, DrawPlayerStatsText_2C5, DrawPlayerStatsText_2CB, DrawPlayerStatsText_2D1, DrawPlayerStatsText_2DE, DrawPlayerStatsText_2E4, DrawPlayerStatsText_30C, DrawPlayerStatsText_312
+global DrawPlayerStatsText_36F, DrawPlayerStatsText_376, DrawPlayerStatsText_37D, DrawPlayerStatsText_384, DrawPlayerStatsText_38B, DrawPlayerStatsText_392, DrawPlayerStatsText_399, DrawPlayerStatsText_3A0
+global DrawPlayerStatsText_3A7, DrawPlayerStatsText_430, DrawPlayerStatsText_44B, DrawPlayerStatsText_451, DrawPlayerStatsText_457, DrawPlayerStatsText_45D, DrawPlayerStatsText_463, DrawPlayerStatsText_469
+global DrawPlayerStatsText_46F, DrawPlayerStatsText_478, DrawPlayerStatsText_48D, DrawPlayerStatsText_493, DrawPlayerStatsText_499, DrawPlayerStatsText_49F, DrawPlayerStatsText_4A5, DrawPlayerStatsText_4AB
+global DrawPlayerStatsText_4B1, DrawPlayerStatsText_4BA, DrawPlayerStatsText_4C3, DrawPlayerStatsText_53A, DrawPlayerStatsText_540, DrawPlayerStatsText_546, DrawPlayerStatsText_54C, DrawPlayerStatsText_552
+global DrawPlayerStatsText_558, DrawPlayerStatsText_55E, DrawPlayerStatsText_564, DrawPlayerStatsText_56A, DrawBioSkaterRatingJumpTable, DrawBioGoalieRatingJumpTable, DrawPlayerBio, DrawPlayerBio_328
+global DrawPlayerBio_32F, DrawPlayerBio_336, DrawPlayerBio_33D, DrawPlayerBio_344, DrawPlayerBio_34B, DrawPlayerBio_352, DrawPlayerBio_359, DrawPlayerBio_360
+global DrawPlayerBio_367, DrawPlayerBio_36E, DrawPlayerBio_375, DrawPlayerBio_37C, DrawPlayerBio_383, DrawPlayerBio_427, DrawPlayerBio_42E, DrawPlayerBio_435
+global DrawPlayerBio_43C, DrawPlayerBio_443, DrawPlayerBio_44A, DrawPlayerBio_451, DrawPlayerBio_458, DrawPlayerBio_45F, DrawPlayerBio_4E2, ExportSkaterRatingJumpTable
+global ExportGoalieRatingJumpTable, ExportSkaterStatLabelJumpTable, ExportSkaterPlayoffStatJumpTable, ExportSkaterSeasonStatJumpTable, ExportSkaterStatJumpTable, ExportGoalieStatLabelJumpTable, ExportGoaliePlayoffStatJumpTable, ExportGoalieSeasonStatJumpTable
+global ExportGoalieStatJumpTable, ExportPlayerCard, ExportPlayerCard_2B6, ExportPlayerCard_2BD, ExportPlayerCard_2C4, ExportPlayerCard_2CB, ExportPlayerCard_2D2, ExportPlayerCard_2D9
+global ExportPlayerCard_2E0, ExportPlayerCard_2E7, ExportPlayerCard_2EE, ExportPlayerCard_2F5, ExportPlayerCard_2FC, ExportPlayerCard_303, ExportPlayerCard_30A, ExportPlayerCard_311
+global ExportPlayerCard_35D, ExportPlayerCard_364, ExportPlayerCard_36B, ExportPlayerCard_372, ExportPlayerCard_379, ExportPlayerCard_380, ExportPlayerCard_387, ExportPlayerCard_38E
+global ExportPlayerCard_395, ExportPlayerCard_409, ExportPlayerCard_412, ExportPlayerCard_41B, ExportPlayerCard_424, ExportPlayerCard_42D, ExportPlayerCard_436, ExportPlayerCard_43F
+global ExportPlayerCard_448, ExportPlayerCard_451, ExportPlayerCard_45A, ExportPlayerCard_463, ExportPlayerCard_4F9, ExportPlayerCard_4FF, ExportPlayerCard_505, ExportPlayerCard_50B
+global ExportPlayerCard_521, ExportPlayerCard_527, ExportPlayerCard_530, ExportPlayerCard_58E, ExportPlayerCard_597, ExportPlayerCard_5C2, ExportPlayerCard_5CE, ExportPlayerCard_5EA
+global ExportPlayerCard_5F3, ExportPlayerCard_5FC, ExportPlayerCard_605, ExportPlayerCard_60E, ExportPlayerCard_617, ExportPlayerCard_620, ExportPlayerCard_628, ExportPlayerCard_631
+global ExportPlayerCard_63A, ExportPlayerCard_643, ExportPlayerCard_680, ExportPlayerCard_689, ExportPlayerCard_68F, ExportPlayerCard_695, ExportPlayerCard_69B, ExportPlayerCard_6A1
+global ExportPlayerCard_6A7, ExportPlayerCard_6B4, ExportPlayerCard_6BA, ExportPlayerCard_6E2, ExportPlayerCard_6E8, ExportPlayerCard_746, ExportPlayerCard_74F, ExportPlayerCard_758
+global ExportPlayerCard_761, ExportPlayerCard_76A, ExportPlayerCard_773, ExportPlayerCard_77C, ExportPlayerCard_785, ExportPlayerCard_78E, ExportPlayerCard_81C, ExportPlayerCard_837
+global ExportPlayerCard_83D, ExportPlayerCard_843, ExportPlayerCard_849, ExportPlayerCard_84F, ExportPlayerCard_855, ExportPlayerCard_85B, ExportPlayerCard_864, ExportPlayerCard_879
+global ExportPlayerCard_87F, ExportPlayerCard_885, ExportPlayerCard_88B, ExportPlayerCard_891, ExportPlayerCard_897, ExportPlayerCard_89D, ExportPlayerCard_8A6, ExportPlayerCard_8AF
+global ExportPlayerCard_926, ExportPlayerCard_92C, ExportPlayerCard_932, ExportPlayerCard_938, ExportPlayerCard_93E, ExportPlayerCard_944, ExportPlayerCard_94A, ExportPlayerCard_950
+global ExportPlayerCard_956, DrawPlayerRatingsPage, PlayerRatingsScreenJumpTable, PlayerRatingsScreen, PlayerRatingsScreen_D1D, PlayerRatingsScreen_D2E, PlayerRatingsScreen_D42, PlayerRatingsScreen_D4E
+global PlayerRatingsScreen_11E4, PlayerRatingsScreen_13C2, PlayerRatingsScreen_13F5, PlayerRatingsScreen_15C2, PlayerRatingsScreen_180D, PlayerRatingsScreen_1964, PlayerRatingsScreen_1B34, PlayerRatingsScreen_1D11
+global PlayerRatingsScreen_1E94, PlayerRatingsScreen_1EA5, PlayerRatingsScreen_1EB8, PlayerRatingsScreen_1EC9, PlayerRatingsScreen_1F8C, PlayerRatingsScreen_2014, PlayerRatingsScreen_2040, PlayerRatingsScreen_21EA
+global PlayerRatingsScreen_21FD, BuildPlayerStats, DrawTeamNameField, DrawRatingsSkaterJumpTable, DrawRatingsGoalieJumpTable, DrawRatingsSkaterBarJumpTable, DrawRatingsGoalieBarJumpTable, DrawRatingsStatJumpTable
+global DrawPlayerRatings, DrawPlayerRatings_243, DrawPlayerRatings_272, DrawPlayerRatings_2A1, DrawPlayerRatings_2D0, DrawPlayerRatings_2FF, DrawPlayerRatings_32E, DrawPlayerRatings_35D
+global DrawPlayerRatings_385, DrawPlayerRatings_3AD, DrawPlayerRatings_4D9, DrawPlayerRatings_515, DrawPlayerRatings_551, DrawPlayerRatings_58D, DrawPlayerRatings_5C9, DrawPlayerRatings_5FF
+global DrawPlayerRatings_62E, DrawPlayerRatings_65D, DrawPlayerRatings_68C, DrawPlayerRatings_6BB, DrawPlayerRatings_6EA, DrawPlayerRatings_719, DrawPlayerRatings_741, DrawPlayerRatings_769
+global DrawPlayerRatings_99B, DrawPlayerRatings_A38, DrawPlayerRatings_AD5, DrawPlayerRatings_B72, DrawPlayerRatings_BFC, DrawPlayerRatings_C99, DrawPlayerRatings_D42, DrawPlayerRatings_DE5
+global DrawPlayerRatings_E68, DrawPlayerRatings_EEB, DrawPlayerRatings_F6E, DrawPlayerRatings_111B, DrawPlayerRatings_11B8, DrawPlayerRatings_1255, DrawPlayerRatings_12F2, DrawPlayerRatings_138F
+global DrawPlayerRatings_1426, DrawPlayerRatings_14A9, DrawPlayerRatings_152C, DrawPlayerRatings_15AF, DrawPlayerRatings_1713, DrawPlayerRatings_17C0, DrawPlayerRatings_17C9, DrawPlayerRatings_17D2
+global DrawPlayerRatings_17DB, DrawPlayerRatings_17E4, DrawPlayerRatings_17ED, DrawPlayerRatings_17F6, DrawPlayerRatings_17FF, DrawPlayerRatings_1808, DrawPlayerRatings_1811
+;-----------------------------------------------------------------------------
+; DrawStatsCardPage                               B50DB  97 PC, low confidence
+; Draws the player stats page
+;-----------------------------------------------------------------------------
+DrawStatsCardPage:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 1Ch, 0
+        mov eax, dword [tickcount]
+        mov dword [StatsCardPlayer], 0FFFFFFFFh
+        mov edi, eax
+        xor esi, esi
+        cmp eax, dword [RatingsShapeCount]
+        jle near .3
+        sub eax, dword [RatingsShapeCount]
+        mov ebx, 3
+        cdq
+        idiv ebx
+        mov ebx, eax
+        cmp eax, byte 4
+        jge short .1
+        movzx eax, byte [RatingsTeamSide]
+        imul edi, eax, byte 0Ch
+        mov eax, ebx
+        mov ecx, 2
+        cdq
+        idiv ecx
+        mov eax, edx
+        mov eax, dword [dword edi+eax*4+RatingsShapes]
+        jmp short .2
+.1:
+        movzx eax, byte [RatingsTeamSide]
+        imul eax, byte 0Ch
+        mov eax, dword [dword eax+RatingsTeamShapes]
+.2:
+        movsx edx, word [byte eax+0Eh]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        mov eax, dword [tickcount]
+        push dword [StatsCardFrameArt]
+        mov ebx, eax
+        mov edi, eax
+        push dword [StatsCardBackArt]
+        mov eax, dword [StatsCardPortrait]
+        push dword [byte eax+02Ch]
+        call BlitConverted
+        mov eax, dword [RatingsShapeCount]
+        add eax, byte 0Fh
+        add esp, byte 0Ch
+        cmp ebx, eax
+        jle short .3
+        call rand_
+        mov ecx, 64h
+        cdq
+        idiv ecx
+        add ebx, edx
+        mov dword [RatingsShapeCount], ebx
+        call rand_
+        mov ebx, 3
+        cdq
+        idiv ebx
+        mov byte [RatingsTeamSide], dl
+.3:
+        xor ebx, ebx
+.4:
+        imul ecx, ebx, byte 0Ch
+        test ebx, ebx
+        jne short .5
+        mov eax, dword [RatingsTeam]
+        cmp dword [byte eax+056h], byte 1
+        jne short .7
+        jmp short .6
+.5:
+        lea eax, [byte ebx+05h]
+        imul eax, byte 52h
+        mov edx, dword [RatingsTeam]
+        add eax, edx
+        cmp dword [byte eax+04h], byte 1
+        jne short .7
+.6:
+        call rand_
+        mov esi, 3
+        cdq
+        idiv esi
+        mov eax, edx
+        push dword [dword ecx+eax*4+PlayerStatsShapeLists]
+        mov esi, 1
+        call BlitShape2
+        add esp, byte 4
+.7:
+        inc ebx
+        cmp ebx, byte 4
+        jl short .4
+        test esi, esi
+        je short .8
+        cmp dword [RatingsSoundPlayed], byte 0
+        jne short .8
+        mov eax, 309h
+        call PlaySfx
+        mov dword [RatingsSoundPlayed], 1
+.8:
+        test esi, esi
+        jne short .9
+        cmp dword [RatingsSoundPlayed], byte 0
+        je short .9
+        mov eax, 309h
+        call PlayMenuSfx
+        mov dword [RatingsSoundPlayed], esi
+.9:
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [StatsCardRow]
+        mov eax, dword [edx+eax*4]
+        cmp eax, dword [StatsCardShown]
+        je near .13
+        lea eax, [byte edi+064h]
+        mov dword [StatsCardTick], eax
+        cmp dword [StatsCardDrawn], byte 0
+        jne near .12
+        call SetScreenTarget
+        xor ebx, ebx
+.10:
+        mov eax, ebx
+        mov ecx, 3
+        cdq
+        idiv ecx
+        inc edx
+        push edx
+        push str_MTRD
+        lea eax, [byte ebp-01Ch]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        call SetScreenTarget
+        lea eax, [byte ebp-01Ch]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov edi, eax
+        lea edx, [byte edi+02h]
+.11:
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .11
+        inc ebx
+        cmp ebx, byte 9
+        jl short .10
+        push byte 0
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push str_BACK8
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        movsx esi, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub esi, eax
+        push esi
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        movsx eax, word [byte eax+0Ch]
+        add esp, byte 8
+        neg eax
+        push eax
+        push str_BACK8
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitConverted
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte ebx+02Ch]
+        call DrawShapeCore
+        add esp, byte 0Ch
+        call PresentScreen
+        push ebx
+        call FreeBitmap
+        add esp, byte 4
+.12:
+        mov eax, dword [StatsCardRow]
+        mov edx, dword [RatingsSkaterOrder]
+        mov dword [StatsCardDrawn], 1
+        mov eax, dword [edx+eax*4]
+        mov dword [StatsCardShown], eax
+.13:
+        mov edx, dword [StatsCardRow]
+        mov eax, dword [RatingsSkaterOrder]
+        shl edx, 2
+        add eax, edx
+        mov edx, dword [eax]
+        cmp edx, dword [StatsCardPlayer]
+        je near DrawStatsCardPage_776
+        cmp edi, dword [StatsCardTick]
+        jle near DrawStatsCardPage_776
+        cmp dword [StatsCardDrawn], byte 0
+        je near DrawStatsCardPage_776
+        mov dword [StatsCardDrawn], 0
+        mov eax, dword [eax]
+        mov dword [StatsCardPlayer], eax
+        cmp dword [StatsCardBitmap], byte 0
+        je short .14
+        push dword [StatsCardBitmap]
+        call FreeMemBlock
+        mov dword [StatsCardBitmap], 0
+        add esp, byte 4
+.14:
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        imul eax, dword [StatsCardPlayer], dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        add eax, edx
+        push byte 0
+        add eax, byte 27h
+        push eax
+        call OpenArtArchive
+        add esp, byte 8
+        mov dword [StatsCardBitmap], eax
+        test eax, eax
+        jne short .15
+        push eax
+        push str_NOFACEFSH3
+        call OpenArtArchiveErr
+        add esp, byte 8
+        mov dword [StatsCardBitmap], eax
+.15:
+        cmp dword [StatsCardBitmap], byte 0
+        je near DrawStatsCardPage_776
+        push str_FART3
+        push dword [StatsCardBitmap]
+        call FindShape
+        add esp, byte 8
+        mov edx, 8
+        mov ebx, eax
+        call FindColorRange
+        call SetScreenTarget
+        push dword [MenuScreenBitmap]
+        push ebx
+        call ConvertArtNew
+        add esp, byte 8
+        mov ebx, eax
+        mov dword [byte ebp-0Ch], eax
+        call PresentScreen
+        movsx eax, word [byte ebx+06h]
+        push byte 0
+        sub eax, byte 32h
+        push eax
+        movsx eax, word [byte ebx+04h]
+        push eax
+        call CreateBitmap
+        mov dword [byte ebp-04h], eax
+        add esp, byte 0Ch
+        mov dword [byte ebp-010h], eax
+        movsx eax, word [byte ebx+06h]
+        push byte 0
+        sub eax, byte 32h
+        push eax
+        movsx eax, word [byte ebx+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push str_MTR1
+        mov edi, eax
+        push dword [RatingsShapeFile]
+        mov dword [byte ebp-08h], eax
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push dword [byte ebp-04h]
+        mov esi, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, 0FFFFFFD8h
+        add esp, byte 8
+        movsx eax, word [byte eax+0Eh]
+        push str_BACK8
+        sub edx, eax
+        push dword [RatingsShapeFile]
+        mov dword [byte ebp-014h], edx
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        add eax, dword [byte ebp-014h]
+        push eax
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, 0FFFFFFB5h
+        movsx eax, word [byte eax+0Ch]
+        add esp, byte 8
+        sub edx, eax
+        push edx
+        push str_BACK8
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push dword [byte edi+02Ch]
+        call ConvertArtInPlace
+        add esp, byte 4
+        push edi
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push ebx
+        push dword 10000h
+        call DrawShapeBlended
+        mov eax, dword [byte ebp-04h]
+        add esp, byte 10h
+        mov edx, dword [byte edi+02Ch]
+        mov eax, dword [byte eax+02Ch]
+        xor ebx, ebx
+        call TintPortrait
+        call SetScreenTarget
+.16:
+        mov eax, ebx
+        mov ecx, 3
+        cdq
+        idiv ecx
+        inc edx
+        push edx
+        push str_MTRD
+        lea eax, [byte ebp-01Ch]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        call SetScreenTarget
+        lea eax, [byte ebp-01Ch]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov edi, eax
+        lea edx, [byte edi+02h]
+.17:
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .17
+        inc ebx
+        cmp ebx, byte 9
+        jl short .16
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push str_BACK8
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub ebx, eax
+        push ebx
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        movsx eax, word [byte eax+0Ch]
+        add esp, byte 8
+        neg eax
+        push eax
+        push str_BACK8
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitConverted
+        add esp, byte 0Ch
+        push str_SPHL
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        movsx ebx, word [byte eax+0Eh]
+        call FindShape
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 8
+        sub ebx, eax
+        push ebx
+        push str_SPHL
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        movsx ebx, word [byte eax+0Ch]
+        call FindShape
+        movsx eax, word [byte eax+0Ch]
+        add esp, byte 8
+        sub ebx, eax
+        push ebx
+        push str_SPHL
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitConverted
+        add esp, byte 0Ch
+        push byte 28h
+        mov eax, dword [byte ebp-08h]
+        push byte 4Bh
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .18
+        push dword 6B85h
+        push byte 0
+        mov edx, 1Ch
+        mov eax, dword [PlayerStatRecords]
+        push byte 0
+        add eax, dword [StatsCardPlayer]
+        mov ebx, esi
+        push dword 0DCh
+        movzx eax, byte [eax]
+        push byte 4Bh
+        mov ecx, dword [byte esi+02Ch]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
+        jmp short .19
+.18:
+        push dword 6B85h
+        push byte 0
+        mov edx, 1Ch
+        push byte 0
+        mov eax, dword [PlayerStatRecords]
+        mov ebx, esi
+        push dword 0DCh
+        add eax, dword [StatsCardPlayer]
+        mov ecx, dword [byte esi+02Ch]
+        push byte 4Bh
+        movzx eax, byte [eax]
+.19:
+        call DrawTeamLogoBanner
+        call SetScreenTarget
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        push str_MTR1
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte esi+02Ch]
+        call DrawShapeCore
+        add esp, byte 0Ch
+        call PresentScreen
+        push dword [byte ebp-0Ch]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-08h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-010h]
+        call FreeBitmap
+        add esp, byte 4
+DrawStatsCardPage_76D:
+        push esi
+        call FreeBitmap
+        add esp, byte 4
+DrawStatsCardPage_776:
+        call SetScreenTarget
+        leave
+DrawStatsCardPage_77C:
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+PlayerStatsScreenJumpTable:                     ; jump table for the switch cases of PlayerStatsScreen
+        dd PlayerStatsScreen_975
+        dd PlayerStatsScreen_99A
+        dd PlayerStatsScreen_9A6
+        dd PlayerStatsScreen_9B7
+        dd PlayerStatsScreen_9CA
+        dd PlayerStatsScreen_9DB
+        dd PlayerStatsScreen_B94
+        dd PlayerStatsScreen_C43
+        dd PlayerStatsScreen_CB4
+        dd PlayerStatsScreen_DC7
+        dd PlayerStatsScreen_10AA
+        dd PlayerStatsScreen_986
+        dd PlayerStatsScreen_1114
+;-----------------------------------------------------------------------------
+; PlayerStatsScreen                               B5891  96 PC, low confidence
+; The player stats screen (StatDBPTRs, "Player #", "+/-", FName, LName,
+; DonRuss): sortable columns, filters, scroll bar, export
+;-----------------------------------------------------------------------------
+PlayerStatsScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 1A98h, 0
+        sub ebp, 82h
+        mov dword [byte ebp+07Eh], 0
+        mov dword [byte ebp+032h], 0
+        mov dword [byte ebp+02Eh], 0
+        mov dword [byte ebp+066h], 1
+        mov dword [byte ebp+056h], 0FFFFFFFFh
+        cmp byte [FrontMusicOn], 0
+        je short .1
+        call MusicEnabled
+.1:
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 96h
+        push dword 96h
+        mov dword [byte ebp+04Eh], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        mov dword [byte ebp+04Ah], eax
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        call SetHighlightText
+        push byte 0
+        push dword 42Ah
+        mov dword [StatsCardDrawn], 0
+        mov dword [StatsCardPlayer], 0
+        push str_PlMenu
+        mov dword [StatsCardShown], 0FFFFFFFFh
+        mov byte [RatingsTeamSide], 0
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword 1C0h
+        push str_PlReg
+        mov dword [RatingsTeam], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [byte ebp+06Eh], eax
+        call SetNormalText
+        mov eax, 1E4h
+        call GetLangText
+        call ShowLinkMessage
+        call SetHighlightText
+        cmp byte [FrontEndExit], 0
+        je short .2
+        lea edx, [byte ebp+032h]
+        mov eax, PlayoffDbKey
+        call OpenLeagueFile
+        lea edx, [byte ebp+02Eh]
+        mov eax, SeasonDbKey
+        jmp short .4
+.2:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .3
+        lea edx, [byte ebp+032h]
+        mov eax, PlayoffStatsPath
+        call OpenLeagueFile
+        mov dword [StatsPlayoffMode], 1
+        jmp short .5
+.3:
+        lea edx, [byte ebp+032h]
+        mov eax, SeasonFilePath
+        call OpenLeagueFile
+        cmp dword [SeasonActive], byte 0
+        je short .5
+        lea edx, [byte ebp+02Eh]
+        mov eax, SeasonStatsPath
+.4:
+        call OpenLeagueFile
+.5:
+        xor ebx, ebx
+        jmp short .7
+.6:
+        mov edx, ebx
+        mov eax, dword [byte ebp+032h]
+        shl edx, 3
+        mov eax, dword [byte eax+01Ch]
+        add eax, edx
+        lea edx, [dword ebp-01A16h]
+        call FindGameRecord
+        movsx eax, word [dword ebp-0D11h]
+        add dword [byte ebp+07Eh], eax
+        movsx eax, word [dword ebp-06EBh]
+        add dword [byte ebp+07Eh], eax
+        movsx eax, word [dword ebp-0795h]
+        add dword [byte ebp+07Eh], eax
+        movsx eax, word [dword ebp-0171h]
+        inc ebx
+        add dword [byte ebp+07Eh], eax
+.7:
+        mov eax, dword [byte ebp+032h]
+        movsx eax, word [eax]
+        cmp ebx, eax
+        jl short .6
+        imul eax, dword [byte ebp+07Eh], byte 27h
+        imul ebx, dword [byte ebp+07Eh], byte 3Dh
+        push byte 0
+        push eax
+        push str_Ai_PlayerStatsScreen
+        call AllocMemBlock
+        mov edi, eax
+        mov dword [byte ebp+062h], eax
+        imul eax, dword [byte ebp+07Eh], dword 0BCh
+        add esp, byte 0Ch
+        push byte 0
+        push eax
+        push str_Rp
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push ebx
+        push str_Curs
+        mov dword [GoalieStatRecords], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push ebx
+        push str_Curp
+        mov esi, eax
+        mov dword [byte ebp+05Eh], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword [byte ebp+07Eh]
+        push str_Pos
+        mov ebx, eax
+        mov dword [byte ebp+05Ah], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword [byte ebp+07Eh]
+        push str_Teamnum
+        mov dword [byte ebp+03Ah], eax
+        mov dword [byte ebp+06Ah], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov edx, dword [byte ebp+02Eh]
+        mov dword [PlayerStatRecords], eax
+        push dword [byte ebp+03Ah]
+        mov ecx, ebx
+        push edi
+        mov eax, dword [byte ebp+032h]
+        mov ebx, esi
+        call BuildPlayerStats
+        mov eax, dword [byte ebp+07Eh]
+        push byte 0
+        shl eax, 2
+        push eax
+        push str_PlSort
+        xor ebx, ebx
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [RatingsSkaterOrder], eax
+        jmp short .9
+.8:
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, ebx
+        mov dword [edx+eax*4], ebx
+        inc ebx
+.9:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .8
+        mov ecx, CompareStatColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsSkaterOrder]
+        call qsort_
+        mov eax, 0Dh
+        mov edx, dword [RatingsTeam]
+        call InitMenuItems
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 18h
+        call LoadDataFile
+        mov dword [RatingsShapeFile], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 19h
+        call LoadDataFile
+        mov ebx, eax
+        mov dword [byte ebp+07Ah], eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push str_BACK8
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_TITL9
+        push ebx
+        mov dword [byte ebp+076h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [byte ebp+042h], eax
+        xor eax, eax
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .10
+        mov eax, dword [byte ebp+07Eh]
+        jmp short .14
+.10:
+        mov ecx, dword [PlayerStatRecords]
+        xor ebx, ebx
+        jmp short .13
+.11:
+        movzx edx, byte [ecx+ebx]
+        cmp edx, dword [StatsColumn]
+        jne short .12
+        inc eax
+.12:
+        inc ebx
+.13:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .11
+.14:
+        push byte 0
+        push byte 0
+        push dword 0C8h
+        push dword 82h
+        push dword 14Ah
+        mov ecx, 1
+        mov edx, dword [RatingsTeam]
+        push dword [byte ebp+076h]
+        mov ebx, eax
+        push byte 0
+        mov eax, StatsCardList
+        add edx, 0A4h
+        call InitScrollList
+        push byte 0
+        push dword 104h
+        push dword 136h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 2Dh
+        push dword 258h
+        mov ebx, dword [byte ebp+076h]
+        mov dword [byte ebp+046h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp+052h], eax
+        mov edx, ebx
+        mov eax, ebx
+        mov esi, BlankMenuItem
+        call DrawScreenBackground
+        mov ebx, 1A9h
+        mov edx, 1F4h
+        mov eax, dword [byte ebp+076h]
+        mov ecx, 52h
+        call DrawStatsBackground
+        mov edi, dword [RatingsTeam]
+        rep movsb
+        mov eax, dword [RatingsTeam]
+        mov dword [eax], 0
+        mov esi, dword [RatingsTeam]
+        mov ecx, 52h
+        lea edi, [dword esi+0386h]
+        mov esi, ScreenFrameItem
+        rep movsb
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0386h], 0Bh
+        mov esi, dword [RatingsTeam]
+        mov ecx, 52h
+        lea edi, [dword esi+03D8h]
+        mov esi, StatsBackItem
+        rep movsb
+        push dword [byte ebp+06Eh]
+        mov eax, dword [RatingsTeam]
+        mov ebx, str_PP12
+        mov edx, dword [byte ebp+07Ah]
+        mov dword [dword eax+03D8h], 0Ch
+        push str_PP14
+        mov eax, dword [RatingsTeam]
+        mov ecx, str_PP13
+        add eax, byte 52h
+        call DrawStatTable
+        push PlayerStatsShapeLists
+        push str_PP13PP14PP15
+        push dword [byte ebp+07Ah]
+        call FindShapeList
+        mov eax, dword [byte ebp+06Eh]
+        add esp, byte 0Ch
+        add eax, byte 40h
+        push eax
+        mov ecx, str_LB262
+        mov edx, dword [RatingsShapeFile]
+        push str_LB262
+        mov eax, dword [RatingsTeam]
+        mov ebx, ecx
+        add eax, 19Ah
+        call DrawStatTable
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .15
+        push str_LB262
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .16
+.15:
+        push dword [StatsColumn]
+        push str_LB02d3
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.16:
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+01B4h], edx
+        add esp, byte 8
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .17
+        push str_LH262
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .18
+.17:
+        push dword [StatsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+01Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.18:
+        lea eax, [byte ebp+01Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+01BCh], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+01B8h], edx
+        mov eax, dword [byte ebp+06Eh]
+        add esp, byte 8
+        add eax, 80h
+        push eax
+        mov ebx, str_PP04
+        mov ecx, str_PP05
+        push str_PP06
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+07Ah]
+        add eax, 1ECh
+        call DrawStatTable
+        push PlayerStatsPageShapes
+        push str_PP05PP06PP07
+        push dword [byte ebp+07Ah]
+        call FindShapeList
+        mov eax, dword [byte ebp+06Eh]
+        add esp, byte 0Ch
+        add eax, 0C0h
+        push eax
+        mov ebx, str_PP20
+        mov ecx, str_PP21
+        push str_PP22
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+07Ah]
+        add eax, 23Eh
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_PP21PP22PP23
+        push dword [byte ebp+07Ah]
+        call FindShapeList
+        mov eax, dword [byte ebp+06Eh]
+        add esp, byte 0Ch
+        add eax, 100h
+        push eax
+        mov ebx, str_PP00
+        mov ecx, str_PP01
+        push str_PP02
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+07Ah]
+        add eax, 290h
+        call DrawStatTable
+        push PlayerStatsTitleShapes
+        push str_PP01PP02PP03
+        push dword [byte ebp+07Ah]
+        call FindShapeList
+        mov eax, dword [byte ebp+06Eh]
+        add esp, byte 0Ch
+        add eax, 140h
+        push eax
+        mov ebx, str_AB003
+        mov ecx, str_AB013
+        push str_AB023
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 2E2h
+        call DrawStatTable
+        mov eax, dword [byte ebp+06Eh]
+        add eax, 180h
+        push eax
+        mov ecx, str_AB043
+        mov ebx, str_AB033
+        push str_AB053
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 334h
+        call DrawStatTable
+        push dword [byte ebp+04Eh]
+        call SetDrawTarget
+        add esp, byte 4
+        push dword [byte ebp+076h]
+        call BlitShape2
+        add esp, byte 4
+        push dword [byte ebp+042h]
+        xor ebx, ebx
+        call BlitShape2
+        add esp, byte 4
+        jmp short .21
+.19:
+        imul eax, ebx, byte 52h
+        mov edx, dword [RatingsTeam]
+        add eax, edx
+        cmp dword [byte eax+01Ah], byte 0
+        je short .20
+        push dword [byte eax+02Ah]
+        push dword [byte eax+026h]
+        push dword [byte eax+01Ah]
+        call BlitConverted
+        add esp, byte 0Ch
+.20:
+        inc ebx
+.21:
+        cmp dword [byte ebp+072h], byte 0
+        setg al
+        movzx eax, al
+        add eax, byte 0Ch
+        cmp ebx, eax
+        jl short .19
+        mov eax, dword [StatsBackArt]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+        call HideLinkBox
+        cmp dword [StatsMenuMode], byte 0
+        je short .22
+        mov eax, dword [byte ebp+04Eh]
+        mov ebx, 10h
+        mov edx, dword [StatsMenuMode]
+        mov eax, dword [byte eax+02Ch]
+        call ShowStatScreen
+        jmp short .23
+.22:
+        mov eax, dword [byte ebp+04Eh]
+        mov edx, 0FFFFFFFFh
+        mov eax, dword [byte eax+02Ch]
+        call WipeScreen
+.23:
+        push dword [byte ebp+04Eh]
+        call FreeBitmap
+        xor ebx, ebx
+        add esp, byte 4
+.24:
+        mov eax, dword [tickcount]
+        mov edi, eax
+        test ebx, ebx
+        je short .25
+        call SetScreenTarget
+        mov eax, dword [byte ebp+03Eh]
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        mov eax, dword [byte ebp+03Eh]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        mov eax, dword [byte ebp+04Ah]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+.25:
+        lea eax, [byte ebx+01h]
+        push eax
+        push str_SPTD
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+026h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        mov esi, eax
+        mov dword [byte ebp+03Eh], eax
+        call SetScreenTarget
+        movsx eax, word [byte esi+0Eh]
+        push eax
+        movsx eax, word [byte esi+0Ch]
+        push eax
+        mov eax, dword [byte ebp+04Ah]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push esi
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+        cmp ebx, byte 3
+        jne short .26
+        call SetScreenTarget
+        push str_SPHL
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+.26:
+        lea edx, [byte edi+019h]
+.27:
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .27
+        inc ebx
+        cmp ebx, byte 4
+        jl near .24
+        xor ebx, ebx
+.28:
+        xor esi, esi
+.29:
+        lea eax, [ebx+ebx]
+        add eax, esi
+        push eax
+        push str_LT02d
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+026h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        imul edx, ebx, byte 0Ch
+        mov ecx, eax
+        mov eax, esi
+        add esp, byte 8
+        inc esi
+        mov dword [dword edx+eax*4+RatingsShapes], ecx
+        cmp esi, byte 2
+        jl short .29
+        shl esi, 2
+        add esi, edx
+        mov eax, dword [dword esi+RatingsShapeCount]
+        push byte 0
+        movsx edx, word [byte eax+06h]
+        push edx
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov dword [byte ebp+ebx*4+012h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        call SetScreenTarget
+        mov eax, dword [dword esi+RatingsShapeCount]
+        movsx edx, word [byte eax+0Eh]
+        push edx
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        mov eax, dword [byte ebp+ebx*4+012h]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        mov eax, dword [byte ebp+ebx*4+012h]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [dword esi+RatingsShapes], eax
+        cmp ebx, byte 1
+        jne short .30
+        push str_LT06
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        mov dword [dword esi+RatingsShapes], eax
+.30:
+        inc ebx
+        cmp ebx, byte 3
+        jl near .28
+        mov eax, 37h
+        call OpenDataLibrary
+        jmp near PlayerStatsScreen_DC7.64
+.31:
+        mov edx, dword [RatingsSkaterOrder]
+        add eax, edx
+        imul ecx, dword [eax], byte 3Dh
+        mov ebx, dword [byte ebp+06Ah]
+        add ebx, dword [eax]
+        movzx edx, byte [ebx]
+        imul ebx, dword [eax], dword 0BCh
+        push byte 0
+        push edx
+        mov edx, dword [byte ebp+076h]
+        mov eax, dword [GoalieStatRecords]
+        add ecx, dword [byte ebp+05Ah]
+.32:
+        add ebx, eax
+        mov eax, dword [byte ebp+052h]
+        call DrawPlayerStatsText
+        call SetScreenTarget
+        push byte 78h
+        mov eax, dword [byte ebp+046h]
+        push dword 14Ah
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        push dword 17Ch
+        mov eax, dword [byte ebp+052h]
+        push byte 14h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, StatsCardList
+        xor edx, edx
+        call DrawScrollBar
+        call PresentScreen
+        cmp byte [StatsMenuDrawn], 0
+        jne short .33
+        mov edx, dword [RatingsTeam]
+        mov eax, 1
+        add edx, byte 52h
+        call InitMenuItems
+.33:
+        push byte 3
+        lea eax, [byte ebp+036h]
+        mov ecx, DrawStatsCardPage
+        mov ebx, 0FFFFFFFFh
+        mov edx, dword [RatingsTeam]
+        push eax
+        cmp dword [byte ebp+072h], byte 0
+        setg al
+        movzx eax, al
+        add eax, byte 0Ch
+        call RunMenu
+        cmp dword [byte ebp+036h], byte 0Ch
+        ja near PlayerStatsScreen_DC7.64
+        mov ebx, dword [byte ebp+036h]
+        jmp dword [nosplit cs:ebx*4+PlayerStatsScreenJumpTable]
+PlayerStatsScreen_975:
+        call FadeInScreen
+        mov dword [byte ebp+056h], 1Ah
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_986:
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_99A:
+        mov dword [byte ebp+056h], 64h
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9A6:
+        mov eax, StatsCardList
+        xor edx, edx
+        call ScrollUp
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9B7:
+        mov ebx, eax
+        xor edx, edx
+        mov eax, StatsCardList
+        call ScrollToMouse
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9CA:
+        mov eax, StatsCardList
+        xor edx, edx
+        call ScrollDown
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_9DB:
+        xor ebx, ebx
+        jmp near .39
+.34:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .35
+        push dword [nosplit ebx*4+PlayoffTeams]
+        jmp short .36
+.35:
+        push ebx
+.36:
+        push str_LB02d3
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+026h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, ebx
+        shl eax, 2
+        mov dword [dword eax+ebp-0C2h], edx
+        mov edx, dword [GameSettings]
+        and edx, byte 70h
+        add esp, byte 8
+        cmp edx, byte 20h
+        jne short .37
+        push dword [dword eax+PlayoffTeams]
+        jmp short .38
+.37:
+        push ebx
+.38:
+        push str_LH02d2
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+026h]
+        push eax
+        push dword [RatingsShapeFile]
+        inc ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [byte ebp+ebx*4-05Ah], eax
+.39:
+        mov eax, dword [byte ebp+032h]
+        movsx eax, word [eax]
+        cmp ebx, eax
+        jl near .34
+        push str_LB262
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_LH262
+        push dword [RatingsShapeFile]
+        mov dword [dword ebp-0C6h], eax
+        call FindShape
+        mov dword [byte ebp-05Ah], eax
+        mov eax, dword [RatingsTeam]
+        mov ecx, dword [dword eax+01C4h]
+        add esp, byte 8
+        add ecx, byte 14h
+        mov edx, dword [dword eax+01C0h]
+        push ecx
+        sub edx, byte 14h
+        push edx
+        mov ebx, dword [dword eax+01C0h]
+        push dword [byte ebp+076h]
+        lea edx, [byte ebp-05Ah]
+        mov eax, dword [byte ebp+032h]
+        push edx
+        lea edx, [dword ebp-0C6h]
+        movsx eax, word [eax]
+        push edx
+        inc eax
+        mov edx, 5
+        call RunScrollList
+        mov dword [byte ebp+036h], eax
+        cmp eax, byte 0FFFFFFFFh
+        je near PlayerStatsScreen_DC7.64
+        lea edx, [byte eax-01h]
+        mov dword [StatsColumn], edx
+        mov ebx, dword [RatingsTeam]
+        mov eax, dword [dword ebp+eax*4-0C6h]
+        mov dword [dword ebx+01B4h], eax
+        mov ebx, dword [byte ebp+036h]
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+ebx*4-05Ah]
+        mov dword [dword eax+01B8h], edx
+        mov eax, dword [byte ebp+036h]
+        mov ecx, CompareStatColumn
+        mov ebx, dword [RatingsTeam]
+        mov eax, dword [byte ebp+eax*4-05Ah]
+        mov edx, dword [byte ebp+07Eh]
+        mov dword [dword ebx+01BCh], eax
+        mov ebx, 4
+        mov eax, dword [RatingsSkaterOrder]
+        call qsort_
+        xor eax, eax
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .40
+        mov eax, dword [byte ebp+07Eh]
+        jmp short .44
+.40:
+        mov esi, dword [PlayerStatRecords]
+        xor ebx, ebx
+        jmp short .43
+.41:
+        movzx edx, byte [esi+ebx]
+        cmp edx, dword [StatsColumn]
+        jne short .42
+        inc eax
+.42:
+        inc ebx
+.43:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .41
+.44:
+        mov edx, eax
+        mov eax, StatsCardList
+        xor ebx, ebx
+        call SetListSelection
+        mov eax, StatsCardList
+        xor edx, edx
+        call SetScrollBarPos
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_B94:
+        cmp dword [byte ebp+02Eh], byte 0
+        je short .45
+        cmp dword [StatsPlayoffMode], byte 0
+        jne short .45
+        mov dword [StatsPlayoffMode], 1
+        jmp short .46
+.45:
+        cmp dword [byte ebp+032h], byte 0
+        je short .46
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .46
+        mov dword [StatsPlayoffMode], 0
+.46:
+        mov eax, dword [byte ebp+06Eh]
+        add eax, 80h
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .48
+        push eax
+        mov ecx, str_PP09
+        mov ebx, str_PP08
+        push str_PP10
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+07Ah]
+        add eax, 1ECh
+        call DrawStatTable
+        push PlayerStatsPageShapes
+        push str_PP09PP10PP11
+.47:
+        push dword [byte ebp+07Ah]
+        call FindShapeList
+        add esp, byte 0Ch
+        jmp near PlayerStatsScreen_DC7.64
+.48:
+        push eax
+        mov ecx, str_PP05
+        mov ebx, str_PP04
+        push str_PP06
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+07Ah]
+        add eax, 1ECh
+        call DrawStatTable
+        push PlayerStatsPageShapes
+        push str_PP05PP06PP07
+        jmp short .47
+PlayerStatsScreen_C43:
+        mov eax, dword [byte ebp+06Eh]
+        xor byte [byte ebp+066h], 1
+        add eax, 0C0h
+        cmp dword [byte ebp+066h], byte 0
+        je short .49
+        push eax
+        mov ecx, str_PP21
+        mov ebx, str_PP20
+        push str_PP22
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+07Ah]
+        add eax, 23Eh
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_PP21PP22PP23
+        jmp short PlayerStatsScreen_B94.47
+.49:
+        push eax
+        mov ecx, str_PP17
+        mov ebx, str_PP16
+        push str_PP18
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+07Ah]
+        add eax, 23Eh
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_PP17PP18PP19
+        jmp near PlayerStatsScreen_B94.47
+PlayerStatsScreen_CB4:
+        mov ebx, dword [StatsCardRow]
+        shl ebx, 2
+        cmp dword [LinkGameActive], byte 0
+        jne short .52
+        cmp dword [StatsPlayoffMode], byte 0
+        jne short .51
+        push eax
+        mov eax, dword [RatingsSkaterOrder]
+        add eax, ebx
+        imul edx, dword [eax], byte 27h
+        push dword [byte ebp+066h]
+        add edx, dword [byte ebp+062h]
+        push edx
+        imul edx, dword [eax], byte 3Dh
+        mov ebx, dword [byte ebp+06Ah]
+        add ebx, dword [eax]
+        imul eax, dword [eax], dword 0BCh
+        mov ecx, dword [GoalieStatRecords]
+        movzx ebx, byte [ebx]
+        add edx, dword [byte ebp+05Eh]
+.50:
+        add eax, ecx
+        xor ecx, ecx
+        call ExportPlayerCard
+        jmp near PlayerStatsScreen_DC7.64
+.51:
+        push eax
+        mov eax, dword [RatingsSkaterOrder]
+        add eax, ebx
+        imul edx, dword [eax], byte 27h
+        push dword [byte ebp+066h]
+        add edx, dword [byte ebp+062h]
+        push edx
+        imul edx, dword [eax], byte 3Dh
+        mov ebx, dword [byte ebp+06Ah]
+        add ebx, dword [eax]
+        imul eax, dword [eax], dword 0BCh
+        mov ecx, dword [GoalieStatRecords]
+        movzx ebx, byte [ebx]
+        add edx, dword [byte ebp+05Ah]
+        jmp short .50
+.52:
+        cmp dword [byte ebp+05Eh], byte 2
+        jne short .55
+        cmp dword [StatsPlayoffMode], byte 0
+        jne short .53
+        push eax
+        mov eax, dword [RatingsSkaterOrder]
+        add eax, ebx
+        imul edx, dword [eax], byte 27h
+        push dword [byte ebp+066h]
+        add edx, dword [byte ebp+062h]
+        push edx
+        imul edx, dword [eax], byte 3Dh
+        mov ebx, dword [byte ebp+06Ah]
+        add ebx, dword [eax]
+        imul eax, dword [eax], dword 0BCh
+        mov ecx, dword [GoalieStatRecords]
+        movzx ebx, byte [ebx]
+        add edx, dword [byte ebp+05Eh]
+        jmp short .54
+.53:
+        push eax
+        mov eax, dword [RatingsSkaterOrder]
+        add eax, ebx
+        imul edx, dword [eax], byte 27h
+        push dword [byte ebp+066h]
+        add edx, dword [byte ebp+062h]
+        push edx
+        imul edx, dword [eax], byte 3Dh
+        mov ebx, dword [byte ebp+06Ah]
+        add ebx, dword [eax]
+        imul eax, dword [eax], dword 0BCh
+        mov ecx, dword [GoalieStatRecords]
+        movzx ebx, byte [ebx]
+        add edx, dword [byte ebp+05Ah]
+.54:
+        add eax, ecx
+        xor ecx, ecx
+        call ExportPlayerCard
+        call LinkSyncMenu
+        jmp near PlayerStatsScreen_DC7.64
+.55:
+        mov eax, 237h
+        call GetLangText
+        call LinkSyncScreen
+        jmp near PlayerStatsScreen_DC7.64
+PlayerStatsScreen_DC7:
+        dec dword [StatsColumn]
+        cmp dword [StatsColumn], byte 0FFFFFFFEh
+        jne short .56
+        mov dword [StatsColumn], 19h
+.56:
+        mov ecx, CompareStatColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsSkaterOrder]
+        call qsort_
+        xor eax, eax
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .57
+        mov eax, dword [byte ebp+07Eh]
+        jmp short .61
+.57:
+        mov esi, dword [PlayerStatRecords]
+        xor ebx, ebx
+        jmp short .60
+.58:
+        movzx edx, byte [esi+ebx]
+        cmp edx, dword [StatsColumn]
+        jne short .59
+        inc eax
+.59:
+        inc ebx
+.60:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .58
+.61:
+        mov edx, eax
+        mov eax, StatsCardList
+        call SetListSelection
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        je near .72
+        push dword [StatsColumn]
+        push str_LB02d3
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.62:
+        lea eax, [byte ebp+026h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+01B4h], edx
+        add esp, byte 8
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        je near .73
+        push dword [StatsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.63:
+        lea eax, [byte ebp+026h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+01BCh], edx
+        mov eax, dword [RatingsTeam]
+        add esp, byte 8
+        mov dword [dword eax+01B8h], edx
+.64:
+        cmp dword [byte ebp+056h], byte 0FFFFFFFFh
+        jne near PlayerStatsScreen_1114.79
+        mov dword [byte ebp+072h], 0
+        cmp byte [FrontEndExit], 0
+        je near .71
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [StatsCardRow]
+        imul edx, dword [edx+eax*4], dword 0BCh
+        mov eax, dword [GoalieStatRecords]
+        cmp dword [byte edx+eax+04h], 2B9h
+        jne short .65
+        mov dword [byte ebp+072h], 0EEh
+.65:
+        mov eax, dword [RatingsSkaterOrder]
+        mov edx, dword [StatsCardRow]
+        imul edx, dword [eax+edx*4], dword 0BCh
+        mov eax, dword [GoalieStatRecords]
+        cmp dword [byte edx+eax+04h], 11Fh
+        jne short .66
+        mov dword [byte ebp+072h], 0F0h
+.66:
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [StatsCardRow]
+        imul edx, dword [edx+eax*4], dword 0BCh
+        mov eax, dword [GoalieStatRecords]
+        cmp dword [byte edx+eax+04h], 0ECh
+        jne short .67
+        mov dword [byte ebp+072h], 0EFh
+.67:
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [StatsCardRow]
+        imul eax, dword [edx+eax*4], dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        cmp dword [byte edx+eax+04h], byte 3Fh
+        jne short .68
+        mov dword [byte ebp+072h], 0F1h
+.68:
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [StatsCardRow]
+        imul eax, dword [edx+eax*4], dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        cmp dword [byte edx+eax+04h], 0DCh
+        jne short .69
+        mov dword [byte ebp+072h], 0F2h
+.69:
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [StatsCardRow]
+        imul eax, dword [edx+eax*4], dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        cmp dword [byte edx+eax+04h], 23Dh
+        jne short .70
+        mov dword [byte ebp+072h], 0EDh
+.70:
+        cmp dword [byte ebp+072h], byte 0
+        jne short .71
+        call SetScreenTarget
+        mov eax, dword [StatsBackArt]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+.71:
+        push str_PWRB
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        mov edx, dword [StatsCardRow]
+        push eax
+        shl edx, 2
+        mov eax, dword [RatingsSkaterOrder]
+        add eax, edx
+        imul ecx, dword [eax], byte 27h
+        mov ebx, dword [byte ebp+06Ah]
+        add ebx, dword [eax]
+        movzx edx, byte [ebx]
+        imul ebx, dword [eax], dword 0BCh
+        push dword [byte ebp+066h]
+        push edx
+        mov edx, dword [byte ebp+076h]
+        mov eax, dword [GoalieStatRecords]
+        add ecx, dword [byte ebp+062h]
+        add ebx, eax
+        mov eax, dword [byte ebp+046h]
+        call DrawPlayerBio
+        mov eax, dword [StatsCardRow]
+        shl eax, 2
+        cmp dword [StatsPlayoffMode], byte 0
+        jne near PlayerStatsScreen.31
+        mov edx, dword [RatingsSkaterOrder]
+        add eax, edx
+        imul ecx, dword [eax], byte 3Dh
+        mov ebx, dword [byte ebp+06Ah]
+        add ebx, dword [eax]
+        movzx edx, byte [ebx]
+        imul ebx, dword [eax], dword 0BCh
+        push byte 0
+        push edx
+        mov edx, dword [byte ebp+076h]
+        mov eax, dword [GoalieStatRecords]
+        add ecx, dword [byte ebp+05Eh]
+        jmp near PlayerStatsScreen.32
+.72:
+        push str_LB262
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp near .62
+.73:
+        push str_LH262
+        lea eax, [byte ebp+026h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp near .63
+PlayerStatsScreen_10AA:
+        mov eax, dword [byte ebp+032h]
+        inc dword [StatsColumn]
+        movsx eax, word [eax]
+        cmp eax, dword [StatsColumn]
+        jne short .74
+        mov dword [StatsColumn], 0FFFFFFFFh
+.74:
+        mov ecx, CompareStatColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsSkaterOrder]
+        call qsort_
+        xor eax, eax
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .75
+        mov eax, dword [byte ebp+07Eh]
+        jmp near PlayerStatsScreen_DC7.61
+.75:
+        mov esi, dword [PlayerStatRecords]
+        xor ebx, ebx
+        jmp short .78
+.76:
+        movzx edx, byte [esi+ebx]
+        cmp edx, dword [StatsColumn]
+        jne short .77
+        inc eax
+.77:
+        inc ebx
+.78:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .76
+        jmp near PlayerStatsScreen_DC7.61
+PlayerStatsScreen_1114:
+        call ShowStatsScreen
+        cmp dword [LinkGameActive], byte 0
+        sete al
+        movzx edx, al
+        mov eax, dword [byte ebp+072h]
+        call PlayScreenMovie
+        call ChangeMenuMusic
+        call SetScreenTarget
+        push dword [byte ebp+042h]
+        call BlitShape2
+        add esp, byte 4
+        push dword [byte ebp+076h]
+        call BlitShape2
+        add esp, byte 4
+        mov dword [StatsCardDrawn], 1
+        call PresentScreen
+        jmp near PlayerStatsScreen_DC7.64
+.79:
+        push dword [RatingsShapeFile]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+07Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+04Ah]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+046h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+052h]
+        xor ebx, ebx
+        call FreeBitmap
+        add esp, byte 4
+.80:
+        push dword [byte ebp+ebx*4+012h]
+        call FreeBitmap
+        inc ebx
+        add esp, byte 4
+        cmp ebx, byte 3
+        jl short .80
+        push dword [byte ebp+062h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [GoalieStatRecords]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+05Eh]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+05Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+06Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [PlayerStatRecords]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [RatingsSkaterOrder]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [RatingsTeam]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+06Eh]
+        call FreeMemBlock
+        add esp, byte 4
+        cmp dword [byte ebp+032h], byte 0
+        je short .81
+        lea eax, [byte ebp+032h]
+        call FreeDbBlock
+.81:
+        cmp dword [byte ebp+02Eh], byte 0
+        je short .82
+        lea eax, [byte ebp+02Eh]
+        call FreeDbBlock
+.82:
+        cmp dword [StatsCardBitmap], byte 0
+        je short .83
+        push dword [StatsCardBitmap]
+        call FreeMemBlock
+        mov dword [StatsCardBitmap], 0
+        add esp, byte 4
+.83:
+        mov eax, StatsCardList
+        call FreeScrollList
+        call SetNormalText
+        cmp byte [FrontMusicOn], 0
+        je short .84
+        cmp byte [StatsMenuDrawn], 0
+        je short .84
+        call LoadFrontEndSfx
+.84:
+        call FreeStatsBitmap
+        mov eax, dword [byte ebp+056h]
+        lea esp, [dword ebp+082h]
+        pop ebp
+        jmp near DrawStatsCardPage_77C
+DrawSkaterStatLabelJumpTable:                   ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_4C
+        dd DrawPlayerStatsText_53
+        dd DrawPlayerStatsText_5A
+        dd DrawPlayerStatsText_61
+        dd DrawPlayerStatsText_68
+        dd DrawPlayerStatsText_6F
+        dd DrawPlayerStatsText_76
+        dd DrawPlayerStatsText_7D
+        dd DrawPlayerStatsText_84
+        dd DrawPlayerStatsText_8B
+        dd DrawPlayerStatsText_92
+DrawSkaterPlayoffStatJumpTable:                 ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_123
+        dd DrawPlayerStatsText_129
+        dd DrawPlayerStatsText_12F
+        dd DrawPlayerStatsText_135
+        dd DrawPlayerStatsText_14B
+        dd DrawPlayerStatsText_151
+        dd DrawPlayerStatsText_15A
+        dd DrawPlayerStatsText_1C0
+        dd DrawPlayerStatsText_1C9
+        dd DrawPlayerStatsText_1F4
+        dd DrawPlayerStatsText_200
+DrawSkaterSeasonStatJumpTable:                  ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_21C
+        dd DrawPlayerStatsText_225
+        dd DrawPlayerStatsText_22E
+        dd DrawPlayerStatsText_237
+        dd DrawPlayerStatsText_240
+        dd DrawPlayerStatsText_249
+        dd DrawPlayerStatsText_252
+        dd DrawPlayerStatsText_25A
+        dd DrawPlayerStatsText_263
+        dd DrawPlayerStatsText_26C
+        dd DrawPlayerStatsText_275
+DrawSkaterStatJumpTable:                        ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_2AA
+        dd DrawPlayerStatsText_2B3
+        dd DrawPlayerStatsText_2B9
+        dd DrawPlayerStatsText_2BF
+        dd DrawPlayerStatsText_2C5
+        dd DrawPlayerStatsText_2CB
+        dd DrawPlayerStatsText_2D1
+        dd DrawPlayerStatsText_2DE
+        dd DrawPlayerStatsText_2E4
+        dd DrawPlayerStatsText_30C
+        dd DrawPlayerStatsText_312
+DrawGoalieStatLabelJumpTable:                   ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_36F
+        dd DrawPlayerStatsText_376
+        dd DrawPlayerStatsText_37D
+        dd DrawPlayerStatsText_384
+        dd DrawPlayerStatsText_38B
+        dd DrawPlayerStatsText_392
+        dd DrawPlayerStatsText_399
+        dd DrawPlayerStatsText_3A0
+        dd DrawPlayerStatsText_3A7
+DrawGoaliePlayoffStatJumpTable:                 ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_430
+        dd DrawPlayerStatsText_44B
+        dd DrawPlayerStatsText_451
+        dd DrawPlayerStatsText_457
+        dd DrawPlayerStatsText_45D
+        dd DrawPlayerStatsText_463
+        dd DrawPlayerStatsText_469
+        dd DrawPlayerStatsText_46F
+        dd DrawPlayerStatsText_478
+DrawGoalieSeasonStatJumpTable:                  ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_48D
+        dd DrawPlayerStatsText_493
+        dd DrawPlayerStatsText_499
+        dd DrawPlayerStatsText_49F
+        dd DrawPlayerStatsText_4A5
+        dd DrawPlayerStatsText_4AB
+        dd DrawPlayerStatsText_4B1
+        dd DrawPlayerStatsText_4BA
+        dd DrawPlayerStatsText_4C3
+DrawGoalieStatJumpTable:                        ; jump table for the switch cases of DrawPlayerStatsText
+        dd DrawPlayerStatsText_53A
+        dd DrawPlayerStatsText_540
+        dd DrawPlayerStatsText_546
+        dd DrawPlayerStatsText_54C
+        dd DrawPlayerStatsText_552
+        dd DrawPlayerStatsText_558
+        dd DrawPlayerStatsText_55E
+        dd DrawPlayerStatsText_564
+        dd DrawPlayerStatsText_56A
+;-----------------------------------------------------------------------------
+; DrawPlayerStatsText                             B6C67  97 PC, low confidence
+; Draws the player stats text
+;-----------------------------------------------------------------------------
+DrawPlayerStatsText:
+        push esi
+        push edi
+        enter 18h, 0
+        mov esi, edx
+        mov dword [byte ebp-04h], ebx
+        mov ebx, ecx
+        push eax
+        call SetDrawTarget
+        movsx eax, word [byte esi+0Eh]
+        add esp, byte 4
+        sub eax, 17Ch
+        push eax
+        push byte 0FFFFFFECh
+        push esi
+        call BlitArt
+        add esp, byte 0Ch
+        cmp byte [byte ebp+010h], 47h
+        jne near DrawPlayerStatsText_312.17
+        mov esi, dword [byte ebp+014h]
+        jmp near DrawPlayerStatsText_92.3
+.1:
+        cmp esi, byte 0Ah
+        ja short DrawPlayerStatsText_92.2
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+DrawSkaterStatLabelJumpTable]
+DrawPlayerStatsText_4C:
+        mov edi, 140h
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_53:
+        mov edi, 19Bh
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_5A:
+        mov edi, 19Ch
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_61:
+        mov edi, 19Dh
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_68:
+        mov edi, 149h
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_6F:
+        mov edi, 14Ah
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_76:
+        mov edi, 147h
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_7D:
+        mov edi, 148h
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_84:
+        mov edi, 6Eh
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_8B:
+        mov edi, 12Bh
+        jmp short DrawPlayerStatsText_92.2
+DrawPlayerStatsText_92:
+        mov edi, 0A0h
+.2:
+        mov eax, edi
+        call GetLangText
+        push eax
+        mov eax, esi
+        sub eax, dword [byte ebp+014h]
+        imul eax, byte 32h
+        push byte 0
+        add eax, byte 7Dh
+        push eax
+        push byte 1
+        inc esi
+        call DrawTextAligned
+        add esp, byte 10h
+.3:
+        mov eax, dword [byte ebp+014h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near DrawPlayerStatsText.1
+        cmp byte [FrontEndExit], 0
+        je near DrawPlayerStatsText_275.12
+        xor edi, edi
+.4:
+        lea eax, [dword edi+0171h]
+        call GetLangText
+        push eax
+        lea eax, [byte edi+01h]
+        imul eax, byte 0Fh
+        mov edx, 2Dh
+        sub edx, eax
+        push edx
+        push byte 0
+        push byte 0
+        mov esi, dword [byte ebp+014h]
+        jmp near DrawPlayerStatsText_15A.9
+.5:
+        imul eax, edi, byte 2Eh
+        mov edx, esi
+        shl edx, 2
+        add eax, dword [byte ebp-04h]
+        cmp dword [StatsPlayoffMode], byte 0
+        je near DrawPlayerStatsText_200.11
+        cmp esi, byte 0Ah
+        ja near DrawPlayerStatsText_15A.8
+        jmp dword [dword cs:edx+DrawSkaterPlayoffStatJumpTable]
+DrawPlayerStatsText_123:
+        movsx eax, word [byte eax+078h]
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_129:
+        movsx eax, word [byte eax+07Ah]
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_12F:
+        movsx eax, word [byte eax+07Ch]
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_135:
+        push str_0_DrawPlayerStatsText
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp near DrawPlayerStatsText_15A.8
+DrawPlayerStatsText_14B:
+        movsx eax, word [byte eax+07Eh]
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_151:
+        movsx eax, word [dword eax+080h]
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_15A:
+        mov eax, dword [dword eax+082h]
+.6:
+        mov ebx, 3Ch
+        cdq
+        idiv ebx
+.7:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.8:
+        lea eax, [byte ebp-018h]
+        push eax
+        lea eax, [byte edi+01h]
+        imul eax, byte 0Fh
+        mov edx, 2Dh
+        sub edx, eax
+        mov eax, esi
+        sub eax, dword [byte ebp+014h]
+        imul eax, byte 32h
+        push edx
+        add eax, byte 7Dh
+        push eax
+        push byte 1
+        inc esi
+.9:
+        call DrawTextAligned
+        add esp, byte 10h
+        mov eax, dword [byte ebp+014h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near DrawPlayerStatsText_92.5
+        inc edi
+        cmp edi, byte 2
+        jl near DrawPlayerStatsText_92.4
+        jmp near DrawPlayerStatsText_56A.32
+DrawPlayerStatsText_1C0:
+        movsx eax, word [dword eax+086h]
+        jmp short DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_1C9:
+        movsx ebx, word [dword eax+088h]
+.10:
+        mov eax, ebx
+        mov ecx, 64h
+        cdq
+        idiv ecx
+        mov eax, ebx
+        push edx
+        cdq
+        idiv ecx
+        push eax
+        push str_D02d3
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        jmp short DrawPlayerStatsText_15A.8
+DrawPlayerStatsText_1F4:
+        movsx eax, word [dword eax+08Ah]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_200:
+        movsx eax, word [dword eax+08Ch]
+        jmp near DrawPlayerStatsText_15A.7
+.11:
+        cmp esi, byte 0Ah
+        ja near DrawPlayerStatsText_15A.8
+        jmp dword [dword cs:edx+DrawSkaterSeasonStatJumpTable]
+DrawPlayerStatsText_21C:
+        movsx eax, word [byte eax+060h]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_225:
+        movsx eax, word [byte eax+062h]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_22E:
+        movsx eax, word [byte eax+064h]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_237:
+        movsx eax, word [byte eax+066h]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_240:
+        movsx eax, word [byte eax+068h]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_249:
+        movsx eax, word [byte eax+06Ah]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_252:
+        mov eax, dword [byte eax+06Ch]
+        jmp near DrawPlayerStatsText_15A.6
+DrawPlayerStatsText_25A:
+        movsx eax, word [byte eax+070h]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_263:
+        movsx ebx, word [byte eax+072h]
+        jmp near DrawPlayerStatsText_1C9.10
+DrawPlayerStatsText_26C:
+        movsx eax, word [byte eax+074h]
+        jmp near DrawPlayerStatsText_15A.7
+DrawPlayerStatsText_275:
+        movsx eax, word [byte eax+076h]
+        jmp near DrawPlayerStatsText_15A.7
+.12:
+        mov eax, 172h
+        call GetLangText
+        push eax
+        push byte 1Eh
+        push byte 0
+        push byte 0
+        mov esi, dword [byte ebp+014h]
+        jmp near DrawPlayerStatsText_312.16
+.13:
+        cmp esi, byte 0Ah
+        ja near DrawPlayerStatsText_312.15
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+DrawSkaterStatJumpTable]
+DrawPlayerStatsText_2AA:
+        movsx eax, word [byte ebx+018h]
+        jmp near DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2B3:
+        movsx eax, word [byte ebx+01Ah]
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2B9:
+        movsx eax, word [byte ebx+01Ch]
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2BF:
+        movsx eax, word [byte ebx+01Eh]
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2C5:
+        movsx eax, word [byte ebx+020h]
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2CB:
+        movsx eax, word [byte ebx+028h]
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2D1:
+        mov eax, dword [byte ebx+02Ah]
+        mov ecx, 3Ch
+        cdq
+        idiv ecx
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2DE:
+        movsx eax, word [byte ebx+02Eh]
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_2E4:
+        movsx edi, word [byte ebx+030h]
+        mov eax, edi
+        mov ecx, 64h
+        cdq
+        idiv ecx
+        mov eax, edi
+        push edx
+        cdq
+        idiv ecx
+        push eax
+        push str_DD4
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        jmp short DrawPlayerStatsText_312.15
+DrawPlayerStatsText_30C:
+        movsx eax, word [byte ebx+032h]
+        jmp short DrawPlayerStatsText_312.14
+DrawPlayerStatsText_312:
+        movsx eax, word [byte ebx+034h]
+.14:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.15:
+        lea eax, [byte ebp-018h]
+        push eax
+        mov eax, esi
+        sub eax, dword [byte ebp+014h]
+        imul eax, byte 32h
+        push byte 1Eh
+        add eax, byte 7Dh
+        push eax
+        push byte 1
+        inc esi
+.16:
+        call DrawTextAligned
+        add esp, byte 10h
+        mov eax, dword [byte ebp+014h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near DrawPlayerStatsText_275.13
+        jmp near DrawPlayerStatsText_56A.32
+.17:
+        mov esi, dword [byte ebp+014h]
+        jmp near DrawPlayerStatsText_3A7.20
+.18:
+        cmp esi, byte 8
+        ja short DrawPlayerStatsText_3A7.19
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+DrawGoalieStatLabelJumpTable]
+DrawPlayerStatsText_36F:
+        mov edi, 140h
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_376:
+        mov edi, 141h
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_37D:
+        mov edi, 142h
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_384:
+        mov edi, 143h
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_38B:
+        mov edi, 145h
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_392:
+        mov edi, 146h
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_399:
+        mov edi, 144h
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_3A0:
+        mov edi, 12Bh
+        jmp short DrawPlayerStatsText_3A7.19
+DrawPlayerStatsText_3A7:
+        mov edi, 159h
+.19:
+        mov eax, edi
+        call GetLangText
+        push eax
+        mov eax, esi
+        sub eax, dword [byte ebp+014h]
+        imul eax, byte 32h
+        push byte 0
+        add eax, byte 7Dh
+        push eax
+        push byte 1
+        inc esi
+        call DrawTextAligned
+        add esp, byte 10h
+.20:
+        mov eax, dword [byte ebp+014h]
+        add eax, byte 9
+        cmp esi, eax
+        jl short DrawPlayerStatsText_312.18
+        cmp byte [FrontEndExit], 0
+        je near DrawPlayerStatsText_4C3.27
+        xor edi, edi
+.21:
+        lea eax, [dword edi+0171h]
+        call GetLangText
+        push eax
+        lea eax, [byte edi+01h]
+        imul eax, byte 0Fh
+        mov edx, 2Dh
+        sub edx, eax
+        push edx
+        push byte 0
+        push byte 0
+        mov esi, dword [byte ebp+014h]
+        jmp near DrawPlayerStatsText_4C3.26
+.22:
+        imul eax, edi, byte 2Eh
+        mov ebx, esi
+        shl ebx, 2
+        add eax, dword [byte ebp-04h]
+        cmp dword [StatsPlayoffMode], byte 0
+        je short DrawPlayerStatsText_478.24
+        cmp esi, byte 8
+        ja near DrawPlayerStatsText_4C3.25
+        jmp dword [dword cs:ebx+DrawGoaliePlayoffStatJumpTable]
+DrawPlayerStatsText_430:
+        movsx eax, word [byte eax+072h]
+.23:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp near DrawPlayerStatsText_4C3.25
+DrawPlayerStatsText_44B:
+        movsx eax, word [byte eax+074h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_451:
+        movsx eax, word [byte eax+076h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_457:
+        movsx eax, word [byte eax+078h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_45D:
+        movsx eax, word [byte eax+07Ah]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_463:
+        movsx eax, word [byte eax+07Ch]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_469:
+        movsx eax, word [byte eax+07Eh]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_46F:
+        movsx eax, word [dword eax+080h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_478:
+        movsx eax, word [dword eax+082h]
+        jmp short DrawPlayerStatsText_430.23
+.24:
+        cmp esi, byte 8
+        ja short DrawPlayerStatsText_4C3.25
+        jmp dword [dword cs:ebx+DrawGoalieSeasonStatJumpTable]
+DrawPlayerStatsText_48D:
+        movsx eax, word [byte eax+060h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_493:
+        movsx eax, word [byte eax+062h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_499:
+        movsx eax, word [byte eax+064h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_49F:
+        movsx eax, word [byte eax+066h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4A5:
+        movsx eax, word [byte eax+068h]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4AB:
+        movsx eax, word [byte eax+06Ah]
+        jmp short DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4B1:
+        movsx eax, word [byte eax+06Ch]
+        jmp near DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4BA:
+        movsx eax, word [byte eax+06Eh]
+        jmp near DrawPlayerStatsText_430.23
+DrawPlayerStatsText_4C3:
+        movsx eax, word [byte eax+070h]
+        jmp near DrawPlayerStatsText_430.23
+.25:
+        lea eax, [byte ebp-018h]
+        push eax
+        lea eax, [byte edi+01h]
+        imul eax, byte 0Fh
+        mov edx, 2Dh
+        sub edx, eax
+        mov eax, esi
+        sub eax, dword [byte ebp+014h]
+        imul eax, byte 32h
+        push edx
+        add eax, byte 7Dh
+        push eax
+        push byte 1
+        inc esi
+.26:
+        call DrawTextAligned
+        add esp, byte 10h
+        mov eax, dword [byte ebp+014h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near DrawPlayerStatsText_3A7.22
+        inc edi
+        cmp edi, byte 2
+        jl near DrawPlayerStatsText_3A7.21
+        jmp near DrawPlayerStatsText_56A.32
+.27:
+        mov eax, 172h
+        call GetLangText
+        push eax
+        push byte 1Eh
+        push byte 0
+        push byte 0
+        mov esi, dword [byte ebp+014h]
+        jmp near DrawPlayerStatsText_56A.31
+.28:
+        cmp esi, byte 8
+        ja short DrawPlayerStatsText_56A.30
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+DrawGoalieStatJumpTable]
+DrawPlayerStatsText_53A:
+        movsx eax, word [byte ebx+018h]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_540:
+        movsx eax, word [byte ebx+01Ah]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_546:
+        movsx eax, word [byte ebx+01Ch]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_54C:
+        movsx eax, word [byte ebx+01Eh]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_552:
+        movsx eax, word [byte ebx+020h]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_558:
+        movsx eax, word [byte ebx+022h]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_55E:
+        movsx eax, word [byte ebx+024h]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_564:
+        movsx eax, word [byte ebx+026h]
+        jmp short DrawPlayerStatsText_56A.29
+DrawPlayerStatsText_56A:
+        movsx eax, word [byte ebx+028h]
+.29:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.30:
+        lea eax, [byte ebp-018h]
+        push eax
+        mov eax, esi
+        sub eax, dword [byte ebp+014h]
+        imul eax, byte 32h
+        push byte 1Eh
+        add eax, byte 7Dh
+        push eax
+        push byte 1
+        inc esi
+.31:
+        call DrawTextAligned
+        add esp, byte 10h
+        mov eax, dword [byte ebp+014h]
+        add eax, byte 9
+        cmp esi, eax
+        jl short DrawPlayerStatsText_4C3.28
+.32:
+        leave
+        pop edi
+        pop esi
+        ret 8
+DrawBioSkaterRatingJumpTable:                   ; jump table for the switch cases of DrawPlayerBio
+        dd DrawPlayerBio_328
+        dd DrawPlayerBio_32F
+        dd DrawPlayerBio_336
+        dd DrawPlayerBio_33D
+        dd DrawPlayerBio_344
+        dd DrawPlayerBio_34B
+        dd DrawPlayerBio_352
+        dd DrawPlayerBio_359
+        dd DrawPlayerBio_360
+        dd DrawPlayerBio_367
+        dd DrawPlayerBio_36E
+        dd DrawPlayerBio_375
+        dd DrawPlayerBio_37C
+        dd DrawPlayerBio_383
+DrawBioGoalieRatingJumpTable:                   ; jump table for the switch cases of DrawPlayerBio
+        dd DrawPlayerBio_427
+        dd DrawPlayerBio_42E
+        dd DrawPlayerBio_435
+        dd DrawPlayerBio_43C
+        dd DrawPlayerBio_443
+        dd DrawPlayerBio_44A
+        dd DrawPlayerBio_451
+        dd DrawPlayerBio_458
+        dd DrawPlayerBio_45F
+;-----------------------------------------------------------------------------
+; DrawPlayerBio                                   B7270  97 PC, low confidence
+; The player's height, weight, birth and draft lines
+;-----------------------------------------------------------------------------
+DrawPlayerBio:
+        push esi
+        push edi
+        enter 0A4h, 0
+        push edx
+        push ebx
+        sub ebp, byte 76h
+        mov esi, ecx
+        push eax
+        call SetDrawTarget
+        mov eax, dword [byte ebp-032h]
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 4
+        sub eax, byte 78h
+        push eax
+        push dword 0FFFFFEB6h
+        push dword [byte ebp-032h]
+        call BlitArt
+        add esp, byte 0Ch
+        lea eax, [byte ebx+08h]
+        push eax
+        lea eax, [byte ebx+018h]
+        push eax
+        push str_SS8
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        lea eax, [byte ebp-02Eh]
+        push eax
+        push byte 0
+        push dword 9Bh
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp byte [dword ebp+08Ah], 0
+        je near .10
+        cmp byte [dword ebp+086h], 47h
+        jne short .1
+        movsx eax, word [byte esi+01Fh]
+        movsx ebx, word [byte esi+01Dh]
+        jmp short .2
+.1:
+        movsx eax, word [byte esi+023h]
+        movsx ebx, word [byte esi+021h]
+.2:
+        test byte [GameSettings], 0Ch
+        jne short .3
+        push eax
+        mov eax, 0F3h
+        call GetLangText
+        push eax
+        mov eax, ebx
+        mov ecx, 0Ch
+        cdq
+        idiv ecx
+        mov eax, ebx
+        push edx
+        cdq
+        idiv ecx
+        push eax
+        mov eax, 0F2h
+        call GetLangText
+        push eax
+        push str_SDDSD3
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 1Ch
+        jmp near .4
+.3:
+        call PoundsToKg
+        mov ecx, eax
+        mov eax, ebx
+        mov edi, 64h
+        call InchesToCm
+        mov ebx, eax
+        cdq
+        idiv edi
+        mov eax, ebx
+        push edx
+        cdq
+        idiv edi
+        push eax
+        mov eax, 0ECh
+        call GetLangText
+        push eax
+        lea eax, [byte ebp+036h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        mov eax, 0F2h
+        call GetLangText
+        push eax
+        push str_S8
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea edx, [byte ebp+036h]
+        lea eax, [byte ebp-02Eh]
+        call strcat_
+        mov eax, 15Bh
+        call GetLangText
+        push eax
+        push str_S9
+        lea eax, [byte ebp+036h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea edx, [byte ebp+036h]
+        lea eax, [byte ebp-02Eh]
+        call strcat_
+        push ecx
+        mov eax, 0EDh
+        call GetLangText
+        push eax
+        lea eax, [byte ebp+036h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea edx, [byte ebp+036h]
+        lea eax, [byte ebp-02Eh]
+        call strcat_
+.4:
+        lea eax, [byte ebp-02Eh]
+        push eax
+        push byte 14h
+        push dword 9Bh
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp byte [dword ebp+086h], 47h
+        jne short .6
+        cmp byte [byte esi+010h], 0
+        je short .5
+        mov eax, 16Eh
+        jmp short .8
+.5:
+        mov eax, 16Dh
+        jmp short .8
+.6:
+        cmp byte [byte esi+010h], 0
+        jne short .7
+        mov eax, 16Bh
+        jmp short .8
+.7:
+        mov eax, 16Ch
+.8:
+        call GetLangText
+        push eax
+        push str_S_DrawPlayerBio
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp-02Eh]
+        push eax
+        push byte 28h
+        push dword 9Bh
+        push byte 1
+        lea ebx, [byte ebp+072h]
+        call DrawTextAligned
+        mov eax, dword [byte ebp-036h]
+        lea ecx, [byte ebp+06Eh]
+        lea edx, [byte ebp+066h]
+        add esp, byte 10h
+        movzx eax, word [byte eax+05Ah]
+        call AgeFromBirthDate
+        movsx eax, word [byte ebp+066h]
+        push eax
+        movsx eax, word [byte ebp+06Eh]
+        push eax
+        movsx eax, word [byte ebp+072h]
+        add eax, byte 22h
+        call GetLangText
+        push eax
+        mov eax, 169h
+        call GetLangText
+        push eax
+        push str_SSDD2
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 18h
+        lea eax, [byte ebp-02Eh]
+        push eax
+        push byte 3Ch
+        push dword 9Bh
+        push byte 1
+        call DrawTextAligned
+        mov eax, dword [byte ebp-036h]
+        add esp, byte 10h
+        add eax, byte 32h
+        push eax
+        push str_S_DrawPlayerBio
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp-02Eh]
+        push eax
+        push byte 50h
+        push dword 9Bh
+        push byte 1
+        call DrawTextAligned
+        mov eax, dword [byte ebp-036h]
+        add esp, byte 10h
+        cmp word [byte eax+05Ch], byte 0
+        jle short .9
+        movsx eax, word [byte eax+05Ch]
+        push eax
+        mov eax, 16Fh
+        call GetLangText
+        push eax
+        push str_SD5
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        lea eax, [byte ebp-02Eh]
+        push eax
+        push byte 64h
+        push dword 9Bh
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+.9:
+        mov eax, dword [byte ebp-036h]
+        cmp word [byte eax+05Eh], byte 0
+        jle near DrawPlayerBio_45F.18
+        movsx eax, word [byte eax+05Eh]
+        push eax
+        mov eax, 170h
+        call GetLangText
+        push eax
+        push str_SD6
+        lea eax, [byte ebp-02Eh]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        lea eax, [byte ebp-02Eh]
+        push eax
+        push byte 78h
+        push dword 9Bh
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        jmp near DrawPlayerBio_45F.18
+.10:
+        cmp byte [dword ebp+086h], 47h
+        je near DrawPlayerBio_383.14
+        mov dword [byte ebp+06Ah], 0
+        jmp near DrawPlayerBio_383.13
+.11:
+        cmp word [byte ebp+06Ah], byte 0Dh
+        ja near DrawPlayerBio_383.12
+        movzx eax, word [byte ebp+06Ah]
+        jmp dword [nosplit cs:eax*4+DrawBioSkaterRatingJumpTable]
+DrawPlayerBio_328:
+        movzx di, byte [byte esi+011h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_32F:
+        movzx di, byte [byte esi+012h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_336:
+        movzx di, byte [byte esi+014h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_33D:
+        movzx di, byte [byte esi+015h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_344:
+        movzx di, byte [byte esi+016h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_34B:
+        movzx di, byte [byte esi+018h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_352:
+        movzx di, byte [byte esi+017h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_359:
+        movzx di, byte [byte esi+019h]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_360:
+        movzx di, byte [byte esi+01Ah]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_367:
+        movzx di, byte [byte esi+01Bh]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_36E:
+        movzx di, byte [byte esi+01Ch]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_375:
+        movzx di, byte [byte esi+01Dh]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_37C:
+        movzx di, byte [byte esi+01Fh]
+        jmp short DrawPlayerBio_383.12
+DrawPlayerBio_383:
+        movzx di, byte [byte esi+020h]
+.12:
+        movsx eax, word [byte ebp+06Ah]
+        mov dword [byte ebp+062h], eax
+        shl eax, 4
+        mov dword [byte ebp+05Eh], eax
+        add eax, byte 16h
+        push eax
+        push dword 0C8h
+        push dword [dword ebp+08Eh]
+        call DrawArt
+        add esp, byte 0Ch
+        mov ebx, 60h
+        mov edx, dword [byte ebp+05Eh]
+        push byte 1
+        movsx eax, di
+        push byte 19h
+        add eax, byte 0Ah
+        mov ecx, 5
+        push eax
+        add edx, byte 1Ah
+        mov eax, 0CCh
+        call DrawProgressBar
+        mov eax, dword [byte ebp+062h]
+        add eax, 174h
+        call GetLangText
+        push eax
+        mov eax, dword [byte ebp+05Eh]
+        add eax, byte 14h
+        push eax
+        push dword 0BEh
+        push byte 2
+        inc dword [byte ebp+06Ah]
+        call DrawTextAligned
+        add esp, byte 10h
+.13:
+        cmp word [byte ebp+06Ah], byte 0Eh
+        jl near DrawPlayerBio.11
+        jmp near DrawPlayerBio_45F.18
+.14:
+        mov dword [byte ebp+06Ah], 0
+        jmp near DrawPlayerBio_45F.17
+.15:
+        cmp word [byte ebp+06Ah], byte 8
+        ja short DrawPlayerBio_45F.16
+        movzx eax, word [byte ebp+06Ah]
+        jmp dword [nosplit cs:eax*4+DrawBioGoalieRatingJumpTable]
+DrawPlayerBio_427:
+        movzx di, byte [byte esi+011h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_42E:
+        movzx di, byte [byte esi+012h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_435:
+        movzx di, byte [byte esi+013h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_43C:
+        movzx di, byte [byte esi+014h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_443:
+        movzx di, byte [byte esi+015h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_44A:
+        movzx di, byte [byte esi+016h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_451:
+        movzx di, byte [byte esi+018h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_458:
+        movzx di, byte [byte esi+019h]
+        jmp short DrawPlayerBio_45F.16
+DrawPlayerBio_45F:
+        movzx di, byte [byte esi+01Ah]
+.16:
+        movsx eax, word [byte ebp+06Ah]
+        mov dword [byte ebp+05Eh], eax
+        shl eax, 4
+        mov dword [byte ebp+062h], eax
+        add eax, byte 16h
+        push eax
+        push dword 0C8h
+        push dword [dword ebp+08Eh]
+        call DrawArt
+        add esp, byte 0Ch
+        mov ebx, 60h
+        mov edx, dword [byte ebp+062h]
+        push byte 1
+        movsx eax, di
+        push byte 19h
+        add eax, byte 0Ah
+        mov ecx, 5
+        push eax
+        add edx, byte 1Ah
+        mov eax, 0CCh
+        call DrawProgressBar
+        mov eax, dword [byte ebp+05Eh]
+        add eax, 1A4h
+        call GetLangText
+        push eax
+        mov eax, dword [byte ebp+062h]
+        add eax, byte 14h
+        push eax
+        push dword 0BEh
+        push byte 2
+        inc dword [byte ebp+06Ah]
+        call DrawTextAligned
+        add esp, byte 10h
+.17:
+        cmp word [byte ebp+06Ah], byte 9
+        jl near DrawPlayerBio_383.15
+.18:
+        lea esp, [byte ebp+076h]
+DrawPlayerBio_4E2:
+        pop ebp
+        pop edi
+        pop esi
+        ret 0Ch
+ExportSkaterRatingJumpTable:                    ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_2B6
+        dd ExportPlayerCard_2BD
+        dd ExportPlayerCard_2C4
+        dd ExportPlayerCard_2CB
+        dd ExportPlayerCard_2D2
+        dd ExportPlayerCard_2D9
+        dd ExportPlayerCard_2E0
+        dd ExportPlayerCard_2E7
+        dd ExportPlayerCard_2EE
+        dd ExportPlayerCard_2F5
+        dd ExportPlayerCard_2FC
+        dd ExportPlayerCard_303
+        dd ExportPlayerCard_30A
+        dd ExportPlayerCard_311
+ExportGoalieRatingJumpTable:                    ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_35D
+        dd ExportPlayerCard_364
+        dd ExportPlayerCard_36B
+        dd ExportPlayerCard_372
+        dd ExportPlayerCard_379
+        dd ExportPlayerCard_380
+        dd ExportPlayerCard_387
+        dd ExportPlayerCard_38E
+        dd ExportPlayerCard_395
+ExportSkaterStatLabelJumpTable:                 ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_409
+        dd ExportPlayerCard_412
+        dd ExportPlayerCard_41B
+        dd ExportPlayerCard_424
+        dd ExportPlayerCard_42D
+        dd ExportPlayerCard_436
+        dd ExportPlayerCard_43F
+        dd ExportPlayerCard_448
+        dd ExportPlayerCard_451
+        dd ExportPlayerCard_45A
+        dd ExportPlayerCard_463
+ExportSkaterPlayoffStatJumpTable:               ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_4F9
+        dd ExportPlayerCard_4FF
+        dd ExportPlayerCard_505
+        dd ExportPlayerCard_50B
+        dd ExportPlayerCard_521
+        dd ExportPlayerCard_527
+        dd ExportPlayerCard_530
+        dd ExportPlayerCard_58E
+        dd ExportPlayerCard_597
+        dd ExportPlayerCard_5C2
+        dd ExportPlayerCard_5CE
+ExportSkaterSeasonStatJumpTable:                ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_5EA
+        dd ExportPlayerCard_5F3
+        dd ExportPlayerCard_5FC
+        dd ExportPlayerCard_605
+        dd ExportPlayerCard_60E
+        dd ExportPlayerCard_617
+        dd ExportPlayerCard_620
+        dd ExportPlayerCard_628
+        dd ExportPlayerCard_631
+        dd ExportPlayerCard_63A
+        dd ExportPlayerCard_643
+ExportSkaterStatJumpTable:                      ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_680
+        dd ExportPlayerCard_689
+        dd ExportPlayerCard_68F
+        dd ExportPlayerCard_695
+        dd ExportPlayerCard_69B
+        dd ExportPlayerCard_6A1
+        dd ExportPlayerCard_6A7
+        dd ExportPlayerCard_6B4
+        dd ExportPlayerCard_6BA
+        dd ExportPlayerCard_6E2
+        dd ExportPlayerCard_6E8
+ExportGoalieStatLabelJumpTable:                 ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_746
+        dd ExportPlayerCard_74F
+        dd ExportPlayerCard_758
+        dd ExportPlayerCard_761
+        dd ExportPlayerCard_76A
+        dd ExportPlayerCard_773
+        dd ExportPlayerCard_77C
+        dd ExportPlayerCard_785
+        dd ExportPlayerCard_78E
+ExportGoaliePlayoffStatJumpTable:               ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_81C
+        dd ExportPlayerCard_837
+        dd ExportPlayerCard_83D
+        dd ExportPlayerCard_843
+        dd ExportPlayerCard_849
+        dd ExportPlayerCard_84F
+        dd ExportPlayerCard_855
+        dd ExportPlayerCard_85B
+        dd ExportPlayerCard_864
+ExportGoalieSeasonStatJumpTable:                ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_879
+        dd ExportPlayerCard_87F
+        dd ExportPlayerCard_885
+        dd ExportPlayerCard_88B
+        dd ExportPlayerCard_891
+        dd ExportPlayerCard_897
+        dd ExportPlayerCard_89D
+        dd ExportPlayerCard_8A6
+        dd ExportPlayerCard_8AF
+ExportGoalieStatJumpTable:                      ; jump table for the switch cases of ExportPlayerCard
+        dd ExportPlayerCard_926
+        dd ExportPlayerCard_92C
+        dd ExportPlayerCard_932
+        dd ExportPlayerCard_938
+        dd ExportPlayerCard_93E
+        dd ExportPlayerCard_944
+        dd ExportPlayerCard_94A
+        dd ExportPlayerCard_950
+        dd ExportPlayerCard_956
+;-----------------------------------------------------------------------------
+; ExportPlayerCard                                B78F4  96 PC, low confidence
+; Writes the player's card (height, weight, born, birthplace, draft) to a
+; text file
+;-----------------------------------------------------------------------------
+ExportPlayerCard:
+        push esi
+        push edi
+        enter 94h, 0
+        sub ebp, byte 7Eh
+        mov esi, dword [dword ebp+08Eh]
+        mov dword [byte ebp+05Eh], eax
+        mov edi, edx
+        mov byte [byte ebp+07Ah], bl
+        mov dword [byte ebp+062h], ecx
+        mov dword [byte ebp+072h], 0
+        jmp short .2
+.1:
+        movsx eax, word [byte ebp+072h]
+        inc dword [byte ebp+072h]
+        mov byte [byte eax+ebp+03Ah], 0
+.2:
+        cmp word [byte ebp+072h], byte 1Fh
+        jl short .1
+        lea edx, [byte ebp+03Ah]
+        mov eax, 1Eh
+        call AskExportFile
+        test eax, eax
+        je near ExportPlayerCard_956.52
+        mov edx, str_Wt_ExportPlayerCard
+        lea eax, [byte ebp+03Ah]
+        call fopen_
+        mov edx, eax
+        mov dword [byte ebp+05Ah], eax
+        test eax, eax
+        jne short .3
+        push byte 1
+        mov eax, 103h
+        mov edx, 1
+        xor ecx, ecx
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBox
+        jmp near ExportPlayerCard_956.52
+.3:
+        mov eax, dword [byte ebp+05Eh]
+        add eax, byte 8
+        push eax
+        mov eax, dword [byte ebp+05Eh]
+        add eax, byte 18h
+        push eax
+        push str_SS8
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        lea eax, [byte ebp-016h]
+        push eax
+        push str_S10
+        push edx
+        call fprintf_
+        add esp, byte 0Ch
+        cmp dword [byte ebp+062h], byte 47h
+        jne short .4
+        movsx eax, word [byte esi+01Fh]
+        push eax
+        mov eax, 0F3h
+        call GetLangText
+        movsx ecx, word [byte esi+01Dh]
+        jmp short .5
+.4:
+        movsx eax, word [byte esi+023h]
+        push eax
+        mov eax, 0F3h
+        call GetLangText
+        movsx ecx, word [byte esi+021h]
+.5:
+        push eax
+        mov eax, ecx
+        mov ebx, 0Ch
+        cdq
+        idiv ebx
+        mov eax, ecx
+        push edx
+        cdq
+        idiv ebx
+        push eax
+        mov eax, 0F2h
+        call GetLangText
+        push eax
+        push str_SDDSD3
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 1Ch
+        lea eax, [byte ebp-016h]
+        push eax
+        push str_S11
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        add esp, byte 0Ch
+        cmp dword [byte ebp+062h], byte 47h
+        jne short .7
+        cmp byte [byte esi+010h], 0
+        je short .6
+        mov eax, 16Dh
+        jmp short .9
+.6:
+        mov eax, 16Eh
+        jmp short .9
+.7:
+        cmp byte [byte esi+010h], 0
+        je short .8
+        mov eax, 16Bh
+        jmp short .9
+.8:
+        mov eax, 16Ch
+.9:
+        call GetLangText
+        push eax
+        push str_S_DrawPlayerBio
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp-016h]
+        push eax
+        push str_S11
+        lea ecx, [byte ebp+06Eh]
+        push dword [byte ebp+05Ah]
+        lea ebx, [byte ebp+06Ah]
+        call fprintf_
+        mov eax, dword [byte ebp+05Eh]
+        lea edx, [byte ebp+076h]
+        add esp, byte 0Ch
+        movzx eax, word [byte eax+05Ah]
+        call AgeFromBirthDate
+        movsx eax, word [byte ebp+076h]
+        push eax
+        movsx eax, word [byte ebp+06Eh]
+        push eax
+        movsx eax, word [byte ebp+06Ah]
+        add eax, byte 22h
+        call GetLangText
+        push eax
+        mov eax, 169h
+        call GetLangText
+        push eax
+        push str_SSDD2
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 18h
+        lea eax, [byte ebp-016h]
+        push eax
+        push str_S11
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        mov eax, dword [byte ebp+05Eh]
+        add esp, byte 0Ch
+        add eax, byte 32h
+        push eax
+        mov eax, 16Ah
+        call GetLangText
+        push eax
+        push str_SS9
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        lea eax, [byte ebp-016h]
+        push eax
+        push str_S11
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        mov eax, dword [byte ebp+05Eh]
+        add esp, byte 0Ch
+        movsx eax, word [byte eax+05Ch]
+        push eax
+        mov eax, 16Fh
+        call GetLangText
+        push eax
+        push str_SD5
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        lea eax, [byte ebp-016h]
+        push eax
+        push str_S11
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        mov eax, dword [byte ebp+05Eh]
+        add esp, byte 0Ch
+        movsx eax, word [byte eax+05Eh]
+        push eax
+        mov eax, 170h
+        call GetLangText
+        push eax
+        push str_SD6
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        mov eax, dword [byte ebp+05Eh]
+        movsx eax, word [byte eax+05Eh]
+        add esp, byte 10h
+        cmp eax, byte 0FFFFFFFFh
+        je short .10
+        lea eax, [byte ebp-016h]
+        push eax
+        push str_S11
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        add esp, byte 0Ch
+.10:
+        push str_Space
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        add esp, byte 8
+        cmp dword [byte ebp+062h], byte 47h
+        je near ExportPlayerCard_311.14
+        xor ecx, ecx
+.11:
+        cmp ecx, byte 0Dh
+        ja near ExportPlayerCard_311.13
+        mov eax, ecx
+        jmp dword [nosplit cs:eax*4+ExportSkaterRatingJumpTable]
+ExportPlayerCard_2B6:
+        movzx ax, byte [byte esi+011h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2BD:
+        movzx ax, byte [byte esi+012h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2C4:
+        movzx ax, byte [byte esi+014h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2CB:
+        movzx ax, byte [byte esi+015h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2D2:
+        movzx ax, byte [byte esi+016h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2D9:
+        movzx ax, byte [byte esi+018h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2E0:
+        movzx ax, byte [byte esi+017h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2E7:
+        movzx ax, byte [byte esi+019h]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2EE:
+        movzx ax, byte [byte esi+01Ah]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2F5:
+        movzx ax, byte [byte esi+01Bh]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_2FC:
+        movzx ax, byte [byte esi+01Ch]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_303:
+        movzx ax, byte [byte esi+01Dh]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_30A:
+        movzx ax, byte [byte esi+01Fh]
+        jmp short ExportPlayerCard_311.12
+ExportPlayerCard_311:
+        movzx ax, byte [byte esi+020h]
+.12:
+        mov dword [byte ebp+072h], eax
+.13:
+        movsx eax, word [byte ebp+072h]
+        add eax, byte 0Ah
+        push eax
+        lea eax, [dword ecx+0174h]
+        call GetLangText
+        push eax
+        push str_20sD
+        push dword [byte ebp+05Ah]
+        inc ecx
+        call fprintf_
+        add esp, byte 10h
+        cmp ecx, byte 0Eh
+        jl near ExportPlayerCard.11
+        jmp near ExportPlayerCard_395.18
+.14:
+        xor ecx, ecx
+.15:
+        cmp ecx, byte 8
+        ja short ExportPlayerCard_395.17
+        mov eax, ecx
+        jmp dword [nosplit cs:eax*4+ExportGoalieRatingJumpTable]
+ExportPlayerCard_35D:
+        movzx ax, byte [byte esi+011h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_364:
+        movzx ax, byte [byte esi+012h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_36B:
+        movzx ax, byte [byte esi+013h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_372:
+        movzx ax, byte [byte esi+014h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_379:
+        movzx ax, byte [byte esi+015h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_380:
+        movzx ax, byte [byte esi+016h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_387:
+        movzx ax, byte [byte esi+018h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_38E:
+        movzx ax, byte [byte esi+019h]
+        jmp short ExportPlayerCard_395.16
+ExportPlayerCard_395:
+        movzx ax, byte [byte esi+01Ah]
+.16:
+        mov dword [byte ebp+072h], eax
+.17:
+        movsx eax, word [byte ebp+072h]
+        add eax, byte 0Ah
+        push eax
+        lea eax, [dword ecx+01A4h]
+        call GetLangText
+        push eax
+        push str_20sD2
+        push dword [byte ebp+05Ah]
+        inc ecx
+        call fprintf_
+        add esp, byte 10h
+        cmp ecx, byte 9
+        jl short ExportPlayerCard_311.15
+.18:
+        push str_Space
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        add esp, byte 8
+        cmp byte [byte ebp+07Ah], 47h
+        jne near ExportPlayerCard_6E8.35
+        mov ebx, 0Dh
+        mov edx, str_Punct_ExportPlayerCard
+        mov eax, dword [byte ebp+05Ah]
+        mov esi, dword [byte ebp+062h]
+        jmp near ExportPlayerCard_463.21
+.19:
+        cmp esi, byte 0Ah
+        ja near ExportPlayerCard_463.20
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+ExportSkaterStatLabelJumpTable]
+ExportPlayerCard_409:
+        mov dword [byte ebp+066h], 140h
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_412:
+        mov dword [byte ebp+066h], 19Bh
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_41B:
+        mov dword [byte ebp+066h], 19Ch
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_424:
+        mov dword [byte ebp+066h], 19Dh
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_42D:
+        mov dword [byte ebp+066h], 149h
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_436:
+        mov dword [byte ebp+066h], 14Ah
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_43F:
+        mov dword [byte ebp+066h], 147h
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_448:
+        mov dword [byte ebp+066h], 148h
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_451:
+        mov dword [byte ebp+066h], 6Eh
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_45A:
+        mov dword [byte ebp+066h], 12Bh
+        jmp short ExportPlayerCard_463.20
+ExportPlayerCard_463:
+        mov dword [byte ebp+066h], 0A0h
+.20:
+        mov eax, dword [byte ebp+066h]
+        mov ebx, 0Dh
+        call GetLangText
+        mov edx, eax
+        mov eax, dword [byte ebp+05Ah]
+        inc esi
+.21:
+        call WriteCsvLine
+        mov eax, dword [byte ebp+062h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near ExportPlayerCard_395.19
+        push CardExportSeparator
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        add esp, byte 8
+        cmp byte [FrontEndExit], 0
+        je near ExportPlayerCard_643.30
+        xor ecx, ecx
+.22:
+        lea eax, [dword ecx+0171h]
+        mov ebx, 0Dh
+        call GetLangText
+        mov edx, eax
+        mov eax, dword [byte ebp+05Ah]
+        mov esi, dword [byte ebp+062h]
+        call WriteCsvLine
+        jmp near ExportPlayerCard_530.27
+.23:
+        imul eax, ecx, byte 2Eh
+        mov edx, esi
+        shl edx, 2
+        add eax, dword [byte ebp+05Eh]
+        cmp dword [StatsPlayoffMode], byte 0
+        je near ExportPlayerCard_5CE.29
+        cmp esi, byte 0Ah
+        ja near ExportPlayerCard_530.26
+        jmp dword [dword cs:edx+ExportSkaterPlayoffStatJumpTable]
+ExportPlayerCard_4F9:
+        movsx eax, word [byte eax+078h]
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_4FF:
+        movsx eax, word [byte eax+07Ah]
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_505:
+        movsx eax, word [byte eax+07Ch]
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_50B:
+        push str_0_DrawPlayerStatsText
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp near ExportPlayerCard_530.26
+ExportPlayerCard_521:
+        movsx eax, word [byte eax+07Eh]
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_527:
+        movsx eax, word [dword eax+080h]
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_530:
+        mov eax, dword [dword eax+082h]
+.24:
+        mov ebx, 3Ch
+        cdq
+        idiv ebx
+.25:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.26:
+        mov ebx, 0Dh
+        lea edx, [byte ebp-016h]
+        mov eax, dword [byte ebp+05Ah]
+        call WriteCsvLine
+        inc esi
+.27:
+        mov eax, dword [byte ebp+062h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near ExportPlayerCard_463.23
+        push CardExportSeparator
+        push dword [byte ebp+05Ah]
+        inc ecx
+        call fprintf_
+        add esp, byte 8
+        cmp ecx, byte 2
+        jl near ExportPlayerCard_463.22
+        jmp near ExportPlayerCard_956.51
+ExportPlayerCard_58E:
+        movsx eax, word [dword eax+086h]
+        jmp short ExportPlayerCard_530.25
+ExportPlayerCard_597:
+        movsx edi, word [dword eax+088h]
+.28:
+        mov eax, edi
+        mov ebx, 64h
+        cdq
+        idiv ebx
+        mov eax, edi
+        push edx
+        cdq
+        idiv ebx
+        push eax
+        push str_D02d3
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        jmp short ExportPlayerCard_530.26
+ExportPlayerCard_5C2:
+        movsx eax, word [dword eax+08Ah]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_5CE:
+        movsx eax, word [dword eax+08Ch]
+        jmp near ExportPlayerCard_530.25
+.29:
+        cmp esi, byte 0Ah
+        ja near ExportPlayerCard_530.26
+        jmp dword [dword cs:edx+ExportSkaterSeasonStatJumpTable]
+ExportPlayerCard_5EA:
+        movsx eax, word [byte eax+060h]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_5F3:
+        movsx eax, word [byte eax+062h]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_5FC:
+        movsx eax, word [byte eax+064h]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_605:
+        movsx eax, word [byte eax+066h]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_60E:
+        movsx eax, word [byte eax+068h]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_617:
+        movsx eax, word [byte eax+06Ah]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_620:
+        mov eax, dword [byte eax+06Ch]
+        jmp near ExportPlayerCard_530.24
+ExportPlayerCard_628:
+        movsx eax, word [byte eax+070h]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_631:
+        movsx edi, word [byte eax+072h]
+        jmp near ExportPlayerCard_597.28
+ExportPlayerCard_63A:
+        movsx eax, word [byte eax+074h]
+        jmp near ExportPlayerCard_530.25
+ExportPlayerCard_643:
+        movsx eax, word [byte eax+076h]
+        jmp near ExportPlayerCard_530.25
+.30:
+        mov eax, 172h
+        mov ebx, 0Dh
+        call GetLangText
+        mov edx, eax
+        mov eax, dword [byte ebp+05Ah]
+        mov esi, dword [byte ebp+062h]
+        call WriteCsvLine
+        jmp near ExportPlayerCard_6E8.34
+.31:
+        cmp esi, byte 0Ah
+        ja near ExportPlayerCard_6E8.33
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+ExportSkaterStatJumpTable]
+ExportPlayerCard_680:
+        movsx eax, word [byte edi+018h]
+        jmp near ExportPlayerCard_6E8.32
+ExportPlayerCard_689:
+        movsx eax, word [byte edi+01Ah]
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_68F:
+        movsx eax, word [byte edi+01Ch]
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_695:
+        movsx eax, word [byte edi+01Eh]
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_69B:
+        movsx eax, word [byte edi+020h]
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6A1:
+        movsx eax, word [byte edi+028h]
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6A7:
+        mov eax, dword [byte edi+02Ah]
+        mov ebx, 3Ch
+        cdq
+        idiv ebx
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6B4:
+        movsx eax, word [byte edi+02Eh]
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6BA:
+        movsx ecx, word [byte edi+030h]
+        mov eax, ecx
+        mov ebx, 64h
+        cdq
+        idiv ebx
+        mov eax, ecx
+        push edx
+        cdq
+        idiv ebx
+        push eax
+        push str_D02d3
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        jmp short ExportPlayerCard_6E8.33
+ExportPlayerCard_6E2:
+        movsx eax, word [byte edi+032h]
+        jmp short ExportPlayerCard_6E8.32
+ExportPlayerCard_6E8:
+        movsx eax, word [byte edi+034h]
+.32:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.33:
+        mov ebx, 0Dh
+        lea edx, [byte ebp-016h]
+        mov eax, dword [byte ebp+05Ah]
+        call WriteCsvLine
+        inc esi
+.34:
+        mov eax, dword [byte ebp+062h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near ExportPlayerCard_643.31
+        jmp near ExportPlayerCard_956.50
+.35:
+        mov ebx, 0Dh
+        mov edx, str_Punct_ExportPlayerCard
+        mov eax, dword [byte ebp+05Ah]
+        mov esi, dword [byte ebp+062h]
+        jmp near ExportPlayerCard_78E.38
+.36:
+        cmp esi, byte 8
+        ja short ExportPlayerCard_78E.37
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+ExportGoalieStatLabelJumpTable]
+ExportPlayerCard_746:
+        mov dword [byte ebp+066h], 140h
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_74F:
+        mov dword [byte ebp+066h], 141h
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_758:
+        mov dword [byte ebp+066h], 142h
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_761:
+        mov dword [byte ebp+066h], 143h
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_76A:
+        mov dword [byte ebp+066h], 145h
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_773:
+        mov dword [byte ebp+066h], 146h
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_77C:
+        mov dword [byte ebp+066h], 144h
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_785:
+        mov dword [byte ebp+066h], 12Bh
+        jmp short ExportPlayerCard_78E.37
+ExportPlayerCard_78E:
+        mov dword [byte ebp+066h], 159h
+.37:
+        mov eax, dword [byte ebp+066h]
+        mov ebx, 0Dh
+        call GetLangText
+        mov edx, eax
+        mov eax, dword [byte ebp+05Ah]
+        inc esi
+.38:
+        call WriteCsvLine
+        mov eax, dword [byte ebp+062h]
+        add eax, byte 9
+        cmp esi, eax
+        jl short ExportPlayerCard_6E8.36
+        push CardExportSeparator
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        add esp, byte 8
+        cmp byte [FrontEndExit], 0
+        je near ExportPlayerCard_8AF.45
+        xor ecx, ecx
+.39:
+        lea eax, [dword ecx+0171h]
+        mov ebx, 0Dh
+        call GetLangText
+        mov edx, eax
+        mov eax, dword [byte ebp+05Ah]
+        mov esi, dword [byte ebp+062h]
+        call WriteCsvLine
+        jmp near ExportPlayerCard_8AF.44
+.40:
+        imul eax, ecx, byte 2Eh
+        mov edi, esi
+        shl edi, 2
+        add eax, dword [byte ebp+05Eh]
+        cmp dword [StatsPlayoffMode], byte 0
+        je short ExportPlayerCard_864.42
+        cmp esi, byte 8
+        ja near ExportPlayerCard_8AF.43
+        jmp dword [dword cs:edi+ExportGoaliePlayoffStatJumpTable]
+ExportPlayerCard_81C:
+        movsx eax, word [byte eax+072h]
+.41:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp near ExportPlayerCard_8AF.43
+ExportPlayerCard_837:
+        movsx eax, word [byte eax+074h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_83D:
+        movsx eax, word [byte eax+076h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_843:
+        movsx eax, word [byte eax+078h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_849:
+        movsx eax, word [byte eax+07Ah]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_84F:
+        movsx eax, word [byte eax+07Ch]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_855:
+        movsx eax, word [byte eax+07Eh]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_85B:
+        movsx eax, word [dword eax+080h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_864:
+        movsx eax, word [dword eax+082h]
+        jmp short ExportPlayerCard_81C.41
+.42:
+        cmp esi, byte 8
+        ja short ExportPlayerCard_8AF.43
+        jmp dword [dword cs:edi+ExportGoalieSeasonStatJumpTable]
+ExportPlayerCard_879:
+        movsx eax, word [byte eax+060h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_87F:
+        movsx eax, word [byte eax+062h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_885:
+        movsx eax, word [byte eax+064h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_88B:
+        movsx eax, word [byte eax+066h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_891:
+        movsx eax, word [byte eax+068h]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_897:
+        movsx eax, word [byte eax+06Ah]
+        jmp short ExportPlayerCard_81C.41
+ExportPlayerCard_89D:
+        movsx eax, word [byte eax+06Ch]
+        jmp near ExportPlayerCard_81C.41
+ExportPlayerCard_8A6:
+        movsx eax, word [byte eax+06Eh]
+        jmp near ExportPlayerCard_81C.41
+ExportPlayerCard_8AF:
+        movsx eax, word [byte eax+070h]
+        jmp near ExportPlayerCard_81C.41
+.43:
+        mov ebx, 0Dh
+        lea edx, [byte ebp-016h]
+        mov eax, dword [byte ebp+05Ah]
+        call WriteCsvLine
+        inc esi
+.44:
+        mov eax, dword [byte ebp+062h]
+        add eax, byte 9
+        cmp esi, eax
+        jl near ExportPlayerCard_78E.40
+        push CardExportSeparator
+        push dword [byte ebp+05Ah]
+        inc ecx
+        call fprintf_
+        add esp, byte 8
+        cmp ecx, byte 2
+        jl near ExportPlayerCard_78E.39
+        jmp near ExportPlayerCard_956.51
+.45:
+        mov eax, 172h
+        mov ebx, 0Dh
+        call GetLangText
+        mov edx, eax
+        mov eax, dword [byte ebp+05Ah]
+        mov esi, dword [byte ebp+062h]
+        call WriteCsvLine
+        jmp near ExportPlayerCard_956.49
+.46:
+        cmp esi, byte 8
+        ja short ExportPlayerCard_956.48
+        mov eax, esi
+        jmp dword [nosplit cs:eax*4+ExportGoalieStatJumpTable]
+ExportPlayerCard_926:
+        movsx eax, word [byte edi+018h]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_92C:
+        movsx eax, word [byte edi+01Ah]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_932:
+        movsx eax, word [byte edi+01Ch]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_938:
+        movsx eax, word [byte edi+01Eh]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_93E:
+        movsx eax, word [byte edi+020h]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_944:
+        movsx eax, word [byte edi+022h]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_94A:
+        movsx eax, word [byte edi+024h]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_950:
+        movsx eax, word [byte edi+026h]
+        jmp short ExportPlayerCard_956.47
+ExportPlayerCard_956:
+        movsx eax, word [byte edi+028h]
+.47:
+        push eax
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-016h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.48:
+        mov ebx, 0Dh
+        lea edx, [byte ebp-016h]
+        mov eax, dword [byte ebp+05Ah]
+        call WriteCsvLine
+        inc esi
+.49:
+        mov eax, dword [byte ebp+062h]
+        add eax, byte 9
+        cmp esi, eax
+        jl short ExportPlayerCard_8AF.46
+.50:
+        push CardExportSeparator
+        push dword [byte ebp+05Ah]
+        call fprintf_
+        add esp, byte 8
+.51:
+        mov eax, dword [byte ebp+05Ah]
+        call fclose_
+.52:
+        lea esp, [byte ebp+07Eh]
+        jmp near DrawPlayerBio_4E2
+;-----------------------------------------------------------------------------
+; DrawPlayerRatingsPage                           B829B  97 PC, low confidence
+; Draws the player ratings page
+;-----------------------------------------------------------------------------
+DrawPlayerRatingsPage:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 18h, 0
+        xor esi, esi
+        xor ebx, ebx
+        xor edx, edx
+.1:
+        lea eax, [byte ebx+01h]
+        imul eax, byte 52h
+        mov ecx, dword [RatingsTeam]
+        cmp dword [byte ecx+eax+04h], byte 1
+        jne short .2
+        call rand_
+        mov ecx, 3
+        cdq
+        idiv ecx
+        mov eax, edx
+        imul edx, ebx, byte 0Ch
+        push dword [dword edx+eax*4+PlayerStatsShapeLists]
+        call BlitShape2
+        mov edx, 1
+        add esp, byte 4
+.2:
+        inc ebx
+        cmp ebx, byte 3
+        jl short .1
+        test edx, edx
+        je short .3
+        cmp dword [RatingsSoundPlayed], byte 0
+        jne short .3
+        mov eax, 309h
+        call PlaySfx
+        mov dword [RatingsSoundPlayed], 1
+.3:
+        test edx, edx
+        jne short .4
+        cmp dword [RatingsSoundPlayed], byte 0
+        je short .4
+        call StopAllSfx
+        mov dword [RatingsSoundPlayed], edx
+.4:
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-04h], eax
+        cmp eax, dword [RatingsShapeCount]
+        jle near .8
+        sub eax, dword [RatingsShapeCount]
+        mov ebx, 3
+        cdq
+        idiv ebx
+        mov ebx, eax
+        cmp eax, byte 4
+        jge short .5
+        movzx eax, byte [RatingsTeamSide]
+        imul edi, eax, byte 0Ch
+        mov eax, ebx
+        mov ecx, 2
+        cdq
+        idiv ecx
+        mov eax, edx
+        mov eax, dword [dword edi+eax*4+RatingsShapes]
+        jmp short .6
+.5:
+        movzx eax, byte [RatingsTeamSide]
+        imul eax, byte 0Ch
+        mov eax, dword [dword eax+RatingsTeamShapes]
+.6:
+        movsx edx, word [byte eax+0Eh]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        mov eax, dword [tickcount]
+        mov edx, dword [RatingsShapeCount]
+        add edx, byte 0Fh
+        mov dword [byte ebp-04h], eax
+        cmp eax, edx
+        jle short .8
+        mov eax, RatingsScrollBar
+        xor edx, edx
+        call DrawScrollBar
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .7
+        mov esi, 1
+.7:
+        call rand_
+        mov ebx, 64h
+        cdq
+        idiv ebx
+        mov eax, dword [byte ebp-04h]
+        add eax, edx
+        mov ebx, 5
+        mov dword [RatingsShapeCount], eax
+        call rand_
+        cdq
+        idiv ebx
+        mov byte [RatingsTeamSide], dl
+.8:
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [RatingsSkaterRow]
+        mov eax, dword [edx+eax*4]
+        cmp eax, dword [RatingsSkaterLast]
+        je near .12
+        mov eax, dword [byte ebp-04h]
+        add eax, byte 64h
+        mov dword [RatingsGoalieTick], eax
+        cmp dword [RatingsSkaterDrawn], byte 0
+        jne near .11
+        call SetScreenTarget
+        xor ebx, ebx
+.9:
+        mov eax, ebx
+        mov ecx, 3
+        cdq
+        idiv ecx
+        inc edx
+        push edx
+        push str_MN02d2
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        call SetScreenTarget
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-04h], eax
+.10:
+        mov edx, dword [byte ebp-04h]
+        inc edx
+        inc edx
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .10
+        inc ebx
+        cmp ebx, byte 9
+        jl short .9
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+.11:
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        mov dword [RatingsSkaterDrawn], 1
+        mov eax, dword [edx+eax*4]
+        mov dword [RatingsSkaterLast], eax
+.12:
+        mov edx, dword [RatingsGoalieOrder]
+        mov eax, dword [RatingsGoalieRow]
+        mov eax, dword [edx+eax*4]
+        cmp eax, dword [RatingsGoalieLast]
+        je near .16
+        mov eax, dword [byte ebp-04h]
+        add eax, byte 64h
+        mov dword [RatingsSkaterTick], eax
+        cmp dword [RatingsGoalieDrawn], byte 0
+        jne near .15
+        call SetScreenTarget
+        xor ebx, ebx
+.13:
+        mov eax, ebx
+        mov ecx, 3
+        cdq
+        idiv ecx
+        add edx, byte 5
+        push edx
+        push str_MN02d2
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        call SetScreenTarget
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-04h], eax
+.14:
+        mov edx, dword [byte ebp-04h]
+        inc edx
+        inc edx
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .14
+        inc ebx
+        cmp ebx, byte 9
+        jl short .13
+        call SetScreenTarget
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+.15:
+        mov eax, dword [RatingsGoalieRow]
+        mov edx, dword [RatingsGoalieOrder]
+        mov dword [RatingsGoalieDrawn], 1
+        mov eax, dword [edx+eax*4]
+        mov dword [RatingsGoalieLast], eax
+.16:
+        mov eax, dword [RatingsGoalieTick]
+        cmp eax, dword [byte ebp-04h]
+        jge short .17
+        cmp dword [RatingsSkaterDrawn], byte 0
+        jne short .18
+.17:
+        test esi, esi
+        je near .34
+.18:
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        mov dword [RatingsSkaterDrawn], 0
+        mov eax, dword [edx+eax*4]
+        mov dword [RatingsSkaterShown], eax
+        cmp dword [RatingsSkaterBitmap], byte 0
+        je short .19
+        push dword [RatingsSkaterBitmap]
+        call FreeMemBlock
+        mov dword [RatingsSkaterBitmap], 0
+        add esp, byte 4
+.19:
+        cmp dword [RatingsPageDrawn], byte 0
+        jne near .31
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        imul eax, dword [RatingsSkaterShown], dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        add eax, edx
+        push byte 0
+        add eax, byte 27h
+        push eax
+        call OpenArtArchive
+        add esp, byte 8
+        mov dword [RatingsSkaterBitmap], eax
+        test eax, eax
+        jne short .20
+        push eax
+        push str_NOFACEFSH3
+        call OpenArtArchiveErr
+        add esp, byte 8
+        mov dword [RatingsSkaterBitmap], eax
+.20:
+        cmp dword [RatingsSkaterBitmap], byte 0
+        je near .34
+        push str_FART3
+        push dword [RatingsSkaterBitmap]
+        call FindShape
+        add esp, byte 8
+        mov edx, 10h
+        mov edi, eax
+        call FindColorRange
+        cmp byte [FrontMusicOn], 0
+        jne short .21
+        push dword [MenuScreenBitmap]
+        push edi
+        call ConvertArtNew
+        add esp, byte 8
+        mov edi, eax
+.21:
+        cmp byte [FrontMusicOn], 0
+        jne short .22
+        fild word [byte edi+04h]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
+        movsx eax, word [byte edi+06h]
+        push byte 0
+        sub eax, byte 52h
+        call __CHP
+        push eax
+        fistp dword [byte ebp-010h]
+        push dword [byte ebp-010h]
+        call CreateBitmap
+        fild word [byte edi+04h]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
+        add esp, byte 0Ch
+        mov dword [byte ebp-0Ch], eax
+        movsx eax, word [byte edi+06h]
+        push byte 0
+        sub eax, byte 52h
+        call __CHP
+        push eax
+        fistp dword [byte ebp-010h]
+        push dword [byte ebp-010h]
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp-08h], eax
+.22:
+        push byte 0
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov esi, eax
+        cmp byte [FrontMusicOn], 0
+        jne short .23
+        push dword [byte ebp-0Ch]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFF5h
+        push byte 0FFFFFFB5h
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [byte ebp-08h]
+        add esp, byte 0Ch
+        push dword [byte eax+02Ch]
+        call ConvertArtInPlace
+        add esp, byte 4
+        push dword [byte ebp-08h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFF6h
+        push byte 0
+        push edi
+        push dword 0E666h
+        call DrawShapeBlended
+        mov edx, dword [byte ebp-08h]
+        mov eax, dword [byte ebp-0Ch]
+        add esp, byte 10h
+        mov edx, dword [byte edx+02Ch]
+        mov eax, dword [byte eax+02Ch]
+        call TintPortrait
+.23:
+        call SetScreenTarget
+        xor ebx, ebx
+.24:
+        mov eax, ebx
+        mov ecx, 3
+        cdq
+        idiv ecx
+        inc edx
+        push edx
+        push str_MN02d2
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        call SetScreenTarget
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-04h], eax
+.25:
+        mov edx, dword [byte ebp-04h]
+        inc edx
+        inc edx
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .25
+        inc ebx
+        cmp ebx, byte 9
+        jl short .24
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeCore
+        add esp, byte 0Ch
+        cmp byte [FrontMusicOn], 0
+        je short .26
+        push dword 0CBh
+        push dword 12Fh
+        push byte 0Ch
+        push byte 0Ah
+        call SetFullClip
+        add esp, byte 10h
+        push byte 1
+        push byte 4Bh
+        push edi
+        push dword 0E666h
+        call DrawSpriteScaledBy
+        add esp, byte 10h
+        call ResetClipWindow
+        jmp short .27
+.26:
+        push byte 0Bh
+        mov eax, dword [byte ebp-08h]
+        push byte 4Bh
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+.27:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .28
+        cmp byte [PlayoffStarted], 0
+        je short .28
+        push dword 6B85h
+        push byte 0
+        mov edx, 1Ch
+        mov eax, dword [PlayerStatRecords]
+        push byte 0
+        add eax, dword [RatingsSkaterShown]
+        mov ebx, esi
+        push dword 0A1h
+        movzx eax, byte [eax]
+        push byte 41h
+        mov ecx, dword [byte esi+02Ch]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
+        jmp short .29
+.28:
+        push dword 6B85h
+        push byte 0
+        mov edx, 1Ch
+        push byte 0
+        mov eax, dword [PlayerStatRecords]
+        mov ebx, esi
+        push dword 0A1h
+        add eax, dword [RatingsSkaterShown]
+        mov ecx, dword [byte esi+02Ch]
+        push byte 41h
+        movzx eax, byte [eax]
+.29:
+        call DrawTeamLogoBanner
+        call SetScreenTarget
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte esi+02Ch]
+        call DrawShapeCore
+        add esp, byte 0Ch
+        call PresentScreen
+        cmp byte [FrontMusicOn], 0
+        jne short .30
+        push edi
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-08h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-0Ch]
+        call FreeBitmap
+        add esp, byte 4
+.30:
+        push esi
+        call FreeBitmap
+        add esp, byte 4
+        jmp near .34
+.31:
+        push byte 0
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        mov esi, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeCore
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        add esp, byte 0Ch
+        cmp eax, byte 20h
+        jne short .32
+        cmp byte [PlayoffStarted], 0
+        je short .32
+        push dword 0E666h
+        push byte 0
+        push byte 0
+        push byte 6Eh
+        mov edx, 1Ch
+        mov eax, dword [RatingsSkaterRow]
+        push byte 7Dh
+        mov ecx, dword [byte ebx+02Ch]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
+        jmp short .33
+.32:
+        push dword 0E666h
+        push byte 0
+        push byte 0
+        push byte 6Eh
+        mov edx, 1Ch
+        mov eax, dword [RatingsSkaterRow]
+        push byte 7Dh
+        mov ebx, esi
+        mov ecx, dword [byte esi+02Ch]
+.33:
+        call DrawTeamLogoBanner
+        call SetScreenTarget
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte esi+02Ch]
+        call DrawShapeCore
+        add esp, byte 0Ch
+        call PresentScreen
+        push esi
+        call FreeBitmap
+        add esp, byte 4
+.34:
+        mov eax, dword [RatingsSkaterTick]
+        cmp eax, dword [byte ebp-04h]
+        jge near DrawStatsCardPage_776
+        cmp dword [RatingsGoalieDrawn], byte 0
+        je near DrawStatsCardPage_776
+        mov edx, dword [RatingsGoalieRow]
+        mov eax, dword [RatingsGoalieOrder]
+        mov dword [RatingsGoalieDrawn], 0
+        mov eax, dword [eax+edx*4]
+        mov dword [RatingsGoalieShown], eax
+        cmp dword [RatingsGoalieBitmap], byte 0
+        je short .35
+        push dword [RatingsGoalieBitmap]
+        call FreeMemBlock
+        mov dword [RatingsGoalieBitmap], 0
+        add esp, byte 4
+.35:
+        cmp dword [RatingsPageDrawn], byte 0
+        jne near .47
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        imul edx, dword [RatingsGoalieShown], dword 0BCh
+        mov eax, dword [GoalieStatRecords]
+        add eax, edx
+        push byte 0
+        add eax, byte 27h
+        push eax
+        call OpenArtArchive
+        add esp, byte 8
+        mov dword [RatingsGoalieBitmap], eax
+        test eax, eax
+        jne short .36
+        push eax
+        push str_NOFACEFSH3
+        call OpenArtArchiveErr
+        add esp, byte 8
+        mov dword [RatingsGoalieBitmap], eax
+.36:
+        cmp dword [RatingsGoalieBitmap], byte 0
+        je near DrawStatsCardPage_776
+        push str_FART3
+        push dword [RatingsGoalieBitmap]
+        call FindShape
+        add esp, byte 8
+        mov edx, 10h
+        mov edi, eax
+        call FindColorRange
+        cmp byte [FrontMusicOn], 0
+        jne short .37
+        push dword [MenuScreenBitmap]
+        push edi
+        call ConvertArtNew
+        add esp, byte 8
+        mov edi, eax
+.37:
+        cmp byte [FrontMusicOn], 0
+        jne short .38
+        fild word [byte edi+04h]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
+        movsx eax, word [byte edi+06h]
+        push byte 0
+        sub eax, byte 52h
+        call __CHP
+        push eax
+        fistp dword [byte ebp-010h]
+        push dword [byte ebp-010h]
+        call CreateBitmap
+        fild word [byte edi+04h]
+        fmul qword [F64_0p9_DrawPlayerRatingsPage]
+        add esp, byte 0Ch
+        mov dword [byte ebp-0Ch], eax
+        movsx eax, word [byte edi+06h]
+        push byte 0
+        sub eax, byte 52h
+        call __CHP
+        push eax
+        fistp dword [byte ebp-010h]
+        push dword [byte ebp-010h]
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp-08h], eax
+.38:
+        push byte 0
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov esi, eax
+        cmp byte [FrontMusicOn], 0
+        jne short .39
+        push dword [byte ebp-0Ch]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFF4h
+        push byte 0FFFFFFF6h
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [byte ebp-08h]
+        add esp, byte 0Ch
+        push dword [byte eax+02Ch]
+        call ConvertArtInPlace
+        add esp, byte 4
+        push dword [byte ebp-08h]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFF6h
+        push byte 0
+        push edi
+        push dword 0E666h
+        call DrawShapeBlended
+        mov edx, dword [byte ebp-08h]
+        mov eax, dword [byte ebp-0Ch]
+        add esp, byte 10h
+        mov edx, dword [byte edx+02Ch]
+        mov eax, dword [byte eax+02Ch]
+        call TintPortrait
+.39:
+        call SetScreenTarget
+        xor ebx, ebx
+.40:
+        mov eax, ebx
+        mov ecx, 3
+        cdq
+        idiv ecx
+        add edx, byte 5
+        push edx
+        push str_MN02d2
+        lea eax, [byte ebp-018h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        call SetScreenTarget
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-04h], eax
+.41:
+        mov edx, dword [byte ebp-04h]
+        inc edx
+        inc edx
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .41
+        inc ebx
+        cmp ebx, byte 9
+        jl short .40
+        call SetScreenTarget
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        call PresentScreen
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        cmp byte [FrontMusicOn], 0
+        jne short .42
+        push byte 0Ch
+        mov eax, dword [byte ebp-08h]
+        push byte 0Ah
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        jmp short .43
+.42:
+        push dword 0CBh
+        push dword 14Ah
+        push byte 0Ch
+        push byte 0Ah
+        call SetFullClip
+        add esp, byte 10h
+        push byte 2
+        push byte 0Ah
+        push edi
+        push dword 0E666h
+        call DrawSpriteScaledBy
+        add esp, byte 10h
+        call ResetClipWindow
+.43:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .44
+        cmp byte [PlayoffStarted], 0
+        je short .44
+        push dword 6B85h
+        push byte 0
+        mov edx, 1Ch
+        mov eax, dword [PlayerStatRecords]
+        push byte 0
+        add eax, dword [RatingsGoalieShown]
+        mov ebx, esi
+        push dword 0A1h
+        movzx eax, byte [eax]
+        push dword 0B9h
+        mov ecx, dword [byte esi+02Ch]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
+        jmp short .45
+.44:
+        push dword 6B85h
+        push byte 0
+        mov edx, 1Ch
+        push byte 0
+        mov eax, dword [PlayerStatRecords]
+        mov ebx, esi
+        push dword 0A1h
+        add eax, dword [RatingsGoalieShown]
+        mov ecx, dword [byte esi+02Ch]
+        push dword 0B9h
+        movzx eax, byte [eax]
+.45:
+        call DrawTeamLogoBanner
+        call SetScreenTarget
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte esi+02Ch]
+        call DrawArt
+        add esp, byte 0Ch
+        call PresentScreen
+        cmp byte [FrontMusicOn], 0
+        jne short .46
+        push edi
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-08h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-0Ch]
+        call FreeBitmap
+        add esp, byte 4
+.46:
+        push esi
+        call FreeBitmap
+        add esp, byte 4
+        jmp near DrawStatsCardPage_776
+.47:
+        push byte 0
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        mov esi, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        add esp, byte 0Ch
+        cmp eax, byte 20h
+        jne short .48
+        cmp byte [PlayoffStarted], 0
+        je short .48
+        push dword 0E666h
+        push byte 0
+        push byte 0
+        push byte 6Eh
+        mov edx, 1Ch
+        mov eax, dword [RatingsGoalieRow]
+        push byte 69h
+        mov ecx, dword [byte ebx+02Ch]
+        mov eax, dword [nosplit eax*4+PlayoffTeams]
+        jmp short .49
+.48:
+        push dword 0E666h
+        push byte 0
+        push byte 0
+        push byte 6Eh
+        mov edx, 1Ch
+        mov eax, dword [RatingsGoalieRow]
+        push byte 69h
+        mov ebx, esi
+        mov ecx, dword [byte esi+02Ch]
+.49:
+        call DrawTeamLogoBanner
+        call SetScreenTarget
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte esi+02Ch]
+        call DrawShapeCore
+        add esp, byte 0Ch
+        call PresentScreen
+        jmp near DrawStatsCardPage_76D
+PlayerRatingsScreenJumpTable:                   ; jump table for the switch cases of PlayerRatingsScreen
+        dd PlayerRatingsScreen_D1D
+        dd PlayerRatingsScreen_D42
+        dd PlayerRatingsScreen_D4E
+        dd PlayerRatingsScreen_11E4
+        dd PlayerRatingsScreen_13C2
+        dd PlayerRatingsScreen_13F5
+        dd PlayerRatingsScreen_15C2
+        dd PlayerRatingsScreen_180D
+        dd PlayerRatingsScreen_1964
+        dd PlayerRatingsScreen_1B34
+        dd PlayerRatingsScreen_1D11
+        dd PlayerRatingsScreen_1E94
+        dd PlayerRatingsScreen_1EA5
+        dd PlayerRatingsScreen_1EB8
+        dd PlayerRatingsScreen_1EC9
+        dd PlayerRatingsScreen_1F8C
+        dd PlayerRatingsScreen_2014
+        dd PlayerRatingsScreen_2040
+        dd PlayerRatingsScreen_21EA
+        dd PlayerRatingsScreen_21FD
+        dd PlayerRatingsScreen_D2E
+;-----------------------------------------------------------------------------
+; PlayerRatingsScreen                             B8FDF  96 PC, low confidence
+; The player ratings screen (X-tbl, RAT0, HD01 / HD02, ban2, BALL list): a player's picture and rating bars,
+; from the stats menu and the roster screens
+;-----------------------------------------------------------------------------
+PlayerRatingsScreen:
+        push ecx
+        push esi
+        push edi
+        enter 1D3Ch, 0
+        push ebx
+        sub ebp, 82h
+        mov dword [byte ebp+07Eh], 0
+        mov dword [byte ebp+01Ah], 0
+        mov dword [byte ebp+016h], 0
+        mov dword [byte ebp+066h], 0
+        mov dword [byte ebp+042h], 0
+        mov dword [byte ebp+03Ah], 0
+        mov dword [RatingsGoalieShown], 0FFFFFFFFh
+        mov dword [RatingsSkaterShown], 0FFFFFFFFh
+        mov dword [RatingsGoalieLast], 0FFFFFFFFh
+        mov dword [RatingsSkaterLast], 0FFFFFFFFh
+        mov byte [RatingsTeamSide], 0
+        mov dword [byte ebp+052h], 0FFFFFFFFh
+        cmp byte [FrontMusicOn], 0
+        je short .1
+        call MusicEnabled
+.1:
+        call SetHighlightText
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push dword 6BAh
+        push str_Menu5
+        mov dword [byte ebp+04Eh], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [RatingsTeam], eax
+        call SetNormalText
+        mov eax, 1E4h
+        call GetLangText
+        call ShowLinkMessage
+        call SetHighlightText
+        cmp dword [dword ebp-01CBEh], byte 0
+        je short .2
+        lea edx, [byte ebp+01Ah]
+        mov eax, PlayoffDbKey
+        call OpenLeagueFile
+        lea edx, [byte ebp+016h]
+        mov eax, SeasonDbKey
+        jmp short .4
+.2:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .3
+        lea edx, [byte ebp+01Ah]
+        mov eax, PlayoffStatsPath
+        call OpenLeagueFile
+        mov dword [StatsPlayoffMode], 1
+        jmp short .5
+.3:
+        lea edx, [byte ebp+01Ah]
+        mov eax, SeasonFilePath
+        call OpenLeagueFile
+        lea edx, [byte ebp+016h]
+        mov eax, SeasonStatsPath
+.4:
+        call OpenLeagueFile
+.5:
+        xor ebx, ebx
+        jmp short .7
+.6:
+        mov edx, ebx
+        mov eax, dword [byte ebp+01Ah]
+        shl edx, 3
+        mov eax, dword [byte eax+01Ch]
+        add eax, edx
+        lea edx, [dword ebp-01CBAh]
+        call FindGameRecord
+        movsx eax, word [dword ebp-0FB5h]
+        add dword [byte ebp+07Eh], eax
+        movsx eax, word [dword ebp-098Fh]
+        add dword [byte ebp+07Eh], eax
+        movsx eax, word [dword ebp-0A39h]
+        add dword [byte ebp+07Eh], eax
+        movsx eax, word [dword ebp-0415h]
+        inc ebx
+        add dword [byte ebp+07Eh], eax
+.7:
+        mov eax, dword [byte ebp+01Ah]
+        movsx eax, word [eax]
+        cmp ebx, eax
+        jl short .6
+        cmp byte [StatsMenuDrawn], 0
+        jne short .8
+        mov dword [RatingsColumn], 0FFFFFFFFh
+        mov dword [StatsColumn], 0FFFFFFFFh
+.8:
+        imul eax, dword [byte ebp+07Eh], byte 27h
+        imul esi, dword [byte ebp+07Eh], byte 3Dh
+        push byte 0
+        push eax
+        push str_Ai_PlayerStatsScreen
+        call AllocMemBlock
+        mov dword [byte ebp+022h], eax
+        mov dword [byte ebp+032h], eax
+        imul eax, dword [byte ebp+07Eh], dword 0BCh
+        add esp, byte 0Ch
+        push byte 0
+        push eax
+        push str_Rp
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push esi
+        push str_Curs
+        mov dword [GoalieStatRecords], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push esi
+        push str_Curp
+        mov ebx, eax
+        mov dword [byte ebp+04Ah], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword [byte ebp+07Eh]
+        push str_Pos
+        mov esi, eax
+        mov dword [byte ebp+026h], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword [byte ebp+07Eh]
+        push str_Teamnum
+        mov edi, eax
+        mov dword [byte ebp+07Ah], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov edx, dword [byte ebp+016h]
+        push edi
+        mov dword [PlayerStatRecords], eax
+        mov ecx, esi
+        push dword [byte ebp+022h]
+        mov eax, dword [byte ebp+01Ah]
+        call BuildPlayerStats
+        mov ebx, dword [byte ebp+07Eh]
+        push byte 0
+        shl ebx, 2
+        push ebx
+        push str_PlSort
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push ebx
+        push str_PlSort
+        mov dword [RatingsSkaterOrder], eax
+        call AllocMemBlock
+        xor ebx, ebx
+        add esp, byte 0Ch
+        mov dword [RatingsGoalieOrder], eax
+        jmp short .10
+.9:
+        mov eax, dword [RatingsSkaterOrder]
+        mov edx, ebx
+        mov dword [eax+edx*4], ebx
+        mov eax, dword [RatingsGoalieOrder]
+        mov dword [eax+edx*4], ebx
+        inc ebx
+.10:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .9
+        mov ecx, CompareStatColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsSkaterOrder]
+        call qsort_
+        mov ecx, CompareRatingColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsGoalieOrder]
+        mov dword [byte ebp+076h], 0
+        call qsort_
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .12
+        mov eax, dword [byte ebp+01Ah]
+        movsx eax, word [eax]
+.11:
+        mov dword [byte ebp+076h], eax
+        jmp short .17
+.12:
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .13
+        mov eax, dword [byte ebp+07Eh]
+        jmp short .11
+.13:
+        xor ebx, ebx
+        jmp short .16
+.14:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [StatsColumn]
+        jne short .15
+        inc dword [byte ebp+076h]
+.15:
+        inc ebx
+.16:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .14
+.17:
+        mov dword [byte ebp+072h], 0
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .19
+        mov eax, dword [byte ebp+01Ah]
+        movsx eax, word [eax]
+.18:
+        mov dword [byte ebp+072h], eax
+        jmp short .24
+.19:
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .20
+        mov eax, dword [byte ebp+07Eh]
+        jmp short .18
+.20:
+        xor ebx, ebx
+        jmp short .23
+.21:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [RatingsColumn]
+        jne short .22
+        inc dword [byte ebp+072h]
+.22:
+        inc ebx
+.23:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .21
+.24:
+        mov eax, 15h
+        mov edx, dword [RatingsTeam]
+        call InitMenuItems
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 7
+        call LoadDataFile
+        mov dword [RatingsShapeFile], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 6
+        call LoadDataFile
+        mov dword [byte ebp+062h], eax
+        mov dword [byte ebp+06Eh], eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push str_BACK8
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_TITL9
+        mov edi, eax
+        push dword [byte ebp+062h]
+        mov dword [byte ebp+06Ah], eax
+        call FindShape
+        add esp, byte 8
+        push str_MN00
+        push dword [RatingsShapeFile]
+        mov dword [byte ebp+03Eh], eax
+        call FindShape
+        add esp, byte 8
+        push str_MN04
+        mov ebx, eax
+        push dword [RatingsShapeFile]
+        mov dword [byte ebp+05Eh], eax
+        call FindShape
+        add esp, byte 8
+        mov esi, eax
+        mov dword [byte ebp+05Ah], eax
+        push byte 0
+        movsx eax, word [byte ebx+06h]
+        push eax
+        movsx eax, word [byte ebx+04h]
+        add eax, byte 0Ah
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp+02Ah], eax
+        push byte 0
+        movsx eax, word [byte esi+06h]
+        push eax
+        movsx eax, word [byte esi+04h]
+        add eax, byte 0Ah
+        push eax
+        mov ebx, edi
+        mov esi, BlankMenuItem
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp+02Eh], eax
+        mov edx, edi
+        mov eax, edi
+        mov ecx, 52h
+        call DrawScreenBackground
+        mov edi, dword [RatingsTeam]
+        rep movsb
+        mov eax, dword [RatingsTeam]
+        mov dword [eax], 0
+        mov esi, dword [RatingsTeam]
+        mov ecx, 52h
+        lea edi, [dword esi+0668h]
+        mov esi, ScreenFrameItem
+        rep movsb
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0668h], 14h
+        lea eax, [dword ebp-036Ah]
+        push eax
+        mov ebx, str_SC00
+        mov edx, dword [byte ebp+062h]
+        push str_SC02
+        mov eax, dword [RatingsTeam]
+        mov ecx, str_SC01
+        add eax, byte 52h
+        call DrawStatTable
+        push PlayerStatsShapeLists
+        push str_SC01SC02SC03
+        push dword [byte ebp+062h]
+        call FindShapeList
+        add esp, byte 0Ch
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .25
+        lea eax, [dword ebp-032Ah]
+        push eax
+        mov ecx, str_SC09
+        mov ebx, str_SC08
+        push str_SC10
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+062h]
+        add eax, 0A4h
+        call DrawStatTable
+        push PlayerStatsPageShapes
+        push str_SC08SC09SC10
+        jmp short .26
+.25:
+        lea eax, [dword ebp-032Ah]
+        push eax
+        mov ecx, str_SC05
+        mov ebx, str_SC04
+        push str_SC06
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+062h]
+        add eax, 0A4h
+        call DrawStatTable
+        push PlayerStatsPageShapes
+        push str_SC05SC06SC07
+.26:
+        push dword [byte ebp+062h]
+        call FindShapeList
+        add esp, byte 0Ch
+        cmp dword [RatingsGoalieMode], byte 0
+        je short .27
+        lea eax, [dword ebp-02EAh]
+        push eax
+        mov ecx, str_SC13
+        mov ebx, str_SC12
+        push str_SC14
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0F6h
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_SC13SC14SC15
+        jmp short .29
+.27:
+        cmp dword [StatsPlayoffMode], byte 0
+        jne short .28
+        lea eax, [dword ebp-02EAh]
+        push eax
+        mov ecx, str_SC17
+        mov ebx, str_SC16
+        push str_SC18
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0F6h
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_SC17SC18SC19
+        jmp short .29
+.28:
+        lea eax, [dword ebp-02EAh]
+        push eax
+        mov ecx, str_SC29
+        mov ebx, str_SC28
+        push str_SC30
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0F6h
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_SC29SC30SC31
+.29:
+        push dword [byte ebp+06Eh]
+        call FindShapeList
+        add esp, byte 0Ch
+        lea eax, [dword ebp-026Ah]
+        push eax
+        mov ecx, str_AB013
+        mov ebx, str_AB003
+        push str_AB023
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 19Ah
+        call DrawStatTable
+        lea eax, [dword ebp-022Ah]
+        push eax
+        mov ecx, str_LH262
+        mov ebx, str_LB262
+        push str_LH262
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 1ECh
+        call DrawStatTable
+        lea eax, [dword ebp-01EAh]
+        push eax
+        mov ecx, str_AB043
+        mov ebx, str_AB033
+        push str_AB053
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 23Eh
+        call DrawStatTable
+        lea eax, [dword ebp-01AAh]
+        push eax
+        mov ecx, str_AB07
+        mov ebx, str_AB06
+        push str_AB08
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 290h
+        call DrawStatTable
+        lea eax, [dword ebp-016Ah]
+        push eax
+        mov ecx, str_LH262
+        mov ebx, str_LB262
+        push str_LH262
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 2E2h
+        call DrawStatTable
+        lea eax, [dword ebp-012Ah]
+        push eax
+        mov ecx, str_AB10
+        mov ebx, str_AB09
+        push str_AB11
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 334h
+        call DrawStatTable
+        mov eax, dword [RatingsTeam]
+        mov eax, dword [dword eax+0206h]
+        push byte 0
+        movsx eax, word [byte eax+06h]
+        push eax
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov dword [byte ebp+046h], eax
+        call SetDrawTarget
+        mov edx, dword [byte ebp+06Ah]
+        mov eax, dword [RatingsTeam]
+        movsx edx, word [byte edx+0Eh]
+        add esp, byte 4
+        sub edx, dword [dword eax+0216h]
+        push edx
+        push byte 0
+        push dword [byte ebp+06Ah]
+        call BlitArt
+        mov eax, dword [RatingsTeam]
+        mov eax, dword [dword eax+0216h]
+        add esp, byte 0Ch
+        mov dword [byte ebp+036h], eax
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .30
+        push str_LB262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .31
+.30:
+        push dword [StatsColumn]
+        push str_LB02d3
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.31:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0206h], edx
+        add esp, byte 8
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .32
+        push str_LH262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .33
+.32:
+        push dword [StatsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.33:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+020Eh], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+020Ah], edx
+        add esp, byte 8
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .34
+        push str_LB262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .35
+.34:
+        push dword [RatingsColumn]
+        push str_LB02d3
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.35:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+02FCh], edx
+        add esp, byte 8
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .36
+        push str_LH262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .37
+.36:
+        push dword [RatingsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.37:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0304h], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0300h], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0308h], 186h
+        mov ebx, dword [RatingsTeam]
+        mov eax, dword [dword ebx+02FCh]
+        add esp, byte 8
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        push edx
+        mov eax, dword [dword ebx+030Ch]
+        mov edx, dword [dword ebx+0308h]
+        mov ebx, eax
+        lea eax, [dword ebp-016Ah]
+        call SetRegionRect
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .39
+        mov edx, dword [RatingsTeam]
+        mov eax, 6
+        add edx, 19Ah
+        xor ebx, ebx
+        call InitMenuItems
+.38:
+        lea edx, [byte ebx+05h]
+        imul eax, edx, byte 52h
+        mov ecx, dword [RatingsTeam]
+        inc ebx
+        mov dword [ecx+eax], edx
+        cmp ebx, byte 6
+        jl short .38
+.39:
+        push byte 0
+        push byte 0
+        push byte 78h
+        push dword 136h
+        push dword 235h
+        mov ecx, 6
+        mov ebx, 0Eh
+        push dword [byte ebp+06Ah]
+        mov edx, dword [RatingsTeam]
+        push byte 0
+        mov eax, RatingsScrollBar
+        add edx, 386h
+        call InitScrollList
+        push byte 0
+        push byte 0
+        push dword 96h
+        push byte 78h
+        push byte 14h
+        mov ecx, 1
+        mov ebx, dword [byte ebp+076h]
+        push dword [byte ebp+06Ah]
+        mov edx, dword [RatingsTeam]
+        push byte 0
+        mov eax, RatingsSkaterList
+        add edx, 47Ch
+        call InitScrollList
+        mov edx, dword [byte ebp+042h]
+        mov eax, RatingsSkaterList
+        xor ebx, ebx
+        call SetScrollBarPos
+        push byte 0
+        push byte 0
+        push dword 96h
+        push byte 78h
+        push dword 258h
+        mov ecx, 1
+        mov ebx, dword [byte ebp+076h]
+        push dword [byte ebp+06Ah]
+        mov edx, dword [RatingsTeam]
+        push byte 0
+        mov eax, RatingsGoalieList
+        add edx, 572h
+        call InitScrollList
+        mov edx, dword [byte ebp+03Ah]
+        mov eax, RatingsGoalieList
+        xor ebx, ebx
+        call SetScrollBarPos
+        call HideLinkBox
+        push dword [byte ebp+04Eh]
+        call SetDrawTarget
+        add esp, byte 4
+        push dword [byte ebp+06Ah]
+        call BlitShape2
+        add esp, byte 4
+        push dword [byte ebp+03Eh]
+        call BlitShape2
+        add esp, byte 4
+        cmp dword [StatsMenuMode], byte 0
+        je short .40
+        mov eax, dword [byte ebp+04Eh]
+        mov ebx, 10h
+        mov edx, dword [StatsMenuMode]
+        mov eax, dword [byte eax+02Ch]
+        call ShowStatScreen
+        jmp short .41
+.40:
+        mov eax, dword [byte ebp+04Eh]
+        mov edx, 0FFFFFFFFh
+        mov eax, dword [byte eax+02Ch]
+        call WipeScreen
+.41:
+        push dword [byte ebp+04Eh]
+        call FreeBitmap
+        add esp, byte 4
+        mov ebx, 80h
+        call SetScreenTarget
+        jmp near .44
+.42:
+        mov eax, dword [tickcount]
+        push dword [byte ebp+02Ah]
+        mov esi, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        mov eax, dword [byte ebp+06Ah]
+        mov edx, dword [byte ebp+05Eh]
+        movsx eax, word [byte eax+0Eh]
+        movsx edx, word [byte edx+0Eh]
+        add esp, byte 4
+        sub eax, edx
+        push eax
+        mov eax, dword [byte ebp+05Eh]
+        mov edx, ebx
+        movsx eax, word [byte eax+0Ch]
+        sub edx, eax
+        lea eax, [byte edx+0Ah]
+        push eax
+        push dword [byte ebp+06Ah]
+        call BlitArt
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0Ah
+        push dword [byte ebp+05Eh]
+        call DrawShapeCore
+        add esp, byte 0Ch
+        push dword [byte ebp+02Eh]
+        call SetDrawTarget
+        mov edx, dword [byte ebp+06Ah]
+        mov eax, dword [byte ebp+05Ah]
+        movsx edx, word [byte edx+0Eh]
+        movsx eax, word [byte eax+0Eh]
+        sub edx, eax
+        mov eax, dword [byte ebp+05Ah]
+        movsx eax, word [byte eax+0Ch]
+        add esp, byte 4
+        neg eax
+        push edx
+        sub eax, ebx
+        push eax
+        push dword [byte ebp+06Ah]
+        call BlitArt
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0
+        push dword [byte ebp+05Ah]
+        call DrawShapeCore
+        add esp, byte 0Ch
+        call SetScreenTarget
+        mov eax, dword [byte ebp+05Eh]
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        mov eax, dword [byte ebp+05Eh]
+        movsx eax, word [byte eax+0Ch]
+        sub eax, ebx
+        sub eax, byte 0Ah
+        push eax
+        mov eax, dword [byte ebp+02Ah]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        mov eax, dword [byte ebp+05Ah]
+        add esp, byte 0Ch
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        mov eax, dword [byte ebp+05Ah]
+        movsx eax, word [byte eax+0Ch]
+        add eax, ebx
+        push eax
+        mov eax, dword [byte ebp+02Eh]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        lea edx, [byte esi+02h]
+.43:
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jl short .43
+        sub ebx, byte 8
+.44:
+        test ebx, ebx
+        jge near .42
+        xor ebx, ebx
+.45:
+        mov dword [byte ebp+056h], 0
+        jmp short .47
+.46:
+        mov eax, dword [dword esi+RatingsColumnBase]
+        add eax, dword [byte ebp+056h]
+        push eax
+        push str_LT02d
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        inc dword [byte ebp+056h]
+        call FindShape
+        add esp, byte 8
+        mov dword [dword edi+RatingsShapes], eax
+.47:
+        mov esi, ebx
+        imul edi, ebx, byte 0Ch
+        mov eax, dword [byte ebp+056h]
+        shl eax, 2
+        shl esi, 2
+        add edi, eax
+        mov eax, dword [byte ebp+056h]
+        cmp eax, dword [dword esi+RatingsColumnLimit]
+        jl short .46
+        mov eax, dword [dword edi+RatingsShapeCount]
+        push byte 0
+        movsx edx, word [byte eax+06h]
+        push edx
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov dword [byte esi+ebp-012h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        call SetScreenTarget
+        mov eax, dword [dword edi+RatingsShapeCount]
+        movsx edx, word [byte eax+0Eh]
+        push edx
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        mov eax, dword [byte esi+ebp-012h]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        mov eax, dword [byte esi+ebp-012h]
+        mov eax, dword [byte eax+02Ch]
+        inc ebx
+        mov dword [dword edi+RatingsShapes], eax
+        cmp ebx, byte 5
+        jl near .45
+        push str_MN00
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        push str_MN04
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+        mov eax, RatingsSkaterList
+        xor edx, edx
+        call DrawScrollBar
+        mov eax, RatingsGoalieList
+        xor edx, edx
+        call DrawScrollBar
+        mov eax, RatingsScrollBar
+        xor edx, edx
+        call DrawScrollBar
+        call PresentScreen
+        mov eax, 37h
+        call OpenDataLibrary
+        push byte 0
+        push byte 14h
+        push dword 0B4h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 5Ah
+        push dword 190h
+        mov esi, eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov edi, eax
+        jmp near PlayerRatingsScreen_2040.186
+.48:
+        push dword [dword ebp-01CBEh]
+        push dword [byte ebp+016h]
+        mov ecx, dword [byte ebp+032h]
+        push dword [GoalieStatRecords]
+        mov edx, dword [byte ebp+06Ah]
+        push dword [byte ebp+026h]
+.49:
+        mov ebx, dword [RatingsListFont]
+        push dword [byte ebp+07Ah]
+        mov eax, edi
+        call DrawPlayerRatings
+        cmp byte [StatsMenuDrawn], 0
+        jne short .50
+        mov edx, dword [RatingsTeam]
+        mov eax, 1
+        add edx, byte 52h
+        call InitMenuItems
+.50:
+        push byte 3
+        lea eax, [byte ebp+01Eh]
+        mov ecx, DrawPlayerRatingsPage
+        mov ebx, 0FFFFFFFFh
+        push eax
+        mov edx, dword [RatingsTeam]
+        mov eax, 14h
+        call RunMenu
+        mov edx, eax
+        cmp dword [byte ebp+01Eh], byte 14h
+        ja near PlayerRatingsScreen_2040.186
+        mov ebx, dword [byte ebp+01Eh]
+        jmp dword [nosplit cs:ebx*4+PlayerRatingsScreenJumpTable]
+PlayerRatingsScreen_D1D:
+        call FadeInScreen
+        mov dword [byte ebp+052h], 1Ah
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_D2E:
+        call SetNormalText
+        call ExitScreen
+        call SetHighlightText
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_D42:
+        mov dword [byte ebp+052h], 64h
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_D4E:
+        cmp byte [FrontMusicOn], 0
+        je short .51
+        cmp byte [StatsMenuDrawn], 0
+        je short .52
+.51:
+        xor byte [RatingsPageDrawn], 1
+.52:
+        cmp dword [RatingsPageDrawn], byte 0
+        jne near .61
+        lea eax, [dword ebp-032Ah]
+        push eax
+        mov ecx, str_SC05
+        mov ebx, str_SC04
+        push str_SC06
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0A4h
+        call DrawStatTable
+        push PlayerStatsPageShapes
+        push str_SC05SC06SC07
+        push dword [byte ebp+06Eh]
+        call FindShapeList
+        mov edx, dword [byte ebp+076h]
+        add esp, byte 0Ch
+        mov eax, RatingsSkaterList
+        xor ebx, ebx
+        call SetListSelection
+        mov eax, RatingsSkaterList
+        xor edx, edx
+        call SetScrollBarPos
+        mov edx, dword [byte ebp+072h]
+        mov eax, RatingsGoalieList
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsGoalieList
+        xor edx, edx
+        call SetScrollBarPos
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [edx+eax*4]
+        inc eax
+        mov dword [RatingsSkaterLast], eax
+        mov eax, dword [RatingsGoalieRow]
+        mov dword [RatingsSkaterShown], 0FFFFFFFFh
+        mov eax, dword [edx+eax*4]
+        inc eax
+        mov ecx, str_AB013
+        mov dword [RatingsGoalieLast], eax
+        lea eax, [dword ebp-026Ah]
+        mov ebx, str_AB003
+        push eax
+        mov edx, dword [RatingsShapeFile]
+        mov eax, dword [RatingsTeam]
+        push str_AB023
+        add eax, 19Ah
+        mov dword [RatingsGoalieShown], 0FFFFFFFFh
+        call DrawStatTable
+        lea eax, [dword ebp-022Ah]
+        push eax
+        mov ecx, str_LH262
+        mov ebx, str_LB262
+        push str_LH262
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 1ECh
+        call DrawStatTable
+        lea eax, [dword ebp-01EAh]
+        push eax
+        mov ecx, str_AB043
+        mov ebx, str_AB033
+        push str_AB053
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 23Eh
+        call DrawStatTable
+        lea eax, [dword ebp-01AAh]
+        push eax
+        mov ecx, str_AB07
+        mov ebx, str_AB06
+        push str_AB08
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 290h
+        call DrawStatTable
+        lea eax, [dword ebp-016Ah]
+        push eax
+        mov ecx, str_LH262
+        mov ebx, str_LB262
+        push str_LH262
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 2E2h
+        call DrawStatTable
+        lea eax, [dword ebp-012Ah]
+        push eax
+        mov ecx, str_AB10
+        mov ebx, str_AB09
+        push str_AB11
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [RatingsShapeFile]
+        add eax, 334h
+        call DrawStatTable
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .53
+        push str_LB262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .54
+.53:
+        push dword [StatsColumn]
+        push str_LB02d3
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.54:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0206h], edx
+        add esp, byte 8
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .55
+        push str_LH262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .56
+.55:
+        push dword [StatsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.56:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+020Eh], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+020Ah], edx
+        add esp, byte 8
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .57
+        push str_LB262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .58
+.57:
+        push dword [RatingsColumn]
+        push str_LB02d3
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.58:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+02FCh], edx
+        add esp, byte 8
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .59
+        push str_LH262
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 8
+        jmp short .60
+.59:
+        push dword [RatingsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+06h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.60:
+        lea eax, [byte ebp+06h]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0304h], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0300h], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0308h], 186h
+        mov ebx, dword [RatingsTeam]
+        mov eax, dword [dword ebx+02FCh]
+        add esp, byte 8
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        push edx
+        mov eax, dword [dword ebx+030Ch]
+        mov edx, dword [dword ebx+0308h]
+        mov ebx, eax
+        lea eax, [dword ebp-016Ah]
+        call SetRegionRect
+        jmp near PlayerRatingsScreen_2040.186
+.61:
+        lea eax, [dword ebp-032Ah]
+        push eax
+        mov ecx, str_SC09
+        mov ebx, str_SC08
+        push str_SC10
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0A4h
+        call DrawStatTable
+        push PlayerStatsPageShapes
+        push str_SC09SC10SC11
+        push dword [byte ebp+06Eh]
+        call FindShapeList
+        mov eax, dword [byte ebp+01Ah]
+        add esp, byte 0Ch
+        movsx edx, word [eax]
+        mov eax, RatingsSkaterList
+        call SetListSelection
+        cmp dword [RatingsSkaterShown], byte 0FFFFFFFFh
+        je short .62
+        mov eax, dword [PlayerStatRecords]
+        add eax, dword [RatingsSkaterShown]
+        xor ebx, ebx
+        movzx edx, byte [eax]
+        mov eax, RatingsSkaterList
+        jmp short .63
+.62:
+        mov eax, RatingsSkaterList
+        xor ebx, ebx
+        xor edx, edx
+.63:
+        call SetScrollBarPos
+        mov eax, dword [byte ebp+01Ah]
+        movsx edx, word [eax]
+        mov eax, RatingsGoalieList
+        call SetListSelection
+        cmp dword [RatingsGoalieShown], byte 0FFFFFFFFh
+        je short .64
+        mov eax, dword [PlayerStatRecords]
+        add eax, dword [RatingsGoalieShown]
+        xor ebx, ebx
+        movzx edx, byte [eax]
+        mov eax, RatingsGoalieList
+        jmp short .65
+.64:
+        mov eax, RatingsGoalieList
+        xor ebx, ebx
+        xor edx, edx
+.65:
+        call SetScrollBarPos
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [edx+eax*4]
+        inc eax
+        mov dword [RatingsSkaterLast], eax
+        mov eax, dword [RatingsGoalieRow]
+        mov dword [RatingsSkaterShown], 0FFFFFFFFh
+        mov eax, dword [edx+eax*4]
+        xor ebx, ebx
+        inc eax
+        mov edx, dword [RatingsTeam]
+        mov dword [RatingsGoalieLast], eax
+        add edx, 19Ah
+        mov eax, 6
+        mov dword [RatingsGoalieShown], 0FFFFFFFFh
+        call InitMenuItems
+.66:
+        lea edx, [byte ebx+05h]
+        imul eax, edx, byte 52h
+        mov dword [byte ebp+022h], eax
+        mov eax, dword [RatingsTeam]
+        add eax, dword [byte ebp+022h]
+        inc ebx
+        mov dword [eax], edx
+        cmp ebx, byte 6
+        jl short .66
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_11E4:
+        inc dword [byte ebp+066h]
+        cmp dword [byte ebp+066h], byte 3
+        jne short .67
+        mov dword [byte ebp+066h], 0
+.67:
+        cmp dword [dword ebp-01CBEh], byte 0
+        jne short .68
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        je short .68
+        mov eax, 1
+        jmp short .69
+.68:
+        xor eax, eax
+.69:
+        test eax, eax
+        je short .70
+        cmp dword [byte ebp+066h], byte 1
+        jne short .70
+        test byte [GameSettings], 70h
+        je short .70
+        mov dword [byte ebp+066h], 2
+.70:
+        cmp dword [dword ebp-01CBEh], byte 0
+        jne short .73
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .71
+        cmp byte [PlayoffStarted], 0
+        jne short .73
+.71:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne short .72
+        cmp dword [SeasonActive], byte 0
+        jne short .73
+.72:
+        mov eax, 1
+        jmp short .74
+.73:
+        xor eax, eax
+.74:
+        test eax, eax
+        je short .75
+        cmp dword [byte ebp+066h], byte 2
+        jne short .75
+        mov dword [byte ebp+066h], 0
+.75:
+        cmp dword [byte ebp+066h], byte 1
+        jb short .76
+        jbe short .78
+        cmp dword [byte ebp+066h], byte 2
+        je near .79
+        jmp near .81
+.76:
+        cmp dword [byte ebp+066h], byte 0
+        jne near .81
+        lea eax, [dword ebp-02EAh]
+        push eax
+        mov ecx, str_SC13
+        mov ebx, str_SC12
+        push str_SC14
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0F6h
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_SC13SC14SC15
+        push dword [byte ebp+06Eh]
+        call FindShapeList
+        mov dword [RatingsGoalieMode], 1
+.77:
+        mov dword [StatsPlayoffMode], 0
+        jmp near .80
+.78:
+        lea eax, [dword ebp-02EAh]
+        push eax
+        mov ecx, str_SC17
+        mov ebx, str_SC16
+        push str_SC18
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0F6h
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_SC17SC18SC19
+        push dword [byte ebp+06Eh]
+        call FindShapeList
+        mov dword [RatingsGoalieMode], 0
+        jmp short .77
+.79:
+        lea eax, [dword ebp-02EAh]
+        push eax
+        mov ecx, str_SC29
+        mov ebx, str_SC28
+        push str_SC30
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebp+06Eh]
+        add eax, 0F6h
+        call DrawStatTable
+        push PlayerStatsArrowShapes
+        push str_SC29SC30SC31
+        push dword [byte ebp+06Eh]
+        call FindShapeList
+        mov dword [RatingsGoalieMode], 0
+        mov dword [StatsPlayoffMode], 1
+.80:
+        add esp, byte 0Ch
+.81:
+        cmp dword [RatingsCompact], byte 0
+        jne short .83
+        cmp dword [RatingsGoalieMode], byte 0
+        je short .82
+        mov edx, 0Eh
+        jmp short .84
+.82:
+        mov edx, 9
+        jmp short .84
+.83:
+        mov edx, 9
+.84:
+        mov eax, RatingsScrollBar
+        call SetListSelection
+        mov eax, RatingsScrollBar
+        xor ebx, ebx
+        jmp near PlayerRatingsScreen_2040.185
+PlayerRatingsScreen_13C2:
+        cmp dword [dword ebp-01CBEh], byte 0
+        jne short .85
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne near PlayerRatingsScreen_2040.186
+        cmp dword [SeasonActive], byte 0
+        je near PlayerRatingsScreen_2040.186
+.85:
+        xor byte [StatsPlayoffMode], 1
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_13F5:
+        dec dword [StatsColumn]
+        cmp dword [StatsColumn], byte 0FFFFFFFEh
+        jne short .86
+        mov eax, dword [byte ebp+01Ah]
+        movsx eax, word [eax]
+        dec eax
+        mov dword [StatsColumn], eax
+.86:
+        mov ecx, CompareStatColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsSkaterOrder]
+        mov dword [byte ebp+076h], 0
+        call qsort_
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .87
+        mov eax, dword [byte ebp+07Eh]
+        mov dword [byte ebp+076h], eax
+        jmp short .91
+.87:
+        xor ebx, ebx
+        jmp short .90
+.88:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [StatsColumn]
+        jne short .89
+        inc dword [byte ebp+076h]
+.89:
+        inc ebx
+.90:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .88
+.91:
+        mov edx, dword [byte ebp+076h]
+        mov eax, RatingsSkaterList
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsSkaterList
+        xor edx, edx
+        call SetScrollBarPos
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        je short .94
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .93
+        cmp byte [PlayoffStarted], 0
+        je short .93
+        mov eax, dword [StatsColumn]
+        push dword [nosplit eax*4+PlayoffTeams]
+.92:
+        push str_LB02d3
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .95
+.93:
+        push dword [StatsColumn]
+        jmp short .92
+.94:
+        push str_LB262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.95:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0206h], edx
+        add esp, byte 8
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        je short .96
+        push dword [StatsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .97
+.96:
+        push str_LH262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.97:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+020Eh], edx
+        mov eax, dword [RatingsTeam]
+.98:
+        mov dword [dword eax+020Ah], edx
+        add esp, byte 8
+        cmp dword [RatingsCompact], byte 0
+        je short .100
+        mov edx, dword [RatingsSkaterRow]
+        mov eax, dword [RatingsSkaterOrder]
+        shl edx, 2
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        je short .100
+        mov dword [RatingsCompact], 0
+        cmp dword [RatingsGoalieMode], byte 0
+        je short .101
+        mov edx, 0Eh
+.99:
+        mov eax, RatingsScrollBar
+        call SetListSelection
+        mov eax, RatingsScrollBar
+        xor ebx, ebx
+        xor edx, edx
+        call SetScrollBarPos
+.100:
+        cmp dword [RatingsCompact], byte 0
+        jne near PlayerRatingsScreen_2040.186
+        mov edx, dword [RatingsSkaterRow]
+        mov eax, dword [RatingsSkaterOrder]
+        jmp near PlayerRatingsScreen_2040.183
+.101:
+        mov edx, 9
+        jmp short .99
+PlayerRatingsScreen_15C2:
+        xor ebx, ebx
+        jmp near .107
+.102:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .103
+        cmp byte [PlayoffStarted], 0
+        je short .103
+        push dword [nosplit ebx*4+PlayoffTeams]
+        jmp short .104
+.103:
+        push ebx
+.104:
+        push str_LB02d3
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, ebx
+        shl eax, 2
+        mov dword [byte eax+ebp-07Ah], edx
+        mov edx, dword [GameSettings]
+        and edx, byte 70h
+        add esp, byte 8
+        cmp edx, byte 20h
+        jne short .105
+        cmp byte [PlayoffStarted], 0
+        je short .105
+        push dword [dword eax+PlayoffTeams]
+        jmp short .106
+.105:
+        push ebx
+.106:
+        push str_LH02d2
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        inc ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp+ebx*4-0EAh], eax
+.107:
+        mov eax, dword [byte ebp+01Ah]
+        movsx eax, word [eax]
+        cmp ebx, eax
+        jl near .102
+        push str_LB262
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_LH262
+        push dword [RatingsShapeFile]
+        mov dword [byte ebp-07Eh], eax
+        call FindShape
+        mov ebx, dword [RatingsTeam]
+        mov dword [dword ebp-0EAh], eax
+        mov ecx, dword [dword ebx+0216h]
+        add esp, byte 8
+        add ecx, byte 14h
+        mov eax, dword [dword ebx+0212h]
+        push ecx
+        sub eax, byte 14h
+        push eax
+        push dword [byte ebp+06Ah]
+        lea eax, [dword ebp-0EAh]
+        push eax
+        lea eax, [byte ebp-07Eh]
+        push eax
+        mov eax, dword [byte ebp+01Ah]
+        mov edx, 6
+        movsx eax, word [eax]
+        mov ebx, dword [dword ebx+0212h]
+        inc eax
+        call RunScrollList
+        mov dword [byte ebp+01Eh], eax
+        cmp eax, byte 0FFFFFFFFh
+        je near .113
+        lea edx, [byte eax-01h]
+        mov dword [StatsColumn], edx
+        mov ebx, dword [RatingsTeam]
+        mov eax, dword [byte ebp+eax*4-07Eh]
+        mov dword [dword ebx+0206h], eax
+        mov eax, dword [byte ebp+01Eh]
+        mov ebx, dword [RatingsTeam]
+        mov eax, dword [dword ebp+eax*4-0EAh]
+        mov dword [dword ebx+020Ah], eax
+        mov ebx, dword [byte ebp+01Eh]
+        mov ecx, CompareStatColumn
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [dword ebp+ebx*4-0EAh]
+        mov ebx, 4
+        mov dword [dword eax+020Eh], edx
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsSkaterOrder]
+        mov dword [byte ebp+076h], 0
+        call qsort_
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .108
+        mov eax, dword [byte ebp+07Eh]
+        mov dword [byte ebp+076h], eax
+        jmp short .112
+.108:
+        xor ebx, ebx
+        jmp short .111
+.109:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [StatsColumn]
+        jne short .110
+        inc dword [byte ebp+076h]
+.110:
+        inc ebx
+.111:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .109
+.112:
+        mov edx, dword [byte ebp+076h]
+        mov eax, RatingsSkaterList
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsSkaterList
+        xor edx, edx
+        call SetScrollBarPos
+.113:
+        cmp dword [RatingsCompact], byte 0
+        je short .116
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        shl eax, 2
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        je short .116
+        mov dword [RatingsCompact], 0
+        cmp dword [RatingsGoalieMode], byte 0
+        je short .114
+        mov edx, 0Eh
+        jmp short .115
+.114:
+        mov edx, 9
+.115:
+        mov eax, RatingsScrollBar
+        call SetListSelection
+        mov eax, RatingsScrollBar
+        xor ebx, ebx
+        xor edx, edx
+        call SetScrollBarPos
+.116:
+        cmp dword [RatingsCompact], byte 0
+        jne near PlayerRatingsScreen_2040.186
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        jmp near PlayerRatingsScreen_1964.144
+PlayerRatingsScreen_180D:
+        mov eax, dword [byte ebp+01Ah]
+        inc dword [StatsColumn]
+        movsx eax, word [eax]
+        cmp eax, dword [StatsColumn]
+        jne short .117
+        mov dword [StatsColumn], 0FFFFFFFFh
+.117:
+        mov ecx, CompareStatColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsSkaterOrder]
+        mov dword [byte ebp+076h], 0
+        call qsort_
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        jne short .118
+        mov eax, dword [byte ebp+07Eh]
+        mov dword [byte ebp+076h], eax
+        jmp short .122
+.118:
+        xor ebx, ebx
+        jmp short .121
+.119:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [StatsColumn]
+        jne short .120
+        inc dword [byte ebp+076h]
+.120:
+        inc ebx
+.121:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .119
+.122:
+        mov edx, dword [byte ebp+076h]
+        mov eax, RatingsSkaterList
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsSkaterList
+        xor edx, edx
+        call SetScrollBarPos
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        je short .125
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .124
+        cmp byte [PlayoffStarted], 0
+        je short .124
+        mov eax, dword [StatsColumn]
+        push dword [nosplit eax*4+PlayoffTeams]
+.123:
+        push str_LB02d3
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .126
+.124:
+        push dword [StatsColumn]
+        jmp short .123
+.125:
+        push str_LB262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.126:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0206h], edx
+        add esp, byte 8
+        cmp dword [StatsColumn], byte 0FFFFFFFFh
+        je short .127
+        push dword [StatsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .128
+.127:
+        push str_LH262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.128:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov ebx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+020Eh], ebx
+        mov eax, dword [RatingsTeam]
+        mov edx, ebx
+        jmp near PlayerRatingsScreen_13F5.98
+PlayerRatingsScreen_1964:
+        dec dword [RatingsColumn]
+        cmp dword [RatingsColumn], byte 0FFFFFFFEh
+        jne short .129
+        mov eax, dword [byte ebp+01Ah]
+        movsx eax, word [eax]
+        dec eax
+        mov dword [RatingsColumn], eax
+.129:
+        mov ecx, CompareRatingColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsGoalieOrder]
+        mov dword [byte ebp+072h], 0
+        call qsort_
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .130
+        mov eax, dword [byte ebp+07Eh]
+        mov dword [byte ebp+072h], eax
+        jmp short .134
+.130:
+        xor ebx, ebx
+        jmp short .133
+.131:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [RatingsColumn]
+        jne short .132
+        inc dword [byte ebp+072h]
+.132:
+        inc ebx
+.133:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .131
+.134:
+        mov edx, dword [byte ebp+072h]
+        mov eax, RatingsGoalieList
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsGoalieList
+        xor edx, edx
+        call SetScrollBarPos
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        je short .137
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .136
+        cmp byte [PlayoffStarted], 0
+        je short .136
+        mov eax, dword [RatingsColumn]
+        push dword [nosplit eax*4+PlayoffTeams]
+.135:
+        push str_LB02d3
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .138
+.136:
+        push dword [RatingsColumn]
+        jmp short .135
+.137:
+        push str_LB262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.138:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+02FCh], edx
+        add esp, byte 8
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        je short .139
+        push dword [RatingsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .140
+.139:
+        push str_LH262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.140:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0304h], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0300h], edx
+        add esp, byte 8
+.141:
+        cmp dword [RatingsCompact], byte 0
+        je short .143
+        mov eax, dword [RatingsGoalieRow]
+        mov edx, dword [RatingsGoalieOrder]
+        shl eax, 2
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        je short .143
+        mov dword [RatingsCompact], 0
+        cmp dword [RatingsGoalieMode], byte 0
+        je short .145
+        mov edx, 0Eh
+.142:
+        mov eax, RatingsScrollBar
+        call SetListSelection
+        mov eax, RatingsScrollBar
+        xor ebx, ebx
+        xor edx, edx
+        call SetScrollBarPos
+.143:
+        cmp dword [RatingsCompact], byte 0
+        jne near PlayerRatingsScreen_2040.186
+        mov eax, dword [RatingsGoalieRow]
+        mov edx, dword [RatingsGoalieOrder]
+.144:
+        shl eax, 2
+        jmp near PlayerRatingsScreen_2040.184
+.145:
+        mov edx, 9
+        jmp short .142
+PlayerRatingsScreen_1B34:
+        xor ebx, ebx
+        jmp near .151
+.146:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .147
+        cmp byte [PlayoffStarted], 0
+        je short .147
+        push dword [nosplit ebx*4+PlayoffTeams]
+        jmp short .148
+.147:
+        push ebx
+.148:
+        push str_LB02d3
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, ebx
+        shl eax, 2
+        mov dword [byte eax+ebp-07Ah], edx
+        mov edx, dword [GameSettings]
+        and edx, byte 70h
+        add esp, byte 8
+        cmp edx, byte 20h
+        jne short .149
+        cmp byte [PlayoffStarted], 0
+        je short .149
+        push dword [dword eax+PlayoffTeams]
+        jmp short .150
+.149:
+        push ebx
+.150:
+        push str_LH02d2
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        inc ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebp+ebx*4-0EAh], eax
+.151:
+        mov eax, dword [byte ebp+01Ah]
+        movsx eax, word [eax]
+        cmp ebx, eax
+        jl near .146
+        push str_LB262
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_LH262
+        push dword [RatingsShapeFile]
+        mov dword [byte ebp-07Eh], eax
+        call FindShape
+        mov ebx, dword [RatingsTeam]
+        mov dword [dword ebp-0EAh], eax
+        mov ecx, dword [dword ebx+030Ch]
+        add esp, byte 8
+        add ecx, byte 14h
+        mov eax, dword [dword ebx+0308h]
+        push ecx
+        sub eax, byte 14h
+        push eax
+        push dword [byte ebp+06Ah]
+        lea eax, [dword ebp-0EAh]
+        push eax
+        lea eax, [byte ebp-07Eh]
+        push eax
+        mov eax, dword [byte ebp+01Ah]
+        mov edx, 6
+        movsx eax, word [eax]
+        mov ebx, dword [dword ebx+0308h]
+        inc eax
+        call RunScrollList
+        mov dword [byte ebp+01Eh], eax
+        cmp eax, byte 0FFFFFFFFh
+        je near PlayerRatingsScreen_1964.141
+        lea edx, [byte eax-01h]
+        mov ebx, eax
+        mov dword [RatingsColumn], edx
+        shl ebx, 2
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [byte ebx+ebp-07Eh]
+        mov dword [dword eax+02FCh], edx
+        mov ebx, dword [byte ebp+01Eh]
+        mov eax, dword [RatingsTeam]
+        mov edx, dword [dword ebp+ebx*4-0EAh]
+        mov dword [dword eax+0300h], edx
+        mov eax, dword [byte ebp+01Eh]
+        mov ecx, CompareRatingColumn
+        mov ebx, dword [RatingsTeam]
+        mov eax, dword [dword ebp+eax*4-0EAh]
+        mov edx, dword [byte ebp+07Eh]
+        mov dword [dword ebx+0304h], eax
+        mov ebx, 4
+        mov eax, dword [RatingsGoalieOrder]
+        mov dword [byte ebp+072h], 0
+        call qsort_
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .152
+        mov eax, dword [byte ebp+07Eh]
+        mov dword [byte ebp+072h], eax
+        jmp short .156
+.152:
+        xor ebx, ebx
+        jmp short .155
+.153:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [RatingsColumn]
+        jne short .154
+        inc dword [byte ebp+072h]
+.154:
+        inc ebx
+.155:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .153
+.156:
+        mov edx, dword [byte ebp+072h]
+        mov eax, RatingsGoalieList
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsGoalieList
+        xor edx, edx
+        call SetScrollBarPos
+        jmp near PlayerRatingsScreen_1964.141
+PlayerRatingsScreen_1D11:
+        mov eax, dword [byte ebp+01Ah]
+        inc dword [RatingsColumn]
+        movsx eax, word [eax]
+        cmp eax, dword [RatingsColumn]
+        jne short .157
+        mov dword [RatingsColumn], 0FFFFFFFFh
+.157:
+        mov ecx, CompareRatingColumn
+        mov ebx, 4
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [RatingsGoalieOrder]
+        mov dword [byte ebp+072h], 0
+        call qsort_
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        jne short .158
+        mov eax, dword [byte ebp+07Eh]
+        mov dword [byte ebp+072h], eax
+        jmp short .162
+.158:
+        xor ebx, ebx
+        jmp short .161
+.159:
+        mov eax, dword [PlayerStatRecords]
+        movzx eax, byte [ebx+eax]
+        cmp eax, dword [RatingsColumn]
+        jne short .160
+        inc dword [byte ebp+072h]
+.160:
+        inc ebx
+.161:
+        cmp ebx, dword [byte ebp+07Eh]
+        jl short .159
+.162:
+        mov edx, dword [byte ebp+072h]
+        mov eax, RatingsGoalieList
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsGoalieList
+        xor edx, edx
+        call SetScrollBarPos
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        je short .165
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .164
+        cmp byte [PlayoffStarted], 0
+        je short .164
+        mov eax, dword [RatingsColumn]
+        push dword [nosplit eax*4+PlayoffTeams]
+.163:
+        push str_LB02d3
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .166
+.164:
+        push dword [RatingsColumn]
+        jmp short .163
+.165:
+        push str_LB262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.166:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+02FCh], edx
+        add esp, byte 8
+        cmp dword [RatingsColumn], byte 0FFFFFFFFh
+        je short .167
+        push dword [RatingsColumn]
+        push str_LH02d2
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        jmp short .168
+.167:
+        push str_LH262
+        lea eax, [byte ebp+0Eh]
+        push eax
+        call sprintf_
+        add esp, byte 8
+.168:
+        lea eax, [byte ebp+0Eh]
+        push eax
+        push dword [RatingsShapeFile]
+        call FindShape
+        mov edx, eax
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0304h], edx
+        mov eax, dword [RatingsTeam]
+        mov dword [dword eax+0300h], edx
+        add esp, byte 8
+        cmp dword [RatingsCompact], byte 0
+        je near PlayerRatingsScreen_2040.182
+        mov edx, dword [RatingsGoalieRow]
+        mov eax, dword [RatingsGoalieOrder]
+        shl edx, 2
+        jmp near PlayerRatingsScreen_2040.180
+.169:
+        mov edx, 9
+        jmp near PlayerRatingsScreen_2040.181
+PlayerRatingsScreen_1E94:
+        xor edx, eax
+        mov eax, RatingsScrollBar
+        call ScrollUp
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_1EA5:
+        mov ebx, eax
+        xor edx, eax
+        mov eax, RatingsScrollBar
+        call ScrollToMouse
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_1EB8:
+        xor edx, eax
+        mov eax, RatingsScrollBar
+        call ScrollDown
+        jmp near PlayerRatingsScreen_2040.186
+PlayerRatingsScreen_1EC9:
+        xor edx, eax
+        mov eax, RatingsSkaterList
+        call ScrollUp
+        cmp dword [RatingsCompact], byte 0
+        je short .172
+        mov edx, dword [RatingsSkaterRow]
+        mov eax, dword [RatingsSkaterOrder]
+        shl edx, 2
+.170:
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        je short .172
+        mov dword [RatingsCompact], 0
+        cmp dword [RatingsGoalieMode], byte 0
+        je near .175
+        mov edx, 0Eh
+.171:
+        mov eax, RatingsScrollBar
+        call SetListSelection
+        mov eax, RatingsScrollBar
+        xor ebx, ebx
+        xor edx, edx
+        call SetScrollBarPos
+.172:
+        cmp dword [RatingsCompact], byte 0
+        jne short .174
+        mov edx, dword [RatingsSkaterRow]
+        mov eax, dword [RatingsSkaterOrder]
+        shl edx, 2
+.173:
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        jne short .174
+        mov edx, 9
+        mov eax, RatingsScrollBar
+        mov dword [RatingsCompact], 1
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsScrollBar
+        xor edx, edx
+        call SetScrollBarPos
+.174:
+        mov dword [RatingsSkaterShown], 0FFFFFFFFh
+        jmp near PlayerRatingsScreen_2040.186
+.175:
+        mov edx, 9
+        jmp short .171
+PlayerRatingsScreen_1F8C:
+        mov ebx, eax
+        xor edx, eax
+        mov eax, RatingsSkaterList
+        call ScrollToMouse
+        cmp dword [RatingsCompact], byte 0
+        je short .178
+        mov edx, dword [RatingsSkaterRow]
+        mov eax, dword [RatingsSkaterOrder]
+        shl edx, 2
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        je short .178
+        mov dword [RatingsCompact], 0
+        cmp dword [RatingsGoalieMode], byte 0
+        je short .176
+        mov edx, 0Eh
+        jmp short .177
+.176:
+        mov edx, 9
+.177:
+        mov eax, RatingsScrollBar
+        call SetListSelection
+        mov eax, RatingsScrollBar
+        xor ebx, ebx
+        xor edx, edx
+        call SetScrollBarPos
+.178:
+        cmp dword [RatingsCompact], byte 0
+        jne near PlayerRatingsScreen_1EC9.174
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        shl eax, 2
+        jmp near PlayerRatingsScreen_1EC9.173
+PlayerRatingsScreen_2014:
+        xor edx, eax
+        mov eax, RatingsSkaterList
+        call ScrollDown
+        cmp dword [RatingsCompact], byte 0
+        je near PlayerRatingsScreen_1EC9.172
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        shl eax, 2
+        jmp near PlayerRatingsScreen_1EC9.170
+PlayerRatingsScreen_2040:
+        xor edx, eax
+        mov eax, RatingsGoalieList
+        call ScrollUp
+.179:
+        cmp dword [RatingsCompact], byte 0
+        je short .182
+        mov eax, dword [RatingsGoalieRow]
+        mov edx, dword [RatingsGoalieOrder]
+        shl eax, 2
+.180:
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        je short .182
+        mov dword [RatingsCompact], 0
+        cmp dword [RatingsGoalieMode], byte 0
+        je near PlayerRatingsScreen_1D11.169
+        mov edx, 0Eh
+.181:
+        mov eax, RatingsScrollBar
+        call SetListSelection
+        mov eax, RatingsScrollBar
+        xor ebx, ebx
+        xor edx, edx
+        call SetScrollBarPos
+.182:
+        cmp dword [RatingsCompact], byte 0
+        jne short .186
+        mov edx, dword [RatingsGoalieRow]
+        mov eax, dword [RatingsGoalieOrder]
+.183:
+        shl edx, 2
+.184:
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        add edx, dword [eax]
+        cmp byte [edx], 47h
+        jne short .186
+        mov edx, 9
+        mov eax, RatingsScrollBar
+        mov dword [RatingsCompact], 1
+        call SetListSelection
+        xor ebx, ebx
+        mov eax, RatingsScrollBar
+.185:
+        xor edx, edx
+        call SetScrollBarPos
+.186:
+        cmp dword [byte ebp+052h], byte 0FFFFFFFFh
+        jne near PlayerRatingsScreen_21FD.189
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        imul ecx, dword [edx+eax*4], dword 0BCh
+        push dword [byte ebp+01Ah]
+        mov ebx, 1
+        mov eax, dword [GoalieStatRecords]
+        mov edx, dword [byte ebp+06Ah]
+        add ecx, eax
+        mov eax, esi
+        call DrawTeamNameField
+        call SetScreenTarget
+        push dword 140h
+        push byte 5Ah
+        push dword [byte esi+02Ch]
+        call BlitArt
+        mov eax, dword [RatingsGoalieRow]
+        mov edx, dword [RatingsGoalieOrder]
+        imul ecx, dword [edx+eax*4], dword 0BCh
+        add esp, byte 0Ch
+        xor ebx, ebx
+        push dword [byte ebp+01Ah]
+        mov eax, dword [GoalieStatRecords]
+        mov edx, dword [byte ebp+06Ah]
+        add ecx, eax
+        mov eax, esi
+        call DrawTeamNameField
+        call SetScreenTarget
+        push dword 140h
+        push dword 17Ch
+        push dword [byte esi+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .187
+        call SetScreenTarget
+        push dword [byte ebp+036h]
+        mov eax, dword [byte ebp+046h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+.187:
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .188
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne near PlayerRatingsScreen.48
+        cmp byte [PlayoffStarted], 0
+        je near PlayerRatingsScreen.48
+.188:
+        push dword [dword ebp-01CBEh]
+        push dword [byte ebp+01Ah]
+        mov ecx, dword [byte ebp+032h]
+        push dword [GoalieStatRecords]
+        mov edx, dword [byte ebp+06Ah]
+        push dword [byte ebp+04Ah]
+        jmp near PlayerRatingsScreen.49
+PlayerRatingsScreen_21EA:
+        mov ebx, eax
+        xor edx, eax
+        mov eax, RatingsGoalieList
+        call ScrollToMouse
+        jmp near PlayerRatingsScreen_1964.141
+PlayerRatingsScreen_21FD:
+        xor edx, eax
+        mov eax, RatingsGoalieList
+        call ScrollDown
+        jmp near PlayerRatingsScreen_2040.179
+.189:
+        push dword [RatingsShapeFile]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+06Eh]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+032h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [GoalieStatRecords]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+04Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+026h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+07Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [PlayerStatRecords]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [RatingsTeam]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [RatingsSkaterOrder]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [RatingsGoalieOrder]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+046h]
+        call FreeBitmap
+        add esp, byte 4
+        mov eax, RatingsScrollBar
+        call FreeScrollList
+        mov eax, RatingsSkaterList
+        call FreeScrollList
+        mov eax, RatingsGoalieList
+        call FreeScrollList
+        cmp dword [byte ebp+01Ah], byte 0
+        je short .190
+        lea eax, [byte ebp+01Ah]
+        call FreeDbBlock
+.190:
+        cmp dword [byte ebp+016h], byte 0
+        je short .191
+        lea eax, [byte ebp+016h]
+        call FreeDbBlock
+.191:
+        cmp dword [RatingsSkaterBitmap], byte 0
+        je short .192
+        push dword [RatingsSkaterBitmap]
+        call FreeMemBlock
+        add esp, byte 4
+.192:
+        cmp dword [RatingsGoalieBitmap], byte 0
+        je short .193
+        push dword [RatingsGoalieBitmap]
+        call FreeMemBlock
+        add esp, byte 4
+.193:
+        mov dword [RatingsGoalieBitmap], 0
+        push dword [byte ebp+02Ah]
+        mov dword [RatingsSkaterBitmap], 0
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+02Eh]
+        xor ebx, ebx
+        call FreeBitmap
+        add esp, byte 4
+.194:
+        push dword [byte ebp+ebx*4-012h]
+        call FreeBitmap
+        inc ebx
+        add esp, byte 4
+        cmp ebx, byte 5
+        jl short .194
+        push esi
+        call FreeBitmap
+        add esp, byte 4
+        push edi
+        call FreeBitmap
+        add esp, byte 4
+        call SetNormalText
+        cmp byte [FrontMusicOn], 0
+        je short .195
+        cmp byte [StatsMenuDrawn], 0
+        je short .195
+        call LoadFrontEndSfx
+.195:
+        mov eax, dword [byte ebp+052h]
+        lea esp, [dword ebp+082h]
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; BuildPlayerStats                                BB365  97 PC, low confidence
+; Builds the player stats lists
+;-----------------------------------------------------------------------------
+BuildPlayerStats:
+        push esi
+        push edi
+        enter 32ECh, 0
+        push eax
+        push edx
+        push ebx
+        push ecx
+        sub ebp, byte 7Ah
+        xor ebx, ebx
+        mov word [byte ebp+046h], 0FFFFh
+        mov dword [byte ebp+072h], ebx
+        jmp near .74
+.1:
+        call ServiceIdle
+        mov eax, dword [byte ebp+072h]
+        mov edx, dword [dword ebp-03276h]
+        shl eax, 3
+        mov edx, dword [byte edx+01Ch]
+        add eax, edx
+        lea edx, [dword ebp-01922h]
+        call FindGameRecord
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne near .5
+        cmp dword [SeasonActive], byte 0
+        je near .5
+        mov dword [byte ebp+076h], 0
+        mov dword [byte ebp+06Eh], 0
+        jmp short .4
+.2:
+        call ServiceIdle
+        mov ecx, dword [byte ebp+076h]
+        mov edx, dword [dword ebp-0327Ah]
+        mov eax, dword [byte ebp+072h]
+        mov esi, dword [dword ebp-03276h]
+        shl ecx, 3
+        shl eax, 3
+        mov edx, dword [byte edx+01Ch]
+        mov esi, dword [byte esi+01Ch]
+        add edx, ecx
+        add eax, esi
+        call KeysEqual
+        test eax, eax
+        je short .3
+        mov eax, dword [dword ebp-0327Ah]
+        mov eax, dword [byte eax+01Ch]
+        lea edx, [dword ebp-03272h]
+        add eax, ecx
+        mov dword [byte ebp+06Eh], 1
+        call FindGameRecord
+.3:
+        inc dword [byte ebp+076h]
+.4:
+        mov eax, dword [dword ebp-0327Ah]
+        movsx eax, word [eax]
+        cmp eax, dword [byte ebp+076h]
+        jle short .5
+        cmp dword [byte ebp+06Eh], byte 0
+        je short .2
+.5:
+        mov dword [byte ebp+076h], 0
+        jmp near .22
+.6:
+        imul ecx, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 27h
+        lea edi, [dword ebp-0C19h]
+        call ServiceIdle
+        add edi, ecx
+        add edx, dword [dword ebp+08Ah]
+        lea eax, [byte edi+028h]
+        call FindPlayerStat
+        imul edx, ebx, dword 0BCh
+        mov eax, dword [GoalieStatRecords]
+        add edx, eax
+        lea eax, [byte edi+018h]
+        mov esi, dword [dword ebp+08Eh]
+        call FindPlayerRecord
+        call ServiceIdle
+        mov al, byte [dword ecx+ebp-0C17h]
+        mov byte [esi+ebx], al
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .7
+        cmp byte [PlayoffStarted], 0
+        je short .7
+        imul ecx, ebx, byte 3Dh
+        call ServiceIdle
+        mov edx, dword [dword ebp-0327Eh]
+        lea eax, [byte edi+020h]
+        lea esi, [byte ebp+02Eh]
+        mov edi, dword [dword ebp-03282h]
+        add edx, ecx
+        add edi, ecx
+        mov ecx, 3Dh
+        call FindTeamStat
+        jmp near .20
+.7:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        je short .9
+        cmp eax, byte 20h
+        jne short .8
+        cmp byte [PlayoffStarted], 0
+        je short .9
+.8:
+        test byte [GameSettings], 70h
+        jne near .19
+.9:
+        call ServiceIdle
+        imul eax, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 3Dh
+        lea ecx, [dword ebp-0C19h]
+        add eax, ecx
+        add edx, dword [dword ebp-0327Eh]
+        add eax, byte 20h
+        call FindTeamStat
+        cmp dword [SeasonActive], byte 0
+        je short .10
+        cmp dword [byte ebp+06Eh], byte 0
+        jne short .11
+.10:
+        imul edi, ebx, byte 3Dh
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, dword [dword ebp-03282h]
+        rep movsb
+        mov dword [StatsPlayoffMode], 0
+        jmp near .21
+.11:
+        xor ecx, ecx
+        xor esi, esi
+        jmp short .14
+.12:
+        imul edx, dword [byte ebp+076h], byte 38h
+        lea eax, [dword ebp-0C19h]
+        add eax, edx
+        lea edx, [byte eax+018h]
+        imul eax, ecx, byte 38h
+        lea edi, [dword ebp-02569h]
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .13
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.13:
+        inc ecx
+.14:
+        movsx eax, word [dword ebp-0256Dh]
+        cmp ecx, eax
+        jge short .15
+        test esi, esi
+        je short .12
+.15:
+        xor ecx, ecx
+        jmp short .18
+.16:
+        imul eax, dword [byte ebp+076h], byte 38h
+        lea edx, [dword ebp-0C19h]
+        add edx, eax
+        imul eax, ecx, byte 38h
+        lea edi, [dword ebp-01F45h]
+        add edx, byte 18h
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .17
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.17:
+        inc ecx
+.18:
+        movsx eax, word [dword ebp-01F47h]
+        cmp ecx, eax
+        jge short .21
+        test esi, esi
+        je short .16
+        jmp short .21
+.19:
+        imul eax, ebx, byte 3Dh
+        mov edi, dword [dword ebp-0327Eh]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+        rep movsb
+        mov edi, dword [dword ebp-03282h]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+.20:
+        rep movsb
+.21:
+        mov eax, dword [PlayerStatRecords]
+        mov dl, byte [byte ebp+072h]
+        inc dword [byte ebp+076h]
+        mov byte [ebx+eax], dl
+        inc ebx
+.22:
+        movsx eax, word [dword ebp-0C1Dh]
+        cmp eax, dword [byte ebp+076h]
+        jg near .6
+        mov dword [byte ebp+076h], 0
+        jmp near .39
+.23:
+        imul ecx, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 27h
+        lea esi, [dword ebp-05F5h]
+        call ServiceIdle
+        add esi, ecx
+        add edx, dword [dword ebp+08Ah]
+        lea eax, [byte esi+028h]
+        call FindPlayerStat
+        call ServiceIdle
+        imul eax, ebx, dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        add edx, eax
+        lea eax, [byte esi+018h]
+        call FindPlayerRecord
+        mov eax, dword [dword ebp+08Eh]
+        mov dl, byte [dword ecx+ebp-0C17h]
+        mov byte [ebx+eax], dl
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .24
+        cmp byte [PlayoffStarted], 0
+        je short .24
+        imul edi, ebx, byte 3Dh
+        call ServiceIdle
+        mov edx, dword [dword ebp-0327Eh]
+        lea eax, [byte esi+020h]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edx, edi
+        add edi, dword [dword ebp-03282h]
+        call FindTeamStat
+        jmp near .37
+.24:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        je short .26
+        cmp eax, byte 20h
+        jne short .25
+        cmp byte [PlayoffStarted], 0
+        je short .26
+.25:
+        test byte [GameSettings], 70h
+        jne near .36
+.26:
+        call ServiceIdle
+        imul eax, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 3Dh
+        lea ecx, [dword ebp-05F5h]
+        add eax, ecx
+        add edx, dword [dword ebp-0327Eh]
+        add eax, byte 20h
+        call FindTeamStat
+        cmp dword [SeasonActive], byte 0
+        je short .27
+        cmp dword [byte ebp+06Eh], byte 0
+        jne short .28
+.27:
+        imul edi, ebx, byte 3Dh
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, dword [dword ebp-03282h]
+        mov dword [StatsPlayoffMode], 0
+        jmp near .37
+.28:
+        xor ecx, ecx
+        xor esi, esi
+        jmp short .31
+.29:
+        imul edx, dword [byte ebp+076h], byte 38h
+        imul edi, ecx, byte 38h
+        lea eax, [dword ebp-05F5h]
+        add eax, edx
+        lea edx, [byte eax+018h]
+        lea eax, [dword ebp-02569h]
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .30
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.30:
+        inc ecx
+.31:
+        movsx eax, word [dword ebp-01F47h]
+        cmp ecx, eax
+        jge short .32
+        test esi, esi
+        je short .29
+.32:
+        xor ecx, ecx
+        jmp short .35
+.33:
+        imul eax, dword [byte ebp+076h], byte 38h
+        lea edx, [dword ebp-05F5h]
+        add edx, eax
+        imul eax, ecx, byte 38h
+        lea edi, [dword ebp-01F45h]
+        add edx, byte 18h
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .34
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.34:
+        inc ecx
+.35:
+        movsx eax, word [dword ebp-01F47h]
+        cmp ecx, eax
+        jge short .38
+        test esi, esi
+        je short .33
+        jmp short .38
+.36:
+        imul eax, ebx, byte 3Dh
+        mov edi, dword [dword ebp-0327Eh]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+        rep movsb
+        mov edi, dword [dword ebp-03282h]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+.37:
+        rep movsb
+.38:
+        mov eax, dword [PlayerStatRecords]
+        mov dl, byte [byte ebp+072h]
+        inc dword [byte ebp+076h]
+        mov byte [ebx+eax], dl
+        inc ebx
+.39:
+        movsx eax, word [dword ebp-05F7h]
+        cmp eax, dword [byte ebp+076h]
+        jg near .23
+        mov dword [byte ebp+076h], 0
+        jmp near .56
+.40:
+        imul ecx, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 27h
+        lea esi, [dword ebp-069Fh]
+        call ServiceIdle
+        add esi, ecx
+        add edx, dword [dword ebp+08Ah]
+        lea eax, [byte esi+028h]
+        call FindPlayerStat
+        call ServiceIdle
+        imul eax, ebx, dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        add edx, eax
+        lea eax, [byte esi+018h]
+        call FindPlayerRecord
+        mov eax, dword [dword ebp+08Eh]
+        mov dl, byte [dword ecx+ebp-069Dh]
+        mov byte [ebx+eax], dl
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .41
+        cmp byte [PlayoffStarted], 0
+        je short .41
+        imul edi, ebx, byte 3Dh
+        call ServiceIdle
+        mov edx, dword [dword ebp-0327Eh]
+        lea eax, [byte esi+020h]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edx, edi
+        add edi, dword [dword ebp-03282h]
+        call FindTeamStat
+        jmp near .54
+.41:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        je short .43
+        cmp eax, byte 20h
+        jne short .42
+        cmp byte [PlayoffStarted], 0
+        je short .43
+.42:
+        test byte [GameSettings], 70h
+        jne near .53
+.43:
+        imul ecx, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 3Dh
+        lea eax, [dword ebp-069Fh]
+        add eax, ecx
+        add edx, dword [dword ebp-0327Eh]
+        add eax, byte 20h
+        call FindTeamStat
+        cmp dword [SeasonActive], byte 0
+        je short .44
+        cmp dword [byte ebp+06Eh], byte 0
+        jne short .45
+.44:
+        imul edi, ebx, byte 3Dh
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, dword [dword ebp-03282h]
+        rep movsb
+        mov dword [StatsPlayoffMode], 0
+        jmp near .55
+.45:
+        xor ecx, ecx
+        xor esi, esi
+        jmp short .48
+.46:
+        imul eax, dword [byte ebp+076h], byte 38h
+        lea edx, [dword ebp-069Fh]
+        add edx, eax
+        imul eax, ecx, byte 38h
+        lea edi, [dword ebp-01FEFh]
+        add edx, byte 18h
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .47
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.47:
+        inc ecx
+.48:
+        movsx eax, word [dword ebp-01FF1h]
+        cmp ecx, eax
+        jge short .49
+        test esi, esi
+        je short .46
+.49:
+        xor ecx, ecx
+        jmp short .52
+.50:
+        imul edx, dword [byte ebp+076h], byte 38h
+        lea eax, [dword ebp-069Fh]
+        add edx, eax
+        imul eax, ecx, byte 38h
+        lea edi, [dword ebp-019CBh]
+        add edx, byte 18h
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .51
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.51:
+        inc ecx
+.52:
+        movsx eax, word [dword ebp-019CDh]
+        cmp ecx, eax
+        jge short .55
+        test esi, esi
+        je short .50
+        jmp short .55
+.53:
+        imul eax, ebx, byte 3Dh
+        mov edi, dword [dword ebp-0327Eh]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+        rep movsb
+        mov edi, dword [dword ebp-03282h]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+.54:
+        rep movsb
+.55:
+        mov eax, dword [PlayerStatRecords]
+        mov dl, byte [byte ebp+072h]
+        inc dword [byte ebp+076h]
+        mov byte [ebx+eax], dl
+        inc ebx
+.56:
+        movsx eax, word [dword ebp-06A1h]
+        cmp eax, dword [byte ebp+076h]
+        jg near .40
+        mov dword [byte ebp+076h], 0
+        jmp near .73
+.57:
+        imul ecx, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 27h
+        lea esi, [byte ebp-07Bh]
+        call ServiceIdle
+        add esi, ecx
+        add edx, dword [dword ebp+08Ah]
+        lea eax, [byte esi+028h]
+        call FindPlayerStat
+        call ServiceIdle
+        imul eax, ebx, dword 0BCh
+        mov edx, dword [GoalieStatRecords]
+        add edx, eax
+        lea eax, [byte esi+018h]
+        call FindPlayerRecord
+        mov eax, dword [dword ebp+08Eh]
+        mov dl, byte [dword ecx+ebp-069Dh]
+        mov byte [ebx+eax], dl
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .58
+        cmp byte [PlayoffStarted], 0
+        je short .58
+        imul ecx, ebx, byte 3Dh
+        call ServiceIdle
+        mov edx, dword [dword ebp-0327Eh]
+        lea eax, [byte esi+020h]
+        mov edi, dword [dword ebp-03282h]
+        lea esi, [byte ebp+02Eh]
+        add edx, ecx
+        add edi, ecx
+        mov ecx, 3Dh
+        call FindTeamStat
+        jmp near .71
+.58:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        je short .60
+        cmp eax, byte 20h
+        jne short .59
+        cmp byte [PlayoffStarted], 0
+        je short .60
+.59:
+        test byte [GameSettings], 70h
+        jne near .70
+.60:
+        call ServiceIdle
+        imul eax, dword [byte ebp+076h], byte 38h
+        imul edx, ebx, byte 3Dh
+        lea ecx, [byte ebp-07Bh]
+        add eax, ecx
+        add edx, dword [dword ebp-0327Eh]
+        add eax, byte 20h
+        call FindTeamStat
+        cmp dword [SeasonActive], byte 0
+        je short .61
+        cmp dword [byte ebp+06Eh], byte 0
+        jne short .62
+.61:
+        imul edi, ebx, byte 3Dh
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, dword [dword ebp-03282h]
+        mov dword [StatsPlayoffMode], 0
+        jmp near .71
+.62:
+        xor ecx, ecx
+        xor esi, esi
+        jmp short .65
+.63:
+        imul eax, dword [byte ebp+076h], byte 38h
+        lea edx, [byte ebp-07Bh]
+        add eax, edx
+        lea edx, [byte eax+018h]
+        imul eax, ecx, byte 38h
+        lea edi, [dword ebp-01FEFh]
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .64
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.64:
+        inc ecx
+.65:
+        movsx eax, word [dword ebp-019CDh]
+        cmp ecx, eax
+        jge short .66
+        test esi, esi
+        je short .63
+.66:
+        xor ecx, ecx
+        jmp short .69
+.67:
+        imul eax, dword [byte ebp+076h], byte 38h
+        lea edx, [byte ebp-07Bh]
+        add eax, edx
+        lea edx, [byte eax+018h]
+        imul eax, ecx, byte 38h
+        lea edi, [dword ebp-019CBh]
+        add edi, eax
+        lea eax, [byte edi+018h]
+        call KeysEqual
+        test eax, eax
+        je short .68
+        imul edx, ebx, byte 3Dh
+        lea eax, [byte edi+020h]
+        add edx, dword [dword ebp-03282h]
+        mov esi, 1
+        call FindTeamStat
+.68:
+        inc ecx
+.69:
+        movsx eax, word [dword ebp-019CDh]
+        cmp ecx, eax
+        jge short .72
+        test esi, esi
+        je short .67
+        jmp short .72
+.70:
+        imul eax, ebx, byte 3Dh
+        mov edi, dword [dword ebp-0327Eh]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+        rep movsb
+        mov edi, dword [dword ebp-03282h]
+        mov ecx, 3Dh
+        lea esi, [byte ebp+02Eh]
+        add edi, eax
+.71:
+        rep movsb
+.72:
+        mov eax, dword [PlayerStatRecords]
+        mov dl, byte [byte ebp+072h]
+        inc dword [byte ebp+076h]
+        mov byte [ebx+eax], dl
+        inc ebx
+.73:
+        movsx eax, word [byte ebp-07Dh]
+        cmp eax, dword [byte ebp+076h]
+        jg near .57
+        inc dword [byte ebp+072h]
+.74:
+        mov eax, dword [dword ebp-03276h]
+        movsx eax, word [eax]
+        cmp eax, dword [byte ebp+072h]
+        jg near .1
+        lea esp, [byte ebp+07Ah]
+        pop ebp
+        pop edi
+        pop esi
+        ret 8
+;-----------------------------------------------------------------------------
+; DrawTeamNameField                               BBC3A  97 PC, low confidence
+; Draws the team name field
+;-----------------------------------------------------------------------------
+DrawTeamNameField:
+        push esi
+        push edi
+        enter 0A4h, 0
+        sub ebp, byte 7Eh
+        mov edi, eax
+        mov esi, edx
+        mov dword [byte ebp+076h], ebx
+        mov dword [byte ebp+07Ah], ecx
+        push eax
+        call SetDrawTarget
+        add esp, byte 4
+        test ebx, ebx
+        je short .1
+        movsx eax, word [byte esi+0Eh]
+        sub eax, 140h
+        push eax
+        movsx eax, word [byte esi+0Ch]
+        sub eax, byte 5Ah
+        jmp short .2
+.1:
+        movsx eax, word [byte esi+0Eh]
+        sub eax, 140h
+        push eax
+        movsx eax, word [byte esi+0Ch]
+        sub eax, 17Ch
+.2:
+        push eax
+        push esi
+        call BlitArt
+        add esp, byte 0Ch
+        mov esi, dword [byte edi+02Ch]
+        xor ebx, ebx
+        movsx eax, word [byte esi+06h]
+        xor edx, edx
+        push eax
+        movsx ecx, word [byte esi+04h]
+        mov eax, 8
+        call DrawEditBox
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .5
+        cmp dword [byte ebp+076h], byte 0
+        je short .3
+        mov edx, dword [RatingsSkaterRow]
+        mov eax, dword [dword ebp+08Eh]
+        shl edx, 3
+        mov eax, dword [byte eax+014h]
+        jmp short .4
+.3:
+        mov eax, dword [RatingsGoalieRow]
+        mov edx, dword [dword ebp+08Eh]
+        shl eax, 3
+        mov edx, dword [byte edx+014h]
+.4:
+        add eax, edx
+        lea edx, [byte ebp-026h]
+        call FindTeamRecord
+        lea edx, [byte ebp+018h]
+        lea eax, [byte ebp+042h]
+        call strcpy_
+        jmp short .6
+.5:
+        mov eax, dword [byte ebp+07Ah]
+        add eax, byte 8
+        push eax
+        mov eax, dword [byte ebp+07Ah]
+        add eax, byte 18h
+        push eax
+        push str_SS8
+        lea eax, [byte ebp+042h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+.6:
+        lea eax, [byte ebp+042h]
+        push eax
+        push byte 0
+        push byte 5Ah
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        lea esp, [byte ebp+07Eh]
+        pop ebp
+        pop edi
+        pop esi
+        ret 4
+DrawRatingsSkaterJumpTable:                     ; jump table for the switch cases of DrawPlayerRatings
+        dd DrawPlayerRatings_243
+        dd DrawPlayerRatings_272
+        dd DrawPlayerRatings_2A1
+        dd DrawPlayerRatings_2D0
+        dd DrawPlayerRatings_2FF
+        dd DrawPlayerRatings_32E
+        dd DrawPlayerRatings_35D
+        dd DrawPlayerRatings_385
+        dd DrawPlayerRatings_3AD
+DrawRatingsGoalieJumpTable:                     ; jump table for the switch cases of DrawPlayerRatings
+        dd DrawPlayerRatings_4D9
+        dd DrawPlayerRatings_515
+        dd DrawPlayerRatings_551
+        dd DrawPlayerRatings_58D
+        dd DrawPlayerRatings_5C9
+        dd DrawPlayerRatings_5FF
+        dd DrawPlayerRatings_62E
+        dd DrawPlayerRatings_65D
+        dd DrawPlayerRatings_68C
+        dd DrawPlayerRatings_6BB
+        dd DrawPlayerRatings_6EA
+        dd DrawPlayerRatings_719
+        dd DrawPlayerRatings_741
+        dd DrawPlayerRatings_769
+DrawRatingsSkaterBarJumpTable:                  ; jump table for the switch cases of DrawPlayerRatings
+        dd DrawPlayerRatings_99B
+        dd DrawPlayerRatings_A38
+        dd DrawPlayerRatings_AD5
+        dd DrawPlayerRatings_B72
+        dd DrawPlayerRatings_BFC
+        dd DrawPlayerRatings_C99
+        dd DrawPlayerRatings_D42
+        dd DrawPlayerRatings_DE5
+        dd DrawPlayerRatings_E68
+        dd DrawPlayerRatings_EEB
+        dd DrawPlayerRatings_F6E
+DrawRatingsGoalieBarJumpTable:                  ; jump table for the switch cases of DrawPlayerRatings
+        dd DrawPlayerRatings_111B
+        dd DrawPlayerRatings_11B8
+        dd DrawPlayerRatings_1255
+        dd DrawPlayerRatings_12F2
+        dd DrawPlayerRatings_138F
+        dd DrawPlayerRatings_1426
+        dd DrawPlayerRatings_14A9
+        dd DrawPlayerRatings_152C
+        dd DrawPlayerRatings_15AF
+DrawRatingsStatJumpTable:                       ; jump table for the switch cases of DrawPlayerRatings
+        dd DrawPlayerRatings_1713
+        dd DrawPlayerRatings_17C0
+        dd DrawPlayerRatings_17C9
+        dd DrawPlayerRatings_17D2
+        dd DrawPlayerRatings_17DB
+        dd DrawPlayerRatings_17E4
+        dd DrawPlayerRatings_17ED
+        dd DrawPlayerRatings_17F6
+        dd DrawPlayerRatings_17FF
+        dd DrawPlayerRatings_1808
+        dd DrawPlayerRatings_1811
+;-----------------------------------------------------------------------------
+; DrawPlayerRatings                               BBE01  97 PC, low confidence
+; Draws the player ratings
+;-----------------------------------------------------------------------------
+DrawPlayerRatings:
+        push esi
+        push edi
+        enter 54h, 0
+        push eax
+        push edx
+        push ebx
+        push ecx
+        mov ebx, dword [byte ebp+018h]
+        mov dword [byte ebp-020h], 0
+        mov dword [byte ebp-024h], 0
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .1
+        push byte 0
+        push dword 194Fh
+        push str_Rroster
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword 194Fh
+        push str_Lroster
+        mov dword [byte ebp-01Ch], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [byte ebp-018h], eax
+.1:
+        mov eax, dword [RatingsSkaterRow]
+        mov edx, dword [RatingsSkaterOrder]
+        mov eax, dword [edx+eax*4]
+        mov edx, dword [RatingsGoalieOrder]
+        mov dword [byte ebp-08h], eax
+        mov eax, dword [RatingsGoalieRow]
+        mov eax, dword [edx+eax*4]
+        push dword [byte ebp-058h]
+        mov dword [byte ebp-04h], eax
+        call SetDrawTarget
+        mov eax, dword [byte ebp-05Ch]
+        movsx eax, word [byte eax+0Eh]
+        add esp, byte 4
+        sub eax, 154h
+        push eax
+        mov eax, dword [byte ebp-05Ch]
+        movsx eax, word [byte eax+0Ch]
+        sub eax, byte 7Dh
+        push eax
+        push dword [byte ebp-05Ch]
+        call BlitArt
+        mov eax, 0FFFFFFFFh
+        mov edx, dword [byte ebp+01Ch]
+        add esp, byte 0Ch
+        mov dword [byte ebp-030h], eax
+        cmp word [edx], byte 10h
+        jne near .8
+        cmp dword [RatingsPageDrawn], byte 0
+        je near .8
+        mov edx, dword [GameSettings]
+        and edx, byte 70h
+        cmp edx, byte 20h
+        je near .8
+        mov dword [byte ebp-0Ch], 0
+.2:
+        mov edx, dword [byte ebp-0Ch]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
+        cmp edx, dword [RatingsSkaterRow]
+        jne short .3
+        mov eax, dword [byte ebp-0Ch]
+.3:
+        mov edx, dword [byte ebp-0Ch]
+        mov edx, dword [nosplit edx*4+PlayoffTeams]
+        cmp edx, dword [RatingsGoalieRow]
+        jne short .4
+        mov edx, dword [byte ebp-0Ch]
+        mov dword [byte ebp-030h], edx
+.4:
+        inc dword [byte ebp-0Ch]
+        cmp dword [byte ebp-0Ch], byte 10h
+        jl short .2
+        cmp eax, byte 0FFFFFFFFh
+        jne short .5
+        mov dword [byte ebp-024h], 1
+.5:
+        cmp dword [byte ebp-030h], byte 0FFFFFFFFh
+        jne short .6
+        mov dword [byte ebp-020h], 1
+.6:
+        cmp dword [byte ebp-024h], byte 0
+        jne short .7
+        mov edx, eax
+        mov eax, dword [byte ebp+01Ch]
+        shl edx, 3
+        mov eax, dword [byte eax+01Ch]
+        add eax, edx
+        mov edx, dword [byte ebp-018h]
+        call FindGameRecord
+        test eax, eax
+        jne short .7
+        mov dword [byte ebp-024h], 1
+.7:
+        cmp dword [byte ebp-020h], byte 0
+        jne near .11
+        mov eax, dword [byte ebp-030h]
+        mov edx, dword [byte ebp+01Ch]
+        shl eax, 3
+        mov edx, dword [byte edx+01Ch]
+        add eax, edx
+        mov edx, dword [byte ebp-01Ch]
+        call FindGameRecord
+        test eax, eax
+        jne short .11
+        jmp short .10
+.8:
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .11
+        mov edx, dword [RatingsSkaterRow]
+        mov eax, dword [byte ebp+01Ch]
+        shl edx, 3
+        mov eax, dword [byte eax+01Ch]
+        add eax, edx
+        mov edx, dword [byte ebp-018h]
+        call FindGameRecord
+        test eax, eax
+        jne short .9
+        mov dword [byte ebp-024h], 1
+.9:
+        mov eax, dword [RatingsGoalieRow]
+        mov edx, dword [byte ebp+01Ch]
+        shl eax, 3
+        mov edx, dword [byte edx+01Ch]
+        add eax, edx
+        mov edx, dword [byte ebp-01Ch]
+        call FindGameRecord
+        test eax, eax
+        jne short .11
+.10:
+        mov dword [byte ebp-020h], 1
+.11:
+        cmp dword [RatingsGoalieMode], byte 0
+        je near DrawPlayerRatings_769.73
+        cmp dword [RatingsPageDrawn], byte 0
+        jne near DrawPlayerRatings_769.71
+        cmp dword [RatingsCompact], byte 0
+        je near DrawPlayerRatings_3AD.36
+        mov eax, dword [byte ebp-060h]
+        mov dword [byte ebp-010h], 0
+        mov dword [byte ebp-0Ch], eax
+        jmp near DrawPlayerRatings_3AD.35
+.12:
+        mov eax, dword [byte ebp-0Ch]
+        add eax, 1A4h
+        call GetLangText
+        push eax
+        push dword [byte ebp-010h]
+        push dword 0C8h
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp dword [byte ebp-0Ch], byte 8
+        ja near DrawPlayerRatings_3AD.32
+        imul ebx, dword [byte ebp-08h], byte 27h
+        mov eax, dword [byte ebp+010h]
+        mov edx, dword [byte ebp-0Ch]
+        add eax, dword [byte ebp-08h]
+        add ebx, dword [byte ebp-064h]
+        jmp dword [nosplit cs:edx*4+DrawRatingsSkaterJumpTable]
+DrawPlayerRatings_243:
+        cmp byte [eax], 47h
+        jne short .13
+        movzx edi, byte [byte ebx+011h]
+        jmp short .14
+.13:
+        mov edi, 0FFFFFFFFh
+.14:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+011h]
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_272:
+        cmp byte [eax], 47h
+        jne short .15
+        movzx edi, byte [byte ebx+012h]
+        jmp short .16
+.15:
+        mov edi, 0FFFFFFFFh
+.16:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+012h]
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_2A1:
+        cmp byte [eax], 47h
+        jne short .17
+        movzx edi, byte [byte ebx+013h]
+        jmp short .18
+.17:
+        mov edi, 0FFFFFFFFh
+.18:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+013h]
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_2D0:
+        cmp byte [eax], 47h
+        jne short .19
+        movzx edi, byte [byte ebx+014h]
+        jmp short .20
+.19:
+        mov edi, 0FFFFFFFFh
+.20:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+014h]
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_2FF:
+        cmp byte [eax], 47h
+        jne short .21
+        movzx edi, byte [byte ebx+015h]
+        jmp short .22
+.21:
+        mov edi, 0FFFFFFFFh
+.22:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+015h]
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_32E:
+        cmp byte [eax], 47h
+        jne short .23
+        movzx edi, byte [byte ebx+016h]
+        jmp short .24
+.23:
+        mov edi, 0FFFFFFFFh
+.24:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+016h]
+        jmp near DrawPlayerRatings_3AD.32
+DrawPlayerRatings_35D:
+        cmp byte [eax], 47h
+        jne short .25
+        movzx edi, byte [byte ebx+018h]
+        jmp short .26
+.25:
+        mov edi, 0FFFFFFFFh
+.26:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne short DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+018h]
+        jmp short DrawPlayerRatings_3AD.32
+DrawPlayerRatings_385:
+        cmp byte [eax], 47h
+        jne short .27
+        movzx edi, byte [byte ebx+019h]
+        jmp short .28
+.27:
+        mov edi, 0FFFFFFFFh
+.28:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne short DrawPlayerRatings_3AD.31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+019h]
+        jmp short DrawPlayerRatings_3AD.32
+DrawPlayerRatings_3AD:
+        cmp byte [eax], 47h
+        jne short .29
+        movzx edi, byte [byte ebx+01Ah]
+        jmp short .30
+.29:
+        mov edi, 0FFFFFFFFh
+.30:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne short .31
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+01Ah]
+        jmp short .32
+.31:
+        mov esi, 0FFFFFFFFh
+.32:
+        cmp edi, byte 0FFFFFFFFh
+        je short .33
+        push dword [byte ebp-010h]
+        push byte 0
+        push str_POWR2
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        mov ebx, 64h
+        mov edx, dword [byte ebp-010h]
+        push byte 19h
+        lea eax, [byte edi+0Ah]
+        mov ecx, 4
+        push eax
+        add edx, byte 5
+        mov eax, ebx
+        call DrawProgressBar
+.33:
+        cmp esi, byte 0FFFFFFFFh
+        je short .34
+        push dword [byte ebp-010h]
+        push dword 122h
+        push str_POWR2
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 1
+        mov ebx, 64h
+        mov edx, dword [byte ebp-010h]
+        push byte 19h
+        lea eax, [byte esi+0Ah]
+        mov ecx, 4
+        push eax
+        add edx, byte 5
+        mov eax, 127h
+        call DrawProgressBar
+.34:
+        inc dword [byte ebp-0Ch]
+        add dword [byte ebp-010h], byte 0Fh
+.35:
+        mov eax, dword [byte ebp-060h]
+        add eax, byte 6
+        cmp eax, dword [byte ebp-0Ch]
+        jg near DrawPlayerRatings.12
+        jmp near DrawPlayerRatings_1713.229
+.36:
+        mov eax, dword [byte ebp-060h]
+        mov dword [byte ebp-010h], 0
+        mov dword [byte ebp-0Ch], eax
+        jmp near DrawPlayerRatings_769.70
+.37:
+        mov eax, dword [byte ebp-0Ch]
+        add eax, 174h
+        call GetLangText
+        push eax
+        push dword [byte ebp-010h]
+        push dword 0C8h
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp dword [byte ebp-0Ch], byte 0Dh
+        ja near DrawPlayerRatings_769.67
+        imul ebx, dword [byte ebp-08h], byte 27h
+        mov eax, dword [byte ebp+010h]
+        mov edx, dword [byte ebp-0Ch]
+        add eax, dword [byte ebp-08h]
+        add ebx, dword [byte ebp-064h]
+        jmp dword [nosplit cs:edx*4+DrawRatingsGoalieJumpTable]
+DrawPlayerRatings_4D9:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .38
+        imul edi, dword [byte ebp-08h], byte 27h
+        add edi, dword [byte ebp-064h]
+        movzx edi, byte [byte edi+011h]
+        jmp short .39
+.38:
+        mov edi, 0FFFFFFFFh
+.39:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+011h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_515:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .40
+        imul edi, dword [byte ebp-08h], byte 27h
+        add edi, dword [byte ebp-064h]
+        movzx edi, byte [byte edi+012h]
+        jmp short .41
+.40:
+        mov edi, 0FFFFFFFFh
+.41:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+012h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_551:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .42
+        imul edi, dword [byte ebp-08h], byte 27h
+        add edi, dword [byte ebp-064h]
+        movzx edi, byte [byte edi+014h]
+        jmp short .43
+.42:
+        mov edi, 0FFFFFFFFh
+.43:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+014h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_58D:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .44
+        imul edi, dword [byte ebp-08h], byte 27h
+        add edi, dword [byte ebp-064h]
+        movzx edi, byte [byte edi+015h]
+        jmp short .45
+.44:
+        mov edi, 0FFFFFFFFh
+.45:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+015h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_5C9:
+        cmp byte [eax], 47h
+        je short .46
+        imul edi, dword [byte ebp-08h], byte 27h
+        add edi, dword [byte ebp-064h]
+        movzx edi, byte [byte edi+016h]
+        jmp short .47
+.46:
+        mov edi, 0FFFFFFFFh
+.47:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+016h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_5FF:
+        cmp byte [eax], 47h
+        je short .48
+        movzx edi, byte [byte ebx+018h]
+        jmp short .49
+.48:
+        mov edi, 0FFFFFFFFh
+.49:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+018h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_62E:
+        cmp byte [eax], 47h
+        je short .50
+        movzx edi, byte [byte ebx+017h]
+        jmp short .51
+.50:
+        mov edi, 0FFFFFFFFh
+.51:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+017h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_65D:
+        cmp byte [eax], 47h
+        je short .52
+        movzx edi, byte [byte ebx+019h]
+        jmp short .53
+.52:
+        mov edi, 0FFFFFFFFh
+.53:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+019h]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_68C:
+        cmp byte [eax], 47h
+        je short .54
+        movzx edi, byte [byte ebx+01Ah]
+        jmp short .55
+.54:
+        mov edi, 0FFFFFFFFh
+.55:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+01Ah]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_6BB:
+        cmp byte [eax], 47h
+        je short .56
+        movzx edi, byte [byte ebx+01Bh]
+        jmp short .57
+.56:
+        mov edi, 0FFFFFFFFh
+.57:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+01Bh]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_6EA:
+        cmp byte [eax], 47h
+        je short .58
+        movzx edi, byte [byte ebx+01Ch]
+        jmp short .59
+.58:
+        mov edi, 0FFFFFFFFh
+.59:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+01Ch]
+        jmp near DrawPlayerRatings_769.67
+DrawPlayerRatings_719:
+        cmp byte [eax], 47h
+        je short .60
+        movzx edi, byte [byte ebx+01Dh]
+        jmp short .61
+.60:
+        mov edi, 0FFFFFFFFh
+.61:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je short DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+01Dh]
+        jmp short DrawPlayerRatings_769.67
+DrawPlayerRatings_741:
+        cmp byte [eax], 47h
+        je short .62
+        movzx edi, byte [byte ebx+01Fh]
+        jmp short .63
+.62:
+        mov edi, 0FFFFFFFFh
+.63:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je short DrawPlayerRatings_769.66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+01Fh]
+        jmp short DrawPlayerRatings_769.67
+DrawPlayerRatings_769:
+        cmp byte [eax], 47h
+        je short .64
+        movzx edi, byte [byte ebx+020h]
+        jmp short .65
+.64:
+        mov edi, 0FFFFFFFFh
+.65:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je short .66
+        imul esi, dword [byte ebp-04h], byte 27h
+        add esi, dword [byte ebp-064h]
+        movzx esi, byte [byte esi+020h]
+        jmp short .67
+.66:
+        mov esi, 0FFFFFFFFh
+.67:
+        cmp edi, byte 0FFFFFFFFh
+        je short .68
+        push dword [byte ebp-010h]
+        push byte 0
+        push str_POWR2
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        mov ebx, 64h
+        mov edx, dword [byte ebp-010h]
+        push byte 19h
+        lea eax, [byte edi+0Ah]
+        mov ecx, 4
+        push eax
+        add edx, byte 5
+        mov eax, ebx
+        call DrawProgressBar
+.68:
+        cmp esi, byte 0FFFFFFFFh
+        je short .69
+        push dword [byte ebp-010h]
+        push dword 122h
+        push str_POWR2
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 1
+        mov ebx, 64h
+        mov edx, dword [byte ebp-010h]
+        push byte 19h
+        lea eax, [byte esi+0Ah]
+        mov ecx, 4
+        push eax
+        add edx, byte 5
+        mov eax, 127h
+        call DrawProgressBar
+.69:
+        inc dword [byte ebp-0Ch]
+        add dword [byte ebp-010h], byte 0Fh
+.70:
+        mov eax, dword [byte ebp-060h]
+        add eax, byte 6
+        cmp eax, dword [byte ebp-0Ch]
+        jg near DrawPlayerRatings_3AD.37
+        jmp near DrawPlayerRatings_1713.229
+.71:
+        mov edi, dword [byte ebp-01Ch]
+        mov esi, dword [byte ebp-018h]
+        mov dword [byte ebp-0Ch], 0
+        add edi, byte 5Bh
+        add esi, byte 5Bh
+.72:
+        imul eax, dword [byte ebp-0Ch], byte 0Fh
+        push eax
+        push byte 0
+        push str_POWR2
+        push dword [RatingsShapeFile]
+        mov dword [byte ebp-048h], eax
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 0FFFFFFFFh
+        push byte 1Ah
+        movzx eax, byte [esi]
+        push eax
+        mov eax, dword [byte ebp-048h]
+        mov ebx, 64h
+        add eax, byte 5
+        mov ecx, 4
+        mov dword [byte ebp-044h], eax
+        mov edx, eax
+        mov eax, ebx
+        call DrawProgressBar
+        push dword [byte ebp-048h]
+        push dword 122h
+        push str_POWR2
+        push dword [RatingsShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push byte 1
+        mov ebx, 64h
+        push byte 1Ah
+        movzx eax, byte [edi]
+        mov ecx, 4
+        push eax
+        mov edx, dword [byte ebp-044h]
+        mov eax, 127h
+        call DrawProgressBar
+        mov eax, dword [byte ebp-0Ch]
+        add eax, 1FBh
+        call GetLangText
+        push eax
+        push dword [byte ebp-048h]
+        push dword 0C8h
+        inc esi
+        push byte 1
+        inc edi
+        inc dword [byte ebp-0Ch]
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp dword [byte ebp-0Ch], byte 6
+        jl near .72
+        jmp near DrawPlayerRatings_1713.229
+.73:
+        cmp dword [RatingsPageDrawn], byte 0
+        jne near DrawPlayerRatings_15AF.216
+        cmp dword [RatingsCompact], byte 0
+        je near DrawPlayerRatings_F6E.155
+        mov eax, dword [byte ebp-060h]
+        mov dword [byte ebp-010h], 0
+        mov dword [byte ebp-0Ch], eax
+        jmp near DrawPlayerRatings_F6E.154
+.74:
+        mov eax, dword [byte ebp-0Ch]
+        shl eax, 2
+        mov dword [byte ebp-034h], eax
+        mov eax, dword [dword eax+RatingsHeaderText]
+        call GetLangText
+        push eax
+        push dword [byte ebp-010h]
+        push dword 0C8h
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp dword [byte ebp-0Ch], byte 0Ah
+        ja near DrawPlayerRatings_F6E.147
+        imul eax, dword [byte ebp-08h], dword 0BCh
+        imul ecx, dword [byte ebp-08h], byte 3Dh
+        mov dword [byte ebp-03Ch], ecx
+        mov ecx, dword [byte ebp+014h]
+        add ecx, dword [byte ebp-03Ch]
+        mov edx, dword [byte ebp+010h]
+        mov dword [byte ebp-02Ch], ecx
+        mov ecx, dword [byte ebp-034h]
+        add edx, dword [byte ebp-08h]
+        add eax, ebx
+        jmp dword [dword cs:ecx+DrawRatingsSkaterBarJumpTable]
+DrawPlayerRatings_99B:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        jne short .77
+        cmp dword [byte ebp+020h], byte 0
+        je short .76
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .75
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0A6h]
+        jmp short .78
+.75:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+08Eh]
+        jmp short .78
+.76:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+018h]
+        jmp short .78
+.77:
+        mov edi, 0FFFFFFFFh
+.78:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .80
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .79
+        movsx esi, word [dword esi+0A6h]
+        jmp near DrawPlayerRatings_F6E.147
+.79:
+        movsx esi, word [dword esi+08Eh]
+        jmp near DrawPlayerRatings_F6E.147
+.80:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+018h]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_A38:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        jne short .83
+        cmp dword [byte ebp+020h], byte 0
+        je short .82
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .81
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0A8h]
+        jmp short .84
+.81:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+090h]
+        jmp short .84
+.82:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+01Ah]
+        jmp short .84
+.83:
+        mov edi, 0FFFFFFFFh
+.84:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .86
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .85
+        movsx esi, word [dword esi+0A8h]
+        jmp near DrawPlayerRatings_F6E.147
+.85:
+        movsx esi, word [dword esi+090h]
+        jmp near DrawPlayerRatings_F6E.147
+.86:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+01Ah]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_AD5:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        jne short .89
+        cmp dword [byte ebp+020h], byte 0
+        je short .88
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .87
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0AAh]
+        jmp short .90
+.87:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+092h]
+        jmp short .90
+.88:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+01Ch]
+        jmp short .90
+.89:
+        mov edi, 0FFFFFFFFh
+.90:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .92
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .91
+        movsx esi, word [dword esi+0AAh]
+        jmp near DrawPlayerRatings_F6E.147
+.91:
+        movsx esi, word [dword esi+092h]
+        jmp near DrawPlayerRatings_F6E.147
+.92:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+01Ch]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_B72:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        jne short .95
+        cmp dword [byte ebp+020h], byte 0
+        je short .94
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .93
+        xor edi, edi
+        jmp short .96
+.93:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+094h]
+        jmp short .96
+.94:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+01Eh]
+        jmp short .96
+.95:
+        mov edi, 0FFFFFFFFh
+.96:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .98
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .97
+        xor esi, esi
+        jmp near DrawPlayerRatings_F6E.147
+.97:
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        movsx esi, word [dword esi+ebx+094h]
+        jmp near DrawPlayerRatings_F6E.147
+.98:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+01Eh]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_BFC:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        jne short .101
+        cmp dword [byte ebp+020h], byte 0
+        je short .100
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .99
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0ACh]
+        jmp short .102
+.99:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+096h]
+        jmp short .102
+.100:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+020h]
+        jmp short .102
+.101:
+        mov edi, 0FFFFFFFFh
+.102:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .104
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .103
+        movsx esi, word [dword esi+0ACh]
+        jmp near DrawPlayerRatings_F6E.147
+.103:
+        movsx esi, word [dword esi+096h]
+        jmp near DrawPlayerRatings_F6E.147
+.104:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+020h]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_C99:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        jne short .107
+        cmp dword [byte ebp+020h], byte 0
+        je short .106
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .105
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0AEh]
+        jmp short .108
+.105:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+098h]
+        jmp short .108
+.106:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+028h]
+        jmp short .108
+.107:
+        mov edi, 0FFFFFFFFh
+.108:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .111
+        imul eax, dword [byte ebp-04h], dword 0BCh
+        add eax, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .110
+        movsx eax, word [dword eax+0AEh]
+.109:
+        mov ecx, 3Ch
+        cdq
+        idiv ecx
+        jmp short .113
+.110:
+        movsx eax, word [dword eax+098h]
+        jmp short .109
+.111:
+        imul eax, dword [byte ebp-04h], byte 3Dh
+        add eax, dword [byte ebp+014h]
+        movsx eax, word [byte eax+028h]
+.112:
+        mov esi, 3Ch
+        cdq
+        idiv esi
+.113:
+        mov esi, eax
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_D42:
+        cmp byte [edx], 47h
+        jne short .118
+        cmp dword [byte ebp+020h], byte 0
+        je short .117
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .114
+        imul eax, dword [byte ebp-08h], dword 0BCh
+        mov eax, dword [dword ebx+eax+0B0h]
+        mov esi, 3Ch
+        cdq
+        idiv esi
+        jmp short .116
+.114:
+        imul eax, dword [byte ebp-08h], dword 0BCh
+        mov eax, dword [dword ebx+eax+09Ah]
+.115:
+        mov ecx, 3Ch
+        cdq
+        idiv ecx
+.116:
+        mov edi, eax
+        jmp short .119
+.117:
+        imul eax, dword [byte ebp-08h], byte 3Dh
+        add eax, dword [byte ebp+014h]
+        mov eax, dword [byte eax+02Ah]
+        jmp short .115
+.118:
+        mov edi, 0FFFFFFFFh
+.119:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .121
+        imul eax, dword [byte ebp-04h], dword 0BCh
+        add eax, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .120
+        mov eax, dword [dword eax+0B0h]
+        jmp near DrawPlayerRatings_C99.112
+.120:
+        mov eax, dword [dword eax+09Ah]
+        jmp near DrawPlayerRatings_C99.109
+.121:
+        imul eax, dword [byte ebp-04h], byte 3Dh
+        add eax, dword [byte ebp+014h]
+        mov eax, dword [byte eax+02Ah]
+        jmp near DrawPlayerRatings_C99.112
+DrawPlayerRatings_DE5:
+        cmp byte [edx], 47h
+        jne short .124
+        cmp dword [byte ebp+020h], byte 0
+        je short .123
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .122
+        movsx edi, word [dword eax+0B4h]
+        jmp short .125
+.122:
+        movsx edi, word [dword eax+09Eh]
+        jmp short .125
+.123:
+        mov edi, dword [byte ebp-02Ch]
+        movsx edi, word [byte edi+02Eh]
+        jmp short .125
+.124:
+        mov edi, 0FFFFFFFFh
+.125:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .127
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .126
+        movsx esi, word [dword esi+0B4h]
+        jmp near DrawPlayerRatings_F6E.147
+.126:
+        movsx esi, word [dword esi+09Eh]
+        jmp near DrawPlayerRatings_F6E.147
+.127:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+02Eh]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_E68:
+        cmp byte [edx], 47h
+        jne short .130
+        cmp dword [byte ebp+020h], byte 0
+        je short .129
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .128
+        movsx edi, word [dword eax+0B6h]
+        jmp short .131
+.128:
+        movsx edi, word [dword eax+0A0h]
+        jmp short .131
+.129:
+        mov edi, dword [byte ebp-02Ch]
+        movsx edi, word [byte edi+030h]
+        jmp short .131
+.130:
+        mov edi, 0FFFFFFFFh
+.131:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .133
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .132
+        movsx esi, word [dword esi+0B6h]
+        jmp near DrawPlayerRatings_F6E.147
+.132:
+        movsx esi, word [dword esi+0A0h]
+        jmp near DrawPlayerRatings_F6E.147
+.133:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+030h]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_EEB:
+        cmp byte [edx], 47h
+        jne short .136
+        cmp dword [byte ebp+020h], byte 0
+        je short .135
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .134
+        movsx edi, word [dword eax+0B8h]
+        jmp short .137
+.134:
+        movsx edi, word [dword eax+0A2h]
+        jmp short .137
+.135:
+        mov edi, dword [byte ebp-02Ch]
+        movsx edi, word [byte edi+032h]
+        jmp short .137
+.136:
+        mov edi, 0FFFFFFFFh
+.137:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne near DrawPlayerRatings_F6E.146
+        cmp dword [byte ebp+020h], byte 0
+        je short .139
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .138
+        movsx esi, word [dword esi+0B8h]
+        jmp near DrawPlayerRatings_F6E.147
+.138:
+        movsx esi, word [dword esi+0A2h]
+        jmp near DrawPlayerRatings_F6E.147
+.139:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+032h]
+        jmp near DrawPlayerRatings_F6E.147
+DrawPlayerRatings_F6E:
+        cmp byte [edx], 47h
+        jne short .142
+        cmp dword [byte ebp+020h], byte 0
+        je short .141
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .140
+        movsx edi, word [dword eax+0BAh]
+        jmp short .143
+.140:
+        movsx edi, word [dword eax+0A4h]
+        jmp short .143
+.141:
+        mov edi, dword [byte ebp-02Ch]
+        movsx edi, word [byte edi+034h]
+        jmp short .143
+.142:
+        mov edi, 0FFFFFFFFh
+.143:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        jne short .146
+        cmp dword [byte ebp+020h], byte 0
+        je short .145
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .144
+        movsx esi, word [dword esi+0BAh]
+        jmp short .147
+.144:
+        movsx esi, word [dword esi+0A4h]
+        jmp short .147
+.145:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+034h]
+        jmp short .147
+.146:
+        mov esi, 0FFFFFFFFh
+.147:
+        cmp edi, byte 0FFFFFFFFh
+        je short .150
+        cmp dword [byte ebp-0Ch], byte 8
+        jne short .148
+        mov eax, edi
+        mov ecx, 64h
+        cdq
+        idiv ecx
+        mov eax, edi
+        push edx
+        cdq
+        idiv ecx
+        push eax
+        push str_01d02d
+        lea eax, [byte ebp-054h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        jmp short .149
+.148:
+        push edi
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-054h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.149:
+        lea eax, [byte ebp-054h]
+        push eax
+        push dword [byte ebp-010h]
+        push byte 0
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+.150:
+        cmp esi, byte 0FFFFFFFFh
+        je short .153
+        cmp dword [byte ebp-0Ch], byte 8
+        jne short .151
+        mov eax, esi
+        mov ecx, 64h
+        cdq
+        idiv ecx
+        mov eax, esi
+        push edx
+        cdq
+        idiv ecx
+        push eax
+        push str_01d02d
+        lea eax, [byte ebp-054h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        jmp short .152
+.151:
+        push esi
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-054h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+.152:
+        lea eax, [byte ebp-054h]
+        push eax
+        push dword [byte ebp-010h]
+        push dword 190h
+        push byte 2
+        call DrawTextAligned
+        add esp, byte 10h
+.153:
+        inc dword [byte ebp-0Ch]
+        add dword [byte ebp-010h], byte 0Fh
+.154:
+        mov eax, dword [byte ebp-060h]
+        add eax, byte 6
+        cmp eax, dword [byte ebp-0Ch]
+        jg near DrawPlayerRatings_769.74
+        jmp near DrawPlayerRatings_1713.229
+.155:
+        mov eax, dword [byte ebp-060h]
+        mov dword [byte ebp-010h], 0
+        mov dword [byte ebp-0Ch], eax
+        jmp near DrawPlayerRatings_15AF.215
+.156:
+        mov eax, dword [byte ebp-0Ch]
+        shl eax, 2
+        mov dword [byte ebp-038h], eax
+        mov eax, dword [dword eax+GoalieRatingsHeaderText]
+        call GetLangText
+        push eax
+        push dword [byte ebp-010h]
+        push dword 0C8h
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp dword [byte ebp-0Ch], byte 8
+        ja near DrawPlayerRatings_15AF.212
+        imul eax, dword [byte ebp-08h], dword 0BCh
+        imul ecx, dword [byte ebp-08h], byte 3Dh
+        mov dword [byte ebp-040h], ecx
+        mov ecx, dword [byte ebp+014h]
+        add ecx, dword [byte ebp-040h]
+        mov edx, dword [byte ebp+010h]
+        mov dword [byte ebp-028h], ecx
+        mov ecx, dword [byte ebp-038h]
+        add edx, dword [byte ebp-08h]
+        add eax, ebx
+        jmp dword [dword cs:ecx+DrawRatingsGoalieBarJumpTable]
+DrawPlayerRatings_111B:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .159
+        cmp dword [byte ebp+020h], byte 0
+        je short .158
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .157
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0A0h]
+        jmp short .160
+.157:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+08Eh]
+        jmp short .160
+.158:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+018h]
+        jmp short .160
+.159:
+        mov edi, 0FFFFFFFFh
+.160:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .162
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .161
+        movsx esi, word [dword esi+0A0h]
+        jmp near DrawPlayerRatings_15AF.212
+.161:
+        movsx esi, word [dword esi+08Eh]
+        jmp near DrawPlayerRatings_15AF.212
+.162:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+018h]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_11B8:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .165
+        cmp dword [byte ebp+020h], byte 0
+        je short .164
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .163
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0A2h]
+        jmp short .166
+.163:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+090h]
+        jmp short .166
+.164:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+01Ah]
+        jmp short .166
+.165:
+        mov edi, 0FFFFFFFFh
+.166:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .168
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .167
+        movsx esi, word [dword esi+0A2h]
+        jmp near DrawPlayerRatings_15AF.212
+.167:
+        movsx esi, word [dword esi+090h]
+        jmp near DrawPlayerRatings_15AF.212
+.168:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+01Ah]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_1255:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .171
+        cmp dword [byte ebp+020h], byte 0
+        je short .170
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .169
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0A4h]
+        jmp short .172
+.169:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+092h]
+        jmp short .172
+.170:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+01Ch]
+        jmp short .172
+.171:
+        mov edi, 0FFFFFFFFh
+.172:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .174
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .173
+        movsx esi, word [dword esi+0A4h]
+        jmp near DrawPlayerRatings_15AF.212
+.173:
+        movsx esi, word [dword esi+092h]
+        jmp near DrawPlayerRatings_15AF.212
+.174:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+01Ch]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_12F2:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-08h]
+        cmp byte [eax], 47h
+        je short .177
+        cmp dword [byte ebp+020h], byte 0
+        je short .176
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .175
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0A6h]
+        jmp short .178
+.175:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+094h]
+        jmp short .178
+.176:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+01Eh]
+        jmp short .178
+.177:
+        mov edi, 0FFFFFFFFh
+.178:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .180
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .179
+        movsx esi, word [dword esi+0A6h]
+        jmp near DrawPlayerRatings_15AF.212
+.179:
+        movsx esi, word [dword esi+094h]
+        jmp near DrawPlayerRatings_15AF.212
+.180:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+01Eh]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_138F:
+        cmp byte [edx], 47h
+        je short .183
+        cmp dword [byte ebp+020h], byte 0
+        je short .182
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .181
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+0A8h]
+        jmp short .184
+.181:
+        imul edi, dword [byte ebp-08h], dword 0BCh
+        movsx edi, word [dword edi+ebx+096h]
+        jmp short .184
+.182:
+        imul edi, dword [byte ebp-08h], byte 3Dh
+        add edi, dword [byte ebp+014h]
+        movsx edi, word [byte edi+020h]
+        jmp short .184
+.183:
+        mov edi, 0FFFFFFFFh
+.184:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .186
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .185
+        movsx esi, word [dword esi+0A8h]
+        jmp near DrawPlayerRatings_15AF.212
+.185:
+        movsx esi, word [dword esi+096h]
+        jmp near DrawPlayerRatings_15AF.212
+.186:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+020h]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_1426:
+        cmp byte [edx], 47h
+        je short .189
+        cmp dword [byte ebp+020h], byte 0
+        je short .188
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .187
+        movsx edi, word [dword eax+0AAh]
+        jmp short .190
+.187:
+        movsx edi, word [dword eax+098h]
+        jmp short .190
+.188:
+        mov edi, dword [byte ebp-028h]
+        movsx edi, word [byte edi+022h]
+        jmp short .190
+.189:
+        mov edi, 0FFFFFFFFh
+.190:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .192
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .191
+        movsx esi, word [dword esi+0AAh]
+        jmp near DrawPlayerRatings_15AF.212
+.191:
+        movsx esi, word [dword esi+098h]
+        jmp near DrawPlayerRatings_15AF.212
+.192:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+022h]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_14A9:
+        cmp byte [edx], 47h
+        je short .195
+        cmp dword [byte ebp+020h], byte 0
+        je short .194
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .193
+        movsx edi, word [dword eax+0ACh]
+        jmp short .196
+.193:
+        movsx edi, word [dword eax+09Ah]
+        jmp short .196
+.194:
+        mov edi, dword [byte ebp-028h]
+        movsx edi, word [byte edi+024h]
+        jmp short .196
+.195:
+        mov edi, 0FFFFFFFFh
+.196:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .198
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .197
+        movsx esi, word [dword esi+0ACh]
+        jmp near DrawPlayerRatings_15AF.212
+.197:
+        movsx esi, word [dword esi+09Ah]
+        jmp near DrawPlayerRatings_15AF.212
+.198:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+024h]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_152C:
+        cmp byte [edx], 47h
+        je short .201
+        cmp dword [byte ebp+020h], byte 0
+        je short .200
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .199
+        movsx edi, word [dword eax+0AEh]
+        jmp short .202
+.199:
+        movsx edi, word [dword eax+09Ch]
+        jmp short .202
+.200:
+        mov edi, dword [byte ebp-028h]
+        movsx edi, word [byte edi+026h]
+        jmp short .202
+.201:
+        mov edi, 0FFFFFFFFh
+.202:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je near DrawPlayerRatings_15AF.211
+        cmp dword [byte ebp+020h], byte 0
+        je short .204
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .203
+        movsx esi, word [dword esi+0AEh]
+        jmp near DrawPlayerRatings_15AF.212
+.203:
+        movsx esi, word [dword esi+09Ch]
+        jmp near DrawPlayerRatings_15AF.212
+.204:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+026h]
+        jmp near DrawPlayerRatings_15AF.212
+DrawPlayerRatings_15AF:
+        cmp byte [edx], 47h
+        je short .207
+        cmp dword [byte ebp+020h], byte 0
+        je short .206
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .205
+        movsx edi, word [dword eax+0B0h]
+        jmp short .208
+.205:
+        movsx edi, word [dword eax+09Eh]
+        jmp short .208
+.206:
+        mov edi, dword [byte ebp-028h]
+        movsx edi, word [byte edi+028h]
+        jmp short .208
+.207:
+        mov edi, 0FFFFFFFFh
+.208:
+        mov eax, dword [byte ebp+010h]
+        add eax, dword [byte ebp-04h]
+        cmp byte [eax], 47h
+        je short .211
+        cmp dword [byte ebp+020h], byte 0
+        je short .210
+        imul esi, dword [byte ebp-04h], dword 0BCh
+        add esi, ebx
+        cmp dword [StatsPlayoffMode], byte 0
+        je short .209
+        movsx esi, word [dword esi+0B0h]
+        jmp short .212
+.209:
+        movsx esi, word [dword esi+09Eh]
+        jmp short .212
+.210:
+        imul esi, dword [byte ebp-04h], byte 3Dh
+        add esi, dword [byte ebp+014h]
+        movsx esi, word [byte esi+028h]
+        jmp short .212
+.211:
+        mov esi, 0FFFFFFFFh
+.212:
+        cmp edi, byte 0FFFFFFFFh
+        je short .213
+        push edi
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-054h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp-054h]
+        push eax
+        push dword [byte ebp-010h]
+        push byte 0
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+.213:
+        cmp esi, byte 0FFFFFFFFh
+        je short .214
+        push esi
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-054h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp-054h]
+        push eax
+        push dword [byte ebp-010h]
+        push dword 190h
+        push byte 2
+        call DrawTextAligned
+        add esp, byte 10h
+.214:
+        inc dword [byte ebp-0Ch]
+        add dword [byte ebp-010h], byte 0Fh
+.215:
+        mov eax, dword [byte ebp-060h]
+        add eax, byte 6
+        cmp eax, dword [byte ebp-0Ch]
+        jg near DrawPlayerRatings_F6E.156
+        jmp near DrawPlayerRatings_1713.229
+.216:
+        mov eax, dword [byte ebp-060h]
+        mov dword [byte ebp-010h], 0
+        mov dword [byte ebp-0Ch], eax
+        jmp near DrawPlayerRatings_1713.228
+.217:
+        mov eax, dword [byte ebp-0Ch]
+        mov eax, dword [nosplit eax*4+RatingsLabelText]
+        call GetLangText
+        push eax
+        push dword [byte ebp-010h]
+        push dword 0C8h
+        push byte 1
+        xor ebx, ebx
+        call DrawTextAligned
+        add esp, byte 10h
+.218:
+        test ebx, ebx
+        jne short .219
+        cmp dword [byte ebp-024h], byte 0
+        jne short .220
+.219:
+        cmp ebx, byte 1
+        jne short .221
+        cmp dword [byte ebp-020h], byte 0
+        je short .221
+.220:
+        mov dword [byte ebp-014h], 0
+        jmp near DrawPlayerRatings_1713.225
+.221:
+        test ebx, ebx
+        jne short .222
+        mov eax, dword [byte ebp-018h]
+        jmp short .223
+.222:
+        mov eax, dword [byte ebp-01Ch]
+.223:
+        add eax, byte 4Eh
+        cmp dword [byte ebp-0Ch], byte 0Ah
+        ja short DrawPlayerRatings_1713.225
+        mov edx, dword [byte ebp-0Ch]
+        jmp dword [nosplit cs:edx*4+DrawRatingsStatJumpTable]
+DrawPlayerRatings_1713:
+        movsx eax, word [eax]
+.224:
+        mov dword [byte ebp-014h], eax
+.225:
+        push dword [byte ebp-014h]
+        push str_D_DrawPlayerRatings
+        lea eax, [byte ebp-054h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        test ebx, ebx
+        jne short .226
+        lea eax, [byte ebp-054h]
+        push eax
+        push dword [byte ebp-010h]
+        push ebx
+        push ebx
+        call DrawTextAligned
+        add esp, byte 10h
+.226:
+        test ebx, ebx
+        je short .227
+        lea eax, [byte ebp-054h]
+        push eax
+        push dword [byte ebp-010h]
+        push dword 190h
+        push byte 2
+        call DrawTextAligned
+        add esp, byte 10h
+.227:
+        inc ebx
+        cmp ebx, byte 2
+        jl near DrawPlayerRatings_15AF.218
+        inc dword [byte ebp-0Ch]
+        add dword [byte ebp-010h], byte 0Fh
+.228:
+        mov eax, dword [byte ebp-060h]
+        add eax, byte 6
+        cmp eax, dword [byte ebp-0Ch]
+        jg near DrawPlayerRatings_15AF.217
+.229:
+        call SetScreenTarget
+        push dword 154h
+        mov eax, dword [byte ebp-058h]
+        push byte 7Dh
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        cmp dword [RatingsPageDrawn], byte 0
+        je short .230
+        push dword [byte ebp-018h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp-01Ch]
+        call FreeMemBlock
+        add esp, byte 4
+.230:
+        leave
+        pop edi
+        pop esi
+        ret 14h
+DrawPlayerRatings_17C0:
+        movzx eax, byte [byte eax+02h]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17C9:
+        movzx eax, byte [byte eax+03h]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17D2:
+        movzx eax, byte [byte eax+04h]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17DB:
+        movsx eax, word [byte eax+013h]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17E4:
+        movsx eax, word [byte eax+015h]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17ED:
+        movsx eax, word [byte eax+017h]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17F6:
+        movsx eax, word [byte eax+01Bh]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_17FF:
+        movsx eax, word [byte eax+01Dh]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_1808:
+        movsx eax, word [byte eax+021h]
+        jmp near DrawPlayerRatings_1713.224
+DrawPlayerRatings_1811:
+        movsx eax, word [byte eax+023h]
+        jmp near DrawPlayerRatings_1713.224

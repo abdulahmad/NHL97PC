@@ -1,0 +1,1465 @@
+; Season set-up screen.
+bits 32
+%include "hockey.inc"
+section s_C5F81 progbits alloc exec nowrite align=1
+extern BlitArt, BlitShape, BlitShape2, ConvertArtNew, ConvertArtXY, CreateBitmap, DrawArt, DrawShadedLogo
+extern FindShape, FreeBitmap, FreeMemBlock, FrontMusicOn, FrontShapeFile, GameOptionFlags, GameSettings, GlobalSetVersion
+extern InitMenuItems, LoadDataFile, LoadFrontEndSfx, MenuScreenBitmap, MusicEnabled, PlayoffOptionBits, PlayoffOptionFlags, PlayoffStarted
+extern PlaySfx, PresentScreen, rand_, RosterScreen_11C, RosterScreen_157, RosterScreen_172, RosterScreen_246, RosterScreen_2EC
+extern RosterScreen_3B9, RosterScreen_42C, RosterScreen_49B, RosterScreen_4ED, RosterScreen_53E, RosterScreen_596, RosterScreen_5AB, RosterScreen_5AF
+extern RosterScreen_5CF, RosterScreen_5D3, RosterScreen_604, RosterScreen_615, RosterScreen_624, RosterScreen_65B, RosterScreen_66C, RunMenu
+extern SeasonAutoShapes, SeasonCreated, SeasonInjuryShapes, SeasonLeagueShape, SeasonLeagueShapeEnd, SeasonLeagueShapeLit, SeasonLength10Shapes, SeasonLength20Shape
+extern SeasonLength50Shapes, SeasonMenuSoundOn, SeasonModeShapes, SeasonName, SeasonSetupItemArt, SeasonSetupItemKinds, SeasonSetupItems, SeasonSetupNameShapes
+extern SeasonSetupRowY, SeasonSetupShapeFile, SecondsToSamples, ServiceIdle, SetDrawTarget, SetRegionRect, SetScreenTarget, sprintf_
+extern StopAllSfx, str_00007, str_1000, str_102L, str_103L, str_10IL, str_2000, str_20DL
+extern str_5000, str_50DL, str_AUDL, str_AUOO, str_BALL, str_LC002, str_LC0D2, str_LX002
+extern str_LX0D2, str_MA00, str_MADL, str_NA00, str_NADL, str_OF00, str_OFDL, str_OFF
+extern str_ON00, str_ONDL, tickcount, WaitSoundTime
+global SeasonMenuSound, SeasonMenuSound_B1, SeasonSetupScreenJumpTable, SeasonSetupScreen, SeasonSetupScreen_E65, SeasonSetupScreen_EB8, SeasonSetupScreen_F19, SeasonSetupScreen_1135
+global SeasonSetupScreen_115B, SeasonSetupScreen_1181, SeasonSetupScreen_11A7, SeasonSetupScreen_1264, SeasonSetupScreen_12B6, SeasonSetupScreen_1308, SeasonSetupScreen_139E, RosterScreenJumpTable
+;-----------------------------------------------------------------------------
+; SeasonMenuSound                                 C5F81  97 PC, low confidence
+; Plays a season menu sound
+;-----------------------------------------------------------------------------
+SeasonMenuSound:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 4, 0
+        mov esi, 2
+        xor edi, edi
+.1:
+        imul eax, esi, byte 52h
+        cmp dword [dword eax+SeasonSetupItems+4], byte 1
+        jne short .4
+        xor edi, edi
+        imul ebx, esi, byte 52h
+.2:
+        mov ecx, edi
+        shl ecx, 4
+        mov eax, dword [dword ebx+SeasonSetupItems+1Ah]
+        cmp eax, dword [dword ecx+SeasonSetupItemKinds]
+        jne short .3
+        call rand_
+        mov dword [byte ebp-04h], 3
+        cdq
+        idiv dword [byte ebp-04h]
+        push dword [dword ebx+SeasonSetupItems+2Ah]
+        push dword [dword ebx+SeasonSetupItems+26h]
+        mov eax, dword [dword ecx+edx*4+SeasonSetupItemArt]
+        push eax
+        mov dword [dword ebx+SeasonSetupItems+1Eh], eax
+        call BlitArt
+        add esp, byte 0Ch
+.3:
+        inc edi
+        cmp edi, byte 8
+        jl short .2
+        mov edi, 1
+.4:
+        inc esi
+        cmp esi, byte 0Ah
+        jle short .1
+        cmp dword [SeasonMenuSoundOn], byte 0
+        jne short .5
+        test edi, edi
+        je short .5
+        mov eax, 309h
+        mov dword [SeasonMenuSoundOn], 1
+        call PlaySfx
+.5:
+        cmp dword [SeasonMenuSoundOn], byte 0
+        je short .6
+        test edi, edi
+        jne short .6
+        mov dword [SeasonMenuSoundOn], edi
+        call StopAllSfx
+.6:
+        leave
+SeasonMenuSound_B1:
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+SeasonSetupScreenJumpTable:                     ; jump table for the switch cases of SeasonSetupScreen
+        dd SeasonSetupScreen_F19
+        dd SeasonSetupScreen_EB8
+        dd SeasonSetupScreen_1135
+        dd SeasonSetupScreen_115B
+        dd SeasonSetupScreen_1181
+        dd SeasonSetupScreen_E65
+        dd SeasonSetupScreen_11A7
+        dd SeasonSetupScreen_1264
+        dd SeasonSetupScreen_12B6
+        dd SeasonSetupScreen_1308
+        dd SeasonSetupScreen_139E
+;-----------------------------------------------------------------------------
+; SeasonSetupScreen                               C6064  97 PC, low confidence
+; Runs the season setup screens
+;-----------------------------------------------------------------------------
+SeasonSetupScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 6DCh, 0
+        push eax
+        sub ebp, 318h
+        lea edi, [dword ebp+02ACh]
+        mov esi, SeasonSetupRowY
+        movsd
+        movsd
+        movsd
+        movsd
+        movsd
+        movsd
+        mov dword [dword ebp+0314h], 0
+        cmp byte [FrontMusicOn], 0
+        je short .1
+        call MusicEnabled
+.1:
+        mov eax, dword [GameOptionFlags]
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Dh], 0F8h
+        and edx, byte 7
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Dh], 0F7h
+        and edx, byte 8
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Dh], 0EFh
+        and edx, byte 10h
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Dh], 0DFh
+        and edx, byte 20h
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Dh], 3Fh
+        and edx, 0C0h
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Eh], 0FEh
+        and edx, 100h
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Eh], 0FDh
+        and edx, 200h
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Eh], 0FBh
+        and edx, 400h
+        or dword [byte ebp+07Dh], edx
+        mov edx, dword [byte eax+01h]
+        and byte [byte ebp+07Eh], 0E7h
+        and edx, 1800h
+        or dword [byte ebp+07Dh], edx
+        mov eax, dword [byte eax+01h]
+        and byte [byte ebp+07Eh], 0DFh
+        and eax, 2000h
+        mov edx, SeasonSetupItems
+        or dword [byte ebp+07Dh], eax
+        mov eax, 11h
+        call InitMenuItems
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 21h
+        call LoadDataFile
+        mov dword [SeasonSetupShapeFile], eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push str_00007
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        mov esi, eax
+        mov ebx, 280h
+        movsx edx, word [byte eax+04h]
+        sub ebx, edx
+        mov edx, ebx
+        sar edx, 1
+        mov word [byte eax+0Ch], dx
+        mov ebx, 1E0h
+        movsx edx, word [byte eax+06h]
+        sub ebx, edx
+        mov edx, ebx
+        sar edx, 1
+        push str_ON00
+        mov word [byte eax+0Eh], dx
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        push str_OF00
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonSetupItemKinds], eax
+        call FindShape
+        add esp, byte 8
+        push str_MA00
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonModeShapes], eax
+        call FindShape
+        add esp, byte 8
+        push str_AUOO
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonAutoShapes], eax
+        call FindShape
+        add esp, byte 8
+        push str_5000
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonLength50Shapes], eax
+        call FindShape
+        add esp, byte 8
+        push str_1000
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonLength10Shapes], eax
+        call FindShape
+        add esp, byte 8
+        push str_2000
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonLength20Shape], eax
+        call FindShape
+        add esp, byte 8
+        push str_NA00
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonSetupNameShapes], eax
+        call FindShape
+        add esp, byte 8
+        push str_10IL
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonInjuryShapes], eax
+        call FindShape
+        add esp, byte 8
+        push str_102L
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonLeagueShape], eax
+        call FindShape
+        add esp, byte 8
+        push str_103L
+        mov edi, 1
+        push dword [SeasonSetupShapeFile]
+        mov dword [SeasonLeagueShapeLit], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [SeasonLeagueShapeEnd], eax
+        jmp near .3
+.2:
+        movsx eax, di
+        push eax
+        push str_ONDL
+        mov dword [dword ebp+0308h], eax
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        mov ebx, dword [dword ebp+0308h]
+        push dword [dword ebp+0308h]
+        shl ebx, 2
+        push str_OFDL
+        mov dword [dword ebx+SeasonSetupItemKinds], eax
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword [dword ebp+0308h]
+        push str_MADL
+        mov dword [dword ebx+SeasonModeShapes], eax
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword [dword ebp+0308h]
+        push str_AUDL
+        mov dword [dword ebx+SeasonAutoShapes], eax
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword [dword ebp+0308h]
+        push str_50DL
+        mov dword [dword ebx+SeasonLength50Shapes], eax
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebx+SeasonLength10Shapes], eax
+        push dword [dword ebp+0308h]
+        push str_20DL
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword [dword ebp+0308h]
+        push str_NADL
+        mov dword [dword ebx+SeasonSetupNameShapes], eax
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [SeasonSetupShapeFile]
+        inc edi
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebx+SeasonInjuryShapes], eax
+.3:
+        cmp di, byte 4
+        jl near .2
+        mov eax, dword [SeasonSetupItemKinds]
+        mov dword [dword ebp+030Ch], eax
+        mov eax, dword [SeasonModeShapes]
+        mov dword [dword ebp+0310h], eax
+        mov eax, dword [SeasonLength50Shapes]
+        mov dword [dword ebp+02FCh], eax
+        mov eax, dword [SeasonAutoShapes]
+        mov dword [dword ebp+02F4h], eax
+        mov eax, dword [SeasonLength10Shapes]
+        mov dword [dword ebp+02E4h], eax
+        mov eax, dword [SeasonLength20Shape]
+        mov dword [dword ebp+02DCh], eax
+        mov eax, dword [SeasonSetupNameShapes]
+        mov dword [dword ebp+02E0h], eax
+        mov eax, dword [SeasonInjuryShapes]
+        push byte 0
+        mov dword [dword ebp+0300h], eax
+        movsx eax, word [byte esi+06h]
+        push eax
+        movsx eax, word [byte esi+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 19h
+        push byte 6Eh
+        mov ebx, eax
+        mov dword [dword ebp+02F8h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [dword ebp+0304h], eax
+        call SetScreenTarget
+        movsx eax, word [byte esi+0Eh]
+        push eax
+        movsx eax, word [byte esi+0Ch]
+        push eax
+        push dword [byte ebx+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push esi
+        call BlitShape2
+        add esp, byte 4
+        push str_OFF
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        movsx edx, word [byte eax+0Eh]
+        movsx eax, word [byte esi+0Eh]
+        add esp, byte 8
+        add eax, edx
+        push eax
+        push str_OFF
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        movsx edx, word [byte eax+0Ch]
+        movsx eax, word [byte esi+0Ch]
+        add esp, byte 8
+        add eax, edx
+        push eax
+        push str_OFF
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        xor edi, edi
+        call PresentScreen
+        jmp near .9
+.4:
+        push byte 0
+        push str_LX002
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_LX002
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        movsx edx, di
+        add esp, byte 0Ch
+        mov ebx, edx
+        push byte 0
+        shl ebx, 2
+        push str_LC002
+        mov dword [dword ebx+ebp+0264h], eax
+        push dword [FrontShapeFile]
+        mov dword [dword ebp+02F0h], edx
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_LC002
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        mov dword [dword ebx+ebp+0288h], eax
+        mov eax, dword [dword ebx+ebp+0264h]
+        mov dx, word [byte esi+0Ch]
+        mov eax, dword [byte eax+02Ch]
+        add edx, byte 32h
+        mov word [byte eax+0Ch], dx
+        mov dx, word [byte esi+0Eh]
+        mov eax, dword [dword ebx+ebp+0264h]
+        add dx, word [byte esi+06h]
+        mov eax, dword [byte eax+02Ch]
+        sub edx, byte 32h
+        mov word [byte eax+0Eh], dx
+        mov dx, word [byte esi+0Ch]
+        mov eax, dword [dword ebx+ebp+0288h]
+        add dx, word [byte esi+04h]
+        mov eax, dword [byte eax+02Ch]
+        sub edx, byte 32h
+        sub dx, word [byte eax+04h]
+        mov word [byte eax+0Ch], dx
+        mov dx, word [byte esi+0Eh]
+        mov eax, dword [dword ebx+ebp+0288h]
+        add dx, word [byte esi+06h]
+        mov eax, dword [byte eax+02Ch]
+        sub edx, byte 32h
+        add esp, byte 0Ch
+        mov word [byte eax+0Eh], dx
+        call SetScreenTarget
+        mov eax, dword [dword ebx+ebp+0264h]
+        mov eax, dword [byte eax+02Ch]
+        movsx edx, word [byte eax+0Eh]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call ConvertArtXY
+        mov eax, dword [dword ebx+ebp+0288h]
+        mov eax, dword [byte eax+02Ch]
+        add esp, byte 0Ch
+        movsx edx, word [byte eax+0Eh]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        push edx
+        push eax
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push dword [dword ebx+ebp+0264h]
+        call SetDrawTarget
+        add esp, byte 4
+        test di, di
+        jne short .5
+        push dword [MenuScreenBitmap]
+        push str_LX002
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call ConvertArtNew
+        add esp, byte 8
+        movsx edx, word [byte eax+06h]
+        push edx
+        movsx edx, word [byte eax+04h]
+        push edx
+        push byte 0
+        mov ebx, 10h
+        push byte 0
+        mov edx, dword [dword ebp+0264h]
+        xor ecx, ecx
+        push byte 0
+        mov edx, dword [byte edx+02Ch]
+        mov dword [dword ebp+02E8h], eax
+        call DrawShadedLogo
+        jmp short .6
+.5:
+        mov eax, dword [dword ebp+02F0h]
+        dec eax
+        push eax
+        push str_LX0D2
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+.6:
+        movsx ebx, di
+        push dword [dword ebp+ebx*4+0288h]
+        call SetDrawTarget
+        add esp, byte 4
+        test di, di
+        jne short .7
+        push dword [MenuScreenBitmap]
+        push str_LC002
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call ConvertArtNew
+        add esp, byte 8
+        movsx edx, word [byte eax+06h]
+        push edx
+        movsx edx, word [byte eax+04h]
+        push edx
+        push byte 0
+        mov ebx, 10h
+        push byte 0
+        mov edx, dword [dword ebp+0288h]
+        xor ecx, ecx
+        push byte 0
+        mov edx, dword [byte edx+02Ch]
+        mov dword [dword ebp+02ECh], eax
+        call DrawShadedLogo
+        jmp short .8
+.7:
+        dec ebx
+        push ebx
+        push str_LC0D2
+        lea eax, [dword ebp+02C4h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0
+        lea eax, [dword ebp+02C4h]
+        push eax
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+.8:
+        call PresentScreen
+        inc edi
+.9:
+        cmp di, byte 9
+        jl near .4
+        mov eax, dword [dword ebp+0288h]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [SeasonSetupItems+1Ah], eax
+        mov eax, dword [dword ebp+028Ch]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [SeasonSetupItems+1Eh], eax
+        mov eax, dword [dword ebp+0290h]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [SeasonSetupItems+10h], 4
+        mov dword [SeasonSetupItems+22h], eax
+        movsx edx, word [byte esi+0Ch]
+        movsx eax, word [byte esi+04h]
+        add edx, eax
+        mov eax, dword [SeasonSetupItems+1Ah]
+        sub edx, byte 32h
+        movsx eax, word [byte eax+04h]
+        sub edx, eax
+        mov dword [SeasonSetupItems+26h], edx
+        movsx edx, word [byte esi+0Eh]
+        movsx eax, word [byte esi+06h]
+        add eax, edx
+        push str_LC002
+        sub eax, byte 32h
+        push dword [FrontShapeFile]
+        mov dword [SeasonSetupItems+2Ah], eax
+        lea eax, [dword ebp-03C4h]
+        mov dword [SeasonSetupItems+2Eh], 101h
+        mov dword [SeasonSetupItems+14h], eax
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_LC002
+        push dword [FrontShapeFile]
+        call FindShape
+        mov ebx, dword [SeasonSetupItems+2Ah]
+        mov edx, dword [SeasonSetupItems+26h]
+        add esp, byte 8
+        movsx ecx, word [byte eax+04h]
+        lea eax, [dword ebp-03C4h]
+        call SetRegionRect
+        mov eax, dword [dword ebp+0264h]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [SeasonSetupItems+6Ch], eax
+        mov eax, dword [dword ebp+0268h]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [SeasonSetupItems+70h], eax
+        mov eax, dword [dword ebp+026Ch]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [SeasonSetupItems+62h], 4
+        mov dword [SeasonSetupItems+74h], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, byte 32h
+        mov dword [SeasonSetupItems+78h], eax
+        movsx edx, word [byte esi+0Eh]
+        movsx eax, word [byte esi+06h]
+        add eax, edx
+        push str_LX002
+        sub eax, byte 32h
+        push dword [FrontShapeFile]
+        mov dword [SeasonSetupItems+7Ch], eax
+        lea eax, [dword ebp-0384h]
+        mov dword [SeasonSetupItems+80h], 101h
+        mov dword [SeasonSetupItems+66h], eax
+        call FindShape
+        add esp, byte 8
+        movsx eax, word [byte eax+06h]
+        push eax
+        push str_LX002
+        push dword [FrontShapeFile]
+        call FindShape
+        mov ebx, dword [SeasonSetupItems+7Ch]
+        mov edx, dword [SeasonSetupItems+78h]
+        add esp, byte 8
+        movsx ecx, word [byte eax+04h]
+        lea eax, [dword ebp-0384h]
+        call SetRegionRect
+        test byte [byte ebp+07Dh], 8
+        je short .10
+        mov eax, dword [dword ebp+030Ch]
+        jmp short .11
+.10:
+        mov eax, dword [dword ebp+0310h]
+.11:
+        mov dword [SeasonSetupItems+0BEh], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+0CAh], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+0CAh]
+        add eax, byte 33h
+        mov dword [SeasonSetupItems+0B4h], 4
+        mov dword [SeasonSetupItems+0CEh], eax
+        lea eax, [dword ebp-0344h]
+        mov ebx, dword [SeasonSetupItems+0CEh]
+        mov dword [SeasonSetupItems+0B8h], eax
+        call SetRegionRect
+        test byte [byte ebp+07Dh], 20h
+        je short .12
+        mov eax, dword [dword ebp+030Ch]
+        jmp short .13
+.12:
+        mov eax, dword [dword ebp+0310h]
+.13:
+        mov dword [SeasonSetupItems+110h], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+11Ch], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+11Ch]
+        add eax, byte 4Ah
+        mov dword [SeasonSetupItems+106h], 4
+        mov dword [SeasonSetupItems+120h], eax
+        lea eax, [dword ebp-0304h]
+        mov ebx, dword [SeasonSetupItems+120h]
+        mov dword [SeasonSetupItems+10Ah], eax
+        call SetRegionRect
+        test byte [byte ebp+07Dh], 10h
+        je short .14
+        mov eax, dword [dword ebp+030Ch]
+        jmp short .15
+.14:
+        mov eax, dword [dword ebp+0310h]
+.15:
+        mov dword [SeasonSetupItems+162h], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+16Eh], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+16Eh]
+        add eax, byte 62h
+        mov dword [SeasonSetupItems+158h], 4
+        mov dword [SeasonSetupItems+172h], eax
+        lea eax, [dword ebp-02C4h]
+        mov ebx, dword [SeasonSetupItems+172h]
+        mov dword [SeasonSetupItems+15Ch], eax
+        call SetRegionRect
+        test byte [byte ebp+07Dh], 0C0h
+        jne short .16
+        mov eax, dword [dword ebp+0310h]
+        jmp short .18
+.16:
+        mov eax, dword [byte ebp+07Dh]
+        and eax, 0C0h
+        cmp eax, byte 40h
+        jne short .17
+        mov eax, dword [dword ebp+02F4h]
+        jmp short .18
+.17:
+        mov eax, dword [dword ebp+02FCh]
+.18:
+        mov dword [SeasonSetupItems+206h], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+212h], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+212h]
+        add eax, 0BDh
+        mov dword [SeasonSetupItems+1FCh], 4
+        mov dword [SeasonSetupItems+216h], eax
+        lea eax, [dword ebp-0244h]
+        mov ebx, dword [SeasonSetupItems+216h]
+        mov dword [SeasonSetupItems+200h], eax
+        call SetRegionRect
+        test byte [byte ebp+07Eh], 1
+        je short .19
+        mov eax, dword [dword ebp+030Ch]
+        jmp short .20
+.19:
+        mov eax, dword [dword ebp+0310h]
+.20:
+        mov dword [SeasonSetupItems+258h], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+264h], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+264h]
+        add eax, 0D6h
+        mov dword [SeasonSetupItems+24Eh], 4
+        mov dword [SeasonSetupItems+268h], eax
+        lea eax, [dword ebp-0204h]
+        mov ebx, dword [SeasonSetupItems+268h]
+        mov dword [SeasonSetupItems+252h], eax
+        call SetRegionRect
+        test byte [byte ebp+07Eh], 4
+        je short .21
+        mov eax, dword [dword ebp+030Ch]
+        jmp short .22
+.21:
+        mov eax, dword [dword ebp+0310h]
+.22:
+        mov dword [SeasonSetupItems+2AAh], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+2B6h], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+2B6h]
+        add eax, 0EDh
+        mov dword [SeasonSetupItems+2A0h], 4
+        mov dword [SeasonSetupItems+2BAh], eax
+        lea eax, [dword ebp-01C4h]
+        mov ebx, dword [SeasonSetupItems+2BAh]
+        mov dword [SeasonSetupItems+2A4h], eax
+        call SetRegionRect
+        test byte [byte ebp+07Eh], 18h
+        jne short .23
+        mov eax, dword [dword ebp+02E4h]
+        jmp short .25
+.23:
+        mov eax, dword [byte ebp+07Dh]
+        and eax, 1800h
+        cmp eax, 800h
+        jne short .24
+        mov eax, dword [dword ebp+02DCh]
+        jmp short .25
+.24:
+        mov eax, dword [dword ebp+02E0h]
+.25:
+        mov dword [SeasonSetupItems+2FCh], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+308h], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+308h]
+        add eax, 105h
+        mov dword [SeasonSetupItems+2F2h], 4
+        mov dword [SeasonSetupItems+30Ch], eax
+        lea eax, [dword ebp-0184h]
+        mov ebx, dword [SeasonSetupItems+30Ch]
+        mov dword [SeasonSetupItems+2F6h], eax
+        call SetRegionRect
+        test byte [byte ebp+07Eh], 20h
+        je short .26
+        mov eax, dword [dword ebp+030Ch]
+        jmp short .27
+.26:
+        mov eax, dword [dword ebp+0310h]
+.27:
+        mov dword [SeasonSetupItems+34Eh], eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0E5h
+        push byte 0Dh
+        mov dword [SeasonSetupItems+35Ah], eax
+        mov ecx, 52h
+        movsx eax, word [byte esi+0Eh]
+        mov edx, dword [SeasonSetupItems+35Ah]
+        add eax, 11Ch
+        mov dword [SeasonSetupItems+344h], 4
+        mov dword [SeasonSetupItems+35Eh], eax
+        lea eax, [dword ebp-0144h]
+        mov ebx, dword [SeasonSetupItems+35Eh]
+        mov dword [SeasonSetupItems+348h], eax
+        call SetRegionRect
+        mov dword [SeasonSetupItems+396h], 4
+        lea eax, [dword ebp-0104h]
+        push byte 10h
+        mov dword [SeasonSetupItems+39Ah], eax
+        mov ecx, 0Ch
+        movsx ebx, word [byte esi+0Eh]
+        movsx edx, word [byte esi+0Ch]
+        add ebx, 82h
+        add edx, 0D2h
+        call SetRegionRect
+        mov dword [SeasonSetupItems+3E8h], 4
+        lea eax, [dword ebp-0C4h]
+        push byte 10h
+        mov dword [SeasonSetupItems+3ECh], eax
+        mov ecx, 0Ch
+        movsx ebx, word [byte esi+0Eh]
+        movsx edx, word [byte esi+0Ch]
+        add ebx, 83h
+        add edx, 0E0h
+        call SetRegionRect
+        mov dword [SeasonSetupItems+43Ah], 4
+        lea eax, [dword ebp-084h]
+        push byte 14h
+        mov dword [SeasonSetupItems+43Eh], eax
+        mov ecx, 0Ch
+        movsx ebx, word [byte esi+0Eh]
+        movsx edx, word [byte esi+0Ch]
+        add ebx, 80h
+        add edx, 0F2h
+        call SetRegionRect
+        mov dword [SeasonSetupItems+48Ch], 4
+        lea eax, [byte ebp-044h]
+        push byte 1Ah
+        mov dword [SeasonSetupItems+490h], eax
+        mov ecx, 0Ch
+        movsx ebx, word [byte esi+0Eh]
+        movsx edx, word [byte esi+0Ch]
+        add ebx, byte 7Eh
+        add edx, 103h
+        call SetRegionRect
+        mov dword [SeasonSetupItems+4DEh], 4
+        lea eax, [byte ebp-04h]
+        push byte 1Fh
+        mov dword [SeasonSetupItems+4E2h], eax
+        mov ecx, 0Ch
+        movsx ebx, word [byte esi+0Eh]
+        movsx edx, word [byte esi+0Ch]
+        add ebx, byte 7Ch
+        add edx, 116h
+        call SetRegionRect
+        mov dword [SeasonSetupItems+530h], 4
+        lea eax, [byte ebp+03Ch]
+        push byte 24h
+        mov dword [SeasonSetupItems+534h], eax
+        mov ecx, 0Ch
+        movsx ebx, word [byte esi+0Eh]
+        movsx edx, word [byte esi+0Ch]
+        add ebx, byte 79h
+        add edx, 12Bh
+        call SetRegionRect
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne short .28
+        cmp byte [SeasonCreated], 0
+        jne short .29
+.28:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .31
+        cmp byte [PlayoffStarted], 0
+        je short .31
+.29:
+        test byte [byte ebp+07Dh], 0C0h
+        jne short .30
+        mov eax, dword [dword ebp+0300h]
+        mov dword [SeasonSetupItems+206h], eax
+.30:
+        mov eax, dword [dword ebp+0300h]
+        mov dword [SeasonSetupItems+2AAh], eax
+        mov dword [SeasonSetupItems+2FCh], eax
+        mov dword [SeasonSetupItems+258h], eax
+.31:
+        call SetScreenTarget
+        movsx eax, word [byte esi+0Eh]
+        add eax, byte 7Dh
+        push eax
+        movsx eax, word [byte esi+0Ch]
+        add eax, 0C8h
+        push eax
+        mov eax, dword [dword ebp+0304h]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        mov eax, dword [dword ebp+0304h]
+        mov dx, word [byte esi+0Ch]
+        mov eax, dword [byte eax+02Ch]
+        add edx, 0C8h
+        mov word [byte eax+0Ch], dx
+        mov eax, dword [dword ebp+0304h]
+        mov dx, word [byte esi+0Eh]
+        mov eax, dword [byte eax+02Ch]
+        add edx, byte 7Dh
+        add esp, byte 0Ch
+        mov word [byte eax+0Eh], dx
+        call SetScreenTarget
+.32:
+        push str_BALL
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        movsx edx, word [byte eax+06h]
+        movsx eax, word [byte esi+0Eh]
+        sar edx, 1
+        add eax, 8Bh
+        add esp, byte 8
+        sub eax, edx
+        push eax
+        mov eax, dword [byte ebp+07Dh]
+        push str_BALL
+        and eax, byte 7
+        movsx edx, word [byte esi+0Ch]
+        mov ebx, dword [dword ebp+eax*4+02ACh]
+        push dword [SeasonSetupShapeFile]
+        add ebx, edx
+        call FindShape
+        movsx eax, word [byte eax+04h]
+        sar eax, 1
+        add esp, byte 8
+        sub ebx, eax
+        push ebx
+        push str_BALL
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        call PresentScreen
+SeasonSetupScreen_E65:
+        cmp word [dword ebp+0314h], byte 0
+        jne near SeasonSetupScreen_139E.80
+        push byte 3
+        lea eax, [dword ebp+02D8h]
+        mov ecx, SeasonMenuSound
+        mov ebx, 0FFFFFFFFh
+        push eax
+        mov edx, SeasonSetupItems
+        mov eax, 11h
+        call RunMenu
+        cmp dword [dword ebp+02D8h], byte 0Ah
+        ja near SeasonSetupScreen_139E.79
+        mov eax, dword [GameSettings]
+        mov edx, dword [dword ebp+02D8h]
+        and eax, byte 70h
+        jmp dword [nosplit cs:edx*4+SeasonSetupScreenJumpTable]
+SeasonSetupScreen_EB8:
+        mov edi, 1
+        mov dword [dword ebp+0314h], 1
+        jmp short .37
+.33:
+        cmp di, byte 2
+        jne short .34
+        mov edi, 3
+.34:
+        call SetScreenTarget
+        movsx eax, di
+        mov eax, dword [dword ebp+eax*4+0264h]
+        push dword [byte eax+02Ch]
+        call BlitShape
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov edx, eax
+        lea ebx, [byte edx+05h]
+.35:
+        mov eax, dword [tickcount]
+        cmp eax, ebx
+        jge short .36
+        call ServiceIdle
+        jmp short .35
+.36:
+        inc edi
+.37:
+        cmp di, byte 9
+        jl short .33
+        jmp near SeasonSetupScreen_E65
+SeasonSetupScreen_F19:
+        cmp word [dword ebp-03C8h], byte 0
+        jne near .39
+        lea edx, [byte ebp+07Ch]
+        mov ebx, dword [byte edx+01h]
+        mov eax, dword [GameOptionFlags]
+.38:
+        and ebx, byte 7
+        and byte [byte eax+01h], 0F8h
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, byte 8
+        and byte [byte eax+01h], 0F7h
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, byte 10h
+        and byte [byte eax+01h], 0EFh
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, byte 20h
+        and byte [byte eax+01h], 0DFh
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, 0C0h
+        and byte [byte eax+01h], 3Fh
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, 100h
+        and byte [byte eax+02h], 0FEh
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, 200h
+        and byte [byte eax+02h], 0FDh
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, 400h
+        and byte [byte eax+02h], 0FBh
+        or dword [byte eax+01h], ebx
+        mov ebx, dword [byte edx+01h]
+        and ebx, 1800h
+        and byte [byte eax+02h], 0E7h
+        or dword [byte eax+01h], ebx
+        mov edx, dword [byte edx+01h]
+        and edx, 2000h
+        and byte [byte eax+02h], 0DFh
+        or dword [byte eax+01h], edx
+        jmp near .42
+.39:
+        cmp word [dword ebp-03C8h], byte 1
+        jne short .40
+        lea edx, [byte ebp+07Ch]
+        mov ebx, dword [byte edx+01h]
+        mov eax, GlobalSetVersion
+        jmp near .38
+.40:
+        cmp word [dword ebp-03C8h], byte 2
+        jne short .41
+        lea edx, [byte ebp+07Ch]
+        mov ebx, dword [byte edx+01h]
+        mov eax, SeasonName
+        jmp near .38
+.41:
+        cmp word [dword ebp-03C8h], byte 3
+        jne near .42
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionBits], 0F8h
+        and eax, byte 7
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionBits], 0F7h
+        and eax, byte 8
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionBits], 0EFh
+        and eax, byte 10h
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionBits], 0DFh
+        and eax, byte 20h
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionBits], 3Fh
+        and eax, 0C0h
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionFlags], 0FEh
+        and eax, 100h
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionFlags], 0FDh
+        and eax, 200h
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionFlags], 0FBh
+        and eax, 400h
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionFlags], 0E7h
+        and eax, 1800h
+        or dword [PlayoffOptionBits], eax
+        mov eax, dword [byte ebp+07Dh]
+        and byte [PlayoffOptionFlags], 0DFh
+        and eax, 2000h
+        or dword [PlayoffOptionBits], eax
+.42:
+        mov edi, 1
+        jmp short .47
+.43:
+        cmp di, byte 2
+        jne short .44
+        mov edi, 3
+.44:
+        call SetScreenTarget
+        movsx eax, di
+        mov eax, dword [dword ebp+eax*4+0288h]
+        push dword [byte eax+02Ch]
+        call BlitShape
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov edx, eax
+        lea ebx, [byte edx+05h]
+.45:
+        mov eax, dword [tickcount]
+        cmp eax, ebx
+        jge short .46
+        call ServiceIdle
+        jmp short .45
+.46:
+        inc edi
+.47:
+        cmp di, byte 9
+        jl short .43
+        mov dword [dword ebp+0314h], 1
+        jmp near SeasonSetupScreen_E65
+SeasonSetupScreen_1135:
+        test byte [byte ebp+07Dh], 8
+        je short .49
+        mov eax, dword [dword ebp+0310h]
+        and byte [byte ebp+07Dh], 0F7h
+.48:
+        mov dword [SeasonSetupItems+0BEh], eax
+        jmp near SeasonSetupScreen_E65
+.49:
+        mov eax, dword [dword ebp+030Ch]
+        or byte [byte ebp+07Dh], 8
+        jmp short .48
+SeasonSetupScreen_115B:
+        test byte [byte ebp+07Dh], 20h
+        je short .51
+        mov eax, dword [dword ebp+0310h]
+        and byte [byte ebp+07Dh], 0DFh
+.50:
+        mov dword [SeasonSetupItems+110h], eax
+        jmp near SeasonSetupScreen_E65
+.51:
+        mov eax, dword [dword ebp+030Ch]
+        or byte [byte ebp+07Dh], 20h
+        jmp short .50
+SeasonSetupScreen_1181:
+        test byte [byte ebp+07Dh], 10h
+        je short .53
+        mov eax, dword [dword ebp+0310h]
+        and byte [byte ebp+07Dh], 0EFh
+.52:
+        mov dword [SeasonSetupItems+162h], eax
+        jmp near SeasonSetupScreen_E65
+.53:
+        mov eax, dword [dword ebp+030Ch]
+        or byte [byte ebp+07Dh], 10h
+        jmp short .52
+SeasonSetupScreen_11A7:
+        test byte [byte ebp+07Dh], 0C0h
+        jne short .55
+        cmp eax, byte 10h
+        jne short .54
+        cmp byte [SeasonCreated], 0
+        jne near SeasonSetupScreen_E65
+.54:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .55
+        cmp byte [PlayoffStarted], 0
+        jne near SeasonSetupScreen_E65
+.55:
+        mov eax, dword [byte ebp+07Dh]
+        shl eax, 18h
+        shr eax, 1Eh
+        inc eax
+        and eax, byte 3
+        mov edx, eax
+        and byte [byte ebp+07Dh], 3Fh
+        shl edx, 6
+        or dword [byte ebp+07Dh], edx
+        cmp eax, byte 3
+        jb short .59
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne short .56
+        cmp byte [SeasonCreated], 0
+        jne short .57
+.56:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .58
+        cmp byte [PlayoffStarted], 0
+        je short .58
+.57:
+        and byte [byte ebp+07Dh], 3Fh
+        or byte [byte ebp+07Dh], 40h
+        jmp short .59
+.58:
+        and byte [byte ebp+07Dh], 3Fh
+.59:
+        test byte [byte ebp+07Dh], 0C0h
+        jne short .61
+        mov eax, dword [dword ebp+0310h]
+.60:
+        mov dword [SeasonSetupItems+206h], eax
+        jmp near SeasonSetupScreen_E65
+.61:
+        mov eax, dword [byte ebp+07Dh]
+        and eax, 0C0h
+        cmp eax, byte 40h
+        jne short .62
+        mov eax, dword [dword ebp+02F4h]
+        jmp short .60
+.62:
+        mov eax, dword [dword ebp+02FCh]
+        jmp short .60
+SeasonSetupScreen_1264:
+        cmp eax, byte 10h
+        jne short .63
+        cmp byte [SeasonCreated], 0
+        jne near SeasonSetupScreen_E65
+.63:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .64
+        cmp byte [PlayoffStarted], 0
+        jne near SeasonSetupScreen_E65
+.64:
+        test byte [byte ebp+07Eh], 1
+        je short .66
+        mov eax, dword [dword ebp+0310h]
+        and byte [byte ebp+07Eh], 0FEh
+.65:
+        mov dword [SeasonSetupItems+258h], eax
+        jmp near SeasonSetupScreen_E65
+.66:
+        mov eax, dword [dword ebp+030Ch]
+        or byte [byte ebp+07Eh], 1
+        jmp short .65
+SeasonSetupScreen_12B6:
+        cmp eax, byte 10h
+        jne short .67
+        cmp byte [SeasonCreated], 0
+        jne near SeasonSetupScreen_E65
+.67:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .68
+        cmp byte [PlayoffStarted], 0
+        jne near SeasonSetupScreen_E65
+.68:
+        test byte [byte ebp+07Eh], 4
+        je short .70
+        mov eax, dword [dword ebp+0310h]
+        and byte [byte ebp+07Eh], 0FBh
+.69:
+        mov dword [SeasonSetupItems+2AAh], eax
+        jmp near SeasonSetupScreen_E65
+.70:
+        mov eax, dword [dword ebp+030Ch]
+        or byte [byte ebp+07Eh], 4
+        jmp short .69
+SeasonSetupScreen_1308:
+        cmp eax, byte 10h
+        jne short .71
+        cmp byte [SeasonCreated], 0
+        jne near SeasonSetupScreen_E65
+.71:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        jne short .72
+        cmp byte [PlayoffStarted], 0
+        jne near SeasonSetupScreen_E65
+.72:
+        mov eax, dword [byte ebp+07Dh]
+        shl eax, 13h
+        shr eax, 1Eh
+        inc eax
+        and eax, byte 3
+        and byte [byte ebp+07Eh], 0E7h
+        shl eax, 0Bh
+        or dword [byte ebp+07Dh], eax
+        mov eax, dword [byte ebp+07Dh]
+        and eax, 1800h
+        cmp eax, 1000h
+        jbe short .73
+        and byte [byte ebp+07Eh], 0E7h
+.73:
+        test byte [byte ebp+07Eh], 18h
+        jne short .75
+        push str_5000
+.74:
+        push dword [SeasonSetupShapeFile]
+        call FindShape
+        add esp, byte 8
+        mov dword [SeasonSetupItems+2FCh], eax
+        jmp near SeasonSetupScreen_E65
+.75:
+        mov eax, dword [byte ebp+07Dh]
+        and eax, 1800h
+        cmp eax, 800h
+        jne short .76
+        push str_1000
+        jmp short .74
+.76:
+        push str_2000
+        jmp short .74
+SeasonSetupScreen_139E:
+        test byte [byte ebp+07Eh], 20h
+        je short .78
+        mov eax, dword [dword ebp+0310h]
+        and byte [byte ebp+07Eh], 0DFh
+.77:
+        mov dword [SeasonSetupItems+34Eh], eax
+        jmp near SeasonSetupScreen_E65
+.78:
+        mov eax, dword [dword ebp+030Ch]
+        or byte [byte ebp+07Eh], 20h
+        jmp short .77
+.79:
+        sub dword [dword ebp+02D8h], byte 0Bh
+        mov eax, dword [dword ebp+02D8h]
+        and byte [byte ebp+07Dh], 0F8h
+        and eax, byte 7
+        or dword [byte ebp+07Dh], eax
+        call SetScreenTarget
+        mov eax, dword [dword ebp+0304h]
+        push dword [byte eax+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        jmp near SeasonSetupScreen.32
+.80:
+        push dword [SeasonSetupShapeFile]
+        call FreeMemBlock
+        add esp, byte 4
+        call SetScreenTarget
+        movsx eax, word [byte esi+0Eh]
+        push eax
+        movsx eax, word [byte esi+0Ch]
+        push eax
+        mov eax, dword [dword ebp+02F8h]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        xor edi, edi
+        call PresentScreen
+        jmp short .82
+.81:
+        movsx ebx, di
+        push dword [dword ebp+ebx*4+0264h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [dword ebp+ebx*4+0288h]
+        inc edi
+        call FreeBitmap
+        add esp, byte 4
+.82:
+        cmp di, byte 9
+        jl short .81
+        push dword [dword ebp+02F8h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [dword ebp+0304h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [dword ebp+02E8h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [dword ebp+02ECh]
+        call FreeMemBlock
+        add esp, byte 4
+        cmp byte [FrontMusicOn], 0
+        je short .83
+        call LoadFrontEndSfx
+.83:
+        lea esp, [dword ebp+0318h]
+        pop ebp
+        jmp near SeasonMenuSound_B1
+RosterScreenJumpTable:                          ; jump table for the switch cases of RosterScreen
+        dd RosterScreen_11C
+        dd RosterScreen_157
+        dd RosterScreen_172
+        dd RosterScreen_246
+        dd RosterScreen_2EC
+        dd RosterScreen_3B9
+        dd RosterScreen_42C
+        dd RosterScreen_49B
+        dd RosterScreen_4ED
+        dd RosterScreen_53E
+        dd RosterScreen_596
+        dd RosterScreen_5AB
+        dd RosterScreen_5AF
+        dd RosterScreen_5CF
+        dd RosterScreen_5D3
+        dd RosterScreen_604
+        dd RosterScreen_615
+        dd RosterScreen_624
+        dd RosterScreen_65B
+        dd RosterScreen_66C

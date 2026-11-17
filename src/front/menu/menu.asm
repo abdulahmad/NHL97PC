@@ -1,0 +1,3469 @@
+; Menus: menu bitmaps and items, running menus and scroll lists.
+bits 32
+%include "hockey.inc"
+section s_8BE58 progbits alloc exec nowrite align=1
+extern __CHP, BlitArt, BlitClippedY, ClearLinkAbort, ClearScreen, ConvertArtNew, ConvertArtXY, CreateBitmap
+extern DrawArt, F32_0p003125, F32_0p003125_ScrollPosToValue, F32_0p003125_SetupMenuView, F32_0p005, F32_0p005_ScrollPosToValue, F32_0p005_SetupMenuView, F32_0p5_InitScrollList
+extern F32_0p5_InitScrollTable, F32_0p5_ScrollToMouse, F32_0p5_SetListSelection, F32_14_InitScrollTable, F64_0p5_RunMenu, F64_0p5_ScrollPosToValue, F64_0p5_SetupMenuView, FillRectColor
+extern FindShape, FreeBitmap, FreeMemBlock, FrontShapeFile, GetLangText, HideLinkBox, LinkGameActive, MakeColor
+extern memset_, MenuBitmap, MenuBitmapPixels, MenuBitmapReady, MenuButtons, MenuClipActive, MenuCursorArt, MenuCursorPixels
+extern MenuInputDelay, MenuItemEnterFunc, MenuItemHoverFunc, MenuItemLeaveFunc, MenuLastButtons, MenuLastMouseX, MenuLastMouseY, MenuLinkActive
+extern MenuLinkKey, MenuLinkWordPad, MenuLocalCursorX, MenuLocalCursorY, MenuLocalItem, MenuLocalLayer, MenuMouseButtons, MenuMouseMode
+extern MenuMouseX, MenuMouseY, MenuRemoteCursorArt, MenuRemoteCursorX, MenuRemoteCursorY, MenuRemoteItem, MenuRemoteLayer, MenuRepeatTick
+extern MenuSavedCursorArt, MenuSavedMouseMode, MenuSavedRemoteArt, MenuScreenBitmap, MenuScreenCopy, MenuStartSelection, MenuViewBottom, MenuViewCallback
+extern MenuViewLeft, MenuViewRight, MenuViewSaved, MenuViewTop, MouseRead, mousex, mousey, PlaySfx
+extern PresentFuncInput, PresentScreen, RemoteLastButtons, RemoteLastMouseX, RemoteLastMouseY, RemoteMouseButtons, RemoteMouseX, RemoteMouseY
+extern ResetLinkStats, ServiceIdle, SetDrawTarget, SetRegionRect, SetScreenTarget, SetViewRect, ShowLinkMessage, ShowLinkWait
+extern str_PNS, str_PWE, str_SLDN, str_SLLT, str_SLRT, str_SLUP, SumRingRange, SyncLinkGame
+extern tickcount, ViewScreenHeight, ViewScreenWidth, WaitRetrace
+global CreateMenuBitmap, FreeMenuBitmap, InitMenuItems, SetMenuSelection, RunMenu, ScrollPosToValue, ResetMouseInput, SetMenuMode
+global SetupMenuView, RestoreMenuView, InitScrollList, InitScrollList_223, InitScrollTable, InitScrollTable_1F5, InitScrollTable_220, NoOpReturn
+global ScrollUp, DrawScrollBar, ScrollDown, FreeScrollList, SetScrollBarPos, ScrollToMouse, RunScrollList, RunScrollMenu
+global SetListSelection
+        db 00h,00h,00h,00h,00h,00h,00h,00h
+;-----------------------------------------------------------------------------
+; CreateMenuBitmap                                8BE60  97 PC, low confidence
+; Creates the menu work bitmap
+;-----------------------------------------------------------------------------
+CreateMenuBitmap:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        mov ebx, edx
+        cmp dword [MenuBitmapReady], byte 0
+        jne near .1
+        mov ecx, dword [MenuScreenBitmap]
+        push ecx
+        push eax
+        call ConvertArtNew
+        mov dword [MenuCursorArt], eax
+        add esp, byte 8
+        mov edx, dword [byte eax+04h]
+        push byte 20h
+        sar edx, 10h
+        mov eax, dword [byte eax+02h]
+        push edx
+        sar eax, 10h
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov esi, dword [MenuScreenBitmap]
+        mov dword [MenuScreenCopy], eax
+        push esi
+        mov eax, dword [byte eax+02Ch]
+        push ebx
+        mov dword [MenuCursorPixels], eax
+        call ConvertArtNew
+        mov dword [MenuRemoteCursorArt], eax
+        add esp, byte 8
+        mov edx, dword [byte eax+04h]
+        push byte 20h
+        sar edx, 10h
+        mov eax, dword [byte eax+02h]
+        push edx
+        sar eax, 10h
+        push eax
+        call CreateBitmap
+        mov dword [MenuBitmap], eax
+        mov edi, 1
+        mov eax, dword [byte eax+02Ch]
+        add esp, byte 0Ch
+        mov dword [MenuBitmapPixels], eax
+        mov dword [MenuBitmapReady], edi
+.1:
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; FreeMenuBitmap                                  8BEF8  97 PC, low confidence
+; Frees the menu work bitmap
+;-----------------------------------------------------------------------------
+FreeMenuBitmap:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        cmp dword [MenuBitmapReady], byte 0
+        je short .1
+        mov ebx, dword [MenuCursorArt]
+        push ebx
+        call FreeMemBlock
+        add esp, byte 4
+        mov ecx, dword [MenuScreenCopy]
+        push ecx
+        call FreeBitmap
+        add esp, byte 4
+        mov esi, dword [MenuRemoteCursorArt]
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+        mov edi, dword [MenuBitmap]
+        push edi
+        xor ebp, ebp
+        call FreeBitmap
+        add esp, byte 4
+        mov dword [MenuBitmapReady], ebp
+.1:
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; InitMenuItems                                8BF54  96 PC, medium confidence
+; (count, items): clears the menu item records (66h bytes) and sets their
+; defaults
+;-----------------------------------------------------------------------------
+InitMenuItems:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        mov edi, eax
+        mov ecx, edx
+        xor esi, esi
+        test eax, eax
+        jle short .2
+.1:
+        mov ebx, 52h
+        mov eax, ecx
+        xor edx, edx
+        call memset_
+        mov dword [byte ecx+0Ch], 1
+        mov dword [byte ecx+02Eh], 0FFFFFFFFh
+        mov dword [ecx], esi
+        mov eax, dword [ViewScreenWidth]
+        mov dword [byte ecx+03Eh], eax
+        add ecx, byte 52h
+        mov eax, dword [ViewScreenHeight]
+        inc esi
+        mov dword [byte ecx-010h], eax
+        cmp esi, edi
+        jl short .1
+.2:
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        db 08Dh,040h,00h
+;-----------------------------------------------------------------------------
+; SetMenuSelection                                8BFA0  97 PC, low confidence
+; Sets the menu selection
+;-----------------------------------------------------------------------------
+SetMenuSelection:
+        cmp eax, byte 0FFFFFFFFh
+        jl short .1
+        mov dword [MenuStartSelection], eax
+.1:
+        ret
+        db 090h
+;-----------------------------------------------------------------------------
+; RunMenu                                         8BFAC  97 PC, low confidence
+; Runs a menu: input, highlight, sounds and link sync
+;-----------------------------------------------------------------------------
+RunMenu:
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, 88h
+        and esp, byte 0FFFFFFF8h
+        mov dword [byte esp+04h], eax
+        mov dword [byte esp+08h], edx
+        mov dword [byte esp+0Ch], ebx
+        mov dword [byte esp+010h], ecx
+        xor edx, edx
+        mov edi, dword [MenuBitmapReady]
+        mov dword [byte esp+058h], edx
+        mov dword [byte esp+054h], edx
+        mov dword [byte esp+050h], edx
+        mov dword [byte esp+05Ch], edx
+        test edi, edi
+        jne short .1
+        mov eax, dword [byte ebp+010h]
+        mov dword [eax], 0FFFFFFFFh
+        mov eax, 0FFFFFFFFh
+        jmp near .188
+.1:
+        cmp dword [byte ebp+014h], byte 0
+        jne short .2
+        mov dword [byte ebp+014h], 3
+.2:
+        cmp dword [LinkGameActive], byte 0
+        jne short .3
+        mov dword [byte ebp+014h], 2
+.3:
+        cmp word [MenuLinkActive], byte 0
+        je short .4
+        mov eax, dword [MenuCursorArt]
+        mov ebx, dword [byte eax+04h]
+        mov edx, dword [byte eax+08h]
+        sar ebx, 10h
+        sar edx, 10h
+        sub ebx, edx
+        mov edx, ebx
+        mov ebx, dword [ViewScreenHeight]
+        sub ebx, edx
+        mov edx, dword [byte eax+02h]
+        mov eax, dword [byte eax+06h]
+        sar edx, 10h
+        sar eax, 10h
+        sub edx, eax
+        mov eax, dword [ViewScreenWidth]
+        push ebx
+        sub eax, edx
+        push eax
+        jmp short .5
+.4:
+        cmp word [MenuViewSaved], byte 0
+        jne short .6
+        mov eax, dword [MenuCursorArt]
+        mov ebx, dword [ViewScreenHeight]
+        mov edx, dword [byte eax+04h]
+        mov eax, dword [byte eax+02h]
+        sar edx, 10h
+        sar eax, 10h
+        sub ebx, edx
+        mov edx, dword [ViewScreenWidth]
+        push ebx
+        sub edx, eax
+        push edx
+.5:
+        push byte 0
+        push byte 0
+        call SetViewRect
+        add esp, byte 10h
+.6:
+        mov eax, dword [MenuLinkWordPad]
+        sar eax, 10h
+        mov esi, dword [byte esp+08h]
+        mov dword [byte esp+03Ch], eax
+        test esi, esi
+        je short .7
+        cmp dword [byte esp+04h], byte 1
+        jge short .9
+.7:
+        mov ebx, dword [byte ebp+010h]
+        test ebx, ebx
+        je short .8
+        mov dword [ebx], 0FFFFFFFFh
+.8:
+        mov eax, 0FFFFFFFFh
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        ret 8
+.9:
+        mov eax, dword [tickcount]
+        mov ebx, dword [byte esp+08h]
+        mov dword [byte esp+060h], eax
+        call SetScreenTarget
+        xor esi, esi
+        xor edi, edi
+        mov edx, dword [byte esp+04h]
+        mov dword [byte esp+028h], esi
+        test edx, edx
+        jle near .22
+.10:
+        mov eax, dword [byte ebx+04h]
+        mov dword [byte ebx+0Ch], 0
+        cmp eax, byte 1
+        jb short .11
+        jbe short .12
+        cmp eax, byte 2
+        je short .14
+        jmp near .17
+.11:
+        test eax, eax
+        jne near .17
+        mov ecx, dword [byte ebx+01Ah]
+        test ecx, ecx
+        je near .21
+        mov eax, dword [byte ebx+02Ah]
+        push eax
+        mov edx, dword [byte ebx+026h]
+        push edx
+        push ecx
+        jmp near .20
+.12:
+        cmp dword [byte ebx+01Eh], byte 0
+        je short .13
+        mov edx, dword [byte ebx+02Ah]
+        push edx
+        mov ecx, dword [byte ebx+026h]
+        push ecx
+        mov eax, dword [byte ebx+01Eh]
+        push eax
+        jmp short .20
+.13:
+        mov eax, dword [byte ebx+01Ah]
+        test eax, eax
+        je short .21
+        mov edx, dword [byte ebx+02Ah]
+        push edx
+        mov ecx, dword [byte ebx+026h]
+        push ecx
+        push eax
+        jmp short .20
+.14:
+        cmp dword [byte ebx+022h], byte 0
+        je short .15
+        mov ecx, dword [byte ebx+02Ah]
+        push ecx
+        mov eax, dword [byte ebx+026h]
+        push eax
+        mov edx, dword [byte ebx+022h]
+        jmp short .19
+.15:
+        cmp dword [byte ebx+01Eh], byte 0
+        je short .16
+        mov ecx, dword [byte ebx+02Ah]
+        push ecx
+        mov eax, dword [byte ebx+026h]
+        push eax
+        mov edx, dword [byte ebx+01Eh]
+        jmp short .19
+.16:
+        mov edx, dword [byte ebx+01Ah]
+        test edx, edx
+        je short .21
+        jmp short .18
+.17:
+        mov edx, dword [byte ebx+01Ah]
+        test edx, edx
+        je short .21
+.18:
+        mov ecx, dword [byte ebx+02Ah]
+        push ecx
+        mov eax, dword [byte ebx+026h]
+        push eax
+.19:
+        push edx
+.20:
+        call DrawArt
+        add esp, byte 0Ch
+.21:
+        mov eax, dword [byte esp+028h]
+        mov edx, dword [byte esp+04h]
+        inc eax
+        add ebx, byte 52h
+        mov dword [byte esp+028h], eax
+        cmp eax, edx
+        jl near .10
+.22:
+        call PresentScreen
+        call ServiceIdle
+        mov eax, dword [tickcount]
+        add eax, byte 2
+        mov ebx, 0FFFFFFFFh
+        mov dword [MenuInputDelay], eax
+        mov dword [MenuLastMouseX], ebx
+        mov dword [MenuLastMouseY], ebx
+        mov dword [RemoteLastMouseX], ebx
+        mov dword [RemoteLastMouseY], ebx
+        mov dword [dword esp+084h], ebx
+        call SetScreenTarget
+        mov eax, dword [byte esp+04h]
+        mov dword [byte esp+04Ch], ebx
+        inc eax
+        mov dword [byte esp+048h], ebx
+        mov dword [byte esp+068h], eax
+.23:
+        mov eax, dword [tickcount]
+        cmp eax, dword [MenuInputDelay]
+        jle short .24
+        call PresentScreen
+        call ServiceIdle
+        mov eax, dword [tickcount]
+        add eax, byte 2
+        mov dword [MenuInputDelay], eax
+        call SetScreenTarget
+.24:
+        xor ebx, ebx
+        mov dword [byte esp+038h], ebx
+        mov dword [byte esp+034h], ebx
+.25:
+        cmp dword [byte esp+038h], byte 0
+        je short .26
+        cmp dword [byte esp+034h], byte 0
+        jne short .26
+        call PresentScreen
+        call ServiceIdle
+        mov eax, dword [tickcount]
+        add eax, byte 2
+        mov ebx, 1
+        mov dword [MenuInputDelay], eax
+        mov dword [byte esp+034h], ebx
+.26:
+        mov eax, dword [MenuButtons]
+        mov dword [MenuLastButtons], eax
+        mov eax, dword [RemoteMouseButtons]
+        mov ecx, dword [LinkGameActive]
+        mov dword [RemoteLastButtons], eax
+        test ecx, ecx
+        je short .27
+        test byte [byte ebp+014h], 2
+        je short .28
+.27:
+        call dword [PresentFuncInput]
+        mov dword [MenuMouseButtons], eax
+        mov eax, dword [mousex]
+        mov dword [MenuMouseX], eax
+        mov eax, dword [mousey]
+        mov dword [MenuMouseY], eax
+        jmp short .29
+.28:
+        xor eax, eax
+        mov dword [MenuMouseButtons], eax
+.29:
+        cmp word [MenuClipActive], byte 0
+        je short .30
+        mov edx, dword [MenuViewBottom]
+        push edx
+        mov ebx, dword [MenuViewRight]
+        push ebx
+        mov ecx, dword [MenuViewTop]
+        push ecx
+        mov eax, dword [MenuViewLeft]
+        push eax
+        call SetViewRect
+        xor eax, eax
+        add esp, byte 10h
+        mov word [MenuClipActive], ax
+.30:
+        cmp dword [MenuMouseMode], byte 0
+        je short .31
+        mov ebx, dword [MenuMouseX]
+        imul eax, ebx, dword 140h
+        mov dword [byte esp+064h], eax
+        fild dword [byte esp+064h]
+        fild dword [ViewScreenWidth]
+        fdivp
+        mov ecx, dword [MenuMouseY]
+        imul eax, ecx, dword 0C8h
+        mov dword [byte esp+064h], eax
+        fild dword [byte esp+064h]
+        fild dword [ViewScreenHeight]
+        fdivp
+        fxch
+        fadd qword [F64_0p5_RunMenu]
+        call __CHP
+        fxch
+        fadd qword [F64_0p5_RunMenu]
+        fxch
+        fistp dword [MenuMouseX]
+        call __CHP
+        fistp dword [MenuMouseY]
+.31:
+        cmp dword [LinkGameActive], byte 0
+        je near .39
+        test byte [byte ebp+014h], 1
+        je near .39
+        push RemoteMouseButtons
+        push RemoteMouseY
+        mov ecx, MenuMouseButtons
+        mov ebx, MenuMouseY
+        push RemoteMouseX
+        mov edx, MenuMouseX
+        mov eax, MenuLinkKey
+        call SyncLinkGame
+        mov ebx, dword [byte esp+034h]
+        mov dword [byte esp+014h], eax
+        test ebx, ebx
+        jne short .32
+        mov eax, dword [MenuLinkKey]
+        mov dword [byte esp+034h], eax
+.32:
+        cmp dword [byte esp+014h], byte 0
+        jne near .37
+        mov eax, dword [tickcount]
+        cmp eax, dword [MenuRepeatTick]
+        jle near .38
+        cmp dword [byte esp+034h], byte 0
+        jne short .33
+        call PresentScreen
+        mov dword [byte esp+034h], 1
+.33:
+        cmp word [MenuViewSaved], byte 0
+        jne short .35
+        cmp dword [MenuScreenBitmap], byte 8
+        je short .34
+        mov eax, 237h
+        call GetLangText
+        call ShowLinkMessage
+        jmp short .35
+.34:
+        mov eax, 76h
+        call GetLangText
+        call ShowLinkWait
+.35:
+        push RemoteMouseButtons
+        push RemoteMouseY
+        mov ecx, MenuMouseButtons
+        mov ebx, MenuMouseY
+        push RemoteMouseX
+        mov edx, MenuMouseX
+        mov eax, MenuLinkKey
+        call SyncLinkGame
+        test eax, eax
+        jne short .36
+        call ServiceIdle
+        jmp short .35
+.36:
+        mov edx, 1
+        mov bx, word [MenuViewSaved]
+        mov dword [byte esp+014h], edx
+        test bx, bx
+        jne short .37
+        call HideLinkBox
+.37:
+        mov eax, dword [tickcount]
+        add eax, byte 1Eh
+        mov dword [MenuRepeatTick], eax
+.38:
+        cmp dword [MenuMouseMode], byte 0
+        je short .40
+        mov eax, dword [RemoteMouseX]
+        imul eax, dword [ViewScreenWidth]
+        mov edx, dword [ViewScreenHeight]
+        mov dword [byte esp+064h], eax
+        mov eax, dword [RemoteMouseY]
+        imul eax, edx
+        fild dword [byte esp+064h]
+        fmul dword [F32_0p003125]
+        mov dword [byte esp+064h], eax
+        fadd qword [F64_0p5_RunMenu]
+        fild dword [byte esp+064h]
+        fmul dword [F32_0p005]
+        fxch
+        call __CHP
+        fxch
+        fadd qword [F64_0p5_RunMenu]
+        fxch
+        fistp dword [RemoteMouseX]
+        call __CHP
+        fistp dword [RemoteMouseY]
+        jmp short .40
+.39:
+        mov dword [byte esp+014h], 1
+.40:
+        cmp dword [MenuMouseMode], byte 0
+        je short .41
+        mov eax, dword [MenuMouseX]
+        imul eax, dword [ViewScreenWidth]
+        mov edx, dword [ViewScreenHeight]
+        mov dword [byte esp+064h], eax
+        mov eax, dword [MenuMouseY]
+        imul eax, edx
+        fild dword [byte esp+064h]
+        fmul dword [F32_0p003125]
+        mov dword [byte esp+064h], eax
+        fadd qword [F64_0p5_RunMenu]
+        fild dword [byte esp+064h]
+        fmul dword [F32_0p005]
+        fxch
+        call __CHP
+        fxch
+        fadd qword [F64_0p5_RunMenu]
+        fxch
+        fistp dword [MenuMouseX]
+        call __CHP
+        fistp dword [MenuMouseY]
+.41:
+        mov eax, dword [MenuMouseButtons]
+        mov dword [MenuButtons], eax
+        test eax, eax
+        je short .43
+        cmp dword [LinkGameActive], byte 0
+        je short .42
+        cmp dword [byte esp+014h], byte 0
+        je short .43
+.42:
+        mov dword [byte esp+05Ch], 1
+.43:
+        cmp dword [RemoteMouseButtons], byte 0
+        je short .45
+        cmp dword [LinkGameActive], byte 0
+        je short .44
+        cmp dword [byte esp+014h], byte 0
+        je short .45
+.44:
+        mov dword [byte esp+050h], 1
+.45:
+        mov ebx, dword [MenuLastMouseX]
+        cmp ebx, dword [MenuMouseX]
+        jne short .46
+        mov ecx, dword [MenuLastMouseY]
+        cmp ecx, dword [MenuMouseY]
+        jne short .46
+        mov edx, dword [MenuButtons]
+        cmp edx, dword [MenuLastButtons]
+        jne short .46
+        mov ebx, dword [RemoteLastMouseX]
+        cmp ebx, dword [RemoteMouseX]
+        jne short .46
+        mov ecx, dword [RemoteLastMouseY]
+        cmp ecx, dword [RemoteMouseY]
+        jne short .46
+        mov edx, dword [RemoteLastButtons]
+        cmp edx, dword [RemoteMouseButtons]
+        je short .47
+.46:
+        mov eax, dword [tickcount]
+        mov dword [byte esp+060h], eax
+.47:
+        mov ebx, dword [byte esp+060h]
+        mov eax, dword [tickcount]
+        sub eax, ebx
+        mov ecx, dword [byte esp+034h]
+        mov dword [esp], eax
+        test ecx, ecx
+        je short .48
+        call ServiceIdle
+        mov eax, dword [tickcount]
+        add eax, byte 2
+        mov dword [MenuInputDelay], eax
+.48:
+        mov eax, dword [byte esp+038h]
+        inc eax
+        mov edx, dword [MenuLastMouseX]
+        mov dword [byte esp+038h], eax
+        cmp edx, dword [MenuMouseX]
+        jne short .50
+        mov ebx, dword [MenuLastMouseY]
+        cmp ebx, dword [MenuMouseY]
+        jne short .50
+        mov ecx, dword [RemoteLastMouseX]
+        cmp ecx, dword [RemoteMouseX]
+        jne short .50
+        mov edx, dword [RemoteLastMouseY]
+        cmp edx, dword [RemoteMouseY]
+        jne short .50
+        mov ebx, dword [MenuButtons]
+        cmp ebx, dword [MenuLastButtons]
+        jne short .50
+        mov ecx, dword [RemoteMouseButtons]
+        cmp ecx, dword [RemoteLastButtons]
+        jne short .50
+        cmp dword [byte esp+0Ch], byte 0FFFFFFFFh
+        je short .49
+        mov eax, dword [esp]
+        cmp eax, dword [byte esp+0Ch]
+        jg short .50
+.49:
+        cmp dword [byte esp+010h], byte 0
+        je near .25
+.50:
+        mov ecx, dword [MenuMouseX]
+        test ecx, ecx
+        jl short .51
+        mov dword [MenuLastMouseX], ecx
+.51:
+        mov eax, dword [MenuMouseY]
+        test eax, eax
+        jl short .52
+        mov dword [MenuLastMouseY], eax
+.52:
+        mov edx, dword [RemoteMouseX]
+        test edx, edx
+        jl short .53
+        mov dword [RemoteLastMouseX], edx
+.53:
+        mov ebx, dword [RemoteMouseY]
+        test ebx, ebx
+        jl short .54
+        mov dword [RemoteLastMouseY], ebx
+.54:
+        cmp dword [byte esp+034h], byte 0
+        je short .55
+        call ServiceIdle
+        mov eax, dword [tickcount]
+        add eax, byte 2
+        mov dword [MenuInputDelay], eax
+        call SetScreenTarget
+.55:
+        cmp dword [byte esp+058h], byte 0
+        jne short .56
+        cmp dword [byte esp+054h], byte 0
+        je near .59
+.56:
+        call WaitRetrace
+        cmp dword [LinkGameActive], byte 0
+        je short .57
+        cmp dword [byte esp+054h], byte 0
+        je short .57
+        test byte [byte ebp+014h], 1
+        je short .57
+        mov eax, dword [byte esp+018h]
+        push eax
+        mov edx, dword [byte esp+020h]
+        push edx
+        mov ebx, dword [MenuBitmapPixels]
+        push ebx
+        call BlitClippedY
+        add esp, byte 0Ch
+        xor ecx, ecx
+        mov dword [byte esp+054h], ecx
+.57:
+        cmp dword [byte esp+058h], byte 0
+        je short .59
+        cmp dword [LinkGameActive], byte 0
+        je short .58
+        test byte [byte ebp+014h], 2
+        je short .59
+.58:
+        mov ebx, dword [byte esp+020h]
+        push ebx
+        mov ecx, dword [byte esp+028h]
+        push ecx
+        mov eax, dword [MenuCursorPixels]
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        xor edx, edx
+        mov dword [byte esp+058h], edx
+.59:
+        cmp dword [byte esp+010h], byte 0
+        je near .63
+        cmp dword [LinkGameActive], byte 0
+        je short .60
+        cmp dword [byte esp+014h], byte 0
+        je near .63
+.60:
+        call dword [byte esp+010h]
+        mov eax, dword [MenuLinkWordPad]
+        mov edx, dword [byte esp+03Ch]
+        sar eax, 10h
+        cmp eax, edx
+        je short .63
+        mov cx, word [MenuLinkActive]
+        mov dword [byte esp+03Ch], eax
+        test cx, cx
+        je short .61
+        mov eax, dword [MenuCursorArt]
+        mov edx, dword [byte eax+04h]
+        mov ebx, dword [byte eax+08h]
+        sar edx, 10h
+        sar ebx, 10h
+        sub edx, ebx
+        mov ebx, dword [ViewScreenHeight]
+        sub ebx, edx
+        mov edx, dword [byte eax+02h]
+        mov eax, dword [byte eax+06h]
+        sar edx, 10h
+        sar eax, 10h
+        sub edx, eax
+        mov eax, edx
+        jmp short .62
+.61:
+        mov eax, dword [MenuCursorArt]
+        mov ebx, dword [ViewScreenHeight]
+        mov edx, dword [byte eax+04h]
+        mov eax, dword [byte eax+02h]
+        sar edx, 10h
+        sar eax, 10h
+        sub ebx, edx
+.62:
+        mov edx, dword [ViewScreenWidth]
+        push ebx
+        sub edx, eax
+        push edx
+        push byte 0
+        push byte 0
+        call SetViewRect
+        add esp, byte 10h
+.63:
+        mov ecx, dword [byte esp+04h]
+        mov eax, dword [byte esp+08h]
+        xor ebx, ebx
+        test ecx, ecx
+        jle short .69
+        xor ecx, ecx
+.64:
+        mov edx, dword [byte eax+04h]
+        mov dword [byte eax+08h], edx
+        cmp ecx, dword [byte eax+01Ah]
+        je short .65
+        mov dword [byte eax+04h], ecx
+        jmp short .68
+.65:
+        cmp ecx, dword [byte eax+01Eh]
+        je short .66
+        mov dword [byte eax+04h], 1
+        jmp short .68
+.66:
+        mov edx, dword [byte eax+022h]
+        cmp ecx, edx
+        je short .67
+        mov dword [byte eax+04h], 2
+        jmp short .68
+.67:
+        mov dword [byte eax+04h], edx
+.68:
+        mov edx, dword [byte esp+04h]
+        inc ebx
+        add eax, byte 52h
+        cmp ebx, edx
+        jl short .64
+.69:
+        test byte [byte ebp+014h], 2
+        je near .100
+        test esi, esi
+        jne near .90
+        mov eax, dword [byte esp+04h]
+        mov ebx, dword [byte esp+08h]
+        mov dword [byte esp+078h], esi
+        test eax, eax
+        jle near .89
+.70:
+        mov eax, dword [byte ebx+010h]
+        test eax, eax
+        jle near .88
+        mov edx, dword [byte ebx+014h]
+        test edx, edx
+        je near .88
+        push edx
+        push eax
+        mov edx, dword [MenuMouseY]
+        push edx
+        mov ecx, dword [MenuMouseX]
+        push ecx
+        call SumRingRange
+        add esp, byte 10h
+        test eax, eax
+        je near .88
+        test byte [byte ebx+018h], 2
+        jne near .88
+        cmp dword [MenuButtons], byte 0
+        je near .83
+        mov ch, byte [byte ebx+032h]
+        test ch, 1
+        je near .75
+        mov eax, dword [byte esp+078h]
+        mov dword [byte esp+040h], eax
+        mov eax, dword [byte esp+08h]
+        mov eax, dword [eax]
+        test eax, eax
+        jge short .71
+        xor eax, eax
+.71:
+        mov ecx, dword [ebx]
+        test ecx, ecx
+        jl short .72
+        add eax, dword [byte esp+04h]
+        cmp eax, ecx
+        jg short .73
+.72:
+        mov eax, dword [byte esp+078h]
+        mov dword [byte esp+04Ch], eax
+        jmp short .74
+.73:
+        mov dword [byte esp+04Ch], ecx
+.74:
+        test byte [byte ebx+032h], 2
+        je near .88
+        cmp word [MenuViewSaved], byte 0
+        je near .88
+        mov eax, dword [byte ebx+014h]
+        mov edx, dword [byte eax+014h]
+        sub edx, byte 2
+        push edx
+        mov edx, dword [byte eax+010h]
+        sub edx, byte 2
+        push edx
+        mov edx, dword [byte eax+04h]
+        add edx, byte 2
+        mov eax, dword [eax]
+        push edx
+        add eax, byte 2
+        push eax
+        call SetViewRect
+        mov ecx, 1
+        add esp, byte 10h
+        mov word [MenuClipActive], cx
+        jmp near .88
+.75:
+        test ch, 2
+        je near .82
+        mov eax, dword [byte ebx+046h]
+        mov esi, ebx
+        mov dword [MenuItemHoverFunc], eax
+        test eax, eax
+        je short .76
+        mov eax, ebx
+        call dword [MenuItemHoverFunc]
+.76:
+        mov eax, dword [byte esi+022h]
+        test eax, eax
+        jne short .78
+        mov edx, dword [byte esi+01Eh]
+        test edx, edx
+        je short .77
+        mov dword [MenuLocalItem], edx
+        jmp short .79
+.77:
+        mov ecx, dword [byte esi+01Ah]
+        test ecx, ecx
+        je short .79
+        mov dword [MenuLocalItem], ecx
+        jmp short .79
+.78:
+        mov dword [MenuLocalItem], eax
+.79:
+        mov eax, dword [MenuMouseX]
+        mov edx, dword [byte esi+026h]
+        sub eax, edx
+        mov edx, eax
+        mov eax, dword [MenuCursorArt]
+        mov eax, dword [byte eax+02h]
+        sar eax, 10h
+        add edx, eax
+        mov eax, dword [MenuLocalItem]
+        mov dword [MenuLocalCursorX], edx
+        mov eax, dword [byte eax+02h]
+        sar eax, 10h
+        cmp eax, edx
+        jle short .80
+        mov dword [MenuLocalCursorX], eax
+.80:
+        mov eax, dword [MenuMouseY]
+        sub eax, dword [byte esi+02Ah]
+        mov edx, dword [MenuCursorArt]
+        mov edx, dword [byte edx+04h]
+        sar edx, 10h
+        add edx, eax
+        mov eax, dword [MenuLocalItem]
+        mov dword [MenuLocalCursorY], edx
+        mov eax, dword [byte eax+04h]
+        sar eax, 10h
+        cmp eax, edx
+        jle short .81
+        mov dword [MenuLocalCursorY], eax
+.81:
+        push byte 0
+        mov eax, dword [MenuLocalCursorY]
+        push eax
+        mov edx, dword [MenuLocalCursorX]
+        push edx
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov dword [MenuLocalLayer], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        mov ecx, dword [MenuLocalItem]
+        push ecx
+        call DrawArt
+        mov eax, dword [MenuMouseY]
+        mov edx, dword [byte esi+02Ah]
+        add esp, byte 0Ch
+        sub eax, edx
+        mov ecx, dword [byte esi+026h]
+        push eax
+        mov eax, dword [MenuMouseX]
+        sub eax, ecx
+        push eax
+        mov eax, dword [MenuCursorArt]
+        push eax
+        call DrawArt
+        mov eax, dword [MenuMouseX]
+        mov edx, dword [byte esi+026h]
+        sub eax, edx
+        mov dword [MenuLocalCursorX], eax
+        mov eax, dword [MenuMouseY]
+        mov ecx, dword [byte esi+02Ah]
+        sub eax, ecx
+        mov dword [MenuLocalCursorY], eax
+        mov eax, dword [MenuLocalItem]
+        mov edx, dword [byte eax+04h]
+        mov ecx, dword [byte esi+042h]
+        sar edx, 10h
+        sub ecx, edx
+        mov edx, ecx
+        mov ecx, dword [MenuLocalCursorY]
+        add esp, byte 0Ch
+        add edx, ecx
+        mov eax, dword [byte eax+02h]
+        inc edx
+        sar eax, 10h
+        push edx
+        mov edx, dword [byte esi+03Eh]
+        sub edx, eax
+        mov eax, edx
+        mov edx, dword [MenuLocalCursorX]
+        add eax, edx
+        inc eax
+        push eax
+        mov eax, dword [byte esi+03Ah]
+        add eax, ecx
+        push eax
+        mov eax, dword [byte esi+036h]
+        add eax, edx
+        push eax
+        call SetViewRect
+        mov eax, dword [MenuCursorArt]
+        mov dword [MenuLocalItem], eax
+        mov eax, dword [MenuLocalLayer]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [MenuCursorArt], eax
+        mov eax, dword [MenuCursorPixels]
+        mov dword [MenuSavedCursorArt], eax
+        mov eax, dword [MenuCursorArt]
+        add esp, byte 10h
+        mov edx, dword [byte eax+04h]
+        push byte 20h
+        sar edx, 10h
+        mov eax, dword [byte eax+02h]
+        push edx
+        sar eax, 10h
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte esp+030h], eax
+        mov eax, dword [byte eax+02Ch]
+        mov dword [MenuCursorPixels], eax
+        mov eax, dword [byte esp+068h]
+        mov dword [byte esp+078h], eax
+        call SetScreenTarget
+        jmp short .88
+.82:
+        mov dword [byte ebx+04h], 2
+        jmp short .88
+.83:
+        cmp dword [byte ebx+04h], byte 0
+        jne short .84
+        mov dword [byte ebx+04h], 1
+.84:
+        cmp dword [byte esp+05Ch], byte 0
+        je short .88
+        mov eax, dword [byte esp+078h]
+        mov dword [byte esp+040h], eax
+        mov eax, dword [byte esp+08h]
+        mov eax, dword [eax]
+        test eax, eax
+        jge short .85
+        xor eax, eax
+.85:
+        mov edx, dword [ebx]
+        test edx, edx
+        jl short .86
+        add eax, dword [byte esp+04h]
+        cmp eax, edx
+        jg short .87
+.86:
+        mov eax, dword [byte esp+078h]
+        mov dword [byte esp+04Ch], eax
+        jmp short .88
+.87:
+        mov dword [byte esp+04Ch], edx
+.88:
+        mov eax, dword [byte esp+078h]
+        mov edx, dword [byte esp+04h]
+        inc eax
+        add ebx, byte 52h
+        mov dword [byte esp+078h], eax
+        cmp eax, edx
+        jl near .70
+.89:
+        mov ebx, dword [byte esp+0Ch]
+        cmp ebx, byte 0FFFFFFFFh
+        je near .100
+        cmp ebx, dword [esp]
+        jge near .100
+        mov edx, 0FFFFFFFEh
+        mov eax, 0FFFFFFFFh
+        mov dword [dword esp+084h], edx
+        mov dword [byte esp+04Ch], eax
+        jmp near .100
+.90:
+        cmp dword [MenuButtons], byte 0
+        jne near .99
+        mov eax, dword [MenuLocalLayer]
+        push eax
+        call FreeBitmap
+        add esp, byte 4
+        mov edx, dword [byte esp+030h]
+        mov eax, dword [MenuLocalItem]
+        push edx
+        mov dword [MenuCursorArt], eax
+        call FreeBitmap
+        mov eax, dword [MenuSavedCursorArt]
+        add esp, byte 4
+        mov dword [MenuCursorPixels], eax
+        call SetScreenTarget
+        cmp word [MenuLinkActive], byte 0
+        je short .91
+        mov eax, dword [MenuCursorArt]
+        mov ebx, dword [byte eax+04h]
+        mov edx, dword [byte eax+08h]
+        sar ebx, 10h
+        sar edx, 10h
+        sub ebx, edx
+        mov edx, ebx
+        mov ebx, dword [ViewScreenHeight]
+        sub ebx, edx
+        mov edx, dword [byte eax+02h]
+        mov eax, dword [byte eax+06h]
+        sar edx, 10h
+        sar eax, 10h
+        sub edx, eax
+        mov eax, dword [ViewScreenWidth]
+        push ebx
+        sub eax, edx
+        push eax
+        jmp short .92
+.91:
+        mov eax, dword [MenuCursorArt]
+        mov ebx, dword [ViewScreenHeight]
+        mov edx, dword [byte eax+04h]
+        mov eax, dword [byte eax+02h]
+        sar edx, 10h
+        sar eax, 10h
+        sub ebx, edx
+        mov edx, dword [ViewScreenWidth]
+        push ebx
+        sub edx, eax
+        push edx
+.92:
+        push byte 0
+        push byte 0
+        call SetViewRect
+        add esp, byte 10h
+        mov eax, 0FFFFFFFFh
+        mov edx, dword [byte esp+04h]
+        xor ecx, ecx
+        mov ebx, dword [byte esp+08h]
+        mov dword [byte esp+07Ch], ecx
+        mov dword [byte esp+044h], eax
+        test edx, edx
+        jle short .95
+.93:
+        mov edx, dword [byte ebx+010h]
+        mov dword [byte ebx+0Ch], 1
+        test edx, edx
+        jle short .94
+        mov ecx, dword [byte ebx+014h]
+        test ecx, ecx
+        je short .94
+        push ecx
+        push edx
+        mov ecx, dword [MenuMouseY]
+        push ecx
+        mov eax, dword [MenuMouseX]
+        push eax
+        call SumRingRange
+        add esp, byte 10h
+        test eax, eax
+        je short .94
+        mov eax, dword [byte esp+07Ch]
+        mov dword [byte esp+044h], eax
+.94:
+        mov edx, dword [byte esp+07Ch]
+        mov ecx, dword [byte esp+04h]
+        inc edx
+        add ebx, byte 52h
+        mov dword [byte esp+07Ch], edx
+        cmp edx, ecx
+        jl short .93
+.95:
+        mov eax, dword [byte esi+04Eh]
+        mov dword [MenuItemLeaveFunc], eax
+        test eax, eax
+        je short .98
+        mov edx, dword [byte esp+044h]
+        test edx, edx
+        jl short .96
+        imul eax, edx, byte 52h
+        add eax, dword [byte esp+08h]
+        mov edx, dword [eax]
+        jmp short .97
+.96:
+        mov edx, 0FFFFFFFFh
+.97:
+        mov eax, esi
+        call dword [MenuItemLeaveFunc]
+.98:
+        xor esi, esi
+        jmp short .100
+.99:
+        mov eax, dword [byte esi+04Ah]
+        mov dword [MenuItemEnterFunc], eax
+        test eax, eax
+        je short .100
+        mov eax, esi
+        call dword [MenuItemEnterFunc]
+.100:
+        test byte [byte ebp+014h], 1
+        je near .127
+        test edi, edi
+        jne near .119
+        mov eax, dword [byte esp+04h]
+        mov ebx, dword [byte esp+08h]
+        mov dword [byte esp+070h], edi
+        test eax, eax
+        jle near .118
+.101:
+        mov eax, dword [byte ebx+010h]
+        test eax, eax
+        jle near .117
+        mov edx, dword [byte ebx+014h]
+        test edx, edx
+        je near .117
+        push edx
+        push eax
+        mov edx, dword [RemoteMouseY]
+        push edx
+        mov ecx, dword [RemoteMouseX]
+        push ecx
+        call SumRingRange
+        add esp, byte 10h
+        test eax, eax
+        je near .117
+        test byte [byte ebx+018h], 1
+        jne near .117
+        cmp dword [RemoteMouseButtons], byte 0
+        je near .112
+        mov cl, byte [byte ebx+032h]
+        test cl, 1
+        je short .104
+        mov eax, dword [byte esp+070h]
+        mov dword [byte esp+040h], eax
+        mov eax, dword [byte esp+08h]
+        mov eax, dword [eax]
+        test eax, eax
+        jge short .102
+        xor eax, eax
+.102:
+        mov edx, dword [ebx]
+        test edx, edx
+        jl short .103
+        add eax, dword [byte esp+04h]
+        cmp eax, edx
+        jg near .116
+.103:
+        mov eax, dword [byte esp+070h]
+        mov dword [byte esp+048h], eax
+        jmp near .117
+.104:
+        test cl, 2
+        je near .111
+        mov eax, dword [byte ebx+046h]
+        mov edi, ebx
+        mov dword [MenuItemHoverFunc], eax
+        test eax, eax
+        je short .105
+        mov eax, ebx
+        call dword [MenuItemHoverFunc]
+.105:
+        mov eax, dword [byte edi+022h]
+        test eax, eax
+        jne short .107
+        mov edx, dword [byte edi+01Eh]
+        test edx, edx
+        je short .106
+        mov dword [MenuRemoteItem], edx
+        jmp short .108
+.106:
+        mov ecx, dword [byte edi+01Ah]
+        test ecx, ecx
+        je short .108
+        mov dword [MenuRemoteItem], ecx
+        jmp short .108
+.107:
+        mov dword [MenuRemoteItem], eax
+.108:
+        mov eax, dword [RemoteMouseX]
+        mov edx, dword [byte edi+026h]
+        sub eax, edx
+        mov edx, eax
+        mov eax, dword [MenuRemoteCursorArt]
+        mov eax, dword [byte eax+02h]
+        sar eax, 10h
+        add edx, eax
+        mov eax, dword [MenuRemoteItem]
+        mov dword [MenuRemoteCursorX], edx
+        mov eax, dword [byte eax+02h]
+        sar eax, 10h
+        cmp eax, edx
+        jle short .109
+        mov dword [MenuRemoteCursorX], eax
+.109:
+        mov eax, dword [RemoteMouseY]
+        mov edx, dword [byte edi+02Ah]
+        sub eax, edx
+        mov edx, eax
+        mov eax, dword [MenuRemoteCursorArt]
+        mov eax, dword [byte eax+04h]
+        sar eax, 10h
+        add edx, eax
+        mov eax, dword [MenuRemoteItem]
+        mov dword [MenuRemoteCursorY], edx
+        mov eax, dword [byte eax+04h]
+        sar eax, 10h
+        cmp eax, edx
+        jle short .110
+        mov dword [MenuRemoteCursorY], eax
+.110:
+        push byte 0
+        mov eax, dword [MenuRemoteCursorY]
+        push eax
+        mov edx, dword [MenuRemoteCursorX]
+        push edx
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov dword [MenuRemoteLayer], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        mov ecx, dword [MenuRemoteItem]
+        push ecx
+        call DrawArt
+        mov eax, dword [RemoteMouseY]
+        mov edx, dword [byte edi+02Ah]
+        add esp, byte 0Ch
+        sub eax, edx
+        mov ecx, dword [byte edi+026h]
+        push eax
+        mov eax, dword [RemoteMouseX]
+        sub eax, ecx
+        push eax
+        mov eax, dword [MenuRemoteCursorArt]
+        push eax
+        call DrawArt
+        mov eax, dword [MenuRemoteCursorArt]
+        mov dword [MenuRemoteItem], eax
+        mov eax, dword [MenuRemoteLayer]
+        mov eax, dword [byte eax+02Ch]
+        mov dword [MenuRemoteCursorArt], eax
+        mov eax, dword [MenuBitmapPixels]
+        mov dword [MenuSavedRemoteArt], eax
+        mov eax, dword [MenuRemoteCursorArt]
+        add esp, byte 0Ch
+        mov edx, dword [byte eax+04h]
+        push byte 20h
+        sar edx, 10h
+        mov eax, dword [byte eax+02h]
+        push edx
+        sar eax, 10h
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte esp+02Ch], eax
+        mov eax, dword [byte eax+02Ch]
+        mov dword [MenuBitmapPixels], eax
+        mov eax, dword [RemoteMouseX]
+        mov edx, dword [byte edi+026h]
+        sub eax, edx
+        mov dword [MenuRemoteCursorX], eax
+        mov eax, dword [RemoteMouseY]
+        mov ecx, dword [byte edi+02Ah]
+        sub eax, ecx
+        mov dword [MenuRemoteCursorY], eax
+        mov eax, dword [byte esp+068h]
+        mov dword [byte esp+070h], eax
+        call SetScreenTarget
+        jmp short .117
+.111:
+        mov dword [byte ebx+04h], 2
+        jmp short .117
+.112:
+        cmp dword [byte ebx+04h], byte 0
+        jne short .113
+        mov dword [byte ebx+04h], 1
+.113:
+        cmp dword [byte esp+050h], byte 0
+        je short .117
+        mov eax, dword [byte esp+070h]
+        mov dword [byte esp+040h], eax
+        mov eax, dword [byte esp+08h]
+        mov eax, dword [eax]
+        test eax, eax
+        jge short .114
+        xor eax, eax
+.114:
+        mov edx, dword [ebx]
+        test edx, edx
+        jl short .115
+        add eax, dword [byte esp+04h]
+        cmp eax, edx
+        jg short .116
+.115:
+        mov eax, dword [byte esp+070h]
+        mov dword [byte esp+048h], eax
+        jmp short .117
+.116:
+        mov dword [byte esp+048h], edx
+.117:
+        mov ecx, dword [byte esp+070h]
+        mov edx, dword [byte esp+04h]
+        inc ecx
+        add ebx, byte 52h
+        mov dword [byte esp+070h], ecx
+        cmp ecx, edx
+        jl near .101
+.118:
+        mov ebx, dword [byte esp+0Ch]
+        cmp ebx, byte 0FFFFFFFFh
+        je near .127
+        cmp ebx, dword [esp]
+        jge near .127
+        mov edx, 0FFFFFFFEh
+        mov eax, 0FFFFFFFFh
+        mov dword [dword esp+084h], edx
+        mov dword [byte esp+048h], eax
+        jmp near .127
+.119:
+        cmp dword [RemoteMouseButtons], byte 0
+        jne near .126
+        mov eax, dword [MenuRemoteLayer]
+        push eax
+        call FreeBitmap
+        add esp, byte 4
+        mov edx, dword [byte esp+02Ch]
+        mov eax, dword [MenuRemoteItem]
+        push edx
+        mov dword [MenuRemoteCursorArt], eax
+        call FreeBitmap
+        mov eax, dword [MenuSavedRemoteArt]
+        add esp, byte 4
+        xor ecx, ecx
+        mov ebx, dword [byte esp+08h]
+        mov edx, dword [byte esp+04h]
+        mov dword [MenuBitmapPixels], eax
+        mov eax, 0FFFFFFFFh
+        mov dword [byte esp+074h], ecx
+        mov dword [dword esp+080h], eax
+        test edx, edx
+        jle short .122
+.120:
+        mov edx, dword [byte ebx+010h]
+        mov dword [byte ebx+0Ch], 1
+        test edx, edx
+        jle short .121
+        mov ecx, dword [byte ebx+014h]
+        test ecx, ecx
+        je short .121
+        push ecx
+        push edx
+        mov ecx, dword [RemoteMouseY]
+        push ecx
+        mov eax, dword [RemoteMouseX]
+        push eax
+        call SumRingRange
+        add esp, byte 10h
+        test eax, eax
+        je short .121
+        mov eax, dword [byte esp+074h]
+        mov dword [dword esp+080h], eax
+.121:
+        mov edx, dword [byte esp+074h]
+        mov ecx, dword [byte esp+04h]
+        inc edx
+        add ebx, byte 52h
+        mov dword [byte esp+074h], edx
+        cmp edx, ecx
+        jl short .120
+.122:
+        call SetScreenTarget
+        mov eax, dword [byte edi+04Eh]
+        mov dword [MenuItemLeaveFunc], eax
+        test eax, eax
+        je short .125
+        mov edx, dword [dword esp+080h]
+        test edx, edx
+        jl short .123
+        imul eax, edx, byte 52h
+        add eax, dword [byte esp+08h]
+        mov edx, dword [eax]
+        jmp short .124
+.123:
+        mov edx, 0FFFFFFFFh
+.124:
+        mov eax, edi
+        call dword [MenuItemLeaveFunc]
+.125:
+        xor edi, edi
+        jmp short .127
+.126:
+        mov eax, dword [byte edi+04Ah]
+        mov dword [MenuItemEnterFunc], eax
+        test eax, eax
+        je short .127
+        mov eax, edi
+        call dword [MenuItemEnterFunc]
+.127:
+        mov ebx, dword [byte esp+048h]
+        test ebx, ebx
+        jl short .129
+        imul eax, ebx, byte 52h
+        add eax, dword [byte esp+08h]
+        cmp dword [byte eax+04h], byte 2
+        je short .128
+        test esi, esi
+        je short .129
+.128:
+        mov dword [byte esp+048h], 0FFFFFFFFh
+.129:
+        mov eax, dword [byte esp+04Ch]
+        test eax, eax
+        jl short .131
+        imul eax, byte 52h
+        add eax, dword [byte esp+08h]
+        cmp dword [byte eax+04h], byte 2
+        je short .130
+        test edi, edi
+        je short .131
+.130:
+        mov dword [byte esp+04Ch], 0FFFFFFFFh
+.131:
+        cmp dword [LinkGameActive], byte 0
+        jne short .132
+        test esi, esi
+        je short .133
+.132:
+        test esi, esi
+        je short .133
+        test edi, edi
+        jne near .149
+.133:
+        mov eax, dword [byte esp+04h]
+        xor ecx, ecx
+        mov ebx, dword [byte esp+08h]
+        mov dword [byte esp+06Ch], ecx
+        test eax, eax
+        jle near .149
+.134:
+        mov edx, dword [byte ebx+08h]
+        cmp edx, dword [byte ebx+04h]
+        jne short .135
+        cmp dword [byte ebx+0Ch], byte 0
+        je near .148
+.135:
+        cmp ebx, esi
+        je near .148
+        cmp ebx, edi
+        je near .148
+        mov eax, dword [byte esp+06Ch]
+        mov edx, dword [byte esp+04Ch]
+        mov dword [byte ebx+0Ch], 0
+        cmp eax, edx
+        je short .136
+        cmp eax, dword [byte esp+048h]
+        jne short .137
+.136:
+        test byte [byte ebx+032h], 1
+        je short .137
+        mov dword [byte ebx+04h], 2
+.137:
+        mov eax, dword [byte ebx+04h]
+        cmp eax, byte 1
+        jb short .138
+        jbe short .139
+        cmp eax, byte 2
+        je short .141
+        jmp near .144
+.138:
+        test eax, eax
+        jne near .144
+        mov eax, dword [byte ebx+01Ah]
+        test eax, eax
+        je near .148
+        mov edx, dword [byte ebx+02Ah]
+        push edx
+        mov ecx, dword [byte ebx+026h]
+        push ecx
+        push eax
+        jmp near .147
+.139:
+        cmp dword [byte ebx+01Eh], byte 0
+        je short .140
+        mov ecx, dword [byte ebx+02Ah]
+        push ecx
+        mov eax, dword [byte ebx+026h]
+        push eax
+        mov edx, dword [byte ebx+01Eh]
+        push edx
+        jmp short .147
+.140:
+        mov edx, dword [byte ebx+01Ah]
+        test edx, edx
+        je short .148
+        mov ecx, dword [byte ebx+02Ah]
+        push ecx
+        mov eax, dword [byte ebx+026h]
+        push eax
+        push edx
+        jmp short .147
+.141:
+        cmp dword [byte ebx+022h], byte 0
+        je short .142
+        mov eax, dword [byte ebx+02Ah]
+        push eax
+        mov edx, dword [byte ebx+026h]
+        push edx
+        mov ecx, dword [byte ebx+022h]
+        jmp short .146
+.142:
+        cmp dword [byte ebx+01Eh], byte 0
+        je short .143
+        mov eax, dword [byte ebx+02Ah]
+        push eax
+        mov edx, dword [byte ebx+026h]
+        push edx
+        mov ecx, dword [byte ebx+01Eh]
+        jmp short .146
+.143:
+        mov ecx, dword [byte ebx+01Ah]
+        test ecx, ecx
+        je short .148
+        jmp short .145
+.144:
+        mov ecx, dword [byte ebx+01Ah]
+        test ecx, ecx
+        je short .148
+.145:
+        mov eax, dword [byte ebx+02Ah]
+        push eax
+        mov edx, dword [byte ebx+026h]
+        push edx
+.146:
+        push ecx
+.147:
+        call DrawArt
+        add esp, byte 0Ch
+.148:
+        mov edx, dword [byte esp+06Ch]
+        mov ecx, dword [byte esp+04h]
+        inc edx
+        add ebx, byte 52h
+        mov dword [byte esp+06Ch], edx
+        cmp edx, ecx
+        jl near .134
+.149:
+        cmp dword [byte esp+04Ch], byte 0
+        jge short .150
+        cmp dword [byte esp+048h], byte 0
+        jl near .158
+.150:
+        mov ebx, dword [byte esp+04Ch]
+        test ebx, ebx
+        jl short .152
+        mov ecx, dword [byte esp+048h]
+        test ecx, ecx
+        jl short .152
+        call ClearLinkAbort
+        test eax, eax
+        je short .151
+        mov dword [dword esp+084h], ebx
+        jmp short .154
+.151:
+        mov dword [dword esp+084h], ecx
+        jmp short .154
+.152:
+        mov eax, dword [byte esp+04Ch]
+        test eax, eax
+        jge short .153
+        mov eax, dword [byte esp+048h]
+.153:
+        mov dword [dword esp+084h], eax
+.154:
+        cmp dword [dword esp+084h], byte 0
+        jl short .158
+        imul eax, dword [byte esp+040h], byte 52h
+        add eax, dword [byte esp+08h]
+        test byte [byte eax+032h], 1
+        jne short .158
+        cmp dword [LinkGameActive], byte 0
+        je short .155
+        cmp dword [byte ebp+014h], byte 3
+        je short .155
+        mov eax, dword [dword esp+084h]
+        cmp eax, dword [byte esp+04Ch]
+        jne short .158
+.155:
+        imul eax, dword [byte esp+040h], byte 52h
+        add eax, dword [byte esp+08h]
+        mov ebx, dword [byte eax+02Eh]
+        test ebx, ebx
+        jl short .156
+        mov eax, ebx
+        jmp short .157
+.156:
+        mov ecx, dword [MenuStartSelection]
+        test ecx, ecx
+        jl short .158
+        mov eax, ecx
+.157:
+        call PlaySfx
+.158:
+        cmp dword [dword esp+084h], byte 0FFFFFFFFh
+        jne near .173
+        cmp dword [MenuButtons], byte 0
+        jne short .160
+        cmp dword [byte esp+05Ch], byte 0
+        je short .160
+        cmp dword [LinkGameActive], byte 0
+        je short .159
+        cmp dword [byte esp+014h], byte 0
+        je short .160
+.159:
+        xor edx, edx
+        mov dword [byte esp+05Ch], edx
+.160:
+        cmp dword [RemoteMouseButtons], byte 0
+        jne short .162
+        cmp dword [byte esp+050h], byte 0
+        je short .162
+        cmp dword [LinkGameActive], byte 0
+        je short .161
+        cmp dword [byte esp+014h], byte 0
+        je short .162
+.161:
+        xor ebx, ebx
+        mov dword [byte esp+050h], ebx
+.162:
+        cmp dword [LinkGameActive], byte 0
+        je short .163
+        test byte [byte ebp+014h], 2
+        je near .168
+.163:
+        cmp word [MenuLinkActive], byte 0
+        je short .164
+        mov eax, dword [MenuCursorArt]
+        mov ebx, dword [MenuMouseX]
+        mov edx, dword [byte eax+06h]
+        mov eax, dword [byte eax+08h]
+        sar edx, 10h
+        sar eax, 10h
+        sub ebx, edx
+        mov edx, dword [MenuMouseY]
+        sub edx, eax
+        mov dword [byte esp+024h], ebx
+        mov dword [byte esp+020h], edx
+        jmp short .167
+.164:
+        test esi, esi
+        je short .165
+        mov edx, dword [MenuLocalCursorX]
+        mov eax, dword [MenuMouseX]
+        sub eax, edx
+        mov ebx, dword [MenuLocalCursorY]
+        mov dword [byte esp+024h], eax
+        mov eax, dword [MenuMouseY]
+        sub eax, ebx
+        jmp short .166
+.165:
+        mov eax, dword [MenuMouseX]
+        mov dword [byte esp+024h], eax
+        mov eax, dword [MenuMouseY]
+.166:
+        mov dword [byte esp+020h], eax
+.167:
+        mov ecx, dword [byte esp+020h]
+        push ecx
+        mov eax, dword [byte esp+028h]
+        push eax
+        mov edx, dword [MenuCursorPixels]
+        push edx
+        call ConvertArtXY
+        add esp, byte 0Ch
+        mov ecx, dword [byte esp+020h]
+        push ecx
+        mov eax, dword [byte esp+028h]
+        push eax
+        mov edx, dword [MenuCursorArt]
+        mov ebx, 1
+        push edx
+        mov dword [byte esp+064h], ebx
+        call DrawArt
+        add esp, byte 0Ch
+.168:
+        cmp dword [LinkGameActive], byte 0
+        je near .174
+        test byte [byte ebp+014h], 1
+        je near .174
+        cmp word [MenuLinkActive], byte 0
+        je short .169
+        mov eax, dword [MenuRemoteCursorArt]
+        mov ebx, dword [RemoteMouseX]
+        mov edx, dword [byte eax+06h]
+        mov eax, dword [byte eax+08h]
+        sar edx, 10h
+        sar eax, 10h
+        sub ebx, edx
+        mov edx, dword [RemoteMouseY]
+        sub edx, eax
+        mov dword [byte esp+01Ch], ebx
+        mov dword [byte esp+018h], edx
+        jmp short .172
+.169:
+        test edi, edi
+        je short .170
+        mov ecx, dword [MenuRemoteCursorX]
+        mov eax, dword [RemoteMouseX]
+        sub eax, ecx
+        mov edx, dword [MenuRemoteCursorY]
+        mov dword [byte esp+01Ch], eax
+        mov eax, dword [RemoteMouseY]
+        sub eax, edx
+        jmp short .171
+.170:
+        mov eax, dword [RemoteMouseX]
+        mov dword [byte esp+01Ch], eax
+        mov eax, dword [RemoteMouseY]
+.171:
+        mov dword [byte esp+018h], eax
+.172:
+        mov ebx, dword [byte esp+018h]
+        push ebx
+        mov ecx, dword [byte esp+020h]
+        push ecx
+        mov eax, dword [MenuBitmapPixels]
+        push eax
+        call ConvertArtXY
+        add esp, byte 0Ch
+        push ebx
+        mov ecx, dword [byte esp+020h]
+        push ecx
+        mov eax, dword [MenuRemoteCursorArt]
+        mov edx, 1
+        push eax
+        mov dword [byte esp+060h], edx
+        call DrawArt
+        add esp, byte 0Ch
+        jmp short .174
+.173:
+        call PresentScreen
+.174:
+        cmp word [MenuViewSaved], byte 0
+        je short .179
+        cmp dword [MenuViewCallback], byte 0
+        je short .179
+        cmp dword [byte esp+05Ch], byte 0
+        je short .175
+        mov eax, 2
+        jmp short .176
+.175:
+        xor eax, eax
+.176:
+        test eax, eax
+        jne short .177
+        cmp dword [byte esp+050h], byte 0
+        setne al
+        and eax, 0FFh
+        je short .178
+.177:
+        mov eax, 1
+.178:
+        call dword [MenuViewCallback]
+.179:
+        cmp dword [dword esp+084h], byte 0FFFFFFFFh
+        je near .23
+        cmp dword [byte esp+058h], byte 0
+        jne short .180
+        cmp dword [byte esp+054h], byte 0
+        je near .184
+.180:
+        call SetScreenTarget
+        cmp dword [LinkGameActive], byte 0
+        je short .181
+        cmp dword [byte esp+054h], byte 0
+        je short .181
+        test byte [byte ebp+014h], 1
+        je short .181
+        mov edi, dword [byte esp+018h]
+        push edi
+        mov eax, dword [byte esp+020h]
+        push eax
+        mov edx, dword [MenuBitmapPixels]
+        push edx
+        call BlitArt
+        add esp, byte 0Ch
+.181:
+        cmp dword [byte esp+058h], byte 0
+        je short .183
+        cmp dword [LinkGameActive], byte 0
+        je short .182
+        test byte [byte ebp+014h], 2
+        je short .183
+.182:
+        mov esi, dword [byte esp+020h]
+        push esi
+        mov edi, dword [byte esp+028h]
+        push edi
+        mov eax, dword [MenuCursorPixels]
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+.183:
+        call PresentScreen
+.184:
+        mov edx, dword [byte ebp+010h]
+        test edx, edx
+        je short .185
+        mov eax, dword [dword esp+084h]
+        mov dword [edx], eax
+.185:
+        mov eax, dword [dword esp+084h]
+        cmp eax, dword [byte esp+04Ch]
+        jne short .186
+        mov eax, 2
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        ret 8
+.186:
+        cmp eax, dword [byte esp+048h]
+        jne short .187
+        mov eax, 1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        ret 8
+.187:
+        mov eax, 4
+.188:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        ret 8
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; ScrollPosToValue                                8D5C0  97 PC, low confidence
+; Converts a scroll bar position to a value
+;-----------------------------------------------------------------------------
+ScrollPosToValue:
+        push ecx
+        push edi
+        push ebp
+        sub esp, byte 4
+        test eax, eax
+        jne short .1
+        mov eax, 2
+.1:
+        cmp dword [LinkGameActive], byte 0
+        jne short .2
+        mov eax, 2
+.2:
+        test al, 2
+        je short .3
+        mov eax, dword [MenuMouseX]
+        mov dword [edx], eax
+        mov eax, dword [MenuMouseY]
+        jmp short .4
+.3:
+        mov eax, dword [RemoteMouseX]
+        mov dword [edx], eax
+        mov eax, dword [RemoteMouseY]
+.4:
+        mov dword [ebx], eax
+        cmp dword [MenuMouseMode], byte 0
+        je near .5
+        mov ecx, dword [edx]
+        lea eax, [nosplit ecx*4+00h]
+        add eax, ecx
+        shl eax, 6
+        mov dword [esp], eax
+        fild dword [esp]
+        fild dword [ViewScreenWidth]
+        fdivp
+        fadd qword [F64_0p5_ScrollPosToValue]
+        mov edi, dword [ViewScreenWidth]
+        call __CHP
+        fistp dword [esp]
+        mov eax, dword [esp]
+        imul eax, edi
+        mov dword [esp], eax
+        fild dword [esp]
+        fmul dword [F32_0p003125_ScrollPosToValue]
+        fadd qword [F64_0p5_ScrollPosToValue]
+        call __CHP
+        fistp dword [edx]
+        mov edx, dword [ebx]
+        lea eax, [nosplit edx*4+00h]
+        sub eax, edx
+        shl eax, 3
+        add eax, edx
+        shl eax, 3
+        mov dword [esp], eax
+        fild dword [esp]
+        fild dword [ViewScreenHeight]
+        fdivp
+        fadd qword [F64_0p5_ScrollPosToValue]
+        mov ebp, dword [ViewScreenHeight]
+        call __CHP
+        fistp dword [esp]
+        mov eax, dword [esp]
+        imul eax, ebp
+        mov dword [esp], eax
+        fild dword [esp]
+        fmul dword [F32_0p005_ScrollPosToValue]
+        fadd qword [F64_0p5_ScrollPosToValue]
+        call __CHP
+        fistp dword [ebx]
+.5:
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; ResetMouseInput                                 8D6B4  97 PC, low confidence
+; Resets the mouse input
+;-----------------------------------------------------------------------------
+ResetMouseInput:
+        push ebx
+        push ecx
+        push esi
+        mov esi, eax
+        mov ebx, edx
+        push edx
+        push eax
+        call MouseRead
+        mov eax, 2
+        add esp, byte 8
+        mov edx, esi
+        xor ecx, ecx
+        call ResetLinkStats
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        db 090h
+        mov eax, dword [MenuMouseMode]
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; SetMenuMode                                     8D6E0  97 PC, low confidence
+; Sets the menu mode
+;-----------------------------------------------------------------------------
+SetMenuMode:
+        mov dword [MenuMouseMode], eax
+        ret
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; SetupMenuView                                   8D6E8  97 PC, low confidence
+; Sets up the menu view
+;-----------------------------------------------------------------------------
+SetupMenuView:
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 10h
+        mov esi, eax
+        cmp word [MenuViewSaved], byte 0
+        jne near .1
+        lea eax, [nosplit edx*4+00h]
+        add eax, edx
+        shl eax, 6
+        mov dword [byte esp+0Ch], eax
+        fild dword [byte esp+0Ch]
+        fild dword [ViewScreenWidth]
+        fld1
+        fdivrp
+        fxch
+        fmul st1
+        fadd qword [F64_0p5_SetupMenuView]
+        mov edx, dword [ViewScreenWidth]
+        call __CHP
+        fistp dword [byte esp+0Ch]
+        mov eax, dword [byte esp+0Ch]
+        imul eax, edx
+        mov dword [byte esp+04h], eax
+        lea eax, [nosplit ebx*4+00h]
+        sub eax, ebx
+        shl eax, 3
+        add eax, ebx
+        shl eax, 3
+        mov dword [esp], eax
+        fild dword [esp]
+        fild dword [ViewScreenHeight]
+        fld1
+        fdivrp
+        fxch
+        fmul st1
+        fadd qword [F64_0p5_SetupMenuView]
+        mov ebx, dword [ViewScreenHeight]
+        call __CHP
+        fistp dword [byte esp+08h]
+        mov eax, dword [byte esp+08h]
+        imul eax, ebx
+        mov dword [esp], eax
+        lea eax, [nosplit ecx*4+00h]
+        add eax, ecx
+        shl eax, 6
+        mov dword [byte esp+0Ch], eax
+        fild dword [byte esp+0Ch]
+        fmulp st2
+        fxch
+        fadd qword [F64_0p5_SetupMenuView]
+        call __CHP
+        fistp dword [byte esp+08h]
+        mov eax, dword [byte esp+08h]
+        imul eax, edx
+        mov edx, dword [byte esp+020h]
+        mov dword [byte esp+08h], eax
+        lea eax, [nosplit edx*4+00h]
+        sub eax, edx
+        shl eax, 3
+        add eax, edx
+        shl eax, 3
+        mov dword [byte esp+0Ch], eax
+        fild dword [byte esp+0Ch]
+        fmulp
+        fadd qword [F64_0p5_SetupMenuView]
+        call __CHP
+        fistp dword [byte esp+0Ch]
+        mov eax, dword [byte esp+0Ch]
+        imul eax, ebx
+        fild dword [byte esp+04h]
+        fmul dword [F32_0p003125_SetupMenuView]
+        fild dword [esp]
+        fmul dword [F32_0p005_SetupMenuView]
+        fild dword [byte esp+08h]
+        fmul dword [F32_0p003125_SetupMenuView]
+        mov dword [byte esp+0Ch], eax
+        fxch st2
+        fadd qword [F64_0p5_SetupMenuView]
+        fild dword [byte esp+0Ch]
+        fmul dword [F32_0p005_SetupMenuView]
+        fxch
+        call __CHP
+        fxch st2
+        fadd qword [F64_0p5_SetupMenuView]
+        fxch st2
+        fistp dword [MenuViewLeft]
+        fxch
+        call __CHP
+        fistp dword [MenuViewTop]
+        mov ebp, dword [MenuViewTop]
+        fadd qword [F64_0p5_SetupMenuView]
+        fxch
+        fadd qword [F64_0p5_SetupMenuView]
+        fxch
+        call __CHP
+        fistp dword [MenuViewBottom]
+        mov eax, dword [MenuViewBottom]
+        call __CHP
+        add eax, ebp
+        fistp dword [MenuViewRight]
+        sar eax, 1
+        mov edx, dword [MenuViewLeft]
+        push eax
+        mov eax, dword [MenuViewRight]
+        add eax, edx
+        sar eax, 1
+        push eax
+        call MouseRead
+        mov eax, 2
+        mov ebx, dword [MenuViewBottom]
+        mov ecx, dword [MenuViewTop]
+        mov edx, dword [MenuViewRight]
+        mov edi, dword [MenuViewLeft]
+        add esp, byte 8
+        add ebx, ecx
+        add edx, edi
+        sar ebx, 1
+        sar edx, 1
+        xor ecx, ecx
+        call ResetLinkStats
+        mov ebp, dword [MenuViewBottom]
+        push ebp
+        mov eax, dword [MenuViewRight]
+        push eax
+        mov edx, dword [MenuViewTop]
+        push edx
+        mov ebx, dword [MenuViewLeft]
+        push ebx
+        call SetViewRect
+        add esp, byte 10h
+        mov ecx, 1
+        mov eax, dword [MenuMouseMode]
+        mov dword [MenuViewCallback], esi
+        mov dword [MenuSavedMouseMode], eax
+        mov eax, 1
+        mov dword [MenuMouseMode], ecx
+        mov word [MenuViewSaved], ax
+.1:
+        add esp, byte 10h
+        pop ebp
+        pop edi
+        pop esi
+        ret 4
+        db 08Bh,0C0h
+;-----------------------------------------------------------------------------
+; RestoreMenuView                                 8D910  97 PC, low confidence
+; Restores the menu view
+;-----------------------------------------------------------------------------
+RestoreMenuView:
+        push ebx
+        push ecx
+        push edx
+        cmp word [MenuViewSaved], byte 0
+        je short .1
+        mov eax, dword [MenuSavedMouseMode]
+        mov dword [MenuMouseMode], eax
+        mov eax, dword [ViewScreenHeight]
+        dec eax
+        push eax
+        mov eax, dword [ViewScreenWidth]
+        dec eax
+        push eax
+        push byte 0
+        push byte 0
+        xor ebx, ebx
+        call SetViewRect
+        add esp, byte 10h
+        xor edx, edx
+        mov word [MenuViewSaved], bx
+        mov dword [MenuViewCallback], edx
+.1:
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; InitScrollList                                  8D956  97 PC, low confidence
+; Sets up a scrolling list
+;-----------------------------------------------------------------------------
+InitScrollList:
+        push esi
+        push edi
+        enter 10h, 0
+        mov edi, dword [byte ebp+014h]
+        mov esi, eax
+        mov dword [byte ebp-08h], edx
+        mov dword [byte ebp-04h], ecx
+        mov dword [eax], 1
+        mov eax, dword [byte ebp+018h]
+        mov dword [byte esi+04h], eax
+        add eax, byte 0Eh
+        push byte 20h
+        mov dword [byte esi+0Ch], eax
+        mov eax, dword [byte ebp+01Ch]
+        push dword [byte ebp+020h]
+        mov dword [byte esi+08h], eax
+        add eax, dword [byte ebp+020h]
+        push byte 0Fh
+        mov dword [byte esi+010h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 20h
+        push dword [byte ebp+020h]
+        push byte 0Fh
+        mov dword [byte esi+014h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push str_PNS
+        mov dword [byte esi+018h], eax
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword [byte esi+018h]
+        mov dword [dword esi+0F4h], eax
+        call SetDrawTarget
+        add esp, byte 4
+        test edi, edi
+        jne short .1
+        call SetScreenTarget
+        push dword [byte ebp+01Ch]
+        mov eax, dword [byte esi+018h]
+        push dword [byte ebp+018h]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        push dword [byte esi+018h]
+        call SetDrawTarget
+        add esp, byte 4
+        jmp short .2
+.1:
+        movsx eax, word [byte edi+0Eh]
+        sub eax, dword [byte ebp+01Ch]
+        push eax
+        movsx eax, word [byte edi+0Ch]
+        sub eax, dword [byte ebp+018h]
+        push eax
+        push edi
+        call BlitArt
+        add esp, byte 0Ch
+.2:
+        push byte 0
+        push byte 0
+        push str_SLUP
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        mov edi, dword [byte ebp+020h]
+        call DrawArt
+        add esp, byte 0Ch
+        sub edi, byte 15h
+        push edi
+        push byte 0
+        push str_SLDN
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push dword 0FF505050h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push edi
+        push byte 7
+        push byte 15h
+        push byte 7
+        call FillRectColor
+        mov eax, ebx
+        sub eax, dword [byte ebp-04h]
+        mov dword [byte ebp-010h], eax
+        mov eax, dword [byte ebp+020h]
+        sub eax, byte 3Eh
+        mov dword [byte ebp-0Ch], eax
+        fild dword [byte ebp-010h]
+        fild dword [byte ebp-0Ch]
+        fdivrp
+        fldz
+        add esp, byte 14h
+        fxch
+        fstp dword [byte esi+01Ch]
+        fcomp dword [byte esi+01Ch]
+        fnstsw ax
+        sahf
+        jbe short .3
+        mov dword [byte esi+01Ch], 0
+.3:
+        cmp dword [byte ebp+010h], byte 0
+        je short .4
+        fild dword [byte ebp-04h]
+        fmul dword [byte esi+01Ch]
+        jmp short .5
+.4:
+        fld dword [byte esi+01Ch]
+.5:
+        fmul dword [F32_0p5_InitScrollList]
+        fld1
+        faddp
+        fstp dword [byte esi+020h]
+        cmp ebx, dword [byte ebp-04h]
+        jne short .6
+        mov dword [byte esi+01Ch], 0
+        mov eax, dword [byte esi+01Ch]
+        mov dword [byte esi+020h], eax
+.6:
+        mov dword [byte esi+024h], 0
+        mov eax, dword [byte ebp-04h]
+        mov dword [byte esi+028h], ebx
+        mov edi, dword [byte ebp+018h]
+        mov dword [byte esi+02Ch], eax
+        mov eax, dword [byte ebp-08h]
+        add edi, dword [byte ebp+024h]
+        mov dword [byte esi+030h], eax
+        call SetScreenTarget
+        mov eax, dword [byte ebp+01Ch]
+        push byte 1Fh
+        add eax, dword [byte ebp+028h]
+        mov ecx, 0Fh
+        mov dword [byte ebp-0Ch], eax
+        mov edx, edi
+        mov ebx, dword [byte ebp-0Ch]
+        lea eax, [byte esi+034h]
+        call SetRegionRect
+        mov eax, dword [byte ebp+020h]
+        mov ebx, dword [byte ebp-0Ch]
+        mov ecx, 0Fh
+        sub eax, byte 3Eh
+        mov edx, edi
+        push eax
+        add ebx, byte 1Fh
+        lea eax, [byte esi+074h]
+        call SetRegionRect
+        push byte 1Fh
+        mov ebx, dword [byte ebp-0Ch]
+        mov ecx, 0Fh
+        lea eax, [dword esi+0B4h]
+        add ebx, dword [byte ebp+020h]
+        mov edx, edi
+        sub ebx, byte 1Fh
+        call SetRegionRect
+        call PresentScreen
+        xor eax, eax
+.7:
+        imul edi, eax, byte 52h
+        mov ebx, dword [byte esi+030h]
+        mov dword [byte edi+ebx+010h], 4
+        mov ebx, eax
+        lea edx, [byte esi+034h]
+        shl ebx, 6
+        add edx, ebx
+        mov ebx, dword [byte esi+030h]
+        inc eax
+        mov dword [byte edi+ebx+014h], edx
+        cmp eax, byte 3
+        jl short .7
+InitScrollList_223:
+        mov eax, dword [byte esi+030h]
+        and byte [byte eax+032h], 0FEh
+        mov eax, dword [byte esi+030h]
+        or byte [dword eax+084h], 1
+        mov eax, dword [byte esi+030h]
+        and byte [dword eax+0D6h], 0FEh
+        mov eax, dword [byte ebp+024h]
+        mov dword [dword esi+0F8h], eax
+        mov eax, dword [byte ebp+028h]
+        mov dword [dword esi+0FCh], eax
+        leave
+        pop edi
+        pop esi
+        ret 1Ch
+;-----------------------------------------------------------------------------
+; InitScrollTable                                 8DBAC  97 PC, low confidence
+; Sets up a scrolling table
+;-----------------------------------------------------------------------------
+InitScrollTable:
+        push esi
+        push edi
+        enter 10h, 0
+        mov edi, dword [byte ebp+014h]
+        mov esi, eax
+        mov dword [byte ebp-08h], edx
+        mov dword [byte ebp-04h], ecx
+        mov dword [eax], 0
+        mov eax, dword [byte ebp+018h]
+        mov dword [byte esi+04h], eax
+        add eax, dword [byte ebp+020h]
+        push byte 20h
+        mov dword [byte esi+0Ch], eax
+        mov eax, dword [byte ebp+01Ch]
+        push byte 0Fh
+        mov dword [byte esi+08h], eax
+        add eax, byte 0Eh
+        push dword [byte ebp+020h]
+        mov dword [byte esi+010h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 20h
+        push byte 0Fh
+        push dword [byte ebp+020h]
+        mov dword [byte esi+014h], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push str_PWE
+        mov dword [byte esi+018h], eax
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword [byte esi+018h]
+        mov dword [dword esi+0F4h], eax
+        call SetDrawTarget
+        movsx eax, word [byte edi+0Eh]
+        add esp, byte 4
+        sub eax, dword [byte ebp+01Ch]
+        push eax
+        movsx eax, word [byte edi+0Ch]
+        sub eax, dword [byte ebp+018h]
+        push eax
+        push edi
+        call BlitArt
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0
+        push str_SLLT
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        mov edi, dword [byte ebp+020h]
+        push byte 0
+        sub edi, byte 15h
+        push edi
+        push str_SLRT
+        push dword [FrontShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+        push dword 0FF505050h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        push byte 7
+        push edi
+        push byte 7
+        push byte 15h
+        call FillRectColor
+        mov eax, ebx
+        sub eax, dword [byte ebp-04h]
+        mov dword [byte ebp-010h], eax
+        mov eax, dword [byte ebp+020h]
+        sub eax, byte 3Eh
+        mov dword [byte ebp-0Ch], eax
+        fild dword [byte ebp-010h]
+        fild dword [byte ebp-0Ch]
+        fdivrp
+        fldz
+        add esp, byte 14h
+        fxch
+        fstp dword [byte esi+01Ch]
+        fcomp dword [byte esi+01Ch]
+        fnstsw ax
+        sahf
+        jbe short .1
+        mov dword [byte esi+01Ch], 0
+.1:
+        cmp dword [byte ebp+010h], byte 0
+        je short .2
+        fild dword [byte ebp-04h]
+        fmul dword [byte esi+01Ch]
+        jmp short .3
+.2:
+        fld dword [byte esi+01Ch]
+.3:
+        fmul dword [F32_0p5_InitScrollTable]
+        fld1
+        faddp
+        fstp dword [byte esi+020h]
+        cmp ebx, dword [byte ebp-04h]
+        jne short .4
+        mov dword [byte esi+01Ch], 0
+        mov eax, dword [byte esi+01Ch]
+        mov dword [byte esi+020h], eax
+.4:
+        mov dword [byte esi+024h], 0
+        mov eax, dword [byte ebp-04h]
+        mov dword [byte esi+028h], ebx
+        mov edi, dword [byte ebp+01Ch]
+        mov dword [byte esi+02Ch], eax
+        mov eax, dword [byte ebp-08h]
+        add edi, dword [byte ebp+028h]
+        mov dword [byte esi+030h], eax
+        call SetScreenTarget
+        mov eax, dword [byte ebp+018h]
+        mov ebx, edi
+        add eax, dword [byte ebp+024h]
+        push byte 15h
+        mov dword [byte ebp-0Ch], eax
+        mov ecx, 0Fh
+        mov edx, dword [byte ebp-0Ch]
+        lea eax, [byte esi+034h]
+        call SetRegionRect
+        push byte 0Fh
+        mov ecx, dword [byte ebp+020h]
+        mov edx, dword [byte ebp-0Ch]
+        lea eax, [byte esi+074h]
+        mov ebx, edi
+        sub ecx, byte 3Eh
+        add edx, byte 1Fh
+        call SetRegionRect
+        push byte 15h
+        mov edx, dword [byte ebp-0Ch]
+        mov ecx, 0Fh
+        lea eax, [dword esi+0B4h]
+        add edx, dword [byte ebp+020h]
+        mov ebx, edi
+        sub edx, byte 15h
+        call SetRegionRect
+        call PresentScreen
+        xor eax, eax
+.5:
+        imul edx, eax, byte 52h
+        mov ebx, dword [byte esi+030h]
+        mov dword [byte edx+ebx+010h], 4
+        mov ebx, eax
+        lea ecx, [byte esi+034h]
+        shl ebx, 6
+        add ecx, ebx
+        mov ebx, dword [byte esi+030h]
+        inc eax
+        mov dword [byte edx+ebx+014h], ecx
+        cmp eax, byte 3
+        jl short .5
+        jmp near InitScrollList_223
+InitScrollTable_1F5:
+        push byte 0
+        mov eax, dword [byte ebx+018h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitClippedY
+        fild dword [byte ebx+024h]
+        fmul dword [byte ebx+01Ch]
+        add esp, byte 0Ch
+        fadd dword [F32_14_InitScrollTable]
+        push byte 2
+        call __CHP
+        fistp dword [byte ebp-04h]
+        push dword [byte ebp-04h]
+InitScrollTable_220:
+        push dword [dword ebx+0F4h]
+        call DrawArt
+        add esp, byte 0Ch
+        test esi, esi
+        jne short .6
+        call SetScreenTarget
+        jmp short .7
+.6:
+        push esi
+        call SetDrawTarget
+        add esp, byte 4
+.7:
+        push dword [byte ebx+08h]
+        push dword [byte ebx+04h]
+        mov ebx, dword [byte ebx+014h]
+        push dword [byte ebx+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        test esi, esi
+        jne short .8
+        call PresentScreen
+.8:
+        leave
+        pop esi
+        pop ecx
+        pop ebx
+;-----------------------------------------------------------------------------
+; NoOpReturn                                      8DE0F  97 PC, low confidence
+; Returns at once
+;-----------------------------------------------------------------------------
+NoOpReturn:
+        ret
+;-----------------------------------------------------------------------------
+; ScrollUp                                        8DE10  97 PC, low confidence
+; Scrolls a list up one line
+;-----------------------------------------------------------------------------
+ScrollUp:
+        cmp dword [byte eax+024h], byte 0
+        jle short NoOpReturn
+        dec dword [byte eax+024h]
+;-----------------------------------------------------------------------------
+; DrawScrollBar                                8DE19  96 PC, medium confidence
+; Draws the scroll bar and its thumb at the position
+;-----------------------------------------------------------------------------
+DrawScrollBar:
+        push ebx
+        push ecx
+        push esi
+        enter 4, 0
+        mov ebx, eax
+        mov esi, edx
+        push dword [byte eax+014h]
+        call SetDrawTarget
+        add esp, byte 4
+        cmp dword [ebx], byte 1
+        jne near InitScrollTable_1F5
+        push byte 0
+        mov eax, dword [byte ebx+018h]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitClippedY
+        fild dword [byte ebx+024h]
+        fmul dword [byte ebx+01Ch]
+        fadd dword [F32_14_InitScrollTable]
+        add esp, byte 0Ch
+        call __CHP
+        fistp dword [byte ebp-04h]
+        push dword [byte ebp-04h]
+        push byte 2
+        jmp near InitScrollTable_220
+;-----------------------------------------------------------------------------
+; ScrollDown                                      8DE68  97 PC, low confidence
+; Scrolls a list down one line
+;-----------------------------------------------------------------------------
+ScrollDown:
+        push ebx
+        mov ebx, dword [byte eax+028h]
+        sub ebx, dword [byte eax+02Ch]
+        cmp ebx, dword [byte eax+024h]
+        jle short .1
+        inc dword [byte eax+024h]
+        call DrawScrollBar
+.1:
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; FreeScrollList                                  8DE7E  97 PC, low confidence
+; Frees a scrolling list
+;-----------------------------------------------------------------------------
+FreeScrollList:
+        push ebx
+        push ecx
+        push edx
+        mov ebx, eax
+        push dword [byte eax+014h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebx+018h]
+        call FreeBitmap
+        add esp, byte 4
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; SetScrollBarPos                                 8DE9D  96 PC, low confidence
+; (bar, pos): sets the position, then DrawScrollBar
+;-----------------------------------------------------------------------------
+SetScrollBarPos:
+        push ecx
+        mov ecx, edx
+        mov edx, ebx
+        mov dword [byte eax+024h], ecx
+        call DrawScrollBar
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; ScrollToMouse                                   8DEAC  97 PC, low confidence
+; Scrolls a list to the mouse position
+;-----------------------------------------------------------------------------
+ScrollToMouse:
+        push ecx
+        push esi
+        enter 0Ch, 0
+        mov ecx, eax
+        mov esi, edx
+        mov eax, ebx
+        lea ebx, [byte ebp-0Ch]
+        lea edx, [byte ebp-08h]
+        call ScrollPosToValue
+        mov eax, dword [byte ecx+028h]
+        cmp eax, dword [byte ecx+02Ch]
+        jle short .3
+        cmp dword [ecx], byte 1
+        jne short .1
+        mov eax, dword [byte ebp-0Ch]
+        sub eax, dword [dword ecx+0FCh]
+        sub eax, byte 1Fh
+        sub eax, dword [byte ecx+08h]
+        jmp short .2
+.1:
+        mov eax, dword [byte ebp-08h]
+        sub eax, dword [dword ecx+0F8h]
+        sub eax, byte 19h
+        sub eax, dword [byte ecx+04h]
+.2:
+        mov dword [byte ebp-04h], eax
+        fild dword [byte ebp-04h]
+        fld dword [byte ecx+01Ch]
+        fmul dword [F32_0p5_ScrollToMouse]
+        faddp
+        fdiv dword [byte ecx+01Ch]
+        call __CHP
+        fistp dword [byte ebp-04h]
+        mov eax, dword [byte ebp-04h]
+        mov edx, esi
+        mov dword [byte ecx+024h], eax
+        mov eax, ecx
+        call DrawScrollBar
+.3:
+        leave
+        pop esi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; RunScrollList                                   8DF1F  97 PC, low confidence
+; Runs a scrolling list
+;-----------------------------------------------------------------------------
+RunScrollList:
+        push esi
+        push edi
+        enter 0F64h, 0
+        push eax
+        mov esi, edx
+        mov dword [byte ebp-08h], ebx
+        mov dword [byte ebp-0Ch], ecx
+        mov eax, dword [byte ebp+010h]
+        mov dword [byte ebp-020h], 270Fh
+        mov eax, dword [eax]
+        movsx edx, word [byte eax+06h]
+        imul edx, esi
+        push byte 0
+        push edx
+        movsx edx, word [byte eax+04h]
+        mov eax, dword [byte ebp+01Ch]
+        add edx, ebx
+        add eax, byte 0Fh
+        cmp eax, edx
+        jg short .1
+        mov eax, edx
+.1:
+        mov edx, dword [byte ebp+01Ch]
+        cmp edx, dword [byte ebp-08h]
+        jl short .2
+        mov edx, dword [byte ebp-08h]
+.2:
+        sub eax, edx
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp-010h], eax
+        call SetScreenTarget
+        mov eax, dword [byte ebp+01Ch]
+        push dword [byte ebp-0Ch]
+        cmp eax, dword [byte ebp-08h]
+        jl short .3
+        mov eax, dword [byte ebp-08h]
+.3:
+        push eax
+        mov eax, dword [byte ebp-010h]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        lea edx, [dword ebp-0F64h]
+        lea eax, [byte esi+04h]
+        mov dword [byte ebp-04h], 0
+        call InitMenuItems
+        jmp near .5
+.4:
+        mov eax, dword [byte ebp-04h]
+        inc eax
+        mov dword [byte ebp-01Ch], eax
+        imul edi, eax, byte 52h
+        mov eax, dword [byte ebp-04h]
+        shl eax, 6
+        lea edx, [dword ebp-0760h]
+        add eax, byte 40h
+        add edx, eax
+        mov eax, dword [byte ebp-04h]
+        mov dword [byte ebp-018h], edx
+        mov dword [dword edi+ebp-0F50h], edx
+        mov edx, dword [byte ebp+010h]
+        shl eax, 2
+        add edx, eax
+        mov dword [dword edi+ebp-0F54h], 4
+        mov dword [byte ebp-014h], edx
+        mov edx, dword [edx]
+        add eax, dword [byte ebp+014h]
+        mov dword [dword edi+ebp-0F4Ah], edx
+        mov eax, dword [eax]
+        mov dword [dword edi+ebp-0F46h], eax
+        mov eax, dword [byte ebp-014h]
+        mov eax, dword [eax]
+        movsx edx, word [byte eax+06h]
+        push edx
+        imul edx, dword [byte ebp-04h]
+        mov ebx, dword [byte ebp-0Ch]
+        movsx ecx, word [byte eax+04h]
+        mov eax, dword [byte ebp-018h]
+        add ebx, edx
+        mov edx, dword [byte ebp-08h]
+        call SetRegionRect
+        mov eax, dword [byte ebp-08h]
+        mov dword [dword edi+ebp-0F3Eh], eax
+        mov eax, dword [byte ebp-014h]
+        mov eax, dword [eax]
+        movsx eax, word [byte eax+06h]
+        imul eax, dword [byte ebp-04h]
+        add eax, dword [byte ebp-0Ch]
+        mov dword [dword edi+ebp-0F3Ah], eax
+        mov eax, dword [byte ebp-01Ch]
+        mov dword [byte ebp-04h], eax
+.5:
+        cmp esi, dword [byte ebp-04h]
+        jg near .4
+        mov dword [dword ebp-0F54h], 4
+        lea eax, [dword ebp-0760h]
+        push dword 1E0h
+        mov ecx, 280h
+        xor ebx, ebx
+        xor edx, edx
+        mov dword [dword ebp-0F50h], eax
+        call SetRegionRect
+        mov eax, dword [byte ebp+010h]
+        mov eax, dword [eax]
+        movsx eax, word [byte eax+06h]
+        imul eax, esi
+        lea edx, [byte esi+01h]
+        imul edx, byte 52h
+        push byte 0
+        push byte 0
+        push eax
+        push dword [byte ebp+020h]
+        mov ebx, dword [dword ebp-0F68h]
+        push dword [byte ebp+01Ch]
+        lea eax, [dword ebp-0F64h]
+        push dword [byte ebp+018h]
+        mov ecx, esi
+        push byte 0
+        add edx, eax
+        lea eax, [dword ebp-0120h]
+        call InitScrollList
+        cmp esi, dword [dword ebp-0F68h]
+        je short .6
+        lea eax, [dword ebp-0120h]
+        xor edx, edx
+        call DrawScrollBar
+.6:
+        mov eax, dword [byte ebp+010h]
+        mov eax, dword [eax]
+        movsx edx, word [byte eax+06h]
+        imul edx, esi
+        push byte 0
+        push edx
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov ebx, eax
+        mov edi, eax
+        call SetScreenTarget
+        push dword [byte ebp-0Ch]
+        push dword [byte ebp-08h]
+        push dword [byte ebx+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        lea eax, [byte esi-01h]
+        mov dword [byte ebp-04h], eax
+        jmp short .10
+.7:
+        push edi
+        call SetDrawTarget
+        mov eax, dword [byte ebp+010h]
+        mov eax, dword [eax]
+        movsx eax, word [byte eax+06h]
+        imul eax, dword [byte ebp-04h]
+        add esp, byte 4
+        push eax
+        mov eax, dword [byte ebp-04h]
+        shl eax, 2
+        push byte 0
+        add eax, dword [byte ebp+010h]
+        push dword [eax]
+        call BlitArt
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push dword [byte ebp-0Ch]
+        push dword [byte ebp-08h]
+        push dword [byte edi+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        mov eax, 30Ah
+        call PlaySfx
+        mov eax, dword [tickcount]
+        mov ebx, eax
+        lea edx, [byte ebx+05h]
+.8:
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jge short .9
+        call ServiceIdle
+        jmp short .8
+.9:
+        dec dword [byte ebp-04h]
+.10:
+        cmp dword [byte ebp-04h], byte 0
+        jge short .7
+.11:
+        cmp esi, dword [byte ebp-020h]
+        jge near .20
+        cmp esi, dword [dword ebp-0F68h]
+        jne short .12
+        push byte 3
+        lea eax, [byte ebp-020h]
+        mov ebx, 0FFFFFFFFh
+        lea edx, [dword ebp-0F64h]
+        push eax
+        xor ecx, ecx
+        lea eax, [byte esi+01h]
+        jmp short .13
+.12:
+        push byte 3
+        lea eax, [byte ebp-020h]
+        mov ebx, 0FFFFFFFFh
+        lea edx, [dword ebp-0F64h]
+        push eax
+        xor ecx, ecx
+        lea eax, [byte esi+04h]
+.13:
+        call RunMenu
+        lea edx, [byte esi+01h]
+        cmp edx, dword [byte ebp-020h]
+        jne short .14
+        cmp dword [dword ebp-0FCh], byte 0
+        jle short .17
+        lea eax, [dword ebp-0120h]
+        xor edx, edx
+        dec dword [dword ebp-0FCh]
+        jmp short .16
+.14:
+        lea edx, [byte esi+02h]
+        cmp edx, dword [byte ebp-020h]
+        jne short .15
+        mov ebx, eax
+        xor edx, edx
+        lea eax, [dword ebp-0120h]
+        call ScrollToMouse
+        jmp short .17
+.15:
+        lea eax, [byte esi+03h]
+        cmp eax, dword [byte ebp-020h]
+        jne short .17
+        mov eax, dword [dword ebp-0F8h]
+        sub eax, dword [dword ebp-0F4h]
+        cmp eax, dword [dword ebp-0FCh]
+        jle short .17
+        lea eax, [dword ebp-0120h]
+        xor edx, edx
+        inc dword [dword ebp-0FCh]
+.16:
+        call DrawScrollBar
+.17:
+        mov dword [byte ebp-04h], 0
+        jmp short .19
+.18:
+        mov eax, dword [byte ebp-04h]
+        inc eax
+        mov dword [byte ebp-014h], eax
+        imul eax, byte 52h
+        mov edx, dword [byte ebp-04h]
+        mov ebx, dword [byte ebp+010h]
+        add edx, dword [dword ebp-0FCh]
+        mov ebx, dword [ebx+edx*4]
+        mov dword [dword eax+ebp-0F4Ah], ebx
+        mov ebx, dword [byte ebp+014h]
+        mov edx, dword [ebx+edx*4]
+        mov dword [dword eax+ebp-0F46h], edx
+        mov eax, dword [byte ebp-014h]
+        mov dword [byte ebp-04h], eax
+.19:
+        cmp esi, dword [byte ebp-04h]
+        jg short .18
+        jmp near .11
+.20:
+        call SetScreenTarget
+        mov eax, dword [byte ebp-08h]
+        push dword [byte ebp-0Ch]
+        cmp eax, dword [byte ebp+01Ch]
+        jl short .21
+        mov eax, dword [byte ebp+01Ch]
+.21:
+        push eax
+        mov eax, dword [byte ebp-010h]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        push dword [byte ebp-010h]
+        call FreeBitmap
+        add esp, byte 4
+        push edi
+        call FreeBitmap
+        add esp, byte 4
+        push dword [dword ebp-010Ch]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [dword ebp-0108h]
+        call FreeBitmap
+        add esp, byte 4
+        cmp dword [byte ebp-020h], byte 0
+        jne short .22
+        mov eax, 0FFFFFFFFh
+        jmp short .23
+.22:
+        mov eax, dword [byte ebp-020h]
+        dec eax
+        add eax, dword [dword ebp-0FCh]
+.23:
+        leave
+        pop edi
+        pop esi
+        ret 14h
+;-----------------------------------------------------------------------------
+; RunScrollMenu                                   8E2EE  97 PC, low confidence
+; Runs a scrolling menu
+;-----------------------------------------------------------------------------
+RunScrollMenu:
+        push esi
+        push edi
+        enter 0F68h, 0
+        push eax
+        mov esi, edx
+        mov dword [byte ebp-04h], ebx
+        mov dword [byte ebp-08h], ecx
+        mov eax, dword [byte ebp+010h]
+        mov dword [byte ebp-024h], 270Fh
+        mov eax, dword [eax]
+        movsx edx, word [byte eax+06h]
+        imul edx, esi
+        push byte 0
+        push edx
+        movsx edx, word [byte eax+04h]
+        mov eax, dword [byte ebp+01Ch]
+        add edx, ebx
+        add eax, byte 0Eh
+        cmp eax, edx
+        jg short .1
+        mov eax, edx
+.1:
+        mov edx, dword [byte ebp+01Ch]
+        cmp edx, dword [byte ebp-04h]
+        jl short .2
+        mov edx, dword [byte ebp-04h]
+.2:
+        sub eax, edx
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp-010h], eax
+        call SetScreenTarget
+        mov eax, dword [byte ebp+01Ch]
+        push dword [byte ebp-08h]
+        cmp eax, dword [byte ebp-04h]
+        jl short .3
+        mov eax, dword [byte ebp-04h]
+.3:
+        push eax
+        mov eax, dword [byte ebp-010h]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        lea edx, [dword ebp-0F68h]
+        lea eax, [byte esi+04h]
+        xor edi, edi
+        call InitMenuItems
+        jmp near .5
+.4:
+        lea eax, [byte edi+01h]
+        mov dword [byte ebp-020h], eax
+        imul eax, byte 52h
+        mov dword [byte ebp-01Ch], eax
+        mov dword [dword eax+ebp-0F58h], 4
+        mov eax, edi
+        shl eax, 6
+        lea edx, [dword ebp-0764h]
+        add eax, byte 40h
+        add edx, eax
+        mov dword [byte ebp-018h], edx
+        mov eax, edx
+        mov edx, dword [byte ebp-01Ch]
+        mov dword [dword edx+ebp-0F54h], eax
+        mov eax, edi
+        mov edx, dword [byte ebp+010h]
+        shl eax, 2
+        add edx, eax
+        mov ebx, dword [byte ebp-01Ch]
+        mov dword [byte ebp-014h], edx
+        mov edx, dword [edx]
+        add eax, dword [byte ebp+014h]
+        mov dword [dword ebx+ebp-0F4Eh], edx
+        mov eax, dword [eax]
+        mov dword [dword ebx+ebp-0F4Ah], eax
+        mov eax, dword [byte ebp-014h]
+        mov eax, dword [eax]
+        movsx edx, word [byte eax+06h]
+        push edx
+        imul edx, edi
+        mov ebx, dword [byte ebp-08h]
+        movsx ecx, word [byte eax+04h]
+        mov eax, dword [byte ebp-018h]
+        add ebx, edx
+        mov edx, dword [byte ebp-04h]
+        call SetRegionRect
+        mov edx, dword [byte ebp-01Ch]
+        mov eax, dword [byte ebp-04h]
+        mov dword [dword edx+ebp-0F42h], eax
+        mov eax, dword [byte ebp-014h]
+        mov eax, dword [eax]
+        movsx eax, word [byte eax+06h]
+        imul eax, edi
+        add eax, dword [byte ebp-08h]
+        mov edi, dword [byte ebp-020h]
+        mov dword [dword edx+ebp-0F3Eh], eax
+.5:
+        cmp edi, esi
+        jl near .4
+        mov dword [dword ebp-0F58h], 4
+        lea eax, [dword ebp-0764h]
+        push dword 1E0h
+        mov ecx, 280h
+        xor ebx, ebx
+        xor edx, edx
+        mov dword [dword ebp-0F54h], eax
+        call SetRegionRect
+        mov eax, dword [byte ebp+010h]
+        mov eax, dword [eax]
+        movsx eax, word [byte eax+06h]
+        imul eax, esi
+        push byte 0
+        push byte 0
+        push eax
+        lea eax, [byte esi+01h]
+        imul eax, byte 52h
+        push dword [byte ebp+020h]
+        lea edx, [dword ebp-0F68h]
+        push dword [byte ebp+01Ch]
+        mov ebx, dword [dword ebp-0F6Ch]
+        push dword [byte ebp+018h]
+        mov ecx, esi
+        push byte 0
+        add edx, eax
+        lea eax, [dword ebp-0124h]
+        call InitScrollList
+        cmp esi, dword [dword ebp-0F6Ch]
+        je short .6
+        lea eax, [dword ebp-0124h]
+        xor edx, edx
+        call DrawScrollBar
+.6:
+        mov eax, dword [byte ebp+010h]
+        mov eax, dword [eax]
+        movsx edx, word [byte eax+06h]
+        imul edx, esi
+        push byte 0
+        push edx
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov edi, eax
+        mov dword [byte ebp-0Ch], eax
+        call SetScreenTarget
+        push dword [byte ebp-08h]
+        push dword [byte ebp-04h]
+        push dword [byte edi+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+        lea edi, [byte esi-01h]
+        jmp short .10
+.7:
+        push dword [byte ebp-0Ch]
+        call SetDrawTarget
+        mov eax, dword [byte ebp+010h]
+        mov eax, dword [eax]
+        movsx eax, word [byte eax+06h]
+        imul eax, edi
+        add esp, byte 4
+        push eax
+        mov eax, edi
+        shl eax, 2
+        push byte 0
+        add eax, dword [byte ebp+010h]
+        push dword [eax]
+        call BlitArt
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push dword [byte ebp-08h]
+        mov eax, dword [byte ebp-0Ch]
+        push dword [byte ebp-04h]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        mov eax, 30Ah
+        call PlaySfx
+        mov eax, dword [tickcount]
+        mov ebx, eax
+        lea edx, [byte ebx+05h]
+.8:
+        mov eax, dword [tickcount]
+        cmp eax, edx
+        jge short .9
+        call ServiceIdle
+        jmp short .8
+.9:
+        dec edi
+.10:
+        test edi, edi
+        jge short .7
+.11:
+        cmp esi, dword [byte ebp-024h]
+        jge near .20
+        cmp esi, dword [dword ebp-0F6Ch]
+        jne short .12
+        push byte 3
+        lea eax, [byte ebp-024h]
+        mov ecx, dword [byte ebp+024h]
+        mov ebx, 0FFFFFFFFh
+        push eax
+        lea edx, [dword ebp-0F68h]
+        lea eax, [byte esi+01h]
+        jmp short .13
+.12:
+        push byte 3
+        lea eax, [byte ebp-024h]
+        mov ecx, dword [byte ebp+024h]
+        mov ebx, 0FFFFFFFFh
+        push eax
+        lea edx, [dword ebp-0F68h]
+        lea eax, [byte esi+04h]
+.13:
+        call RunMenu
+        lea edx, [byte esi+01h]
+        cmp edx, dword [byte ebp-024h]
+        jne short .14
+        cmp dword [dword ebp-0100h], byte 0
+        jle short .17
+        lea eax, [dword ebp-0124h]
+        xor edx, edx
+        dec dword [dword ebp-0100h]
+        jmp short .16
+.14:
+        lea edx, [byte esi+02h]
+        cmp edx, dword [byte ebp-024h]
+        jne short .15
+        mov ebx, eax
+        xor edx, edx
+        lea eax, [dword ebp-0124h]
+        call ScrollToMouse
+        jmp short .17
+.15:
+        lea eax, [byte esi+03h]
+        cmp eax, dword [byte ebp-024h]
+        jne short .17
+        mov eax, dword [dword ebp-0FCh]
+        sub eax, dword [dword ebp-0F8h]
+        cmp eax, dword [dword ebp-0100h]
+        jle short .17
+        lea eax, [dword ebp-0124h]
+        xor edx, edx
+        inc dword [dword ebp-0100h]
+.16:
+        call DrawScrollBar
+.17:
+        xor edi, edi
+        jmp short .19
+.18:
+        mov ecx, dword [dword ebp-0100h]
+        add ecx, edi
+        lea edx, [byte edi+01h]
+        imul edi, edx, byte 52h
+        mov eax, dword [byte ebp+010h]
+        mov eax, dword [eax+ecx*4]
+        mov dword [dword edi+ebp-0F4Eh], eax
+        mov eax, dword [byte ebp+014h]
+        mov eax, dword [eax+ecx*4]
+        mov dword [dword edi+ebp-0F4Ah], eax
+        mov edi, edx
+.19:
+        cmp edi, esi
+        jl short .18
+        jmp near .11
+.20:
+        call SetScreenTarget
+        mov eax, dword [byte ebp-04h]
+        push dword [byte ebp-08h]
+        cmp eax, dword [byte ebp+01Ch]
+        jl short .21
+        mov eax, dword [byte ebp+01Ch]
+.21:
+        push eax
+        mov eax, dword [byte ebp-010h]
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        push dword [byte ebp-010h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp-0Ch]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [dword ebp-0110h]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [dword ebp-010Ch]
+        call FreeBitmap
+        add esp, byte 4
+        cmp dword [byte ebp-024h], byte 0
+        jne short .22
+        mov eax, 0FFFFFFFFh
+        jmp short .23
+.22:
+        mov eax, dword [byte ebp-024h]
+        dec eax
+        add eax, dword [dword ebp-0100h]
+.23:
+        leave
+        pop edi
+        pop esi
+        ret 18h
+;-----------------------------------------------------------------------------
+; SetListSelection                                8E6AF  97 PC, low confidence
+; Sets the selection of a list
+;-----------------------------------------------------------------------------
+SetListSelection:
+        push ebx
+        enter 8, 0
+        mov ebx, eax
+        mov dword [byte eax+028h], edx
+        cmp dword [eax], byte 1
+        jne short .1
+        mov eax, dword [byte eax+010h]
+        sub eax, dword [byte ebx+08h]
+        sub eax, byte 3Eh
+        mov dword [byte ebp-04h], eax
+        mov eax, dword [byte ebx+028h]
+        sub eax, dword [byte ebx+02Ch]
+        mov dword [byte ebp-08h], eax
+        fild dword [byte ebp-04h]
+        fild dword [byte ebp-08h]
+        jmp short .2
+.1:
+        mov eax, dword [byte eax+0Ch]
+        sub eax, dword [byte ebx+04h]
+        sub eax, byte 3Eh
+        mov dword [byte ebp-08h], eax
+        mov eax, dword [byte ebx+028h]
+        sub eax, dword [byte ebx+02Ch]
+        mov dword [byte ebp-04h], eax
+        fild dword [byte ebp-08h]
+        fild dword [byte ebp-04h]
+.2:
+        fdivp
+        fstp dword [byte ebx+01Ch]
+        fldz
+        fcomp dword [byte ebx+01Ch]
+        fnstsw ax
+        sahf
+        jbe short .3
+        mov dword [byte ebx+01Ch], 0
+.3:
+        fild dword [byte ebx+02Ch]
+        fmul dword [byte ebx+01Ch]
+        fmul dword [F32_0p5_SetListSelection]
+        fld1
+        faddp
+        mov eax, dword [byte ebx+028h]
+        fstp dword [byte ebx+020h]
+        cmp eax, dword [byte ebx+02Ch]
+        jne short .4
+        mov dword [byte ebx+01Ch], 0
+        mov eax, dword [byte ebx+01Ch]
+        mov dword [byte ebx+020h], eax
+.4:
+        leave
+        pop ebx
+        ret

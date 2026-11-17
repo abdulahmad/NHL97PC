@@ -1,0 +1,1715 @@
+; The main menu and running the game screens.
+bits 32
+%include "hockey.inc"
+section s_845E4 progbits alloc exec nowrite align=1
+extern AllocMemBlock, ArenaFileName, bcopy, BlankMenuItem, BlitArt, BlitShape, BlitShape2, ChkMenuMusic
+extern ClearLinkAbort, ClearScreen, ConvertArtNew, CreateBitmap, CreditsKeyFlag, DosFileInfo, DrawArt, DrawScreenBackground
+extern DrawShapeCore, DrawStatTable, EditLinesScreen, ExitScreen, FadeInScreen, FindSeasonReplay, FindShape, FindShapeList
+extern FinishLeagueGame, FreeBitmap, FreeMemBlock, GameOptionFlags, GameSettings, GameStatsScreen, GetLangText, GlobalSetVersion
+extern IndexEntrySettings, IndexMenuCursor, InitMenuItems, LinkGameActive, LinkMenuCursor, LinkReceiveBlock, LinkScreensDone, LinkSendBlock
+extern LinkSettings, LinkSettingsData, LinkTransferReady, LoadDataFile, MainMenuAnimArt, MainMenuAnimBack, MainMenuAnimCursor, MainMenuAnimDone
+extern MainMenuAnimEnd, MainMenuAnimFrame, MainMenuAnimFrames, MainMenuAnimItems, MainMenuAnimJumpTable, MainMenuAnimLogo, MainMenuAnimMode, MainMenuAnimName
+extern MainMenuAnimPanel, MainMenuAnimRate, MainMenuAnimRunning, MainMenuAnimShape, MainMenuAnimSprites, MainMenuAnimStart, MainMenuAnimStop, MainMenuAnimTick
+extern MainMenuAnimTimer, MainMenuAnimTitle, MainMenuAnimX, MainMenuAnimY, MainMenuButtonRect, MainMenuButtons, MainMenuChoice, MainMenuCursor
+extern MainMenuFirstShow, MainMenuItemMetrics, MainMenuResult, MainMenuScreenArt, MainMenuSelection, MainMenuTextRect, MainMenuWindow, memcpy_
+extern MenuOptionFlags, MenuScreenBitmap, NetDisconnect, OpenArtArchiveErr, OpenDataLibrary, OpenResourceArchive, OptionsMenuChoice, PauseMusic
+extern PickIndexEntryScreen, PlayMenuGame, PlayMenuGameFlag, PlayMenuSfx, PlayoffUserIndex, PlaySfx, PostGameScreen, PreGameMatchupScreen
+extern PreGameRostersScreen, PresentScreen, ProjectModelBounds, rand_, Random32, RequestMusicStop, RosterScreen, RunLinkGameScreens
+extern RunMenu, RunNewPlayoffs, RunNewSeason, RunPlayoffMenus, RunScrollMenu, RunSeasonMenus, ScreenFrameItem, ScreenTitleItem
+extern SeasonDefaultUser, SeasonMenuExit, SecondsToSamples, ServiceIdle, SetDrawTarget, SetRegionRect, SetScreenTarget, ShadeShape
+extern ShowMessageBox, ShowPopupScreen, ShowScreen, sprintf_, StopAllSfx, str_0000, str_BACK3, str_BOTM
+extern str_DATAEXHIBITNDX, str_DATAPLAYOFFNDX, str_DATASEASONNDX, str_DDD2, str_GMT1, str_LB00, str_LB02d, str_LB07
+extern str_LY02d, str_MB00, str_MB01, str_MB01MB02MB03, str_MB02, str_MB04, str_MB05, str_MB05MB06MB07
+extern str_MB06, str_MB08, str_MB09, str_MB09MB10MB11, str_MB10, str_Menu, str_OFF0, str_PIC2CFsh
+extern str_PICDCFsh, str_SL02d, str_TITL2, TeamSelectScreen, TextFonts, tickcount, WaitMusicEnd, WaitSoundTime
+extern WipeScreen, ZeroMem
+global MainMenuAnim, MainMenuAnim_32E, MainMenuAnim_344, MainMenuAnim_35A, MainMenuAnim_370, MainMenuAnim_50B, MainMenuOptionsJumpTable, MainMenuMessageJumpTable
+global MainMenuSelectionJumpTable, MainMenuSettingsJumpTable, MainMenuScreen, MainMenuScreen_911, MainMenuScreen_999, MainMenuScreen_A17, MainMenuScreen_A23, MainMenuScreen_A2F
+global MainMenuScreen_A3B, MainMenuScreen_A68, MainMenuScreen_A79, MainMenuScreen_A82, MainMenuScreen_A94, MainMenuScreen_A9D, MainMenuScreen_AAF, MainMenuScreen_AB8
+global MainMenuScreen_BA5, MainMenuScreen_BBD, MainMenuScreen_BC6, MainMenuScreen_BD5, MainMenuScreen_BDE, MainMenuScreen_BED, MainMenuScreen_BF6, MainMenuScreen_C76
+global MainMenuScreen_CFF, MainMenuScreen_DDB, MainMenuScreen_DF1, RunGameScreens
+;-----------------------------------------------------------------------------
+; MainMenuAnim                                    845E4  97 PC, low confidence
+; Animates the main menu
+;-----------------------------------------------------------------------------
+MainMenuAnim:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        xor edi, edi
+        xor ebx, ebx
+        xor edx, edx
+.1:
+        lea eax, [byte ebx+04h]
+        imul eax, byte 52h
+        mov esi, dword [MainMenuCursor]
+        cmp dword [byte esi+eax+04h], byte 1
+        jne short .2
+        call Random32
+        mov esi, 3
+        xor edx, edx
+        div esi
+        imul eax, ebx, byte 0Ch
+        push dword [dword eax+edx*4+MainMenuButtons]
+        call BlitShape2
+        mov edx, 1
+        add esp, byte 4
+.2:
+        inc ebx
+        cmp ebx, byte 3
+        jl short .1
+        test edx, edx
+        je short .3
+        cmp dword [MainMenuAnimStop], byte 0
+        jne short .3
+        mov eax, 309h
+        call PlaySfx
+        mov dword [MainMenuAnimStop], 1
+.3:
+        test edx, edx
+        jne short .4
+        cmp dword [MainMenuAnimStop], byte 0
+        je short .4
+        mov eax, 309h
+        call PlayMenuSfx
+        mov dword [MainMenuAnimStop], edx
+.4:
+        mov eax, dword [tickcount]
+        sub eax, dword [MainMenuAnimStart]
+        cdq
+        LD sub, eax, edx
+        sar eax, 1
+        mov esi, eax
+        cmp eax, 672h
+        jle near .6
+        push byte 0
+        push dword 0C8h
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword [MainMenuWindow]
+        call BlitShape
+        add esp, byte 4
+        push dword [MainMenuAnimX]
+        call BlitShape
+        mov eax, dword [MainMenuCursor]
+        add esp, byte 4
+        cmp dword [dword eax+0258h], byte 0
+        je short .5
+        push dword [dword eax+0268h]
+        push dword [dword eax+0264h]
+        push dword [dword eax+0258h]
+        call DrawArt
+        add esp, byte 0Ch
+.5:
+        call SetScreenTarget
+        push dword [byte ebx+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push ebx
+        call FreeBitmap
+        add esp, byte 4
+        mov eax, dword [tickcount]
+        mov dword [MainMenuAnimRunning], 0
+        mov dword [MainMenuAnimStart], eax
+        jmp near .8
+.6:
+        cmp eax, 96h
+        jle near .8
+        cmp dword [MainMenuAnimRunning], byte 0
+        jne near .8
+        push byte 0
+        push dword 0C8h
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push eax
+        mov ebx, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword [MainMenuWindow]
+        call BlitShape
+        add esp, byte 4
+        push dword [MainMenuAnimX]
+        call BlitShape
+        mov eax, dword [MainMenuCursor]
+        add esp, byte 4
+        cmp dword [dword eax+0258h], byte 0
+        je short .7
+        push dword [dword eax+0268h]
+        push dword [dword eax+0264h]
+        push dword [dword eax+0258h]
+        call DrawArt
+        add esp, byte 0Ch
+.7:
+        call SetScreenTarget
+        push dword [byte ebx+02Ch]
+        call BlitShape2
+        add esp, byte 4
+        push ebx
+        call FreeBitmap
+        mov dword [MainMenuAnimRunning], 1
+        add esp, byte 4
+.8:
+        cmp esi, 2BCh
+        jle near .17
+        cmp esi, 5DCh
+        jge near .17
+        mov eax, esi
+        shl eax, 2
+        sub eax, 0AF0h
+        mov ebx, 320h
+        cdq
+        idiv ebx
+        mov ebx, eax
+        imul eax, dword 320h
+        cdq
+        shl edx, 2
+        LD sbb, eax, edx
+        sar eax, 2
+        lea edx, [dword esi-02BCh]
+        sub edx, eax
+        mov eax, edx
+        cmp edx, byte 19h
+        jge short .9
+        cmp dword [MainMenuFirstShow], byte 0
+        je short .9
+        push dword [MainMenuAnimTimer]
+        mov dword [MainMenuFirstShow], 0
+        jmp near .16
+.9:
+        cmp eax, byte 19h
+        jle near .17
+        cmp dword [MainMenuFirstShow], byte 0
+        jne near .17
+        mov dword [MainMenuFirstShow], 1
+        cmp ebx, byte 3
+        jne short .10
+        push str_0000
+        push dword [MainMenuAnimShape]
+        call FindShape
+        add esp, byte 8
+        push eax
+        jmp near .16
+.10:
+        xor ebx, ebx
+        jmp short .12
+.11:
+        movzx eax, byte [dword ebx+MainMenuAnimDone]
+        inc ebx
+        add edi, eax
+.12:
+        cmp ebx, dword [MainMenuAnimRate]
+        jl short .11
+        mov eax, edi
+        cdq
+        idiv dword [MainMenuAnimRate]
+        test eax, eax
+        je short .15
+        xor ebx, ebx
+        jmp short .14
+.13:
+        inc ebx
+        mov byte [dword ebx+MainMenuAnimEnd], 0
+.14:
+        cmp ebx, dword [MainMenuAnimRate]
+        jl short .13
+.15:
+        call rand_
+        cdq
+        idiv dword [MainMenuAnimRate]
+        cmp byte [dword edx+MainMenuAnimDone], 0
+        jne short .15
+        push str_0000
+        push dword [nosplit edx*4+MainMenuAnimFrames]
+        mov byte [dword edx+MainMenuAnimDone], 1
+        call FindShape
+        add esp, byte 8
+        push eax
+.16:
+        call BlitShape2
+        add esp, byte 4
+.17:
+        cmp esi, byte 64h
+        jle near MainMenuAnim_370.20
+        cmp esi, 96h
+        jge near MainMenuAnim_370.20
+        lea eax, [byte esi-064h]
+        imul eax, byte 7
+        mov ebx, 32h
+        cdq
+        idiv ebx
+        cmp eax, dword [MainMenuAnimTick]
+        je near MainMenuAnim_370.20
+        mov dword [MainMenuAnimTick], eax
+        cmp eax, byte 5
+        ja short MainMenuAnim_370.19
+        jmp dword [nosplit cs:eax*4+MainMenuAnimJumpTable]
+MainMenuAnim_32E:
+        push dword [MainMenuAnimArt]
+        call BlitShape2
+        add esp, byte 4
+        push dword [MainMenuAnimCursor]
+        jmp short MainMenuAnim_370.18
+MainMenuAnim_344:
+        push dword [MainMenuAnimBack]
+        call BlitShape2
+        add esp, byte 4
+        push dword [MainMenuAnimItems]
+        jmp short MainMenuAnim_370.18
+MainMenuAnim_35A:
+        push dword [MainMenuAnimLogo]
+        call BlitShape2
+        add esp, byte 4
+        push dword [MainMenuAnimPanel]
+        jmp short MainMenuAnim_370.18
+MainMenuAnim_370:
+        push dword [MainMenuAnimTitle]
+.18:
+        call BlitShape2
+        add esp, byte 4
+.19:
+        mov eax, dword [MainMenuCursor]
+        cmp dword [dword eax+0258h], byte 0
+        je short .20
+        push dword [dword eax+0268h]
+        push dword [dword eax+0264h]
+        push dword [dword eax+0258h]
+        call DrawArt
+        add esp, byte 0Ch
+.20:
+        cmp esi, byte 32h
+        jle short .23
+        cmp esi, byte 64h
+        jge short .23
+        lea eax, [byte esi-032h]
+        imul eax, byte 7
+        mov ebx, 32h
+        cdq
+        idiv ebx
+        cmp eax, dword [MainMenuAnimTick]
+        je short .23
+        mov dword [MainMenuAnimTick], eax
+        cmp eax, byte 4
+        jge short .21
+        push dword [nosplit eax*4+MainMenuAnimSprites]
+        jmp short .22
+.21:
+        mov edx, 0Ah
+        sub eax, byte 4
+        sub edx, eax
+        push dword [nosplit edx*4+MainMenuAnimArt]
+.22:
+        call BlitShape2
+        add esp, byte 4
+.23:
+        cmp esi, 0C8h
+        jle near MainMenuAnim_50B
+        cmp esi, 2BCh
+        jge near MainMenuAnim_50B
+        mov edi, dword [MainMenuAnimY]
+        mov eax, dword [byte edi+02Ch]
+        movsx edx, word [byte eax+04h]
+        mov eax, dword [MainMenuAnimMode]
+        movsx eax, word [byte eax+04h]
+        add edx, eax
+        lea eax, [dword esi-0C8h]
+        imul eax, edx
+        mov ebx, 1F4h
+        cdq
+        idiv ebx
+        mov esi, 5
+        mov ebx, eax
+        cdq
+        idiv esi
+        sub ebx, edx
+        cmp ebx, dword [MainMenuAnimFrame]
+        je near MainMenuAnim_50B
+        push edi
+        mov dword [MainMenuAnimFrame], ebx
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        mov eax, dword [MainMenuAnimY]
+        mov eax, dword [byte eax+02Ch]
+        add esp, byte 4
+        movsx eax, word [byte eax+04h]
+        push byte 0
+        sub eax, ebx
+        push eax
+        push dword [MainMenuAnimMode]
+        call DrawArt
+        add esp, byte 0Ch
+        push dword [MainMenuScreenArt]
+        call SetDrawTarget
+        mov eax, dword [MainMenuWindow]
+        movsx edx, word [byte eax+0Eh]
+        add esp, byte 4
+        sub edx, byte 46h
+        push edx
+        push byte 0FFFFFF9Ch
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [MainMenuAnimY]
+        push MainMenuAnimName
+        push dword [byte eax+02Ch]
+        call ProjectModelBounds
+        add esp, byte 8
+        push byte 46h
+        mov eax, dword [MainMenuWindow]
+        mov ebx, 46h
+        push dword 96h
+        movsx edx, word [byte eax+0Eh]
+        push byte 0
+        sub ebx, edx
+        push byte 0
+        mov edx, dword [MainMenuScreenArt]
+        mov ecx, 64h
+        push ebx
+        mov edx, dword [byte edx+02Ch]
+        mov ebx, 10h
+        call ShadeShape
+        call SetScreenTarget
+        push byte 46h
+        mov eax, dword [MainMenuScreenArt]
+        push byte 64h
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+MainMenuAnim_50B:
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+MainMenuOptionsJumpTable:                       ; jump table for the switch cases of MainMenuScreen
+        dd MainMenuScreen_911
+        dd MainMenuScreen_A3B
+        dd MainMenuScreen_AB8
+        dd MainMenuScreen_BF6
+        dd MainMenuScreen_C76
+        dd MainMenuScreen_CFF
+        dd MainMenuScreen_DDB
+        dd MainMenuScreen_DF1
+MainMenuMessageJumpTable:                       ; jump table for the switch cases of MainMenuScreen
+        dd MainMenuScreen_A17
+        dd MainMenuScreen_A23
+        dd MainMenuScreen_A2F
+        dd MainMenuScreen_999
+MainMenuSelectionJumpTable:                     ; jump table for the switch cases of MainMenuScreen
+        dd MainMenuScreen_A68
+        dd MainMenuScreen_A79
+        dd MainMenuScreen_A82
+        dd MainMenuScreen_A94
+        dd MainMenuScreen_A9D
+        dd MainMenuScreen_AAF
+MainMenuSettingsJumpTable:                      ; jump table for the switch cases of MainMenuScreen
+        dd MainMenuScreen_BA5
+        dd MainMenuScreen_BBD
+        dd MainMenuScreen_BC6
+        dd MainMenuScreen_BD5
+        dd MainMenuScreen_BDE
+        dd MainMenuScreen_BED
+;-----------------------------------------------------------------------------
+; MainMenuScreen                               84B55  96 PC, medium confidence
+; From RunFrontEnd: the main menu (bkgd, !pal, 8 items, buttons by optflags)
+;-----------------------------------------------------------------------------
+MainMenuScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 238h, 0
+        sub ebp, 82h
+        push byte 0
+        lea edi, [byte ebp+042h]
+        mov esi, MainMenuItemMetrics
+        push dword 290h
+        movsd
+        movsd
+        movsd
+        push str_Menu
+        mov dword [byte ebp+04Eh], 2
+        mov dword [LinkTransferReady], 0
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        mov dword [byte ebp+066h], 0
+        mov dword [MainMenuCursor], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp+072h], 0
+        mov dword [byte ebp+06Eh], 0
+        push str_DATAEXHIBITNDX
+        mov dword [byte ebp+07Eh], 0FFFFFFFFh
+        mov edi, eax
+        call DosFileInfo
+        add esp, byte 4
+        test eax, eax
+        je short .1
+        mov dword [byte ebp+066h], 1
+.1:
+        push str_DATASEASONNDX
+        call DosFileInfo
+        add esp, byte 4
+        test eax, eax
+        je short .2
+        mov dword [byte ebp+072h], 1
+.2:
+        push str_DATAPLAYOFFNDX
+        call DosFileInfo
+        add esp, byte 4
+        test eax, eax
+        je short .3
+        mov dword [byte ebp+06Eh], 1
+.3:
+        cmp dword [LinkGameActive], byte 0
+        je near .8
+        push dword [byte ebp+06Eh]
+        push dword [byte ebp+072h]
+        push dword [CreditsKeyFlag]
+        push str_DDD2
+        lea eax, [byte ebp+056h]
+        push eax
+        call sprintf_
+        add esp, byte 14h
+        call ClearLinkAbort
+        test eax, eax
+        je short .4
+        mov edx, 4
+        lea eax, [byte ebp+056h]
+        xor ebx, ebx
+        call LinkSendBlock
+        mov edx, 4
+        lea eax, [byte ebp+052h]
+        xor ebx, ebx
+        call LinkReceiveBlock
+        jmp short .5
+.4:
+        mov edx, 4
+        lea eax, [byte ebp+052h]
+        xor ebx, ebx
+        call LinkReceiveBlock
+        mov edx, 4
+        lea eax, [byte ebp+056h]
+        xor ebx, ebx
+        call LinkSendBlock
+.5:
+        cmp byte [byte ebp+052h], 31h
+        jne short .6
+        mov dword [CreditsKeyFlag], 1
+.6:
+        cmp byte [byte ebp+053h], 31h
+        jne short .7
+        mov dword [byte ebp+072h], 1
+.7:
+        cmp byte [byte ebp+054h], 31h
+        jne short .8
+        mov dword [byte ebp+06Eh], 1
+.8:
+        cmp dword [MainMenuSelection], byte 0FFFFFFFFh
+        je short .9
+        cmp dword [MainMenuSelection], byte 1
+        je short .9
+        cmp dword [MainMenuSelection], byte 3
+        je short .9
+        cmp dword [MainMenuSelection], byte 5
+        jne short .13
+.9:
+        mov eax, dword [GameSettings]
+        shl eax, 19h
+        shr eax, 1Dh
+        cmp eax, byte 1
+        jb short .10
+        jbe short .11
+        cmp eax, byte 2
+        je short .12
+        jmp short .13
+.10:
+        test eax, eax
+        jne short .13
+        mov dword [MainMenuSelection], eax
+        jmp short .13
+.11:
+        mov dword [MainMenuSelection], 2
+        cmp dword [byte ebp+072h], byte 0
+        je short .13
+        mov dword [MainMenuSelection], 3
+        jmp short .13
+.12:
+        mov dword [MainMenuSelection], 4
+        cmp dword [byte ebp+06Eh], byte 0
+        je short .13
+        mov dword [MainMenuSelection], 5
+.13:
+        mov eax, 0F9h
+        mov ebx, 3
+        call OpenDataLibrary
+        call rand_
+        cdq
+        idiv ebx
+        mov esi, edx
+        cmp edx, byte 1
+        jne short .14
+        mov dword [MainMenuAnimRate], 0Ah
+        jmp short .15
+.14:
+        mov dword [MainMenuAnimRate], 0Ch
+.15:
+        push byte 18h
+        lea eax, [byte ebp-0Eh]
+        push eax
+        call ZeroMem
+        add esp, byte 8
+        mov eax, 3
+        xor ebx, ebx
+        call SecondsToSamples
+        call WaitSoundTime
+        jmp short .17
+.16:
+        call rand_
+        cdq
+        idiv dword [byte ebp+esi*4+042h]
+        cmp byte [byte edx+ebp-0Eh], 0
+        jne short .17
+        add edx, byte 41h
+        push edx
+        lea eax, [byte esi+01h]
+        push eax
+        push str_PICDCFsh
+        lea eax, [byte ebp+022h]
+        push eax
+        mov byte [byte edx+ebp-04Fh], 1
+        call sprintf_
+        add esp, byte 10h
+        call ServiceIdle
+        push byte 0
+        lea eax, [byte ebp+022h]
+        push eax
+        inc ebx
+        call OpenArtArchiveErr
+        add esp, byte 8
+        mov dword [nosplit ebx*4+TextFonts], eax
+.17:
+        cmp ebx, dword [MainMenuAnimRate]
+        jl short .16
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push byte 0
+        push str_PIC2CFsh
+        call OpenArtArchiveErr
+        add esp, byte 8
+        push byte 0
+        mov dword [MainMenuAnimShape], eax
+        call OpenResourceArchive
+        add esp, byte 4
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 0F3h
+        call LoadDataFile
+        mov ebx, eax
+        mov dword [byte ebp+06Ah], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 0F4h
+        call LoadDataFile
+        push str_OFF0
+        push ebx
+        mov dword [byte ebp+076h], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [MainMenuAnimTimer], eax
+        xor ebx, ebx
+.18:
+        push ebx
+        push str_SL02d
+        lea eax, [byte ebp+022h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+022h]
+        push eax
+        push dword [byte ebp+076h]
+        inc ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [nosplit ebx*4+MainMenuAnimY], eax
+        cmp ebx, byte 0Bh
+        jl short .18
+        xor ebx, ebx
+.19:
+        push ebx
+        push str_LB02d
+        lea eax, [byte ebp+022h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+022h]
+        push eax
+        push dword [byte ebp+076h]
+        call FindShape
+        add esp, byte 8
+        push ebx
+        push str_LY02d
+        mov dword [byte ebp+ebx*4-076h], eax
+        lea eax, [byte ebp+022h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp+022h]
+        push eax
+        push dword [byte ebp+076h]
+        inc ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [byte ebp+ebx*4-052h], eax
+        cmp ebx, byte 0Ah
+        jl short .19
+        push MainMenuButtons
+        push str_MB01MB02MB03
+        push dword [byte ebp+076h]
+        call FindShapeList
+        add esp, byte 0Ch
+        push MainMenuButtonRect
+        push str_MB05MB06MB07
+        push dword [byte ebp+076h]
+        call FindShapeList
+        add esp, byte 0Ch
+        push MainMenuTextRect
+        push str_MB09MB10MB11
+        push dword [byte ebp+076h]
+        xor ebx, ebx
+        call FindShapeList
+        mov eax, 8
+        add esp, byte 0Ch
+        mov edx, dword [MainMenuCursor]
+        mov ecx, 280h
+        call InitMenuItems
+        push dword 1E0h
+        lea eax, [dword ebp-01B6h]
+        xor edx, edx
+        call SetRegionRect
+        push str_BACK3
+        push dword [byte ebp+06Ah]
+        call FindShape
+        add esp, byte 8
+        push str_TITL2
+        push dword [byte ebp+076h]
+        mov dword [MainMenuWindow], eax
+        call FindShape
+        add esp, byte 8
+        push edi
+        mov dword [MainMenuAnimX], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword [MainMenuWindow]
+        call BlitShape2
+        add esp, byte 4
+        push dword [MainMenuAnimX]
+        call BlitShape2
+        add esp, byte 4
+        mov edx, 0FFFFFFFFh
+        mov eax, dword [byte edi+02Ch]
+        call WipeScreen
+        push edi
+        call FreeBitmap
+        add esp, byte 4
+        push dword [MenuScreenBitmap]
+        push str_BACK3
+        push dword [byte ebp+06Ah]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call ConvertArtNew
+        add esp, byte 8
+        mov dword [MainMenuWindow], eax
+        push str_GMT1
+        push dword [byte ebp+06Ah]
+        call FindShape
+        add esp, byte 8
+        push str_BOTM
+        mov esi, ScreenTitleItem
+        push dword [byte ebp+076h]
+        mov dword [MainMenuAnimMode], eax
+        call FindShape
+        mov ebx, dword [MainMenuAnimX]
+        mov dword [byte ebp+07Ah], eax
+        mov eax, dword [MainMenuWindow]
+        add esp, byte 8
+        mov edx, eax
+        mov ecx, 52h
+        call DrawScreenBackground
+        mov edi, dword [MainMenuCursor]
+        rep movsb
+        mov eax, dword [MainMenuCursor]
+        mov dword [eax], 0
+        mov esi, dword [MainMenuCursor]
+        mov ecx, 52h
+        lea edi, [byte esi+052h]
+        mov esi, BlankMenuItem
+        rep movsb
+        mov eax, dword [MainMenuCursor]
+        mov dword [byte eax+052h], 1
+        cmp dword [LinkGameActive], byte 0
+        je short .20
+        mov esi, dword [MainMenuCursor]
+        mov ecx, 52h
+        lea edi, [dword esi+023Eh]
+        mov esi, ScreenFrameItem
+        rep movsb
+        mov eax, dword [MainMenuCursor]
+        mov dword [dword eax+023Eh], 7
+.20:
+        lea eax, [dword ebp-01B6h]
+        push eax
+        mov ecx, str_LB00
+        mov edx, dword [byte ebp+076h]
+        push str_LB00
+        mov eax, dword [MainMenuCursor]
+        mov ebx, ecx
+        add eax, 0A4h
+        call DrawStatTable
+        lea eax, [dword ebp-0176h]
+        push eax
+        mov ecx, str_LB07
+        mov edx, dword [byte ebp+076h]
+        push str_LB07
+        mov eax, dword [MainMenuCursor]
+        mov ebx, ecx
+        add eax, 0F6h
+        call DrawStatTable
+        lea eax, [dword ebp-0136h]
+        push eax
+        mov ecx, str_MB01
+        mov ebx, str_MB00
+        push str_MB02
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte ebp+076h]
+        add eax, 148h
+        call DrawStatTable
+        lea eax, [dword ebp-0F6h]
+        push eax
+        mov ecx, str_MB05
+        mov ebx, str_MB04
+        push str_MB06
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte ebp+076h]
+        add eax, 19Ah
+        call DrawStatTable
+        lea eax, [dword ebp-0B6h]
+        push eax
+        mov ecx, str_MB09
+        mov ebx, str_MB08
+        push str_MB10
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte ebp+076h]
+        add eax, 1ECh
+        call DrawStatTable
+        mov eax, dword [byte ebp+07Ah]
+        push byte 0
+        movsx eax, word [byte eax+06h]
+        push eax
+        mov eax, dword [byte ebp+07Ah]
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 46h
+        push dword 96h
+        mov edi, eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 46h
+        push dword 96h
+        mov dword [MainMenuResult], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 0
+        push byte 46h
+        push dword 96h
+        mov dword [MainMenuScreenArt], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [MainMenuChoice], eax
+        mov eax, dword [MainMenuAnimMode]
+        push byte 0
+        movsx eax, word [byte eax+06h]
+        push eax
+        push byte 64h
+        call CreateBitmap
+        add esp, byte 0Ch
+        push dword [MainMenuResult]
+        mov dword [MainMenuAnimY], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0FFFFFFBAh
+        push byte 0FFFFFF9Ch
+        push dword [MainMenuWindow]
+        call BlitArt
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push dword [MainMenuWindow]
+        call BlitShape
+        add esp, byte 4
+        push dword [MainMenuAnimX]
+        call BlitShape2
+        add esp, byte 4
+        call PresentScreen
+        mov eax, dword [MainMenuSelection]
+        mov edx, dword [MainMenuCursor]
+        mov eax, dword [byte ebp+eax*4-076h]
+        mov dword [dword edx+0BEh], eax
+        mov edx, dword [MainMenuSelection]
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte ebp+edx*4-04Eh]
+        mov dword [dword eax+0C6h], edx
+        mov eax, dword [MainMenuCursor]
+        mov dword [dword eax+0C2h], edx
+        mov edx, dword [GameSettings]
+        shl edx, 17h
+        shr edx, 1Eh
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte ebp+edx*4-05Ah]
+        mov dword [dword eax+0110h], edx
+        mov edx, dword [GameSettings]
+        shl edx, 17h
+        shr edx, 1Eh
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte ebp+edx*4-032h]
+        mov dword [dword eax+0118h], edx
+        mov eax, dword [MainMenuCursor]
+        mov dword [dword eax+0114h], edx
+        mov eax, dword [tickcount]
+        mov dword [MainMenuAnimStart], eax
+        mov eax, dword [tickcount]
+        mov ebx, eax
+        mov eax, 202h
+        call PlaySfx
+.21:
+        mov eax, dword [MainMenuAnimStart]
+        add eax, byte 64h
+        cmp ebx, eax
+        jge near .23
+        mov edx, dword [byte ebp+07Ah]
+        call ServiceIdle
+        mov eax, ebx
+        movsx edx, word [byte edx+06h]
+        sub eax, dword [MainMenuAnimStart]
+        imul eax, edx
+        mov ebx, 64h
+        cdq
+        idiv ebx
+        push edi
+        mov esi, eax
+        call SetDrawTarget
+        mov eax, dword [MainMenuWindow]
+        mov edx, dword [byte ebp+07Ah]
+        movsx ebx, word [byte eax+0Eh]
+        movsx edx, word [byte edx+0Eh]
+        sub ebx, edx
+        mov edx, dword [byte ebp+07Ah]
+        add esp, byte 4
+        movsx edx, word [byte edx+0Ch]
+        push ebx
+        neg edx
+        push edx
+        push eax
+        call BlitArt
+        mov eax, dword [byte ebp+07Ah]
+        movsx eax, word [byte eax+06h]
+        add esp, byte 0Ch
+        sub eax, esi
+        push eax
+        push byte 0
+        push dword [byte ebp+07Ah]
+        xor ebx, ebx
+        call DrawShapeCore
+        add esp, byte 0Ch
+.22:
+        lea eax, [byte ebx+02h]
+        imul eax, byte 52h
+        mov edx, dword [MainMenuCursor]
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        movsx edx, word [byte edx+0Eh]
+        mov dword [byte ebp+05Ah], edx
+        mov edx, dword [byte eax+02Ah]
+        sub edx, dword [byte ebp+05Ah]
+        mov dword [byte ebp+05Eh], edx
+        mov edx, dword [byte ebp+07Ah]
+        movsx edx, word [byte edx+06h]
+        mov dword [byte ebp+05Ah], edx
+        mov edx, dword [byte ebp+05Eh]
+        add edx, dword [byte ebp+05Ah]
+        sub edx, esi
+        push edx
+        mov edx, dword [byte ebp+07Ah]
+        movsx edx, word [byte edx+0Ch]
+        mov dword [byte ebp+05Ah], edx
+        mov edx, dword [byte eax+026h]
+        sub edx, dword [byte ebp+05Ah]
+        push edx
+        push dword [byte eax+01Ah]
+        inc ebx
+        call BlitArt
+        add esp, byte 0Ch
+        cmp ebx, byte 5
+        jl short .22
+        call SetScreenTarget
+        mov eax, dword [byte ebp+07Ah]
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        mov eax, dword [byte ebp+07Ah]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte edi+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        mov eax, dword [tickcount]
+        mov ebx, eax
+        jmp near .21
+.23:
+        mov esi, dword [byte ebp+07Ah]
+        push edi
+        movsx esi, word [byte esi+06h]
+        call SetDrawTarget
+        mov eax, dword [MainMenuWindow]
+        mov edx, dword [byte ebp+07Ah]
+        movsx ebx, word [byte eax+0Eh]
+        movsx edx, word [byte edx+0Eh]
+        sub ebx, edx
+        mov edx, dword [byte ebp+07Ah]
+        add esp, byte 4
+        movsx edx, word [byte edx+0Ch]
+        push ebx
+        neg edx
+        push edx
+        push eax
+        call BlitArt
+        mov eax, dword [byte ebp+07Ah]
+        movsx eax, word [byte eax+06h]
+        add esp, byte 0Ch
+        sub eax, esi
+        push eax
+        push byte 0
+        push dword [byte ebp+07Ah]
+        xor ebx, ebx
+        call DrawShapeCore
+        add esp, byte 0Ch
+.24:
+        lea eax, [byte ebx+02h]
+        imul eax, byte 52h
+        mov edx, dword [MainMenuCursor]
+        add eax, edx
+        mov edx, dword [byte ebp+07Ah]
+        movsx edx, word [byte edx+0Eh]
+        mov dword [byte ebp+05Ah], edx
+        mov edx, dword [byte eax+02Ah]
+        sub edx, dword [byte ebp+05Ah]
+        mov dword [byte ebp+05Ah], edx
+        mov edx, dword [byte ebp+07Ah]
+        movsx edx, word [byte edx+06h]
+        mov dword [byte ebp+05Eh], edx
+        mov edx, dword [byte ebp+05Ah]
+        add edx, dword [byte ebp+05Eh]
+        sub edx, esi
+        push edx
+        mov edx, dword [byte ebp+07Ah]
+        movsx edx, word [byte edx+0Ch]
+        mov dword [byte ebp+05Eh], edx
+        mov edx, dword [byte eax+026h]
+        sub edx, dword [byte ebp+05Eh]
+        push edx
+        push dword [byte eax+01Ah]
+        inc ebx
+        call BlitArt
+        add esp, byte 0Ch
+        cmp ebx, byte 5
+        jl short .24
+        call SetScreenTarget
+        mov eax, dword [byte ebp+07Ah]
+        movsx eax, word [byte eax+0Eh]
+        push eax
+        mov eax, dword [byte ebp+07Ah]
+        movsx eax, word [byte eax+0Ch]
+        push eax
+        push dword [byte edi+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        call StopAllSfx
+        mov eax, 203h
+        call PlaySfx
+        mov eax, dword [tickcount]
+        mov dword [MainMenuAnimStart], eax
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_911:
+        call ShowScreen
+        cmp dword [LinkGameActive], byte 0
+        je near MainMenuScreen_999.27
+        push byte 1
+        mov eax, 230h
+        mov ecx, 1
+        mov edx, 2
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBox
+        test eax, eax
+        je short MainMenuScreen_999
+        call ClearLinkAbort
+        test eax, eax
+        jne short MainMenuScreen_999.26
+        mov ebx, 4
+.25:
+        lea eax, [byte ebx-04h]
+        imul eax, byte 21h
+        push byte 21h
+        add eax, LinkSettingsData
+        push eax
+        imul eax, ebx, byte 21h
+        add eax, IndexEntrySettings
+        push eax
+        inc ebx
+        call bcopy
+        mov al, byte [dword ebx+IndexMenuCursor]
+        add esp, byte 0Ch
+        mov byte [dword ebx+LinkMenuCursor], al
+        cmp ebx, byte 8
+        jl short .25
+        mov ebx, 1E7h
+        mov edx, LinkSettings
+        mov eax, GlobalSetVersion
+        call memcpy_
+        jmp short MainMenuScreen_999.26
+MainMenuScreen_999:
+        mov dword [byte ebp+07Eh], 1
+        jmp near MainMenuScreen_CFF.48
+.26:
+        call NetDisconnect
+        jmp short .28
+.27:
+        mov dword [byte ebp+07Eh], 0
+.28:
+        mov eax, 202h
+        call GetLangText
+        mov dword [byte ebp+032h], eax
+        mov eax, 203h
+        call GetLangText
+        mov dword [byte ebp+036h], eax
+        mov eax, 204h
+        lea ebx, [byte ebp+032h]
+        call GetLangText
+        mov dword [byte ebp+03Ah], eax
+        mov eax, 205h
+        mov edx, 4
+        call GetLangText
+        push byte 0
+        mov dword [byte ebp+03Eh], eax
+        mov eax, 201h
+        xor ecx, ecx
+        call GetLangText
+        call ShowMessageBox
+        cmp ax, 3
+        ja near MainMenuScreen_CFF.48
+        movzx eax, ax
+        jmp dword [nosplit cs:eax*4+MainMenuMessageJumpTable]
+MainMenuScreen_A17:
+        mov dword [byte ebp+07Eh], 20h
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A23:
+        mov dword [byte ebp+07Eh], 21h
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A2F:
+        mov dword [byte ebp+07Eh], 0
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A3B:
+        call FadeInScreen
+        mov edx, dword [MainMenuSelection]
+        cmp edx, byte 5
+        ja near MainMenuScreen_CFF.48
+        mov eax, dword [GameSettings]
+        and al, 8Fh
+        mov ebx, eax
+        mov ecx, eax
+        or bl, 10h
+        or cl, 20h
+        jmp dword [nosplit cs:edx*4+MainMenuSelectionJumpTable]
+MainMenuScreen_A68:
+        mov dword [byte ebp+07Eh], 4
+.29:
+        mov dword [GameSettings], eax
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A79:
+        mov dword [byte ebp+07Eh], 5
+        jmp short MainMenuScreen_A68.29
+MainMenuScreen_A82:
+        mov dword [byte ebp+07Eh], 6
+.30:
+        mov dword [GameSettings], ebx
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_A94:
+        mov dword [byte ebp+07Eh], 7
+        jmp short MainMenuScreen_A82.30
+MainMenuScreen_A9D:
+        mov dword [byte ebp+07Eh], 8
+.31:
+        mov dword [GameSettings], ecx
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_AAF:
+        mov dword [byte ebp+07Eh], 9
+        jmp short MainMenuScreen_A9D.31
+MainMenuScreen_AB8:
+        xor ebx, ebx
+.32:
+        inc ebx
+        mov ecx, dword [byte ebp+ebx*8-07Eh]
+        mov edx, dword [byte ebp+ebx*8-056h]
+        mov dword [byte ebp+ebx*4-02Ah], ecx
+        mov dword [byte ebp+ebx*4+06h], edx
+        cmp ebx, byte 3
+        jl short .32
+        mov esi, 3
+        cmp dword [byte ebp+066h], byte 0
+        je short .33
+        mov eax, dword [byte ebp-072h]
+        mov dword [byte ebp-01Ah], eax
+        mov eax, dword [byte ebp-04Ah]
+        mov esi, 4
+        mov dword [byte ebp+016h], eax
+.33:
+        cmp dword [byte ebp+072h], byte 0
+        je short .34
+        inc esi
+        mov eax, dword [byte ebp-06Ah]
+        mov dword [byte ebp+esi*4-02Ah], eax
+        mov eax, dword [byte ebp-042h]
+        mov dword [byte ebp+esi*4+06h], eax
+.34:
+        cmp dword [byte ebp+06Eh], byte 0
+        je short .35
+        inc esi
+        mov eax, dword [byte ebp-062h]
+        mov dword [byte ebp+esi*4-02Ah], eax
+        mov eax, dword [byte ebp-03Ah]
+        mov dword [byte ebp+esi*4+06h], eax
+.35:
+        push MainMenuAnim
+        push byte 0
+        push byte 0
+        push dword [MainMenuWindow]
+        lea eax, [byte ebp+0Ah]
+        push eax
+        lea eax, [byte ebp-026h]
+        push eax
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [dword eax+0BEh]
+        movsx ecx, word [byte edx+06h]
+        lea edx, [byte esi+01h]
+        imul ecx, edx
+        mov edx, dword [dword eax+0CEh]
+        mov ebx, dword [dword eax+0CAh]
+        sub edx, ecx
+        mov eax, esi
+        mov ecx, edx
+        mov edx, esi
+        call RunScrollMenu
+        mov dword [byte ebp+062h], eax
+        cmp eax, byte 0FFFFFFFFh
+        je near MainMenuScreen_CFF.48
+        xor ebx, ebx
+.36:
+        mov eax, ebx
+        mov edx, dword [byte ebp+062h]
+        shl eax, 2
+        mov edx, dword [byte ebp+edx*4-026h]
+        cmp edx, dword [byte eax+ebp-076h]
+        jne near MainMenuScreen_BA5.38
+        mov dword [MainMenuSelection], ebx
+        cmp ebx, byte 5
+        ja short MainMenuScreen_BA5.38
+        mov edx, dword [GameSettings]
+        and dl, 8Fh
+        mov esi, edx
+        mov ecx, edx
+        or si, byte 10h
+        or cl, 20h
+        jmp dword [dword cs:eax+MainMenuSettingsJumpTable]
+MainMenuScreen_BA5:
+        mov dword [byte ebp+07Eh], 4
+.37:
+        mov dword [GameSettings], edx
+.38:
+        inc ebx
+        cmp ebx, byte 6
+        jl short MainMenuScreen_AB8.36
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_BBD:
+        mov dword [byte ebp+07Eh], 5
+        jmp short MainMenuScreen_BA5.37
+MainMenuScreen_BC6:
+        mov dword [byte ebp+07Eh], 6
+.39:
+        mov dword [GameSettings], esi
+        jmp short MainMenuScreen_BA5.38
+MainMenuScreen_BD5:
+        mov dword [byte ebp+07Eh], 7
+        jmp short MainMenuScreen_BC6.39
+MainMenuScreen_BDE:
+        mov dword [byte ebp+07Eh], 8
+.40:
+        mov dword [GameSettings], ecx
+        jmp short MainMenuScreen_BA5.38
+MainMenuScreen_BED:
+        mov dword [byte ebp+07Eh], 9
+        jmp short MainMenuScreen_BDE.40
+MainMenuScreen_BF6:
+        xor ebx, ebx
+.41:
+        inc ebx
+        mov edx, dword [byte ebp+ebx*4-05Eh]
+        mov dword [byte ebp+ebx*4-02Ah], edx
+        mov edx, dword [byte ebp+ebx*4-036h]
+        mov dword [byte ebp+ebx*4+06h], edx
+        cmp ebx, byte 3
+        jl short .41
+        push MainMenuAnim
+        push byte 0
+        push byte 0
+        push dword [MainMenuWindow]
+        lea eax, [byte ebp+0Ah]
+        push eax
+        lea eax, [byte ebp-026h]
+        push eax
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [dword eax+0110h]
+        movsx ecx, word [byte edx+06h]
+        shl ecx, 2
+        mov edx, dword [dword eax+0120h]
+        sub edx, ecx
+        mov ecx, edx
+        mov edx, 3
+        mov ebx, dword [dword eax+011Ch]
+        mov eax, edx
+        call RunScrollMenu
+        cmp eax, byte 0FFFFFFFFh
+        je near MainMenuScreen_CFF.48
+        and eax, byte 3
+        and word [GameSettings], 0FE7Fh
+        shl eax, 7
+        or dword [GameSettings], eax
+        jmp near MainMenuScreen_CFF.48
+MainMenuScreen_C76:
+        mov eax, dword [MainMenuCursor]
+        add eax, 148h
+        call ShowPopupScreen
+        cmp dword [LinkGameActive], byte 0
+        je short .44
+        push byte 1
+        mov eax, 230h
+        mov ecx, 1
+        mov edx, 2
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBox
+        test eax, eax
+        je short .43
+        call ClearLinkAbort
+        test eax, eax
+        jne short .42
+        mov ebx, 1E7h
+        mov edx, LinkSettings
+        mov eax, GlobalSetVersion
+        call memcpy_
+.42:
+        call NetDisconnect
+.43:
+        mov dword [byte ebp+07Eh], 1
+        jmp short .46
+.44:
+        test byte [MenuOptionFlags], 1
+        je short .45
+        mov dword [byte ebp+07Eh], 18h
+        jmp short .46
+.45:
+        mov dword [byte ebp+07Eh], 3
+.46:
+        mov dword [MainMenuSelection], 0FFFFFFFFh
+        jmp short MainMenuScreen_CFF.48
+MainMenuScreen_CFF:
+        mov eax, dword [MainMenuCursor]
+        add eax, 19Ah
+        mov dword [byte ebp+07Eh], 2
+.47:
+        call ShowPopupScreen
+.48:
+        cmp dword [byte ebp+04Eh], byte 2
+        je short .49
+        cmp dword [byte ebp+04Eh], byte 3
+        jne near MainMenuScreen_DF1.50
+.49:
+        mov eax, dword [MainMenuSelection]
+        mov edx, dword [MainMenuCursor]
+        mov eax, dword [byte ebp+eax*4-076h]
+        mov dword [dword edx+0BEh], eax
+        mov edx, dword [MainMenuSelection]
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte ebp+edx*4-04Eh]
+        mov dword [dword eax+0C6h], edx
+        mov eax, dword [MainMenuCursor]
+        mov dword [dword eax+0C2h], edx
+        mov eax, dword [GameSettings]
+        shl eax, 17h
+        shr eax, 1Eh
+        mov edx, dword [MainMenuCursor]
+        mov eax, dword [byte ebp+eax*4-05Ah]
+        mov dword [dword edx+0110h], eax
+        mov edx, dword [GameSettings]
+        shl edx, 17h
+        shr edx, 1Eh
+        shl edx, 2
+        mov eax, dword [MainMenuCursor]
+        mov edx, dword [byte edx+ebp-032h]
+        mov dword [dword eax+0118h], edx
+        mov eax, dword [MainMenuCursor]
+        push byte 3
+        mov ecx, MainMenuAnim
+        mov dword [dword eax+0114h], edx
+        lea eax, [byte ebp+04Eh]
+        mov ebx, 0FFFFFFFFh
+        push eax
+        mov eax, dword [LinkGameActive]
+        mov edx, dword [MainMenuCursor]
+        add eax, byte 7
+        call RunMenu
+        mov byte [OptionsMenuChoice], al
+        cmp dword [byte ebp+04Eh], byte 7
+        ja near .48
+        mov eax, dword [byte ebp+04Eh]
+        jmp dword [nosplit cs:eax*4+MainMenuOptionsJumpTable]
+MainMenuScreen_DDB:
+        mov eax, dword [MainMenuCursor]
+        add eax, 1ECh
+        mov dword [byte ebp+07Eh], 0Ah
+        jmp near MainMenuScreen_CFF.47
+MainMenuScreen_DF1:
+        call ExitScreen
+        mov dword [byte ebp+04Eh], 2
+        jmp near MainMenuScreen_CFF.48
+.50:
+        push dword [MainMenuResult]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [MainMenuScreenArt]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [MainMenuAnimY]
+        call FreeBitmap
+        add esp, byte 4
+        push dword [MainMenuChoice]
+        call FreeBitmap
+        add esp, byte 4
+        push edi
+        call FreeBitmap
+        add esp, byte 4
+        push dword [MainMenuWindow]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+06Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+076h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [MainMenuCursor]
+        xor ebx, ebx
+        call FreeMemBlock
+        add esp, byte 4
+.51:
+        mov esi, ebx
+        shl esi, 2
+        cmp dword [dword esi+MainMenuAnimFrames], byte 0
+        je short .52
+        push dword [dword esi+MainMenuAnimFrames]
+        call FreeMemBlock
+        add esp, byte 4
+        mov dword [dword esi+MainMenuAnimFrames], 0
+.52:
+        inc ebx
+        cmp ebx, byte 0Ch
+        jl short .51
+        push dword [MainMenuAnimShape]
+        call FreeMemBlock
+        mov eax, dword [byte ebp+07Eh]
+        add esp, byte 4
+        lea esp, [dword ebp+082h]
+        pop ebp
+        jmp near MainMenuAnim_50B
+;-----------------------------------------------------------------------------
+; RunGameScreens                                  85A15  97 PC, low confidence
+;
+; (screen): from RunFrontEnd, runs the game set-up screens by number (team select 4, pick saves 5/7/9, new
+; season 6, new play-offs 8, season 0Ch, play-offs 0Dh, edit lines 0Fh/10h, play 15h, post-game 16h/17h,
+; roster 19h) until one returns to the main menu
+;-----------------------------------------------------------------------------
+RunGameScreens:
+        push ebx
+        push ecx
+        push edx
+        enter 50h, 0
+        jmp near .7
+.1:
+        cmp ebx, byte 0Fh
+        jb near .15
+        jbe near .27
+        cmp ebx, byte 10h
+        je near .29
+        jmp short .8
+.2:
+        cmp ebx, byte 7
+        jb short .3
+        jbe near .10
+        cmp ebx, byte 9
+        jb near .11
+        jbe near .12
+        cmp ebx, byte 0Ch
+        je near .13
+        jmp short .8
+.3:
+        cmp ebx, byte 5
+        jb short .4
+        jbe short .5
+        jmp short .9
+.4:
+        cmp ebx, byte 4
+        jne short .8
+        call TeamSelectScreen
+        mov dword [LinkScreensDone], 1
+        jmp short .7
+.5:
+        mov eax, 5
+.6:
+        call PickIndexEntryScreen
+.7:
+        mov ebx, eax
+.8:
+        cmp ebx, byte 1
+        je near .44
+        cmp ebx, byte 0Dh
+        jb short .2
+        jbe short .14
+        cmp ebx, byte 13h
+        jb short .1
+        jbe near .30
+        cmp ebx, byte 15h
+        jb near .31
+        jbe near .32
+        cmp ebx, byte 19h
+        je near .26
+        jmp short .8
+.9:
+        call RunNewSeason
+        jmp short .7
+.10:
+        mov eax, 7
+        jmp short .6
+.11:
+        call RunNewPlayoffs
+        jmp short .7
+.12:
+        mov eax, 9
+        jmp short .6
+.13:
+        call RunSeasonMenus
+        jmp short .7
+.14:
+        call RunPlayoffMenus
+        jmp short .7
+.15:
+        call RunLinkGameScreens
+        mov ebx, eax
+        cmp eax, byte 1Ah
+        jne short .19
+        mov dword [PlayMenuGameFlag], 0
+        test byte [GameSettings], 70h
+        jne short .16
+        mov ebx, 4
+        jmp near .8
+.16:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne short .18
+        mov eax, dword [SeasonDefaultUser]
+        mov ebx, 0Ch
+.17:
+        call FindSeasonReplay
+        test eax, eax
+        jne near .8
+        mov dword [SeasonMenuExit], 1
+        jmp near .8
+.18:
+        cmp eax, byte 20h
+        jne near .8
+        movzx eax, byte [PlayoffUserIndex]
+        mov ebx, 0Dh
+        jmp short .17
+.19:
+        mov ecx, dword [GameOptionFlags]
+        test byte [byte ecx+02h], 20h
+        je short .20
+        cmp eax, byte 13h
+        je short .23
+.20:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne short .24
+        mov eax, dword [SeasonDefaultUser]
+.21:
+        call FindSeasonReplay
+        test eax, eax
+.22:
+        je near .8
+        cmp ebx, byte 13h
+        jne near .8
+.23:
+        mov ebx, 15h
+        jmp near .8
+.24:
+        cmp eax, byte 20h
+        jne short .25
+        movzx eax, byte [PlayoffUserIndex]
+        jmp short .21
+.25:
+        cmp dword [PlayMenuGameFlag], byte 0
+        jmp short .22
+.26:
+        mov eax, 1
+        mov ebx, 4
+        call RosterScreen
+        jmp near .8
+.27:
+        mov edx, 0FFFFFFFFh
+        xor eax, eax
+.28:
+        mov ebx, 0Eh
+        call EditLinesScreen
+        jmp near .8
+.29:
+        mov edx, 0FFFFFFFFh
+        mov eax, 1
+        jmp short .28
+.30:
+        call PreGameRostersScreen
+        jmp near .7
+.31:
+        call PreGameMatchupScreen
+        jmp near .7
+.32:
+        call WaitMusicEnd
+        call PlayMenuGame
+        test eax, eax
+        je short .40
+.33:
+        mov ebx, 16h
+.34:
+        cmp ebx, byte 16h
+        je short .35
+        cmp ebx, byte 17h
+        jne short .38
+.35:
+        cmp ebx, byte 16h
+        jb short .34
+        jbe short .36
+        cmp ebx, byte 17h
+        je short .37
+        jmp short .34
+.36:
+        call PostGameScreen
+        mov ebx, eax
+        jmp short .34
+.37:
+        call GameStatsScreen
+        jmp short .33
+.38:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        je short .39
+        cmp eax, byte 20h
+        jne short .41
+.39:
+        xor eax, eax
+        call FinishLeagueGame
+        jmp short .41
+.40:
+        mov ebx, 1Ah
+.41:
+        cmp ebx, byte 15h
+        je near .8
+        call WaitMusicEnd
+        call PauseMusic
+        call rand_
+        mov ecx, 2
+        cdq
+        idiv ecx
+        mov ecx, edx
+        lea edx, [byte ebp-050h]
+        mov eax, ecx
+        call ArenaFileName
+        lea eax, [byte ebp-050h]
+        call ChkMenuMusic
+        lea eax, [byte ecx+01h]
+        mov ecx, 2
+        cdq
+        idiv ecx
+        mov eax, edx
+        lea edx, [byte ebp-050h]
+        call ArenaFileName
+        lea eax, [byte ebp-050h]
+        call ChkMenuMusic
+        call RequestMusicStop
+        cmp ebx, byte 1
+        je near .8
+        test byte [GameSettings], 70h
+        jne short .42
+        mov ebx, 1
+        jmp near .8
+.42:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 10h
+        jne short .43
+        mov ebx, 0Ch
+        jmp near .8
+.43:
+        cmp eax, byte 20h
+        jne near .8
+        mov ebx, 0Dh
+        jmp near .8
+.44:
+        leave
+        pop edx
+        pop ecx
+        pop ebx
+        ret
