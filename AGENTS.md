@@ -16,3 +16,12 @@ If you are an AI agent (Claude, Codex, Copilot, Cursor, or any other) and you ar
 
 Start with [START_HERE.md](START_HERE.md), then [CONTRIBUTING.md](CONTRIBUTING.md) (names, comments) and [docs/ASM_BUILD.md](docs/ASM_BUILD.md). Every commit must build to MATCH. Never force-push.
 Never commit game files (HOCKEY.EXE, the IDA listing, data files): this repository is public.
+
+## Netplay security
+
+Everything that comes over the network is hostile. The rules and a review checklist are in Overbar's
+`port/overbar/docs/NETPLAY_SECURITY.md`; read them before changing netplay, a saved state, a file route or the season code. In short:
+never run, load or write code from network data; a peer never chooses an address; check every length before use
+(`len > size - at`, never `at + len > size`); validate a state before it is applied and clean it after; a peer's names are text, not paths.
+`sh port/overbar/tests/netsec.sh .` must print `netsec ok` (CI runs it in the `netsec` job). When a change adds a network path or a state field,
+add a hostile test for it.
