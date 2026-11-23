@@ -8,9 +8,11 @@
 uint8_t *game_image;
 int32_t game_slide;
 uint8_t *game_code;
-uint32_t game_code_size = OBJ1_SIZE;
+uint32_t game_code_size;
+int game_v11;                          /* 1: patch 1.1's HOCKEY.EXE, 0: the retail 1.0 one */
 
-static const uint32_t EXE_SIZE = 1865388;
+#define EXE_SIZE10 1865388u
+#define EXE_SIZE11 1871324u
 static char exe_path[1100];
 
 const char *game_exe_path(void)
@@ -20,7 +22,7 @@ const char *game_exe_path(void)
 
 static int is_retail(const uint8_t *d, size_t n)
 {
-    if (n != EXE_SIZE) return 0;
+    if (n != EXE_SIZE10 && n != EXE_SIZE11) return 0;
     if (d[0] != 'M' || d[1] != 'Z') return 0;
     if (d[0x2C90] != 'L' || d[0x2C91] != 'E') return 0;      /* NHL 97: the Watcom stub at 0, no bound DOS/4GW */
     return 1;
@@ -31,15 +33,18 @@ static int try_path(const char *p, uint8_t **out, size_t *n)
     FILE *f;
     struct stat st;
     uint8_t *d;
-    if (stat(p, &st) || st.st_size != (off_t)EXE_SIZE) return 0;
+    size_t sz;
+    if (stat(p, &st) || (st.st_size != (off_t)EXE_SIZE10 && st.st_size != (off_t)EXE_SIZE11)) return 0;
+    sz = (size_t)st.st_size;
     f = fopen(p, "rb");
     if (!f) return 0;
-    d = malloc(EXE_SIZE);
-    if (!d || fread(d, 1, EXE_SIZE, f) != EXE_SIZE) { free(d); fclose(f); return 0; }
+    d = malloc(sz);
+    if (!d || fread(d, 1, sz, f) != sz) { free(d); fclose(f); return 0; }
     fclose(f);
-    if (!is_retail(d, EXE_SIZE)) { free(d); return 0; }
+    if (!is_retail(d, sz)) { free(d); return 0; }
     snprintf(exe_path, sizeof exe_path, "%s", p);
-    *out = d; *n = EXE_SIZE;
+    game_v11 = sz == EXE_SIZE11;
+    *out = d; *n = sz;
     return 1;
 }
 
@@ -60,7 +65,7 @@ static uint8_t *read_exe(size_t *n)
         snprintf(p, sizeof p, "%s../retail/HOCKEY.EXE", base);
         if (try_path(p, &d, n)) goto done;
     }
-    fprintf(stderr, "NHL 97 PC: HOCKEY.EXE (1,865,388 bytes) not found.\n"
+    fprintf(stderr, "NHL 97 PC: HOCKEY.EXE (1.0: 1,865,388 bytes, or patch 1.1: 1,871,324 bytes) not found.\n"
                     "Put it next to the program, in retail/, or set NHL97_EXE.\n");
 done:
     SDL_free(base);
@@ -96,6 +101,7 @@ int game_load(void)
     uint8_t *map;
     d = read_exe(&n);
     if (!d) return -1;
+    fprintf(stderr, "NHL 97 PC: %s (%s)\n", exe_path, game_v11 ? "patch 1.1" : "1.0");
     if (!find_le(d, n, &mz, &le)) { fprintf(stderr, "not an LE executable\n"); free(d); return -1; }
     hdr = le;
     npages = ru32(d + hdr + 0x14);
