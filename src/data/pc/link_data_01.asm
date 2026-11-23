@@ -15,6 +15,9 @@ global NetHostSessionName, InputRecordOn, SlotWords, JoystickUpKey, str_Punct_Re
 global JoystickFireKey, JoystickAltKey, LinkSequence, ModemPortIrqs, ModemPortCount, ModemPortBases, NetSessionActive, NetSessionPort
 global IpxSocketOpen, IpxSocketHandle, NetJoinPending, NetPlayerNameLength, NetFoundCount, OptionsAnimItemFrames, OptionsAnimItemState, OptionsAnimItem
 global OptionsAnimOn
+%if VERSION = 11
+global LinkBlockAcked, LinkPeerMinSequence
+%endif
 InputPlaybackOn:                                ; set while recorded input plays back; used by
                                                 ; InputRecordTimer, StartInputRecording
         db 00h,00h,00h,00h
@@ -132,12 +135,26 @@ LinkFrameDelay:                                 ; link frame delay; used by Inpu
 LinkRemoteSequence:                             ; link remote packet sequence; used by LinkHandshake,
                                                 ; ResendLinkPacket, SendLinkPacket
         db 00h,00h,00h,00h
+%if VERSION = 11
+LinkPeerMinSequence:                            ; lowest LinkRemoteSequence seen, starts at 1; above 0 means
+                                                ; the peer is older
+        db 1,0,0,0
+LinkBlockDone:                                  ; set once a link block is received; used by LinkReceiveBlock,
+                                                ; ResendLinkPacket, SendLinkPacket ...
+LinkHandshakeDone:                              ; set once the link handshake finishes; used by LinkHandshake,
+                                                ; StartNetworkLink
+        db 0,0,0,0
+LinkBlockAcked:                                 ; cleared before LinkHandshake, set when the peer
+                                                ; acknowledges; used by LinkReceiveBlock
+        db 0,0
+%else
 LinkHandshakeDone:                              ; set once the link handshake finishes; used by LinkHandshake,
                                                 ; StartNetworkLink
         db 00h,00h,00h,00h
 LinkBlockDone:                                  ; set once a link block is received; used by LinkReceiveBlock,
                                                 ; ResendLinkPacket, SendLinkPacket ...
         db 00h,00h
+%endif
 LinkAbortPad:                                   ; low half of the dword read for the link abort flag; used by
                                                 ; ClearLinkAbort, WaitForOtherComputer
         db 00h,00h

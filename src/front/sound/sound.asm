@@ -2,7 +2,7 @@
 bits 32
 %include "hockey.inc"
 section s_4095C progbits alloc exec nowrite align=1
-extern __CHP, AddIdleHandler, AllocCdBuffer, AllocMemBlock, AmbientHandle, AmbientVolume, AudioDriverVersion, AudioInitDone
+extern __CHP, AddIdleHandler, AllocCdBuffer, AllocMemBlock, AmbientHandle, AmbientVolume, CpuSpeedCount, AudioInitDone
 extern AudioOptions, AudioStreamChannel, AudioStreamFlags, AudioStreamPosition, CameraStateRecords, ChannelPlaying, CloseDigitalAudio, CloseSpeechChannels
 extern CrowdBankHandle, CrowdNoiseLevel, CurrentArchiveName, DetectAudioDriver, DetectAudioHardware, DetectWindows, DirPathTable, DriveLetterIndex
 extern F32_42, F32_768_PositionSfx, F32_9600, F32_98, F64_3p14159_PositionSfx, F64_6p28319_PositionSfx, F64_neg3p14159_PositionSfx, F64_neg6p28319_PositionSfx
@@ -624,7 +624,7 @@ OpenAudioStream_D8:
 .6:
         mov eax, ecx
         call DetectAudioDriver
-        mov esi, dword [AudioDriverVersion]
+        mov esi, dword [CpuSpeedCount]
         cmp esi, 510FF40h
         jae short .7
         test al, 8

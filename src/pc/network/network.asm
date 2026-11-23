@@ -23,7 +23,12 @@ global InitNetSession, DefaultModemName, OpenNetSession, CloseNetSession, Shutdo
 global IpxCloseSocket, HostNetGame, LeaveNetGame, AddFoundGame, FindNetworkGames, DrawNetGameList, ChooseNetGame, ChooseNetworkGameScreenJumpTable
 global ChooseNetworkGameScreen, ChooseNetworkGameScreen_A51, ChooseNetworkGameScreen_A99, ChooseNetworkGameScreen_AE5, ChooseNetworkGameScreen_B21, ChooseNetworkGameScreen_BA2, CopyJoinedGameInfo, JoinNetworkGame
 global CloseNetConnection
+%if VERSION = 11
+        add byte [eax], al
+        db 0
+%else
         db 00h,00h,00h,00h,00h,00h,00h
+%endif
 ;-----------------------------------------------------------------------------
 ; InitNetSession                                  E5730  97 PC, low confidence
 ; Sets up the network session

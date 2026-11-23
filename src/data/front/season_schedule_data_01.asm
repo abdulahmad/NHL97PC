@@ -138,3 +138,14 @@ ModemResultCount:                               ; number of modem result codes; 
         db 014h,00h,00h,00h
 ModemLastResult:                                ; last modem result code; used by ModemReadResult
         db 00h,00h,00h,00h
+%if VERSION = 11
+        db 0Ah,20h,20h,43h,6Fh,70h,79h,72h
+        db 69h,67h,68h,74h,20h,31h,39h,39h
+        db 36h,20h,45h,6Ch,65h,63h,74h,72h
+        db 6Fh,6Eh,69h,63h,20h,41h,72h,74h
+        db 73h,20h,49h,6Eh,63h,2Eh,20h,20h
+        db 0Ah,0,0Ah,20h,20h,50h,61h,74h
+        db 63h,68h,20h,76h,65h,72h,73h,69h
+        db 6Fh,6Eh,20h,32h,2Eh,30h,30h,20h
+        db 20h,0Ah,0
+%endif

@@ -71,10 +71,17 @@ def sub_code(text, rx, new):
     return '\n'.join(out)
 
 def make():
-    # the link step checks the sha1 and fails (removing the EXE) on a mismatch, so success == MATCH
+    # the link step checks the sha1 and fails (removing the EXE) on a mismatch, so success == MATCH.
+    # Patch 1.1 (./build.sh 11) is built too when its HOCKEY.EXE can be found: both versions share src/.
     r = subprocess.run(['sh', 'build.sh'], cwd=ROOT, capture_output=True, text=True)
     ok = r.returncode == 0 and os.path.exists(os.path.join(ROOT, 'build/HOCKEY.EXE')) and 'MISMATCH' not in r.stdout
-    return ok, r.stdout[-1500:] + r.stderr[-1500:]
+    log = r.stdout[-1500:] + r.stderr[-1500:]
+    if ok:
+        r = subprocess.run(['sh', 'build.sh', '11'], cwd=ROOT, capture_output=True, text=True)
+        if 'not found' not in r.stderr:
+            ok = r.returncode == 0 and 'MATCH: build/v11/' in r.stdout
+            log += r.stdout[-1500:] + r.stderr[-1500:]
+    return ok, log
 
 def nasm_name_ok(name):
     """a bare NAME line must be read as an (orphan) label, not as an instruction/prefix/register"""

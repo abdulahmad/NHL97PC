@@ -190,6 +190,202 @@ AddPenalty2JumpTable:                           ; jump table for the switch case
         dd AddPenalty2_354
         dd AddPenalty2_32E
         dd AddPenalty2_308
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; AddPenalty2                                       324A0  94G, low confidence
+; (player, penalty, ...) a forced penalty: penalty table
+; PenaltyMinutes, the penalty panel (QueueOverlayPanel)
+;-----------------------------------------------------------------------------
+AddPenalty2:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 8
+        mov ecx, eax
+        mov word [byte ebp-04h], dx
+        mov word [byte ebp-08h], bx
+        cmp word [GoalLineFlag], byte 0
+        jne near AddPenalty2_2CB
+        cmp word [BenchRequest], byte 0
+        jne short .3
+        mov eax, dword [byte ebp-06h]
+        mov edx, dword [DelayedPen]
+        sar eax, 10h
+        sar edx, 10h
+        mov eax, dword [dword eax*4+PenaltyMinutes]
+        cmp eax, edx
+        jl short .3
+        push eax
+        cmp eax, byte 7
+        jne short .1
+        xor eax, eax
+        jmp short .2
+.1:
+        mov eax, 0C8h
+.2:
+        push eax
+        push byte 0
+        call QueueOverlayPanel
+        add esp, byte 0Ch
+.3:
+        mov esi, dword [byte ebp-04h]
+        cmp si, byte 0Eh
+        jge short .4
+        mov word [BreakawayFlag], si
+.4:
+        mov edi, dword [byte ebp-04h]
+        cmp di, byte 0Eh
+        jl near .13
+        test byte [dword ecx+0BFh], 40h
+        je short .6
+        cmp byte [PenBuf], 0
+        je short .5
+        cmp byte [PenaltyTeam], 6
+        jge short .5
+        cmp byte [penmintab], 0
+        je short .5
+        mov eax, 504h
+        xor edx, edx
+        call PlaySfxOr
+.5:
+        mov eax, 9
+        call SetCrowdMood
+        jmp near .13
+.6:
+        cmp word [byte ebp-08h], byte 0
+        je short .10
+        cmp di, byte 1Ch
+        je short .10
+        cmp di, byte 1Dh
+        je short .10
+        cmp byte [PenBuf], 0
+        jne short .9
+        cmp word [HmPlayersInBox], byte 6
+        jge short .7
+        mov eax, 500h
+        jmp short .8
+.7:
+        mov eax, 4
+        call randomd0
+        cwde
+        mov eax, dword [dword eax*4+PenaltyTypes]
+.8:
+        xor edx, edx
+        call PlaySfxOr
+.9:
+        mov eax, 2
+        call randomd0
+        test ax, ax
+        sete al
+        and eax, 0FFh
+        call SetCrowdMood
+        jmp near .13
+.10:
+        cmp word [byte ebp-04h], byte 22h
+        jne near .13
+        test byte [dword ecx+0BFh], 40h
+        jne short .11
+        mov eax, 2
+        call randomd0
+        test ax, ax
+        sete al
+        and eax, 0FFh
+        call SetCrowdMood
+        mov edx, dword [penshottimer]
+        sar edx, 10h
+        mov eax, edx
+        shl eax, 5
+        add eax, edx
+        mov eax, dword [dword eax*8+PenaltyRecord]
+        sar eax, 18h
+        imul eax, dword 125h
+        add eax, AwayPlayerRecords
+        jmp short .12
+.11:
+        mov edx, dword [penshottimer]
+        sar edx, 10h
+        mov eax, edx
+        shl eax, 5
+        add eax, edx
+        mov eax, dword [dword eax*8+PenaltyRecord]
+        sar eax, 18h
+        imul eax, dword 125h
+        add eax, HomePlayerRecords
+.12:
+        push eax
+        push dword 0A0000027h
+        call CommentaryEvent
+        add esp, byte 8
+.13:
+        mov bl, byte [PenBuf]
+        xor eax, eax
+        xor edx, edx
+        test bl, bl
+        jne near AddPenalty2_354.28
+.14:
+        mov bl, byte [byte ebp-04h]
+        mov byte [dword eax+PenBuf], bl
+        mov bl, byte [dword ecx+0A4h]
+        mov byte [dword eax+PenaltyTeam], bl
+        mov bl, byte [byte ebp-08h]
+        mov byte [dword eax+penmintab], bl
+        cmp byte [dword ecx+0A6h], 19h
+        jge short .16
+        test bl, 4
+        jne short .15
+        cmp word [byte ebp-04h], byte 1Dh
+        jne short .16
+.15:
+        test byte [byte ebp-08h], 10h
+        jne short .16
+        mov ebx, dword [dword ecx+0A3h]
+        mov eax, dword [dword ecx+0FEh]
+        sar ebx, 18h
+        inc byte [dword ebx+eax+0B4h]
+        mov ebx, dword [byte ebp-04h]
+        cmp bx, byte 1Dh
+        je short .16
+        cmp bx, byte 10h
+        je short .16
+        mov eax, dword [dword ecx+0A3h]
+        mov ebx, dword [dword ecx+0FEh]
+        sar eax, 18h
+        cmp byte [dword ebx+eax+0B4h], 3
+        jb short .16
+        lea eax, [dword edx*4+00h]
+        sub eax, edx
+        or byte [dword eax+penmintab], 10h
+.16:
+        cmp word [byte ebp-08h], byte 0
+        jne near AddPenalty2_354.22
+        cmp word [dword ecx+0A9h], byte 0
+        jne short .17
+        mov eax, dword [dword ecx+0FEh]
+        mov edx, dword [dword eax+0108h]
+        mov eax, dword [dword ecx+0A3h]
+        sar eax, 18h
+        sub eax, byte 19h
+        imul eax, dword 125h
+        add edx, 1D42h
+        jmp short .18
+.17:
+        mov eax, dword [dword ecx+0FEh]
+        mov edx, dword [dword eax+0108h]
+        mov eax, dword [dword ecx+0A3h]
+        sar eax, 18h
+        imul eax, dword 125h
+        add edx, 0A3h
+.18:
+        add eax, edx
+        mov edx, dword [byte ebp-04h]
+        sub edx, byte 5
+        cmp dx, byte 5
+        ja near AddPenalty2_2CB
+        and edx, 0FFFFh
+        jmp dword [dword cs:edx*4+AddPenalty2JumpTable]
+%else
 ;-----------------------------------------------------------------------------
 ; AddPenalty2                                       32340  94G, low confidence
 ; (player, penalty, ...) a forced penalty: penalty table
@@ -384,6 +580,7 @@ AddPenalty2:
         ja near AddPenalty2_2CB
         and edx, 0FFFFh
         jmp dword [nosplit cs:edx*4+AddPenalty2JumpTable]
+%endif
 AddPenalty2_2BD:
         push eax
         push dword 0A0000028h
@@ -446,6 +643,162 @@ AddPenalty2_32E:
         pop esi
         pop ecx
         ret
+%if VERSION = 11
+AddPenalty2_354:
+        cmp dword [PuckHitFlag], byte 0
+        je short .19
+        mov ecx, 1001h
+        push ecx
+        push dword 0D003h
+        push eax
+        push dword 0A0000020h
+        mov dword [LastTouchPlayer], ecx
+        call CommentaryEvent
+        add esp, byte 10h
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.19:
+        mov edx, dword [PtrPuckFlags]
+        mov bx, word [byte edx+06Dh]
+        cmp bx, byte 3
+        je short .20
+        test bx, bx
+        jne short .21
+.20:
+        mov ebx, 1001h
+        push ebx
+        push dword 4003h
+        push eax
+        push dword 0A0000006h
+        mov dword [LastTouchPlayer], ebx
+        call CommentaryEvent
+        add esp, byte 10h
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.21:
+        mov edx, 1000h
+        push edx
+        push dword 0D002h
+        push eax
+        push dword 0A0000020h
+        mov dword [LastTouchPlayer], edx
+        call CommentaryEvent
+        add esp, byte 10h
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.22:
+        mov al, byte [dword ecx+0C0h]
+        test al, 10h
+        jne near .27
+        mov dh, al
+        or dh, 10h
+        mov eax, dword [byte ebp-04h]
+        mov byte [dword ecx+0C0h], dh
+        cmp ax, 0Eh
+        jl near AddPenalty2_2CB
+        cmp dword [ReplayPlaying], byte 0
+        jne near AddPenalty2_2CB
+        cmp ax, 1Ch
+        jge near AddPenalty2_2CB
+        cmp word [dword ecx+0A9h], byte 0
+        jne short .23
+        mov eax, dword [dword ecx+0FEh]
+        mov edx, dword [dword eax+0108h]
+        mov eax, dword [dword ecx+0A3h]
+        sar eax, 18h
+        sub eax, byte 19h
+        imul ebx, eax, dword 125h
+        lea eax, [dword edx+01D42h]
+        add eax, ebx
+        jmp short .24
+.23:
+        mov eax, dword [dword ecx+0FEh]
+        mov edx, dword [dword eax+0108h]
+        mov eax, dword [dword ecx+0A3h]
+        sar eax, 18h
+        imul eax, dword 125h
+        add edx, 0A3h
+        add eax, edx
+.24:
+        cmp word [byte ebp-04h], byte 20h
+        jne short .25
+        mov edx, 7009h
+        jmp short .26
+.25:
+        mov edx, dword [byte ebp-06h]
+        sar edx, 10h
+        mov edx, dword [nosplit edx*2+PenaltyFlags]
+        sar edx, 10h
+.26:
+        mov ebx, dword [LastTouchPlayer]
+        push ebx
+        mov bl, byte [dword ecx+0BFh]
+        push edx
+        test bl, 40h
+        setne dl
+        and edx, 0FFh
+        push edx
+        push eax
+        push dword 0A000000Ah
+        call CommentaryEvent
+        add esp, byte 14h
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.27:
+        lea eax, [dword edx*4+00h]
+        sub eax, edx
+        xor dl, dl
+        mov byte [dword eax+penmintab], dl
+        mov byte [dword eax+PenaltyTeam], dl
+        mov byte [dword eax+PenBuf], dl
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.28:
+        add eax, byte 3
+        inc edx
+        cmp eax, byte 60h
+        jge near AddPenalty2_2CB
+        cmp byte [dword eax+PenBuf], 0
+        je near AddPenalty2.14
+        jmp short .28
+        push edx
+        cmp ax, 3
+        je short .29
+        mov edx, 1
+        mov word [BreakawayFlag], ax
+        mov dword [RefStep], edx
+        cmp ax, 7
+        sete al
+        and eax, 0FFh
+        add eax, byte 36h
+        movsx edx, ax
+        mov eax, dword [PtrPuckObject]
+        call assreplace
+.29:
+        pop edx
+        ret
+        LD mov, eax, eax
+%else
 AddPenalty2_354:
         cmp dword [PuckHitFlag], byte 0
         je short .19
@@ -603,6 +956,7 @@ AddPenalty2_354:
         pop edx
         ret
         db 08Bh,0C0h
+%endif
 ;-----------------------------------------------------------------------------
 ; Stop4Pen                                       32888  94G, medium confidence
 ; (from checkfornewpen and puckfaceoff): stops the clock (gmode bit 0), sets the faceoff spot
@@ -1891,6 +2245,48 @@ SetupPenaltyShot:
         pop ebx
         ret
         db 090h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; EndPenaltyShot                               339D4  95 PC, medium confidence
+; Clears penshotmode / penshotlive / penshotplayer, AddPenalty2, restores
+; state
+;-----------------------------------------------------------------------------
+EndPenaltyShot:
+        push ebx
+        push ecx
+        push edx
+        push edi
+        cmp word [penshotlive], byte 0
+        je short .1
+        cmp word [penshotmode], byte 0
+        je short .1
+        mov edi, 0FFFFFFFFh
+        mov edx, 3
+        mov eax, dword [PtrPuckFlags]
+        xor ecx, ecx
+        xor ebx, ebx
+        mov word [penshotmode], cx
+        mov word [penshotlive], cx
+        mov word [FaceoffRequest], di
+        call AddPenalty2
+        mov ax, word [AwayGoalsPeriod]
+        mov word [LastPlayerTouch], ax
+        mov word [LastTouchTeam], ax
+        mov ax, word [HomeGoalsPeriod]
+        mov edx, 34h
+        mov word [StoppageFlag], ax
+        mov word [PassDistY], ax
+        mov eax, dword [PtrPuckObject]
+        call assreplace
+        call EndPenShotScene
+.1:
+        pop edi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+%else
 ;-----------------------------------------------------------------------------
 ; EndPenaltyShot                               33880  95 PC, medium confidence
 ; Clears penshotmode / penshotlive / penshotplayer, AddPenalty2, restores
@@ -1931,6 +2327,7 @@ EndPenaltyShot:
         pop ebx
         ret
         db 08Bh,0C0h
+%endif
 ;-----------------------------------------------------------------------------
 ; PenaltyPaCode                                   33904  97 PC, low confidence
 ; Arena PA event code for a penalty (table PenaltyPaCodes) with its minor /
@@ -2698,6 +3095,48 @@ InProgress_96E:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; chkprogress                    34418  93G penalty93_1.asm, medium confidence
+;
+; (fall-through from PenaltyManager): with gmpen (gmode bit 2): Pencntdwn >= 0 ->
+; chkprogress_go, else InProgress; PC first (clock stopped) calls UpdateTextOverlay and counts Pencntdwn2
+; down to set gmode2 bit 2
+;-----------------------------------------------------------------------------
+chkprogress:
+        call updatepentime
+        call checkfornewpen
+        LD mov, eax, eax
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        test byte [gmode], 1
+        je short InProgress_96E
+        mov dx, word [ProgressTimer]
+        test dx, dx
+        jl short .1
+        mov ebx, edx
+        dec ebx
+        mov word [ProgressTimer], bx
+        test bx, bx
+        jge short .1
+        or byte [gmode2], 4
+.1:
+        test byte [gmode], 4
+        je short InProgress_96E
+        mov si, word [PenCntDwn]
+        test si, si
+        jge near InProgress_8B2
+        call InProgress
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; chkprogress                    342C4  93G penalty93_1.asm, medium confidence
 ;
@@ -2738,3 +3177,4 @@ chkprogress:
         pop ecx
         pop ebx
         ret
+%endif

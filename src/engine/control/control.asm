@@ -23,7 +23,14 @@ global SetPlayerTarget, restorepl, SetSlotPlayer, GiveControl, ChkGrabPuckOnSwit
 global SlotToJoy, ReadJoy1, RequestLineChange, LineChangeKey, DoLineChangeInput, faceoffinput, FaceDirFromMotion, doplayeracc
 global SetSkateDir, JoySkate, JoyDirSkate, FindPassTarget, FindPassTarget_E0, ChkPassTo, DoPassButton, ShotAimDir
 global DoShootButton, ChkOneTimerSpot, ClearLastPasser, onetimershot, doinput, CountTeamSlots, DebugRestoreEnergy
+%if VERSION = 11
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+%else
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+%endif
 ;-----------------------------------------------------------------------------
 ; SetPlayerTarget                                 34330  97 PC, low confidence
 ; (player, object): sets the player's target object (+0BAh) and its flag

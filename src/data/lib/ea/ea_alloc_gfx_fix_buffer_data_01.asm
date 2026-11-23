@@ -6,7 +6,7 @@ bits 32
 section s_16E274 progbits alloc noexec write align=1
 extern memlist1, PresentScreen
 global AllStarSlotOrder, AllStarSlotOrderNext, AllStarArtDigits, JoyButtonBits, JoyButtonMask, JoyPortMask, str_Punct_LoadAllStarArt, VesaModeCount
-global VideoModeChoice, VesaModeIndex, VesaModeChanged, VideoModeList, AudioDriverVersion, GfxFixBuffer, IdleContext, IdleNextTick
+global VideoModeChoice, VesaModeIndex, VesaModeChanged, VideoModeList, CpuSpeedCount, GfxFixBuffer, IdleContext, IdleNextTick
 global HeapList, HeapRover, HeapLargestFree, FileCacheList, MemPoolEnd, MemPoolBase, MemPoolSize, FreeSpaceList
 global MemLockOn, MemListEndFunc, JoyAxisValues, JoyAxisY, JoyAxisSecondX, JoyAxisSecondY, JoyPort, JoyTimeX
 global JoyTimeY, JoyTimeSecondX, JoyTimeSecondY, AllStarSoundOn, ControlSetupDelay, ControlSetupItem, ControlSetupSoundOn
@@ -49,7 +49,9 @@ VesaModeChanged:                                ; set when the VESA mode changed
 VideoModeList:                                  ; video mode list; used by FindNearestVideoMode,
                                                 ; NextVideoMode, PrevVideoMode ...
         db 00h,00h,00h,00h
-AudioDriverVersion:                             ; audio driver version; used by InitVideoModeList,
+CpuSpeedCount:                                  ; CPU speed: rdtsc cycles over 100 timer ticks
+                                                ; (1.1: PIT count or EstimateCpuSpeed without rdtsc);
+                                                ; used by InitVideoModeList,
                                                 ; OpenAudioStream, UpdateScoreClockData
         db 0FFh,0FFh,0FFh,0FFh
 GfxFixBuffer:                                   ; graphics fix buffer; used by AllocGfxFixBuffer,

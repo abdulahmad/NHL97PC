@@ -25,6 +25,1198 @@ extern str_TRLS, str_TRRS, str_TRSE, str_TRSP, str_TRSS, str_WHATEVER, strcat_, 
 extern strcpy_, strlen_, TeamSelectFlags, TeamSelectMode, tickcount, UnlinkJump, WaitSoundTime
 global PickIndexEntryScreen, PickIndexEntryScreen_393, PickIndexEntryScreen_3A4, PickIndexEntryScreen_3B5, PickIndexEntryScreen_470, PickIndexEntryScreen_4D9, PickIndexEntryScreen_4EE, PickIndexEntryScreen_1080
 global DrawIndexEntry, LoadIndexFile, PickIndexEntry
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; PickIndexEntryScreen                         9FD99  96 PC, medium confidence
+; Picks an entry of a name index (seasons, exhibition records) from a
+; scrolling list (BALL, ">%s"), with new / delete buttons (BT10-BT12)
+;-----------------------------------------------------------------------------
+PickIndexEntryScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 4C8h, 0
+        push eax
+        sub ebp, 82h
+        call SetScreenTarget
+        push dword 1E0h
+        mov ecx, 280h
+        mov eax, 8
+        xor ebx, ebx
+        xor edx, edx
+        call DrawEditBox
+        call PresentScreen
+        push byte 0
+        push dword 140h
+        push dword 280h
+        xor ebx, ebx
+        call CreateBitmap
+        mov edx, 1
+        add esp, byte 0Ch
+        mov dword [byte ebp+072h], eax
+        lea eax, [dword ebp-086h]
+        call MakeDirPath
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 3Eh
+        call LoadDataFile
+        mov dword [byte ebp+05Ah], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 3Fh
+        call LoadDataFile
+        mov esi, eax
+        mov dword [byte ebp+066h], eax
+        mov eax, 3
+        mov ebx, 6
+        call SecondsToSamples
+        call WaitSoundTime
+        call rand_
+        cdq
+        idiv ebx
+        lea eax, [byte edx+040h]
+        xor edx, edx
+        mov dword [byte ebp+076h], 0FFFFFFFFh
+        call LoadDataFile
+        mov dword [byte ebp+05Eh], eax
+        mov eax, 3
+        mov dword [byte ebp+06Eh], 0
+        call SecondsToSamples
+        call WaitSoundTime
+        push dword str_DL01
+        push esi
+        call FindShape
+        add esp, byte 8
+        push dword str_DL02
+        push esi
+        mov dword [IndexDialogShapeMid], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_DL03
+        push esi
+        mov dword [IndexDialogShapeEnd], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [IndexDialogShapeTop], eax
+        cmp dword [dword ebp-044Ah], byte 7
+        jb short .12
+        jbe short .2
+        cmp dword [dword ebp-044Ah], byte 9
+        je short .3
+        jmp near .6
+.12:
+        cmp dword [dword ebp-044Ah], byte 5
+        je short .4
+        jmp short .6
+.2:
+        mov edx, str_SEASONNDX2
+        lea eax, [dword ebp-086h]
+        call NameIndexLoad
+        mov dword [byte ebp+07Eh], eax
+        test eax, eax
+        jne short .6
+        mov edx, str_SEASONNDX2
+        jmp short .5
+.3:
+        mov edx, str_PLAYOFFNDX2
+        lea eax, [dword ebp-086h]
+        call NameIndexLoad
+        mov dword [byte ebp+07Eh], eax
+        test eax, eax
+        jne short .6
+        mov edx, str_PLAYOFFNDX2
+        jmp short .5
+.4:
+        mov edx, str_EXHIBITNDX
+        lea eax, [dword ebp-086h]
+        call NameIndexLoad
+        mov dword [byte ebp+07Eh], eax
+        test eax, eax
+        jne short .6
+        mov edx, str_EXHIBITNDX
+.5:
+        lea eax, [dword ebp-086h]
+        call NameIndexNew
+        mov dword [byte ebp+07Eh], eax
+.6:
+        cmp dword [LinkGameActive], byte 0
+        je short .7
+        mov edx, dword [dword ebp-044Ah]
+        mov eax, dword [byte ebp+07Eh]
+        call LoadIndexFile
+        jmp short .13
+.7:
+        mov eax, dword [byte ebp+07Eh]
+.13:
+        mov dword [byte ebp+07Ah], eax
+        mov eax, dword [byte ebp+07Ah]
+        add eax, byte 6Eh
+        mov edx, IndexPickChoice
+        mov dword [byte ebp+062h], eax
+        mov eax, 10h
+        xor esi, esi
+        call InitMenuItems
+.9:
+        imul ebx, esi, byte 12h
+        push byte 12h
+        mov eax, esi
+        lea edi, [dword ebp-0446h]
+        shl eax, 6
+        mov ecx, 15Eh
+        add eax, byte 40h
+        mov edx, 46h
+        add edi, eax
+        add ebx, byte 46h
+        mov eax, edi
+        call SetRegionRect
+        lea eax, [byte esi+06h]
+        imul eax, byte 52h
+        mov dword [dword eax+IndexItemType], 4
+        inc esi
+        mov dword [dword eax+IndexItemValue], edi
+        cmp esi, byte 0Ah
+        jl short .9
+        mov ecx, dword [byte ebp+05Eh]
+        mov ebx, dword [byte ebp+066h]
+        mov edx, dword [byte ebp+05Ah]
+        mov eax, dword [byte ebp+072h]
+        call PickIndexEntry
+        push byte 10h
+        mov eax, dword [byte ebp+072h]
+        push dword 0FAh
+        mov ecx, 0FAh
+        mov eax, dword [byte eax+02Ch]
+        push byte 1Eh
+        mov ebx, 230h
+        mov edx, eax
+        call DrawEntryList
+        mov eax, dword [byte ebp+07Ah]
+        cmp dword [byte eax+066h], byte 0Ah
+        jle short .14
+        push byte 0
+        push byte 0
+        push dword 96h
+        push byte 64h
+        mov eax, dword [byte ebp+072h]
+        push dword 226h
+        mov ebx, dword [byte ebp+07Ah]
+        mov ecx, 0Ah
+        push dword [byte eax+02Ch]
+        mov edx, IndexListBox
+        push byte 0
+        mov ebx, dword [byte ebx+066h]
+        lea eax, [dword ebp-0186h]
+        call InitScrollList
+        jmp short .11
+.14:
+        mov dword [dword ebp-0162h], 0
+.11:
+        mov ecx, 52h
+        mov edi, IndexPickChoice
+        mov esi, ScreenTitleItem
+        rep movsb
+        mov ecx, 52h
+        mov edi, IndexItemTemplate
+        mov esi, BlankMenuItem
+        mov dword [IndexPickChoice], 0
+        push dword str_DL00
+        rep movsb
+        push dword [byte ebp+066h]
+        mov dword [IndexItemTemplate], 1
+        call FindShape
+        add esp, byte 8
+        push dword str_DL01
+        push dword [byte ebp+066h]
+        mov dword [IndexDialogShape], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_DL01
+        push dword [byte ebp+066h]
+        mov dword [IndexDialogFrame], eax
+        call FindShape
+        mov dword [IndexDialogBack], eax
+        lea eax, [dword ebp-0446h]
+        mov dword [IndexDialogText], eax
+        mov eax, dword [IndexDialogShape]
+        mov dword [IndexDialogType], 4
+        movsx edx, word [byte eax+0Ch]
+        mov dword [IndexDialogWidth], edx
+        movsx edx, word [byte eax+0Eh]
+        mov dword [IndexDialogHeight], edx
+        add esp, byte 8
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        movsx ebx, word [byte eax+0Eh]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        lea eax, [dword ebp-0446h]
+        call SetRegionRect
+        call SetScreenTarget
+        mov eax, dword [byte ebp+072h]
+        push dword [byte eax+02Ch]
+        mov ebx, dword [byte ebp+072h]
+        call DrawShapeAtOwnPos
+        mov ecx, dword [byte ebp+06Eh]
+        mov edx, dword [byte ebp+07Ah]
+        add esp, byte 4
+        mov eax, dword [dword ebp-0162h]
+        mov ebx, dword [byte ebx+02Ch]
+        call DrawIndexEntry
+        mov eax, dword [byte ebp+07Ah]
+        cmp dword [byte eax+066h], byte 0Ah
+        jle short .15
+        lea eax, [dword ebp-0186h]
+        xor edx, edx
+        call DrawScrollBar
+.15:
+        call PresentScreen
+        jmp near PickIndexEntryScreen_470.21
+PickIndexEntryScreen_393:
+        call ShowScreen
+.1:
+        mov dword [byte ebp+076h], 1
+        jmp near PickIndexEntryScreen_470.21
+PickIndexEntryScreen_3A4:
+        call FadeInScreen
+        mov dword [byte ebp+076h], 1Bh
+        jmp near PickIndexEntryScreen_470.21
+PickIndexEntryScreen_3B5:
+        lea ebx, [byte ebp+022h]
+        mov eax, dword [byte ebp+07Ah]
+        mov edx, edi
+        call NameIndexPath
+        mov edx, str_DONTHAVEIT
+        lea eax, [byte ebp+022h]
+        call strcmp_
+        test eax, eax
+        je short .23
+        xor esi, esi
+        jmp short .22
+.20:
+        lea edi, [dword esi+03E8h]
+        lea ebx, [byte ebp-01Eh]
+        mov edx, edi
+        call NameIndexPath
+        lea edx, [byte ebp-01Eh]
+        lea eax, [byte ebp+022h]
+        call strcmp_
+        test eax, eax
+        jne short .21
+        mov eax, dword [byte ebp+07Eh]
+        mov edx, edi
+        call NameIndexRemove
+        mov dword [byte ebp+07Eh], eax
+        lea eax, [byte ebp+022h]
+        call UnlinkJump
+.21:
+        inc esi
+.22:
+        mov eax, dword [byte ebp+07Eh]
+        cmp esi, dword [byte eax+066h]
+        jl short .20
+        call NameIndexSave
+.23:
+        mov eax, dword [byte ebp+07Eh]
+        cmp dword [byte eax+066h], byte 0
+        jne near PickIndexEntryScreen_393.1
+        cmp dword [dword ebp-044Ah], byte 7
+        jb short .24
+        jbe short .17
+        cmp dword [dword ebp-044Ah], byte 9
+        je short .18
+        jmp near PickIndexEntryScreen_393.1
+.24:
+        cmp dword [dword ebp-044Ah], byte 5
+        jne near PickIndexEntryScreen_393.1
+        mov eax, str_DATAEXHIBITNDX2
+        jmp short .19
+.17:
+        mov eax, str_DATASEASONNDX2
+        jmp short .19
+.18:
+        mov eax, str_DATAPLAYOFFNDX2
+.19:
+        call UnlinkJump
+        jmp near PickIndexEntryScreen_393.1
+PickIndexEntryScreen_470:
+        lea eax, [dword ebp-0186h]
+        mov ebx, dword [byte ebp+072h]
+        xor edx, edx
+        mov ecx, dword [byte ebp+06Eh]
+        call ScrollUp
+.22:
+        mov edx, dword [byte ebp+07Ah]
+        mov eax, dword [dword ebp-0162h]
+        mov ebx, dword [byte ebx+02Ch]
+        call DrawIndexEntry
+.21:
+        mov edi, dword [byte ebp+06Eh]
+        add edi, 3E8h
+        cmp dword [byte ebp+076h], byte 0FFFFFFFFh
+        jne near PickIndexEntryScreen_4EE.24
+        push byte 3
+        lea eax, [byte ebp+056h]
+        mov ecx, IndexScreenSound
+        mov ebx, 0FFFFFFFFh
+        push eax
+        mov edx, IndexPickChoice
+        mov eax, 10h
+        call RunMenu
+        mov ebx, eax
+        cmp dword [byte ebp+056h], byte 5
+        ja short PickIndexEntryScreen_4EE.22
+        mov eax, dword [byte ebp+056h]
+        jmp dword [dword cs:eax*4+PickIndexEntryScreenJumpTable]
+PickIndexEntryScreen_4D9:
+        lea eax, [dword ebp-0186h]
+        xor edx, edx
+        mov ecx, dword [byte ebp+06Eh]
+        call ScrollToMouse
+        mov ebx, dword [byte ebp+072h]
+        jmp short PickIndexEntryScreen_470.22
+PickIndexEntryScreen_4EE:
+        lea eax, [dword ebp-0186h]
+        mov ebx, dword [byte ebp+072h]
+        xor edx, edx
+        mov ecx, dword [byte ebp+06Eh]
+        call ScrollDown
+        jmp short PickIndexEntryScreen_470.22
+.22:
+        mov eax, dword [byte ebp+056h]
+        sub eax, byte 6
+        mov edx, dword [byte ebp+07Ah]
+        add eax, dword [dword ebp-0162h]
+        cmp eax, dword [byte edx+066h]
+        jge short .23
+        mov dword [byte ebp+06Eh], eax
+.23:
+        mov ebx, dword [byte ebp+072h]
+        mov ecx, dword [byte ebp+06Eh]
+        jmp near PickIndexEntryScreen_470.22
+.24:
+        cmp dword [byte ebp+076h], byte 1Bh
+        jne near .99
+        lea ebx, [byte ebp+022h]
+        mov eax, dword [byte ebp+07Ah]
+        mov edx, edi
+        call NameIndexPath
+        mov edx, str_DONTHAVEIT
+        lea eax, [byte ebp+022h]
+        call strcmp_
+        test eax, eax
+        je short .25
+        lea eax, [byte ebp+022h]
+        lea edx, [byte ebp+022h]
+        call strlen_
+        sub eax, byte 8
+        add eax, edx
+        call atoi_
+        mov dword [byte ebp+06Ah], eax
+.25:
+        cmp dword [LinkGameActive], byte 0
+        je near .96
+        call ClearLinkAbort
+        test eax, eax
+        je near .92
+        call LinkSyncMenu
+        lea edi, [byte ebp+022h]
+        jmp short .27
+.26:
+        mov edi, eax
+.27:
+        lea eax, [byte edi+01h]
+        cmp byte [edi], 5Ch
+        jne short .26
+        mov edx, str_DONTHAVEIT
+        mov edi, eax
+        call strcmp_
+        test eax, eax
+        jne short .28
+        mov edx, 8
+        mov eax, dword [ReplayIndexRecvBuf]
+        xor ebx, ebx
+        mov esi, 1
+        call LinkSendBlock
+        jmp short .29
+.28:
+        mov edx, 8
+        mov eax, dword [ReplayIndexSendBuf]
+        xor ebx, ebx
+        call LinkSendBlock
+        xor esi, esi
+.29:
+        mov edx, 8
+        lea eax, [byte ebp+042h]
+        xor ebx, ebx
+        call LinkReceiveBlock
+        lea eax, [byte ebp+042h]
+        mov edx, dword [ReplayIndexSendBuf]
+        call strcmp_
+        test eax, eax
+        jne near .41
+        test esi, esi
+        je near .96
+        cmp dword [dword ebp-044Ah], byte 5
+        jne short .87
+        mov edx, 4A78h
+        mov eax, SeasonFileName
+        xor ebx, ebx
+        call LinkReceiveBlock
+        push byte 0
+        push dword [ReplayBufferSize]
+        push dword str_Replaybuf
+        xor ebx, ebx
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov edx, dword [ReplayBufferSize]
+        mov esi, eax
+        call LinkReceiveBlock
+        mov eax, SeasonFileName
+        mov ebx, dword [ReplayBufferSize]
+        mov edx, esi
+        call AddReplayIndexEntry
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+        push edi
+        push dword [ReplayIndexHandle]
+        mov ebx, 0Dh
+        push dword [SeasonFileName]
+        mov edx, edi
+        call ClearReplayEntry
+        lea eax, [byte ebp+02h]
+        call memcpy_
+        jmp near .39
+.87:
+        cmp dword [dword ebp-044Ah], byte 7
+        jne near .88
+        mov edx, 525h
+        mov eax, SeasonName
+        xor ebx, ebx
+        call LinkReceiveBlock
+        xor esi, esi
+.31:
+        inc esi
+        cmp esi, byte 1Ah
+        jl short .31
+        xor esi, esi
+.32:
+        imul eax, esi, byte 1Ch
+        cmp byte [dword eax+SeasonUserActive], 0
+        je short .33
+        mov byte [dword eax+SeasonUserHuman], 1
+.33:
+        inc esi
+        cmp esi, byte 1Ah
+        jl short .32
+        mov eax, 1
+        call ReceiveLeagueData
+        mov eax, dword [byte ebp+07Eh]
+        call NameIndexLimit
+        push eax
+        push dword str_SEAS04dSET2
+        mov edi, eax
+        lea eax, [byte ebp+02h]
+        push eax
+        mov edx, 1
+        call sprintf_
+        add esp, byte 0Ch
+        xor ebx, ebx
+        lea eax, [dword ebp-086h]
+        call MakeDirPath
+        lea eax, [byte ebp+02h]
+        push eax
+        lea eax, [dword ebp-086h]
+        push eax
+        push dword str_SS7
+        lea eax, [byte ebp+022h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        push dword 525h
+        push dword SeasonName
+        lea eax, [byte ebp+022h]
+        push eax
+        call SaveDataFileNew
+        add esp, byte 0Ch
+        lea eax, [byte ebp+022h]
+        lea edx, [byte ebp+022h]
+        call strlen_
+        sub eax, byte 8
+        add eax, edx
+        call atoi_
+        mov dword [byte ebp+06Ah], eax
+        cmp dword [SeasonActive], byte 0
+        je near .39
+        mov edx, 4F7h
+        mov eax, PlayoffSettings
+        xor ebx, ebx
+        call LinkReceiveBlock
+        xor esi, esi
+.34:
+        imul eax, esi, byte 1Ch
+        cmp byte [dword eax+PlayoffUserActive], 0
+        je short .35
+        mov byte [dword eax+PlayoffUserHuman], 1
+.35:
+        inc esi
+        cmp esi, byte 10h
+        jl short .34
+        xor eax, eax
+        call ReceiveLeagueData
+        push edi
+        push dword str_SEAS04dPLY
+        lea eax, [byte ebp-05Eh]
+        push eax
+        mov edx, 1
+        call sprintf_
+        add esp, byte 0Ch
+        xor ebx, ebx
+        lea eax, [dword ebp-086h]
+        call MakeDirPath
+        lea eax, [byte ebp-05Eh]
+        push eax
+        lea eax, [dword ebp-086h]
+        push eax
+        push dword str_SS7
+        lea eax, [byte ebp-03Eh]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        push dword 4F7h
+        push dword PlayoffSettings
+        lea eax, [byte ebp-03Eh]
+        push eax
+        call SaveDataFileNew
+        add esp, byte 0Ch
+        jmp near .39
+.88:
+        cmp dword [dword ebp-044Ah], byte 9
+        jne near .39
+        mov edx, 4F7h
+        mov eax, PlayoffSettings
+        xor ebx, ebx
+        call LinkReceiveBlock
+        xor esi, esi
+.37:
+        imul eax, esi, byte 1Ch
+        cmp byte [dword eax+PlayoffUserActive], 0
+        je short .38
+        mov byte [dword eax+PlayoffUserHuman], 1
+.38:
+        inc esi
+        cmp esi, byte 10h
+        jl short .37
+        xor eax, eax
+        call ReceiveLeagueData
+        mov eax, dword [byte ebp+07Eh]
+        call NameIndexLimit
+        push eax
+        push dword str_PLAY04dSET2
+        lea eax, [byte ebp+02h]
+        push eax
+        mov edx, 1
+        call sprintf_
+        add esp, byte 0Ch
+        xor ebx, ebx
+        lea eax, [dword ebp-086h]
+        call MakeDirPath
+        lea eax, [byte ebp+02h]
+        push eax
+        lea eax, [dword ebp-086h]
+        push eax
+        push dword str_SS7
+        lea eax, [byte ebp+022h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        push dword 4F7h
+        push dword PlayoffSettings
+        lea eax, [byte ebp+022h]
+        push eax
+        call SaveDataFileNew
+        add esp, byte 0Ch
+        lea eax, [byte ebp+022h]
+        lea edx, [byte ebp+022h]
+        call strlen_
+        sub eax, byte 8
+        add eax, edx
+        call atoi_
+        mov dword [byte ebp+06Ah], eax
+.39:
+        imul eax, dword [byte ebp+06Eh], byte 36h
+        add eax, dword [byte ebp+062h]
+        lea ebx, [byte eax+0Dh]
+        lea edx, [byte ebp+02h]
+        mov eax, dword [byte ebp+07Eh]
+.89:
+        call LoadNameIndex
+        mov edx, eax
+        mov eax, 1
+        call NameIndexFree
+        jmp near .96
+.41:
+        test esi, esi
+        jne near .96
+        cmp dword [dword ebp-044Ah], byte 5
+        jne short .90
+.42:
+        lea esi, [byte ebp+04Eh]
+        mov eax, edi
+        mov ebx, 0Dh
+        call ReplayNameToKey
+        mov edx, edi
+        lea eax, [byte ebp+02h]
+        call memcpy_
+        mov edx, SeasonFileName
+        lea eax, [byte ebp+04Eh]
+        call FindReplayIndexEntry
+        push byte 0
+        push dword [ReplayBufferSize]
+        push dword str_Replaybuf
+        call AllocMemBlock
+        mov esi, eax
+        add esp, byte 0Ch
+        mov edx, eax
+        mov eax, SeasonFileName
+        xor ebx, ebx
+        call OpenReplayFile
+        mov edx, 4A78h
+        mov eax, SeasonFileName
+        call LinkSendBlock
+        mov edx, dword [ReplayBufferSize]
+        mov eax, esi
+        xor ebx, ebx
+        call LinkSendBlock
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+        jmp near .96
+.90:
+        cmp dword [dword ebp-044Ah], byte 7
+        jne near .91
+        call ServiceIdle
+        push dword SeasonName
+        lea eax, [byte ebp+022h]
+        push eax
+        xor ebx, ebx
+        call LoadFileToBlockShared
+        add esp, byte 8
+        mov edx, 525h
+        mov eax, SeasonName
+        call LinkSendBlock
+        mov edx, SeasonUserTeam
+        mov eax, SeasonFilePath
+        call OpenLeagueFile
+        mov edx, 1
+        mov eax, dword [SeasonUserTeam]
+        call SendLeagueData
+        cmp dword [SeasonActive], byte 0
+        je near .96
+        lea edx, [byte ebp+022h]
+        lea eax, [byte ebp-03Eh]
+        call strcpy_
+        lea eax, [byte ebp-03Eh]
+        call strlen_
+        mov esi, eax
+        jmp short .45
+.44:
+        dec esi
+.45:
+        cmp byte [byte esi+ebp-03Eh], 2Eh
+        jne short .44
+.46:
+        mov edx, str_PLY
+        lea eax, [byte ebp-03Eh]
+        mov byte [byte esi+ebp-03Eh], 0
+        call strcat_
+        call ServiceIdle
+        push dword PlayoffSettings
+        lea eax, [byte ebp-03Eh]
+        push eax
+        xor ebx, ebx
+        call LoadFileToBlockShared
+        add esp, byte 8
+        mov edx, 4F7h
+        mov eax, PlayoffSettings
+        call LinkSendBlock
+        mov edx, SeasonUserTeam
+        mov eax, SeasonStatsPath
+        jmp near .67
+.91:
+        cmp dword [dword ebp-044Ah], byte 9
+        jne near .96
+        call ServiceIdle
+        push dword PlayoffSettings
+        lea eax, [byte ebp+022h]
+        push eax
+        xor ebx, ebx
+        call LoadFileToBlockShared
+        add esp, byte 8
+        mov edx, 4F7h
+        mov eax, PlayoffSettings
+        call LinkSendBlock
+        mov edx, SeasonUserTeam
+        mov eax, PlayoffStatsPath
+        jmp near .67
+.92:
+        call LinkSyncMenu
+        mov edx, 8
+        lea eax, [byte ebp+042h]
+        xor ebx, ebx
+        lea edi, [byte ebp+022h]
+        call LinkReceiveBlock
+        jmp short .50
+.49:
+        mov edi, eax
+.50:
+        lea eax, [byte edi+01h]
+        cmp byte [edi], 5Ch
+        jne short .49
+        mov edx, str_DONTHAVEIT
+        mov edi, eax
+        call strcmp_
+        test eax, eax
+        jne short .51
+        mov edx, 8
+        mov eax, dword [ReplayIndexRecvBuf]
+        xor ebx, ebx
+        mov esi, 1
+        call LinkSendBlock
+        jmp short .52
+.51:
+        mov edx, 8
+        mov eax, dword [ReplayIndexSendBuf]
+        xor ebx, ebx
+        call LinkSendBlock
+        xor esi, esi
+.52:
+        lea eax, [byte ebp+042h]
+        mov edx, dword [ReplayIndexSendBuf]
+        call strcmp_
+        test eax, eax
+        jne near .63
+        test esi, esi
+        je near .96
+        cmp dword [dword ebp-044Ah], byte 5
+        jne short .93
+        mov edx, 4A78h
+        mov eax, SeasonFileName
+        xor ebx, ebx
+        call LinkReceiveBlock
+        push byte 0
+        push dword [ReplayBufferSize]
+        push dword str_Replaybuf
+        xor ebx, ebx
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov edx, dword [ReplayBufferSize]
+        mov esi, eax
+        call LinkReceiveBlock
+        mov edx, SeasonFileName
+        mov ecx, dword [ReplayBufferSize]
+        mov ebx, esi
+        mov eax, edx
+        call RenameReplayIndexEntry
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+        push edi
+        push dword [ReplayIndexHandle]
+        mov ebx, 0Dh
+        push dword [SeasonFileName]
+        mov edx, edi
+        call ClearReplayEntry
+        lea eax, [byte ebp+02h]
+        call memcpy_
+        jmp near .62
+.93:
+        cmp dword [dword ebp-044Ah], byte 7
+        jne near .94
+        mov edx, 525h
+        mov eax, SeasonName
+        xor ebx, ebx
+        call LinkReceiveBlock
+        xor esi, esi
+.54:
+        inc esi
+        cmp esi, byte 1Ah
+        jl short .54
+        xor esi, esi
+.55:
+        imul eax, esi, byte 1Ch
+        cmp byte [dword eax+SeasonUserActive], 0
+        je short .56
+        mov byte [dword eax+SeasonUserHuman], 1
+.56:
+        inc esi
+        cmp esi, byte 1Ah
+        jl short .55
+        mov eax, 1
+        call ReceiveLeagueData
+        mov eax, dword [byte ebp+07Eh]
+        call NameIndexLimit
+        push eax
+        push dword str_SEAS04dSET2
+        mov edi, eax
+        lea eax, [byte ebp+02h]
+        push eax
+        mov edx, 1
+        call sprintf_
+        add esp, byte 0Ch
+        xor ebx, ebx
+        lea eax, [dword ebp-086h]
+        call MakeDirPath
+        lea eax, [byte ebp+02h]
+        push eax
+        lea eax, [dword ebp-086h]
+        push eax
+        push dword str_SS7
+        lea eax, [byte ebp+022h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        push dword 525h
+        push dword SeasonName
+        lea eax, [byte ebp+022h]
+        push eax
+        call SaveDataFileNew
+        add esp, byte 0Ch
+        lea eax, [byte ebp+022h]
+        lea edx, [byte ebp+022h]
+        call strlen_
+        sub eax, byte 8
+        add eax, edx
+        call atoi_
+        mov dword [byte ebp+06Ah], eax
+        cmp dword [SeasonActive], byte 0
+        je near .62
+        mov edx, 4F7h
+        mov eax, PlayoffSettings
+        xor ebx, ebx
+        call LinkReceiveBlock
+        xor esi, esi
+.57:
+        imul eax, esi, byte 1Ch
+        cmp byte [dword eax+PlayoffUserActive], 0
+        je short .58
+        mov byte [dword eax+PlayoffUserHuman], 1
+.58:
+        inc esi
+        cmp esi, byte 10h
+        jl short .57
+        xor eax, eax
+        call ReceiveLeagueData
+        push edi
+        push dword str_SEAS04dPLY
+        lea eax, [byte ebp-05Eh]
+        push eax
+        mov edx, 1
+        call sprintf_
+        add esp, byte 0Ch
+        xor ebx, ebx
+        lea eax, [dword ebp-086h]
+        call MakeDirPath
+        lea eax, [byte ebp-05Eh]
+        push eax
+        lea eax, [dword ebp-086h]
+        push eax
+        push dword str_SS7
+        lea eax, [byte ebp-03Eh]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        push dword 4F7h
+        push dword PlayoffSettings
+        lea eax, [byte ebp-03Eh]
+        push eax
+        call SaveDataFileNew
+        add esp, byte 0Ch
+        jmp near .62
+.94:
+        cmp dword [dword ebp-044Ah], byte 9
+        jne near .62
+        mov edx, 4F7h
+        mov eax, PlayoffSettings
+        xor ebx, ebx
+        call LinkReceiveBlock
+        xor esi, esi
+.60:
+        imul eax, esi, byte 1Ch
+        cmp byte [dword eax+PlayoffUserActive], 0
+        je short .61
+        mov byte [dword eax+PlayoffUserHuman], 1
+.61:
+        inc esi
+        cmp esi, byte 10h
+        jl short .60
+        xor eax, eax
+        call ReceiveLeagueData
+        mov eax, dword [byte ebp+07Eh]
+        call NameIndexLimit
+        push eax
+        push dword str_PLAY04dSET2
+        lea eax, [byte ebp+02h]
+        push eax
+        mov edx, 1
+        call sprintf_
+        add esp, byte 0Ch
+        xor ebx, ebx
+        lea eax, [dword ebp-086h]
+        call MakeDirPath
+        lea eax, [byte ebp+02h]
+        push eax
+        lea eax, [dword ebp-086h]
+        push eax
+        push dword str_SS7
+        lea eax, [byte ebp+022h]
+        push eax
+        call sprintf_
+        add esp, byte 10h
+        push dword 4F7h
+        push dword PlayoffSettings
+        lea eax, [byte ebp+022h]
+        push eax
+        call SaveDataFileNew
+        add esp, byte 0Ch
+        lea eax, [byte ebp+022h]
+        lea edx, [byte ebp+022h]
+        call strlen_
+        sub eax, byte 8
+        add eax, edx
+        call atoi_
+        mov dword [byte ebp+06Ah], eax
+.62:
+        imul ebx, dword [byte ebp+06Eh], byte 36h
+        lea edx, [byte ebp+02h]
+        add ebx, dword [byte ebp+062h]
+        mov eax, dword [byte ebp+07Eh]
+        add ebx, byte 0Dh
+        jmp near .89
+.63:
+        test esi, esi
+        jne near .96
+        cmp dword [dword ebp-044Ah], byte 5
+        je near .42
+        cmp dword [dword ebp-044Ah], byte 7
+        jne short .95
+        call ServiceIdle
+        push dword SeasonName
+        lea eax, [byte ebp+022h]
+        push eax
+        xor ebx, ebx
+        call LoadFileToBlockShared
+        add esp, byte 8
+        mov edx, 525h
+        mov eax, SeasonName
+        call LinkSendBlock
+        mov edx, SeasonUserTeam
+        mov eax, SeasonFilePath
+        call OpenLeagueFile
+        mov edx, 1
+        mov eax, dword [SeasonUserTeam]
+        call SendLeagueData
+        cmp dword [SeasonActive], byte 0
+        je short .96
+        lea edx, [byte ebp+022h]
+        lea eax, [byte ebp-03Eh]
+        call strcpy_
+        lea eax, [byte ebp-03Eh]
+        call strlen_
+        mov esi, eax
+        jmp short .65
+.64:
+        dec esi
+.65:
+        cmp byte [byte esi+ebp-03Eh], 2Eh
+        jne short .64
+        jmp near .46
+.95:
+        cmp dword [dword ebp-044Ah], byte 9
+        jne short .96
+        call ServiceIdle
+        push dword PlayoffSettings
+        lea eax, [byte ebp+022h]
+        push eax
+        xor ebx, ebx
+        call LoadFileToBlockShared
+        add esp, byte 8
+        mov edx, 4F7h
+        mov eax, PlayoffSettings
+        call LinkSendBlock
+        mov edx, SeasonUserTeam
+        mov eax, PlayoffStatsPath
+.67:
+        call OpenLeagueFile
+        mov eax, dword [SeasonUserTeam]
+        xor edx, edx
+        call SendLeagueData
+.96:
+        cmp dword [dword ebp-044Ah], byte 7
+        jb short .69
+        jbe short .70
+        cmp dword [dword ebp-044Ah], byte 9
+        je near .80
+        jmp near .86
+.69:
+        cmp dword [dword ebp-044Ah], byte 5
+        je near .83
+        jmp near .86
+.70:
+        call ServiceIdle
+        push dword SeasonName
+        lea eax, [byte ebp+022h]
+        push eax
+        call LoadFileToBlockShared
+        add esp, byte 8
+        cmp dword [SeasonActive], byte 0
+        je short .73
+        lea eax, [byte ebp+022h]
+        call strlen_
+        mov esi, eax
+        jmp short .72
+.71:
+        dec esi
+.72:
+        cmp byte [byte esi+ebp+022h], 2Eh
+        jne short .71
+        mov edx, str_PLY
+        lea eax, [byte ebp+022h]
+        mov byte [byte esi+ebp+022h], 0
+        call strcat_
+        call ServiceIdle
+        push dword PlayoffSettings
+        lea eax, [byte ebp+022h]
+        push eax
+        call LoadFileToBlockShared
+        add esp, byte 8
+.73:
+        cmp dword [SeasonActive], byte 0
+        jne short .74
+        mov edx, SeasonUserTeam
+        mov eax, SeasonFilePath
+        jmp short .75
+.74:
+        mov edx, SeasonUserTeam
+        mov eax, SeasonStatsPath
+.75:
+        call OpenLeagueFile
+        call SendLeagueFile
+        cmp eax, byte 1
+        jne short .97
+        mov dword [byte ebp+076h], eax
+        jmp short .77
+.97:
+        mov dword [byte ebp+076h], 0Ch
+.77:
+        cmp dword [SeasonActive], byte 0
+        jne short .78
+        mov edx, SeasonUserTeam
+        mov eax, SeasonFilePath
+        jmp short .79
+.78:
+        mov edx, SeasonUserTeam
+        mov eax, SeasonStatsPath
+.79:
+        call OpenLeagueFile
+        mov eax, dword [byte ebp+06Ah]
+        mov dword [SeasonSlot], eax
+        jmp near .86
+.80:
+        call ServiceIdle
+        push dword PlayoffSettings
+        lea eax, [byte ebp+022h]
+        push eax
+        call LoadFileToBlockShared
+        add esp, byte 8
+        mov edx, SeasonUserTeam
+        mov eax, PlayoffStatsPath
+        call OpenLeagueFile
+        call ReceiveLeagueFile
+        cmp eax, byte 1
+        jne short .98
+        mov dword [byte ebp+076h], eax
+        jmp short .82
+.98:
+        mov dword [byte ebp+076h], 0Dh
+.82:
+        mov edx, SeasonUserTeam
+        mov eax, PlayoffStatsPath
+        call OpenLeagueFile
+        mov eax, dword [byte ebp+06Ah]
+        mov dword [PlayoffFileHandle], eax
+        jmp near .86
+.83:
+        lea edi, [byte ebp+022h]
+        jmp short .85
+.84:
+        mov edi, eax
+.85:
+        lea eax, [byte edi+01h]
+        cmp byte [edi], 5Ch
+        jne short .84
+        lea esi, [byte ebp+04Eh]
+        mov edx, SeasonFileName
+        call ReplayNameToKey
+        lea eax, [byte ebp+04Eh]
+        call FindReplayIndexEntry
+        movsx eax, word [IndexEntryList]
+        and eax, byte 3Fh
+        and dword [TeamSelectFlags], 0FFF03FFFh
+        shl eax, 0Eh
+        mov dword [byte ebp+076h], 0Eh
+        or dword [TeamSelectFlags], eax
+        movsx eax, word [HomeTeamCode]
+        mov dword [PlayMenuGameFlag], 1
+        and eax, byte 3Fh
+        and word [TeamSelectMode], 0FC0Fh
+        shl eax, 14h
+        mov dword [gameopts], GlobalSetVersion
+        or dword [TeamSelectFlags], eax
+.86:
+        mov ebx, 8
+        mov edx, IndexFlags
+        mov eax, SeasonIndexPath
+        call memcpy_
+        mov ebx, 8
+        mov edx, IndexFlags
+        mov eax, PlayoffIndexFlags
+        call memcpy_
+        mov ebx, 108h
+        mov edx, IndexEntrySettings
+        mov eax, SeasonPath
+        call memcpy_
+        mov ebx, 108h
+        mov edx, IndexEntrySettings
+        mov eax, PlayoffIndexSettings
+        call memcpy_
+.99:
+        mov eax, dword [byte ebp+07Ah]
+        cmp dword [byte eax+066h], byte 0Ah
+        jle short .100
+        lea eax, [dword ebp-0186h]
+        call FreeScrollList
+.100:
+        push dword [byte ebp+072h]
+        mov dword [ScreenWipeMode], 4
+        call FreeBitmap
+        add esp, byte 4
+        push dword [byte ebp+05Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+066h]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+05Eh]
+        call FreeMemBlock
+        mov eax, dword [byte ebp+076h]
+%else
 ;-----------------------------------------------------------------------------
 ; PickIndexEntryScreen                         9F6F5  96 PC, medium confidence
 ; Picks an entry of a name index (seasons, exhibition records) from a
@@ -1212,6 +2404,7 @@ PickIndexEntryScreen_4EE:
         push dword [byte ebp+05Ah]
         call FreeMemBlock
         mov eax, dword [byte ebp+072h]
+%endif
 PickIndexEntryScreen_1080:
         add esp, byte 4
         lea esp, [dword ebp+082h]

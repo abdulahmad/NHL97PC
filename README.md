@@ -40,6 +40,9 @@
 Needs NASM 2.15+ and Python 3. `./build.sh` ends with `MATCH: build/HOCKEY.EXE is byte-identical to the retail HOCKEY.EXE`. See
 [docs/ASM_BUILD.md](docs/ASM_BUILD.md).
 
+`./build.sh 11` builds patch 1.1 (HOCKEY.EXE 1,871,324 bytes, SHA-1 `dadba8ec9aeb111f044ca2457736447ef2929809`) from the
+same source: `MATCH: build/v11/HOCKEY.EXE is byte-identical to the patch 1.1 HOCKEY.EXE`. See [docs/ASM_BUILD.md](docs/ASM_BUILD.md#patch-11).
+
 ## Lineage
 
 NHL 97 PC follows [NHL96PC](https://github.com/abdulahmad/NHL96PC) and [NHL95PC](https://github.com/abdulahmad/NHL95PC). Names

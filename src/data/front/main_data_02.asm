@@ -32,6 +32,9 @@ LinkFrameTitle:                                 ; link screen frame title; used 
 LogoNamesLoaded:                                ; set once the logo names are loaded; used by FreeTempArt,
                                                 ; LoadLogoNames
         db 00h,00h,00h,00h
+%if VERSION = 11
+        db 0
+%endif
 HighlightTextOn:                                ; set while highlight text is used; used by SetHighlightText
         db 01h,00h,00h,00h
 ScreenWipeMode:                                 ; screen wipe mode; used by FadeInScreen,

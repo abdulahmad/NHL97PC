@@ -22,3 +22,4 @@ The maintainer tools (`tools/build/gen_src.py`, the matchers) also need `pip ins
 ## 2. Build and confirm MATCH
 
 `./build.sh`: the last line is `MATCH: build/HOCKEY.EXE is byte-identical to the retail HOCKEY.EXE`.
+`./build.sh 11` builds patch 1.1 the same way (`build/v11/HOCKEY.EXE`, docs/ASM_BUILD.md "Patch 1.1").

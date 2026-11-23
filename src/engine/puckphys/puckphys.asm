@@ -32,6 +32,9 @@ global StickReach, PuckHeightAt, ObjectFramePos, TryStickTouch, PuckBounceOffPla
 global PuckHitsGlass, NetCollisionPoint, PuckInNetDepth, PuckInNetWidth, PlayNetSound, CommentNetHit, PuckOffPost, PuckOffCrossbar
 global PuckInHomeNet, PuckInAwayNet, PuckBehindNet, CheckPuckNets, GoalLinePuckTest, UpdatePuckCarrier, PuckGroundHeight, PuckBounceIce
 global UpdatePuck, GoalJudgeTest, RandomPuckSpin, StopObject
+%if VERSION = 11
+extern F32_4_PuckOffPost2, PassAnimFrameForType, ShotAnimFrames
+%endif
         db 00h,00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; StickReach                                      65F50  97 PC, low confidence
@@ -732,6 +735,534 @@ PlayPostSound:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; PuckHitsNet                                     66D18  97 PC, low confidence
+; Puck against the net: post, crossbar, goal or save
+;-----------------------------------------------------------------------------
+PuckHitsNet:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, 0BCh
+        and esp, byte 0FFFFFFF8h
+        mov edx, eax
+        fld dword [byte ebp+01Ch]
+        fld st0
+        fsin
+        fxch
+        fcos
+        fst dword [byte esp+01Ch]
+        fmul dword [byte edx+034h]
+        fld dword [byte esp+01Ch]
+        fmul dword [byte edx+02Ch]
+        fxch st2
+        fchs
+        fst dword [byte esp+020h]
+        fmul dword [byte edx+02Ch]
+        fld dword [byte esp+020h]
+        fmul dword [byte edx+034h]
+        mov ebx, dword [byte edx+024h]
+        fxch
+        fsubp st2
+        faddp st2
+        fchs
+        fxch
+        fstp dword [dword esp+0B8h]
+        fstp dword [dword esp+0B4h]
+        cmp ebx, 43280000h
+        jle near .8
+        mov eax, dword [dword edx+0FAh]
+        test byte [byte eax+030h], 10h
+        jne near .8
+        mov eax, dword [byte edx+020h]
+        mov dword [byte esp+014h], eax
+        mov eax, dword [byte edx+028h]
+        mov dword [dword esp+0B0h], eax
+        fld dword [dword esp+0B0h]
+        fabs
+        fst qword [byte esp+05Ch]
+        fcomp qword [F64_3360_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jb short .1
+        mov dword [byte esp+018h], 43F00000h
+        jmp short .3
+.1:
+        fldz
+        fcomp dword [byte esp+014h]
+        fnstsw ax
+        sahf
+        jb short .2
+        fld qword [byte esp+05Ch]
+        fcomp qword [F64_1392_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jae short .2
+        mov dword [byte esp+018h], 43280000h
+        jmp short .3
+.2:
+        mov dword [byte esp+018h], 43C00000h
+.3:
+        fld dword [byte edx+024h]
+        fcomp dword [byte esp+018h]
+        fnstsw ax
+        sahf
+        jbe near .7
+        mov eax, dword [PuckOwner]
+        sar eax, 10h
+        mov edx, eax
+        shl edx, 5
+        add edx, eax
+        mov ecx, SortCords
+        shl edx, 3
+        mov al, byte [gmode]
+        add ecx, edx
+        test al, 1
+        jne short .39
+        cmp word [dword ecx+0A9h], byte 0
+        jne short .5
+        mov eax, dword [PtrPuckFlags]
+        mov bx, word [byte eax+06Dh]
+        cmp bx, byte 1
+        je short .4
+        cmp bx, byte 2
+        jne short .5
+.4:
+        mov ebx, 1
+        mov edx, 1Bh
+        mov eax, ecx
+        call AddPenalty
+.5:
+        mov edx, 8
+        mov eax, ecx
+        xor ebx, ebx
+        call AddPenalty2
+.39:
+        call EndPenaltyShot
+        xor edi, edi
+        xor eax, eax
+        mov word [OneTimerPasser], di
+        mov word [OneTimerReady], di
+        mov word [OneTimerTarget], di
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret 4
+.7:
+        mov eax, edx
+        call PlayPostSound
+        test eax, eax
+        je short .8
+        mov eax, dword [PuckOwner]
+        mov edx, 1
+        sar eax, 10h
+        mov dword [PuckHitFlag], edx
+        mov edx, eax
+        shl edx, 5
+        add edx, eax
+        mov eax, SortCords
+        shl edx, 3
+        xor ebx, ebx
+        add eax, edx
+        mov edx, 8
+        xor esi, esi
+        call AddPenalty2
+        call EndPenaltyShot
+        mov word [OneTimerPasser], si
+        mov word [OneTimerReady], si
+        mov word [OneTimerTarget], si
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret 4
+.8:
+        fldz
+        fcomp dword [dword esp+0B4h]
+        fnstsw ax
+        sahf
+        ja short .10
+        cmp byte [dword edx+0A4h], 0Dh
+        jne short .9
+        fld dword [byte edx+038h]
+        fld st0
+        fmul qword [F64_0p99]
+        fstp st1
+        fstp dword [byte edx+038h]
+.9:
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret 4
+.10:
+        fld dword [dword esp+0B4h]
+        fld st0
+        fmul qword [F64_0p25_PuckHitsNet]
+        fld dword [dword esp+0B8h]
+        fld st0
+        fmul qword [F64_0p985]
+        mov bh, byte [dword edx+0A4h]
+        fxch st2
+        fstp st3
+        fxch
+        fstp st1
+        fxch
+        fstp dword [dword esp+0B4h]
+        fstp dword [dword esp+0B8h]
+        cmp bh, 0Ch
+        jae short .11
+        fld dword [dword esp+0B8h]
+        fld st0
+        fmul qword [F64_0p8_PuckHitsNet]
+        fstp st1
+        fstp dword [dword esp+0B8h]
+.11:
+        fld dword [byte esp+01Ch]
+        fld st0
+        fld dword [dword esp+0B8h]
+        fxch
+        fmul st1
+        fld dword [byte esp+020h]
+        fmul to st2
+        fld dword [dword esp+0B4h]
+        fxch
+        fmul st1
+        fxch st4
+        fmulp
+        mov cl, byte [dword edx+0A4h]
+        faddp st2
+        fsubrp st2
+        fstp dword [byte edx+034h]
+        fstp dword [byte edx+02Ch]
+        cmp cl, 0Dh
+        jae near .31
+        test byte [dword edx+0C0h], 1
+        jne near .31
+        mov ecx, dword [dword edx+0FAh]
+        fldz
+        fcomp dword [byte ecx+08h]
+        fnstsw ax
+        sahf
+        jae near .17
+        mov eax, dword [byte ecx+034h]
+        mov dword [dword esp+0A4h], eax
+        fld dword [dword esp+0A4h]
+        fcomp dword [F32_10000]
+        fnstsw ax
+        sahf
+        jb short .12
+        mov eax, dword [byte edx+040h]
+        mov dword [dword esp+0A4h], eax
+.12:
+        fld dword [dword esp+0A4h]
+        fsub dword [byte ebp+01Ch]
+        fld qword [F64_6p28319_PuckHitsNet]
+        fxch
+        call IF@DFMOD
+        fst dword [dword esp+0A4h]
+        fst qword [byte esp+034h]
+        fcomp qword [F64_3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jbe short .13
+        fld qword [byte esp+034h]
+        fadd qword [F64_neg6p28319_PuckHitsNet]
+        fstp dword [dword esp+0A4h]
+.13:
+        fld dword [dword esp+0A4h]
+        fst qword [byte esp+074h]
+        fcomp qword [F64_neg3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jae short .14
+        fld qword [byte esp+074h]
+        fadd qword [F64_6p28319_PuckHitsNet]
+        fstp dword [dword esp+0A4h]
+.14:
+        fld dword [dword esp+0A4h]
+        fabs
+        fcomp qword [F64_1p5708_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jae short .17
+        fldz
+        fcomp dword [dword esp+0A4h]
+        fnstsw ax
+        sahf
+        jae short .15
+        mov esi, 5A7ED197h
+        mov edi, 3FF921FBh
+        mov dword [byte esp+024h], esi
+        mov dword [byte esp+028h], edi
+        jmp short .16
+.15:
+        mov ebx, 5A7ED197h
+        mov ecx, 0BFF921FBh
+        mov dword [byte esp+024h], ebx
+        mov dword [byte esp+028h], ecx
+.16:
+        fld dword [byte ebp+01Ch]
+        mov eax, dword [dword edx+0FAh]
+        fadd qword [byte esp+024h]
+        fld dword [dword esp+0A4h]
+        fxch
+        fstp dword [byte eax+034h]
+        fsin
+        mov ecx, dword [dword edx+0FAh]
+        fmul dword [byte ecx+08h]
+        fstp dword [byte ecx+08h]
+.17:
+        fld dword [byte edx+034h]
+        fld dword [byte edx+02Ch]
+        call IF@ATAN2
+        fsub dword [byte edx+040h]
+        fst dword [dword esp+0ACh]
+        fld qword [F64_6p28319_PuckHitsNet]
+        fxch
+        call IF@DFMOD
+        fld dword [byte edx+040h]
+        fadd dword [dword esp+0ACh]
+        fstp dword [byte edx+040h]
+        fst dword [dword esp+0ACh]
+        fst qword [dword esp+08Ch]
+        fcomp qword [F64_3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jbe short .18
+        fld qword [dword esp+08Ch]
+        fadd qword [F64_neg6p28319_PuckHitsNet]
+        fstp dword [dword esp+0ACh]
+.18:
+        fld dword [dword esp+0ACh]
+        fst qword [byte esp+04Ch]
+        fcomp qword [F64_neg3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jae short .19
+        fld qword [byte esp+04Ch]
+        fadd qword [F64_6p28319_PuckHitsNet]
+        fstp dword [dword esp+0ACh]
+.19:
+        fldz
+        lea ecx, [byte edx+01Ch]
+        fcomp dword [dword esp+0ACh]
+        fnstsw ax
+        sahf
+        ja short .22
+        fld dword [dword esp+0ACh]
+        fst qword [byte esp+054h]
+        fcomp qword [F64_0p0872665]
+        fnstsw ax
+        sahf
+        jbe short .20
+        mov esi, 5070BA4Eh
+        mov edi, 3FB65718h
+        mov dword [byte esp+044h], esi
+        mov dword [byte esp+048h], edi
+        jmp short .21
+.20:
+        mov eax, dword [byte esp+054h]
+        mov dword [byte esp+044h], eax
+        mov eax, dword [byte esp+058h]
+        mov dword [byte esp+048h], eax
+.21:
+        fld dword [ecx]
+        fld st0
+        fadd qword [byte esp+044h]
+        jmp short .25
+.22:
+        fld dword [dword esp+0ACh]
+        fst qword [byte esp+06Ch]
+        fcomp qword [F64_neg0p0872665]
+        fnstsw ax
+        sahf
+        jae short .23
+        mov eax, 5070BA4Eh
+        mov ebx, 0BFB65718h
+        mov dword [dword esp+084h], eax
+        mov dword [dword esp+088h], ebx
+        jmp short .24
+.23:
+        mov eax, dword [byte esp+06Ch]
+        mov dword [dword esp+084h], eax
+        mov eax, dword [byte esp+070h]
+        mov dword [dword esp+088h], eax
+.24:
+        fld dword [ecx]
+        fld st0
+        fadd qword [dword esp+084h]
+.25:
+        fstp st1
+        fstp dword [ecx]
+        fld qword [F64_6p28319_PuckHitsNet]
+        fld dword [byte edx+01Ch]
+        call IF@DFMOD
+        fst dword [byte edx+01Ch]
+        fst qword [byte esp+064h]
+        fcomp qword [F64_3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jbe short .26
+        fld qword [byte esp+064h]
+        fadd qword [F64_neg6p28319_PuckHitsNet]
+        fstp dword [byte edx+01Ch]
+.26:
+        fld dword [byte edx+01Ch]
+        fst qword [byte esp+07Ch]
+        fcomp qword [F64_neg3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jae short .27
+        fld qword [byte esp+07Ch]
+        fadd qword [F64_6p28319_PuckHitsNet]
+        fstp dword [byte edx+01Ch]
+.27:
+        fld dword [byte edx+040h]
+        fsub dword [byte edx+01Ch]
+        fld qword [F64_6p28319_PuckHitsNet]
+        fxch
+        call IF@DFMOD
+        fst dword [dword esp+0A8h]
+        fst qword [dword esp+09Ch]
+        fcomp qword [F64_3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jbe short .28
+        fld qword [dword esp+09Ch]
+        fadd qword [F64_neg6p28319_PuckHitsNet]
+        fstp dword [dword esp+0A8h]
+.28:
+        fld dword [dword esp+0A8h]
+        fst qword [byte esp+02Ch]
+        fcomp qword [F64_neg3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jae short .29
+        fld qword [byte esp+02Ch]
+        fadd qword [F64_6p28319_PuckHitsNet]
+        fstp dword [dword esp+0A8h]
+.29:
+        fld dword [dword esp+0A8h]
+        fabs
+        fcomp qword [F64_2p0944]
+        fnstsw ax
+        sahf
+        jbe short .30
+        mov eax, dword [dword edx+0EEh]
+        or byte [byte eax+031h], 8
+        jmp short .32
+.30:
+        mov eax, dword [dword edx+0EEh]
+        and byte [byte eax+031h], 0F7h
+        jmp short .32
+.31:
+        fld dword [byte edx+034h]
+        fld dword [byte edx+02Ch]
+        call IF@ATAN2
+        fstp dword [byte edx+040h]
+.32:
+        fld qword [F64_6p28319_PuckHitsNet]
+        fld dword [byte edx+040h]
+        call IF@DFMOD
+        fst dword [byte edx+040h]
+        fst qword [dword esp+094h]
+        fcomp qword [F64_3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jbe short .33
+        fld qword [dword esp+094h]
+        fadd qword [F64_neg6p28319_PuckHitsNet]
+        fstp dword [byte edx+040h]
+.33:
+        fld dword [byte edx+040h]
+        fst qword [byte esp+03Ch]
+        fcomp qword [F64_neg3p14159_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jae short .34
+        fld qword [byte esp+03Ch]
+        fadd qword [F64_6p28319_PuckHitsNet]
+        fstp dword [byte edx+040h]
+.34:
+        sub esp, byte 8
+        fld dword [byte edx+034h]
+        fstp qword [esp]
+        sub esp, byte 8
+        fld dword [byte edx+02Ch]
+        fstp qword [esp]
+        call hypot_
+        mov cl, byte [dword edx+0A4h]
+        fstp dword [byte edx+038h]
+        cmp cl, 0Dh
+        jne near .38
+        mov eax, dword [puckc]
+        cmp byte [eax], 0
+        jge short .35
+        mov eax, dword [dword edx+0FAh]
+        test byte [byte eax+030h], 10h
+        jne short .35
+        fld dword [dword esp+0B4h]
+        fcomp dword [F32_neg1024]
+        fnstsw ax
+        sahf
+        jae short .35
+        mov eax, 8
+        call randomd0
+        cwde
+        mov dword [byte esp+010h], eax
+        neg eax
+        mov dword [byte esp+010h], eax
+        fild dword [byte esp+010h]
+        mov eax, edx
+        fstp dword [byte edx+030h]
+        call RandomPuckSpin
+.35:
+        mov eax, dword [puckc]
+        cmp byte [eax], 0
+        jl short .36
+        fld dword [byte edx+028h]
+        fabs
+        fcomp qword [F64_4272_PuckHitsNet]
+        fnstsw ax
+        sahf
+        jbe short .37
+.36:
+        call EndPenaltyShot
+.37:
+        xor edx, edx
+        mov word [OneTimerReady], dx
+        mov word [OneTimerTarget], dx
+        mov word [OneTimerPasser], dx
+.38:
+        mov eax, 1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret 4
+        LD mov, eax, eax
+%else
 ;-----------------------------------------------------------------------------
 ; PuckHitsNet                                     66758  97 PC, low confidence
 ; Puck against the net: post, crossbar, goal or save
@@ -1258,6 +1789,7 @@ PuckHitsNet:
         pop ebx
         ret 4
         db 08Bh,0C0h
+%endif
 ;-----------------------------------------------------------------------------
 ; PuckHitsBoards                                  66E38  97 PC, low confidence
 ; Puck against the boards: bounce and sound
@@ -2686,6 +3218,2467 @@ CommentNetHit:
         pop edx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; PuckOffPost                                     68280  97 PC, low confidence
+; Bounces the puck off a post
+;-----------------------------------------------------------------------------
+PuckOffPost:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 58h
+        and esp, byte 0FFFFFFF8h
+        mov edx, eax
+        fld dword [dword eax+0D6h]
+        fld dword [dword eax+0DAh]
+        fld dword [byte eax+030h]
+        fabs
+        fxch st2
+        fsub dword [byte ebp+020h]
+        fxch
+        fsub dword [byte ebp+024h]
+        fxch
+        fstp dword [byte esp+02Ch]
+        fstp dword [byte esp+028h]
+        fcomp qword [F64_0p0001_PuckOffPost]
+        fnstsw ax
+        sahf
+        jae short .3
+        fld dword [byte esp+02Ch]
+        fmul st0
+        mov eax, dword [byte esp+02Ch]
+        fldz
+        mov dword [byte esp+020h], eax
+        fxch
+        fsubr dword [F32_22p5625]
+        mov dword [byte esp+040h], eax
+        fstp dword [byte esp+054h]
+        fcomp dword [byte esp+054h]
+        fnstsw ax
+        sahf
+        jbe short .14
+        xor ecx, ecx
+        mov dword [byte esp+054h], ecx
+        jmp short .15
+.14:
+        fld dword [byte esp+054h]
+        fsqrt
+        fstp dword [byte esp+054h]
+.15:
+        fld dword [byte esp+054h]
+        fchs
+        jmp near .19
+.3:
+        fild dword [byte edx+018h]
+        fabs
+        fcomp qword [F64_0p0001_PuckOffPost]
+        fnstsw ax
+        sahf
+        jae short .6
+        fld dword [byte esp+028h]
+        fmul st0
+        mov eax, dword [byte esp+028h]
+        fldz
+        mov dword [byte esp+01Ch], eax
+        fxch
+        fsubr dword [F32_22p5625]
+        mov dword [byte esp+054h], eax
+        fstp dword [byte esp+040h]
+        fcomp dword [byte esp+040h]
+        fnstsw ax
+        sahf
+        jbe short .16
+        xor ebx, ebx
+        mov dword [byte esp+040h], ebx
+        jmp short .17
+.16:
+        fld dword [byte esp+040h]
+        fsqrt
+        fstp dword [byte esp+040h]
+.17:
+        fld dword [byte esp+040h]
+        fchs
+        fstp dword [byte esp+020h]
+        jmp near .20
+.6:
+        fld dword [byte edx+034h]
+        fdiv dword [byte edx+030h]
+        fst dword [byte esp+024h]
+        fmul dword [byte esp+02Ch]
+        fld dword [byte esp+024h]
+        fxch
+        fsubr dword [byte esp+028h]
+        fxch
+        fmul dword [byte esp+024h]
+        fxch
+        fst dword [byte esp+010h]
+        fmul dword [byte esp+010h]
+        fld dword [byte esp+010h]
+        fmul dword [F32_2_PuckOffPost]
+        fld1
+        faddp st3
+        fxch
+        fsub dword [F32_22p5625]
+        fxch st2
+        fst dword [byte esp+04Ch]
+        fmul dword [F32_4_PuckOffPost2]
+        fxch
+        fmul dword [byte esp+024h]
+        fxch
+        fmulp st2
+        fst dword [byte esp+018h]
+        fmul dword [byte esp+018h]
+        fsubrp
+        fldz
+        fxch
+        fstp dword [byte esp+050h]
+        fcomp dword [byte esp+050h]
+        fnstsw ax
+        sahf
+        jbe short .18
+        xor eax, eax
+        jmp near .13
+.18:
+        fld dword [byte esp+050h]
+        fsqrt
+        fst dword [byte esp+050h]
+        fld dword [byte esp+018h]
+        fxch
+        fsub st1
+        fld dword [byte esp+04Ch]
+        fmul qword [F64_2_PuckOffPost]
+        fld1
+        fdivrp
+        fxch st2
+        fchs
+        fsub dword [byte esp+050h]
+        fxch
+        fmul st2
+        fxch
+        fmulp st2
+        fld dword [byte esp+024h]
+        fld st0
+        fxch st2
+        fstp dword [byte esp+040h]
+        fxch
+        fmul dword [byte esp+040h]
+        fxch st2
+        fstp dword [byte esp+020h]
+        fmul dword [byte esp+020h]
+        fxch
+        fadd dword [byte esp+010h]
+        fxch
+        fadd dword [byte esp+010h]
+        fxch
+        fstp dword [byte esp+054h]
+.19:
+        fstp dword [byte esp+01Ch]
+.20:
+        fld dword [byte esp+054h]
+        fsub dword [byte esp+028h]
+        sub esp, byte 8
+        fld dword [byte esp+048h]
+        fxch
+        fstp qword [esp]
+        fsub dword [byte esp+034h]
+        sub esp, byte 8
+        fstp qword [esp]
+        call hypot_
+        fld dword [byte esp+01Ch]
+        fxch
+        fstp dword [byte esp+014h]
+        fsub dword [byte esp+028h]
+        sub esp, byte 8
+        fld dword [byte esp+028h]
+        fxch
+        fstp qword [esp]
+        fsub dword [byte esp+034h]
+        sub esp, byte 8
+        fstp qword [esp]
+        call hypot_
+        fcomp dword [byte esp+014h]
+        fnstsw ax
+        sahf
+        jae short .21
+        mov eax, dword [byte esp+020h]
+        mov dword [byte esp+040h], eax
+        mov eax, dword [byte esp+01Ch]
+        mov dword [byte esp+054h], eax
+.21:
+        fld dword [byte esp+040h]
+        fld st0
+        fld dword [byte esp+054h]
+        fld st0
+        fxch st2
+        fld st2
+        fxch
+        call IF@ATAN2
+        fstp st2
+        fxch st2
+        fadd dword [byte ebp+020h]
+        fxch st2
+        fadd dword [byte ebp+024h]
+        fxch st2
+        fstp dword [byte edx+024h]
+        fxch
+        fstp dword [byte edx+028h]
+        fstp dword [byte esp+044h]
+        fld dword [byte edx+034h]
+        fld dword [byte edx+030h]
+        call IF@ATAN2
+        fld dword [byte esp+044h]
+        fadd qword [F64_3p14159_PuckOffPost]
+        fsubrp
+        fld qword [F64_6p28319_PuckOffPost]
+        fxch
+        call IF@DFMOD
+        fst dword [byte esp+048h]
+        fst qword [byte esp+038h]
+        fcomp qword [F64_3p14159_PuckOffPost]
+        fnstsw ax
+        sahf
+        jbe short .22
+        fld qword [byte esp+038h]
+        fadd qword [F64_neg6p28319_PuckOffPost]
+        fstp dword [byte esp+048h]
+.22:
+        fld dword [byte esp+048h]
+        fst qword [byte esp+030h]
+        fcomp qword [F64_neg3p14159_PuckOffPost]
+        fnstsw ax
+        sahf
+        jae short .23
+        fld qword [byte esp+030h]
+        fadd qword [F64_6p28319_PuckOffPost]
+        fstp dword [byte esp+048h]
+.23:
+        fld dword [byte esp+044h]
+        fadd dword [byte esp+048h]
+        fstp dword [byte esp+044h]
+        sub esp, byte 8
+        fld dword [byte edx+034h]
+        fstp qword [esp]
+        sub esp, byte 8
+        fld dword [byte edx+030h]
+        fstp qword [esp]
+        call hypot_
+        fld st0
+        fmul qword [F64_0p3]
+        lea edi, [byte esp+010h]
+        lea esi, [byte esp+08h]
+        lea eax, [byte esp+044h]
+        fstp st1
+        fstp dword [byte esp+0Ch]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        fld dword [byte esp+0Ch]
+        fmul dword [byte esp+08h]
+        fld dword [byte esp+0Ch]
+        fxch
+        fstp dword [byte edx+030h]
+        fmul dword [byte esp+010h]
+        sub esp, byte 8
+        fst dword [byte edx+034h]
+        fstp qword [esp]
+        sub esp, byte 8
+        fld dword [byte edx+02Ch]
+        fstp qword [esp]
+        call hypot_
+        fld dword [byte edx+034h]
+        fld dword [byte edx+02Ch]
+        call IF@ATAN2
+        fxch
+        fstp dword [byte edx+038h]
+        fstp dword [byte edx+040h]
+        mov eax, 1
+.13:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret 0Ch
+;-----------------------------------------------------------------------------
+; PuckOffCrossbar                                 685C8  97 PC, low confidence
+; Bounces the puck off the crossbar
+;-----------------------------------------------------------------------------
+PuckOffCrossbar:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 58h
+        and esp, byte 0FFFFFFF8h
+        mov edx, eax
+        fld dword [dword eax+0D2h]
+        fld dword [dword eax+0DAh]
+        fld dword [byte eax+02Ch]
+        fabs
+        fxch st2
+        fsub dword [byte ebp+01Ch]
+        fxch
+        fsub dword [byte ebp+024h]
+        fxch
+        fstp dword [byte esp+024h]
+        fstp dword [byte esp+020h]
+        fcomp qword [F64_0p0001_PuckOffCrossbar]
+        fnstsw ax
+        sahf
+        jae short .3
+        fld dword [byte esp+024h]
+        fmul st0
+        mov eax, dword [byte esp+024h]
+        fldz
+        mov dword [byte esp+02Ch], eax
+        fxch
+        fsubr dword [F32_22p5625_PuckOffCrossbar]
+        mov dword [byte esp+054h], eax
+        fstp dword [byte esp+050h]
+        fcomp dword [byte esp+050h]
+        fnstsw ax
+        sahf
+        jbe short .14
+        xor ecx, ecx
+        mov dword [byte esp+050h], ecx
+        jmp short .15
+.14:
+        fld dword [byte esp+050h]
+        fsqrt
+        fstp dword [byte esp+050h]
+.15:
+        fld dword [byte esp+050h]
+        fchs
+        jmp near .18
+.3:
+        fild dword [byte edx+018h]
+        fabs
+        fcomp qword [F64_0p0001_PuckOffCrossbar]
+        fnstsw ax
+        sahf
+        jae short .6
+        fld dword [byte esp+020h]
+        fmul st0
+        mov eax, dword [byte esp+020h]
+        fldz
+        mov dword [byte esp+018h], eax
+        fxch
+        fsubr dword [F32_22p5625_PuckOffCrossbar]
+        mov dword [byte esp+050h], eax
+        fstp dword [byte esp+054h]
+        fcomp dword [byte esp+054h]
+        fnstsw ax
+        sahf
+        jbe short .16
+        xor ebx, ebx
+        mov dword [byte esp+054h], ebx
+        jmp short .17
+.16:
+        fld dword [byte esp+054h]
+        fsqrt
+        fstp dword [byte esp+054h]
+.17:
+        fld dword [byte esp+054h]
+        fchs
+        fstp dword [byte esp+02Ch]
+        jmp near .19
+.6:
+        fld dword [byte edx+034h]
+        fdiv dword [byte edx+02Ch]
+        fst dword [byte esp+01Ch]
+        fmul dword [byte esp+024h]
+        fld dword [byte esp+01Ch]
+        fxch
+        fsubr dword [byte esp+020h]
+        fxch
+        fmul dword [byte esp+01Ch]
+        fxch
+        fst dword [byte esp+08h]
+        fmul dword [byte esp+08h]
+        fld dword [byte esp+08h]
+        fmul dword [F32_2_PuckOffCrossbar]
+        fld1
+        faddp st3
+        fxch
+        fsub dword [F32_22p5625_PuckOffCrossbar]
+        fxch st2
+        fst dword [byte esp+048h]
+        fmul dword [F32_4_PuckOffCrossbar]
+        fxch
+        fmul dword [byte esp+01Ch]
+        fxch
+        fmulp st2
+        fst dword [byte esp+014h]
+        fmul dword [byte esp+014h]
+        fsubrp
+        fldz
+        fxch
+        fstp dword [byte esp+04Ch]
+        fcomp dword [byte esp+04Ch]
+        fnstsw ax
+        sahf
+        jbe short .7
+        xor eax, eax
+        jmp near .13
+.7:
+        fld dword [byte esp+04Ch]
+        fsqrt
+        fst dword [byte esp+04Ch]
+        fld dword [byte esp+014h]
+        fxch
+        fsub st1
+        fld dword [byte esp+048h]
+        fmul qword [F64_2_PuckOffCrossbar]
+        fld1
+        fdivrp
+        fxch st2
+        fchs
+        fsub dword [byte esp+04Ch]
+        fxch
+        fmul st2
+        fxch
+        fmulp st2
+        fld dword [byte esp+01Ch]
+        fld st0
+        fxch st2
+        fstp dword [byte esp+054h]
+        fxch
+        fmul dword [byte esp+054h]
+        fxch st2
+        fstp dword [byte esp+02Ch]
+        fmul dword [byte esp+02Ch]
+        fxch
+        fadd dword [byte esp+08h]
+        fxch
+        fadd dword [byte esp+08h]
+        fxch
+        fstp dword [byte esp+050h]
+.18:
+        fstp dword [byte esp+018h]
+.19:
+        fld dword [byte esp+050h]
+        fsub dword [byte esp+020h]
+        sub esp, byte 8
+        fld dword [byte esp+05Ch]
+        fxch
+        fstp qword [esp]
+        fsub dword [byte esp+02Ch]
+        sub esp, byte 8
+        fstp qword [esp]
+        call hypot_
+        fld dword [byte esp+018h]
+        fxch
+        fstp dword [byte esp+028h]
+        fsub dword [byte esp+020h]
+        sub esp, byte 8
+        fld dword [byte esp+034h]
+        fxch
+        fstp qword [esp]
+        fsub dword [byte esp+02Ch]
+        sub esp, byte 8
+        fstp qword [esp]
+        call hypot_
+        fcomp dword [byte esp+028h]
+        fnstsw ax
+        sahf
+        jae short .20
+        mov eax, dword [byte esp+02Ch]
+        mov dword [byte esp+054h], eax
+        mov eax, dword [byte esp+018h]
+        mov dword [byte esp+050h], eax
+.20:
+        fld dword [byte esp+054h]
+        fld st0
+        fld dword [byte esp+050h]
+        fld st0
+        fxch st2
+        fld st2
+        fxch
+        call IF@ATAN2
+        fstp st2
+        fxch st2
+        fadd dword [byte ebp+01Ch]
+        fxch st2
+        fadd dword [byte ebp+024h]
+        fxch st2
+        fstp dword [byte edx+020h]
+        fxch
+        fstp dword [byte edx+028h]
+        fstp dword [byte esp+040h]
+        fld dword [byte edx+040h]
+        fld dword [byte esp+040h]
+        fadd qword [F64_3p14159_PuckOffCrossbar]
+        fsubrp
+        fld qword [F64_6p28319_PuckOffCrossbar]
+        fxch
+        call IF@DFMOD
+        fst dword [byte esp+044h]
+        fst qword [byte esp+030h]
+        fcomp qword [F64_3p14159_PuckOffCrossbar]
+        fnstsw ax
+        sahf
+        jbe short .21
+        fld qword [byte esp+030h]
+        fadd qword [F64_neg6p28319_PuckOffCrossbar]
+        fstp dword [byte esp+044h]
+.21:
+        fld dword [byte esp+044h]
+        fst qword [byte esp+038h]
+        fcomp qword [F64_neg3p14159_PuckOffCrossbar]
+        fnstsw ax
+        sahf
+        jae short .22
+        fld qword [byte esp+038h]
+        fadd qword [F64_6p28319_PuckOffCrossbar]
+        fstp dword [byte esp+044h]
+.22:
+        fld dword [byte esp+040h]
+        fadd dword [byte esp+044h]
+        fstp dword [byte esp+040h]
+        fld dword [byte edx+038h]
+        fld st0
+        fmul qword [F64_0p3_PuckOffCrossbar]
+        lea edi, [byte esp+08h]
+        mov eax, dword [byte esp+040h]
+        lea esi, [byte esp+0Ch]
+        mov dword [byte edx+040h], eax
+        lea eax, [byte esp+040h]
+        fstp st1
+        fstp dword [byte edx+038h]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        fld dword [byte edx+038h]
+        fmul dword [byte esp+0Ch]
+        fld dword [byte edx+038h]
+        fxch
+        fstp dword [byte edx+02Ch]
+        fmul dword [byte esp+08h]
+        mov eax, 14h
+        fstp dword [byte edx+034h]
+        call randomd0
+        cwde
+        sub eax, byte 0Ah
+        mov dword [byte esp+010h], eax
+        fild dword [byte esp+010h]
+        mov eax, 1
+        fstp dword [byte edx+030h]
+.13:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret 0Ch
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; PuckInHomeNet                                   688EC  97 PC, low confidence
+; Puck against the home team's net: goal, post or save
+;-----------------------------------------------------------------------------
+PuckInHomeNet:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 58h
+        mov ecx, eax
+        mov eax, dword [byte eax+020h]
+        mov dword [byte ebp-018h], eax
+        mov eax, dword [byte ecx+024h]
+        mov dword [byte ebp-04h], eax
+        mov eax, dword [byte ecx+028h]
+        mov dword [byte ebp-010h], eax
+        mov eax, dword [dword ecx+0D2h]
+        xor esi, esi
+        mov dword [byte ebp-014h], eax
+        mov eax, dword [dword ecx+0D6h]
+        xor edi, edi
+        mov dword [byte ebp-0Ch], eax
+        mov eax, dword [dword ecx+0DAh]
+        fld dword [byte ebp-04h]
+        mov dword [byte ebp-08h], eax
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jbe short .1
+        fld dword [byte ebp-0Ch]
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jbe short .1
+        xor eax, eax
+        jmp near .27
+.1:
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_4272_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jae short .2
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_4272_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jb short .5
+.2:
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_4448]
+        fnstsw ax
+        sahf
+        jbe short .3
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_4448]
+        fnstsw ax
+        sahf
+        ja short .5
+.3:
+        fld dword [byte ebp-018h]
+        fcomp dword [F32_180]
+        fnstsw ax
+        sahf
+        jbe short .4
+        fld dword [byte ebp-014h]
+        fcomp dword [F32_180]
+        fnstsw ax
+        sahf
+        ja short .5
+.4:
+        fld dword [byte ebp-018h]
+        fcomp dword [F32_neg180]
+        fnstsw ax
+        sahf
+        jae short .6
+        fld dword [byte ebp-014h]
+        fcomp dword [F32_neg180]
+        fnstsw ax
+        sahf
+        jae short .6
+.5:
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.6:
+        fld dword [byte ebp-04h]
+        fld dword [byte ebp-0Ch]
+        xor edx, edx
+        fxch
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        seta al
+        mov dl, al
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        seta al
+        and eax, 0FFh
+        xor eax, edx
+        je near .10
+        fld dword [byte ebp-04h]
+        fld dword [F32_192_PuckInHomeNet]
+        fld dword [byte ecx+030h]
+        fchs
+        fxch st2
+        fld dword [byte ebp-0Ch]
+        fxch
+        fsub st1
+        fxch st2
+        fsub st1
+        fxch st3
+        fmul qword [F64_0p5_PuckInHomeNet]
+        fxch st3
+        fdivrp st2
+        fld st1
+        fld1
+        fsubrp
+        fxch st3
+        fstp dword [byte ecx+030h]
+        fxch st2
+        fstp st1
+        fmul dword [byte ecx+030h]
+        fadd dword [F32_192_PuckInHomeNet]
+        fstp dword [byte ebp-04h]
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jbe short .8
+        cmp dword [byte ecx+030h], 40800000h
+        jge short .7
+        mov edx, 8
+        mov eax, ecx
+        xor ebx, ebx
+        mov dword [byte ecx+038h], 0
+        call AddPenalty2
+.7:
+        fld dword [byte ebp-04h]
+        fcomp dword [F32_193]
+        fnstsw ax
+        sahf
+        jae short .9
+        mov dword [byte ebp-04h], 43410000h
+        jmp short .9
+.8:
+        fld dword [byte ebp-04h]
+        fcomp dword [F32_191]
+        fnstsw ax
+        sahf
+        jbe short .9
+        mov dword [byte ebp-04h], 433F0000h
+.9:
+        mov eax, dword [byte ebp-04h]
+        fld dword [byte ebp-04h]
+        mov dword [byte ecx+024h], eax
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jb short .10
+        mov eax, 1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.10:
+        fld dword [byte ebp-010h]
+        fcomp dword [byte ebp-08h]
+        fnstsw ax
+        sahf
+        je near .18
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_4272_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        ja near .17
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_4272_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jbe near .17
+        fld dword [byte ebp-08h]
+        fld dword [byte ebp-010h]
+        fsub st1
+        fld dword [byte ebp-018h]
+        fld dword [F32_4272_PuckInHomeNet]
+        fsubrp st3
+        fld dword [byte ebp-014h]
+        fxch
+        fsub st1
+        fxch st3
+        fdivrp st2
+        fxch st2
+        fmul st1
+        faddp st2
+        fxch
+        fst dword [byte ebp-028h]
+        fabs
+        fld dword [byte ebp-0Ch]
+        fld dword [byte ebp-04h]
+        fsub st1
+        fmulp st3
+        faddp st2
+        fxch
+        fstp dword [byte ebp-020h]
+        fcomp qword [F64_144]
+        fnstsw ax
+        sahf
+        jae short .11
+        fld dword [byte ebp-020h]
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jae short .11
+        mov eax, dword [PtrAwayIce]
+        mov esi, 1
+        call Goal
+        jmp near .16
+.11:
+        fld dword [byte ebp-028h]
+        fabs
+        fcomp qword [F64_153p5]
+        fnstsw ax
+        sahf
+        jae near .16
+        fld dword [byte ebp-020h]
+        fcomp dword [F32_201p5]
+        fnstsw ax
+        sahf
+        jae near .16
+        mov eax, ecx
+        mov edx, 64h
+        call RandomPuckSpin
+        push dword [byte ebp-010h]
+        mov eax, 414h
+        push dword [byte ebp-018h]
+        call PlaySfxVolume
+        mov ah, byte [gmode]
+        mov edi, 1
+        test ah, 1
+        jne short .12
+        mov eax, 4
+        call SetCrowdMood
+        mov eax, edi
+        call CommentNetHit
+.12:
+        fld dword [byte ebp-020h]
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jb short .13
+        push dword 45858000h
+        push dword [byte ebp-020h]
+        mov eax, ecx
+        push dword [byte ebp-028h]
+        call PuckOffPost
+        jmp short .16
+.13:
+        push dword 45858000h
+        fldz
+        push dword [byte ebp-020h]
+        fcomp dword [byte ebp-028h]
+        fnstsw ax
+        sahf
+        jae short .14
+        xor eax, eax
+        mov edx, 40629800h
+        mov dword [byte ebp-04Ch], eax
+        mov dword [byte ebp-048h], edx
+        jmp short .15
+.14:
+        xor edx, edx
+        mov ebx, 0C0629800h
+        mov dword [byte ebp-04Ch], edx
+        mov dword [byte ebp-048h], ebx
+.15:
+        fld qword [byte ebp-04Ch]
+        sub esp, byte 4
+        mov eax, ecx
+        fstp dword [esp]
+        call PuckOffCrossbar
+.16:
+        xor edx, edx
+        call EndPenaltyShot
+        mov word [OneTimerPasser], dx
+        mov word [OneTimerReady], dx
+        mov word [OneTimerTarget], dx
+        test edi, edi
+        je near .18
+        mov eax, 1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.17:
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_4272_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        ja near .18
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_4272_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jbe short .18
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_4448]
+        fnstsw ax
+        sahf
+        ja short .18
+        fld dword [byte ebp-08h]
+        fld dword [byte ebp-010h]
+        fsub st1
+        fld dword [byte ebp-018h]
+        fld dword [F32_4272_PuckInHomeNet]
+        fsubrp st3
+        fld dword [byte ebp-014h]
+        fxch
+        fsub st1
+        fxch st3
+        fdivrp st2
+        fxch st2
+        fmul st1
+        faddp st2
+        fxch
+        fabs
+        fld dword [byte ebp-0Ch]
+        fld dword [byte ebp-04h]
+        fsub st1
+        fmulp st3
+        faddp st2
+        fxch
+        fstp dword [byte ebp-034h]
+        fcomp qword [F64_144]
+        fnstsw ax
+        sahf
+        jae short .18
+        fld dword [byte ebp-034h]
+        fcomp dword [F32_192_PuckInHomeNet]
+        fnstsw ax
+        sahf
+        jae short .18
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.18:
+        lea eax, [byte ebp-058h]
+        push eax
+        push esi
+        push dword 45879000h
+        mov eax, ecx
+        push byte 0
+        call NetCollisionPoint
+        test eax, eax
+        je near .27
+        fld dword [byte ebp-050h]
+        fld dword [byte ebp-058h]
+        call IF@ATAN2
+        fld dword [byte ebp-054h]
+        fld1
+        fsubrp
+        fstp dword [byte ebp-054h]
+        fld dword [dword ecx+0DAh]
+        fadd qword [F64_neg4338]
+        fstp dword [byte ebp-030h]
+        mov eax, dword [dword ecx+0D2h]
+        fstp dword [byte ebp-01Ch]
+        mov dword [byte ebp-02Ch], eax
+        test esi, esi
+        je short .19
+        xor edi, edi
+        mov dword [byte ebp-024h], edi
+        jmp short .23
+.19:
+        test byte [gmode], 1
+        jne short .20
+        mov dword [byte ebp-024h], 40000000h
+        jmp short .23
+.20:
+        fld dword [byte ebp-02Ch]
+        fabs
+        fcomp qword [F64_228]
+        fnstsw ax
+        sahf
+        ja short .21
+        fld dword [byte ebp-030h]
+        fabs
+        fcomp qword [F64_228]
+        fnstsw ax
+        sahf
+        jbe short .22
+.21:
+        mov dword [byte ebp-024h], 40000000h
+        jmp short .23
+.22:
+        fld dword [byte ebp-02Ch]
+        fmul to st0
+        fmul qword [F64_3p08642eneg05_PuckInHomeNet]
+        fld dword [byte ebp-030h]
+        fmul to st0
+        fmul qword [F64_8p26446eneg05]
+        faddp
+        fstp dword [byte ebp-024h]
+.23:
+        fld dword [byte ebp-058h]
+        fabs
+        fcomp qword [F64_108]
+        fnstsw ax
+        sahf
+        jae short .24
+        xor eax, eax
+        mov dword [byte ebp-01Ch], eax
+.24:
+        cmp dword [byte ebp-024h], 3F800000h
+        jle short .25
+        lea eax, [byte ebp-058h]
+        call PuckInNetDepth
+        fld dword [byte ebp-01Ch]
+        fld st0
+        fadd qword [F64_3p14159_PuckInHomeNet]
+        fstp st1
+        fstp dword [byte ebp-01Ch]
+        jmp short .26
+.25:
+        lea eax, [byte ebp-058h]
+        call PuckInNetWidth
+.26:
+        mov eax, dword [dword ecx+0FAh]
+        or byte [byte eax+030h], 10h
+        mov eax, ecx
+        push dword [byte ebp-01Ch]
+        call PuckHitsNet
+        mov eax, ecx
+        push dword [byte ebp-01Ch]
+        call PlayNetSound
+        fld dword [byte ecx+038h]
+        fld st0
+        fmul qword [F64_0p9]
+        fstp st1
+        fstp dword [byte ecx+038h]
+        mov eax, dword [byte ebp-058h]
+        mov dword [byte ecx+020h], eax
+        fld dword [byte ebp-050h]
+        fadd dword [F32_4272_PuckInHomeNet]
+        fadd qword [F64_66]
+        mov eax, 1
+        fstp dword [byte ecx+028h]
+.27:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; PuckInAwayNet                                   68E10  97 PC, low confidence
+; Puck against the away team's net: goal, post or save
+;-----------------------------------------------------------------------------
+PuckInAwayNet:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 58h
+        mov ecx, eax
+        mov eax, dword [byte eax+020h]
+        mov dword [byte ebp-018h], eax
+        mov eax, dword [byte ecx+024h]
+        mov dword [byte ebp-04h], eax
+        mov eax, dword [byte ecx+028h]
+        mov dword [byte ebp-010h], eax
+        mov eax, dword [dword ecx+0D2h]
+        xor esi, esi
+        mov dword [byte ebp-014h], eax
+        mov eax, dword [dword ecx+0D6h]
+        xor edi, edi
+        mov dword [byte ebp-0Ch], eax
+        mov eax, dword [dword ecx+0DAh]
+        fld dword [byte ebp-04h]
+        mov dword [byte ebp-08h], eax
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe short .1
+        fld dword [byte ebp-0Ch]
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe short .1
+        xor eax, eax
+        jmp near .27
+.1:
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_neg4272_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe short .2
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_neg4272_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        ja short .5
+.2:
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_neg4448]
+        fnstsw ax
+        sahf
+        jae short .3
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_neg4448]
+        fnstsw ax
+        sahf
+        jb short .5
+.3:
+        fld dword [byte ebp-018h]
+        fcomp dword [F32_180_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe short .4
+        fld dword [byte ebp-014h]
+        fcomp dword [F32_180_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        ja short .5
+.4:
+        fld dword [byte ebp-018h]
+        fcomp dword [F32_neg180_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .6
+        fld dword [byte ebp-014h]
+        fcomp dword [F32_neg180_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .6
+.5:
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.6:
+        fld dword [byte ebp-04h]
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        seta al
+        mov edx, eax
+        fld dword [byte ebp-0Ch]
+        and edx, 0FFh
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        seta al
+        and eax, 0FFh
+        xor eax, edx
+        je near .10
+        fld dword [byte ebp-04h]
+        fld dword [F32_192_PuckInAwayNet]
+        fld dword [byte ecx+030h]
+        fchs
+        fxch st2
+        fld dword [byte ebp-0Ch]
+        fxch
+        fsub st1
+        fxch st2
+        fsub st1
+        fxch st3
+        fmul qword [F64_0p5_PuckInAwayNet]
+        fxch st3
+        fdivrp st2
+        fld st1
+        fld1
+        fsubrp
+        fxch st3
+        fstp dword [byte ecx+030h]
+        fxch st2
+        fstp st1
+        fmul dword [byte ecx+030h]
+        fadd dword [F32_192_PuckInAwayNet]
+        fstp dword [byte ebp-04h]
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe short .8
+        cmp dword [byte ecx+030h], 40800000h
+        jge short .7
+        mov edx, 8
+        mov eax, ecx
+        xor ebx, ebx
+        mov dword [byte ecx+038h], 0
+        call AddPenalty2
+.7:
+        fld dword [byte ebp-04h]
+        fcomp dword [F32_193_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .9
+        mov dword [byte ebp-04h], 43410000h
+        jmp short .9
+.8:
+        fld dword [byte ebp-04h]
+        fcomp dword [F32_191_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe short .9
+        mov dword [byte ebp-04h], 433F0000h
+.9:
+        mov eax, dword [byte ebp-04h]
+        fld dword [byte ebp-04h]
+        mov dword [byte ecx+024h], eax
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jb short .10
+        mov eax, 1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.10:
+        fld dword [byte ebp-010h]
+        fcomp dword [byte ebp-08h]
+        fnstsw ax
+        sahf
+        je near .18
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_neg4272_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jb near .17
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_neg4272_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae near .17
+        fld dword [byte ebp-08h]
+        fld dword [byte ebp-010h]
+        fsub st1
+        fld dword [byte ebp-018h]
+        fld dword [F32_neg4272_PuckInAwayNet]
+        fsubrp st3
+        fld dword [byte ebp-014h]
+        fxch
+        fsub st1
+        fxch st3
+        fdivrp st2
+        fxch st2
+        fmul st1
+        faddp st2
+        fxch
+        fst dword [byte ebp-028h]
+        fabs
+        fld dword [byte ebp-0Ch]
+        fld dword [byte ebp-04h]
+        fsub st1
+        fmulp st3
+        faddp st2
+        fxch
+        fstp dword [byte ebp-020h]
+        fcomp qword [F64_144_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .11
+        fld dword [byte ebp-020h]
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .11
+        mov eax, dword [PtrHomeIce]
+        mov esi, 1
+        call Goal
+        jmp near .16
+.11:
+        fld dword [byte ebp-028h]
+        fabs
+        fcomp qword [F64_153p5_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae near .16
+        fld dword [byte ebp-020h]
+        fcomp dword [F32_201p5_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae near .16
+        mov eax, ecx
+        mov edx, 64h
+        call RandomPuckSpin
+        push dword [byte ebp-010h]
+        mov eax, 414h
+        push dword [byte ebp-018h]
+        call PlaySfxVolume
+        mov ah, byte [gmode]
+        mov edi, 1
+        test ah, 1
+        jne short .12
+        mov eax, 4
+        call SetCrowdMood
+        xor eax, eax
+        call CommentNetHit
+.12:
+        fld dword [byte ebp-020h]
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jb short .13
+        push dword 0C5858000h
+        push dword [byte ebp-020h]
+        mov eax, ecx
+        push dword [byte ebp-028h]
+        call PuckOffPost
+        jmp short .16
+.13:
+        push dword 0C5858000h
+        fldz
+        push dword [byte ebp-020h]
+        fcomp dword [byte ebp-028h]
+        fnstsw ax
+        sahf
+        jae short .14
+        xor eax, eax
+        mov edx, 40629800h
+        mov dword [byte ebp-04Ch], eax
+        mov dword [byte ebp-048h], edx
+        jmp short .15
+.14:
+        xor edx, edx
+        mov ebx, 0C0629800h
+        mov dword [byte ebp-04Ch], edx
+        mov dword [byte ebp-048h], ebx
+.15:
+        fld qword [byte ebp-04Ch]
+        sub esp, byte 4
+        mov eax, ecx
+        fstp dword [esp]
+        call PuckOffCrossbar
+.16:
+        xor edx, edx
+        call EndPenaltyShot
+        mov word [OneTimerPasser], dx
+        mov word [OneTimerReady], dx
+        mov word [OneTimerTarget], dx
+        test edi, edi
+        je near .18
+        mov eax, 1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.17:
+        fld dword [byte ebp-010h]
+        fcomp dword [F32_neg4272_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe near .18
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_neg4272_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .18
+        fld dword [byte ebp-08h]
+        fcomp dword [F32_neg4448]
+        fnstsw ax
+        sahf
+        jb short .18
+        fld dword [byte ebp-08h]
+        fld dword [byte ebp-010h]
+        fsub st1
+        fld dword [byte ebp-018h]
+        fld dword [F32_neg4272_PuckInAwayNet]
+        fsubrp st3
+        fld dword [byte ebp-014h]
+        fxch
+        fsub st1
+        fxch st3
+        fdivrp st2
+        fxch st2
+        fmul st1
+        faddp st2
+        fxch
+        fabs
+        fld dword [byte ebp-0Ch]
+        fld dword [byte ebp-04h]
+        fsub st1
+        fmulp st3
+        faddp st2
+        fxch
+        fstp dword [byte ebp-034h]
+        fcomp qword [F64_144_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .18
+        fld dword [byte ebp-034h]
+        fcomp dword [F32_192_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .18
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.18:
+        lea eax, [byte ebp-058h]
+        push eax
+        push esi
+        push dword 0C5879000h
+        mov eax, ecx
+        push byte 0
+        call NetCollisionPoint
+        test eax, eax
+        je near .27
+        fld dword [byte ebp-050h]
+        fld dword [byte ebp-058h]
+        call IF@ATAN2
+        fld dword [byte ebp-054h]
+        fld1
+        fsubrp
+        fstp dword [byte ebp-054h]
+        fld dword [dword ecx+0DAh]
+        fadd qword [F64_4338]
+        fstp dword [byte ebp-030h]
+        mov eax, dword [dword ecx+0D2h]
+        fstp dword [byte ebp-01Ch]
+        mov dword [byte ebp-02Ch], eax
+        test esi, esi
+        je short .19
+        xor edi, edi
+        mov dword [byte ebp-024h], edi
+        jmp short .23
+.19:
+        test byte [gmode], 1
+        jne short .20
+        mov dword [byte ebp-024h], 40000000h
+        jmp short .23
+.20:
+        fld dword [byte ebp-02Ch]
+        fabs
+        fcomp qword [F64_228_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        ja short .21
+        fld dword [byte ebp-030h]
+        fabs
+        fcomp qword [F64_228_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jbe short .22
+.21:
+        mov dword [byte ebp-024h], 40000000h
+        jmp short .23
+.22:
+        fld dword [byte ebp-02Ch]
+        fmul to st0
+        fmul qword [F64_3p08642eneg05_PuckInAwayNet]
+        fld dword [byte ebp-030h]
+        fmul to st0
+        fmul qword [F64_8p26446eneg05_PuckInAwayNet]
+        faddp
+        fstp dword [byte ebp-024h]
+.23:
+        fld dword [byte ebp-058h]
+        fabs
+        fcomp qword [F64_108_PuckInAwayNet]
+        fnstsw ax
+        sahf
+        jae short .24
+        mov dword [byte ebp-01Ch], 40490FDBh
+.24:
+        cmp dword [byte ebp-024h], 3F800000h
+        jle short .25
+        lea eax, [byte ebp-058h]
+        call PuckInNetDepth
+        fld dword [byte ebp-01Ch]
+        fld st0
+        fadd qword [F64_3p14159_PuckInAwayNet]
+        fstp st1
+        fstp dword [byte ebp-01Ch]
+        jmp short .26
+.25:
+        lea eax, [byte ebp-058h]
+        call PuckInNetWidth
+.26:
+        mov eax, dword [dword ecx+0FAh]
+        or byte [byte eax+030h], 10h
+        mov eax, ecx
+        push dword [byte ebp-01Ch]
+        call PuckHitsNet
+        mov eax, ecx
+        push dword [byte ebp-01Ch]
+        call PlayNetSound
+        fld dword [byte ecx+038h]
+        fld st0
+        fmul qword [F64_0p9_PuckInAwayNet]
+        fstp st1
+        fstp dword [byte ecx+038h]
+        mov eax, dword [byte ebp-058h]
+        mov dword [byte ecx+020h], eax
+        fld dword [byte ebp-050h]
+        fadd qword [F64_neg4338_PuckInAwayNet]
+        mov eax, 1
+        fstp dword [byte ecx+028h]
+.27:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; PuckBehindNet                                   69330  97 PC, low confidence
+; Puck against the back of a net
+;-----------------------------------------------------------------------------
+PuckBehindNet:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 6Ch
+        and esp, byte 0FFFFFFF8h
+        mov ebx, eax
+        mov ecx, edx
+        fld dword [byte ebx+020h]
+        fld dword [byte ebx+028h]
+        fld dword [dword ebx+0D2h]
+        mov eax, dword [byte eax+024h]
+        fld dword [dword ebx+0DAh]
+        mov dword [byte esp+048h], eax
+        fxch st3
+        fsub dword [byte edx+020h]
+        fxch st2
+        fsub dword [byte edx+028h]
+        fxch
+        fsub dword [byte edx+020h]
+        fxch st3
+        fsub dword [byte edx+028h]
+        fld dword [byte esp+048h]
+        fxch st3
+        fstp dword [byte esp+03Ch]
+        fxch
+        fstp dword [byte esp+044h]
+        fxch st2
+        fstp dword [byte esp+068h]
+        fxch
+        fstp dword [byte esp+060h]
+        mov eax, dword [dword ebx+0D6h]
+        xor edx, edx
+        mov dword [byte esp+040h], eax
+        mov dword [byte esp+01Ch], edx
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jbe short .1
+        fld dword [byte esp+040h]
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jbe short .1
+        xor eax, eax
+        jmp near .27
+.1:
+        cmp byte [dword ecx+0A4h], 0Fh
+        jne short .2
+        mov eax, 5A7ED197h
+        mov edx, 400921FBh
+        mov dword [byte esp+050h], eax
+        mov dword [byte esp+054h], edx
+        jmp short .3
+.2:
+        xor esi, esi
+        mov dword [byte esp+050h], esi
+        mov dword [byte esp+054h], esi
+.3:
+        fld qword [byte esp+050h]
+        fstp dword [byte esp+05Ch]
+        cmp byte [dword ecx+0A4h], 0Fh
+        jne short .4
+        mov dword [byte esp+030h], 10B0h
+        jmp short .5
+.4:
+        mov dword [byte esp+030h], 0FFFFEF50h
+.5:
+        fild dword [byte esp+030h]
+        mov eax, dword [byte ecx+020h]
+        fstp dword [byte esp+02Ch]
+        test eax, 7FFFFFFFh
+        jne short .7
+        fld dword [byte ecx+028h]
+        fcomp dword [byte esp+02Ch]
+        fnstsw ax
+        sahf
+        jne short .7
+        fld dword [byte ecx+01Ch]
+        fcomp dword [byte esp+05Ch]
+        fnstsw ax
+        sahf
+        jne short .7
+        cmp ecx, dword [PtrAwayIce]
+        jne short .6
+        mov eax, ebx
+        call PuckInHomeNet
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.6:
+        mov eax, ebx
+        call PuckInAwayNet
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.7:
+        fld dword [byte ecx+01Ch]
+        lea edi, [byte esp+014h]
+        lea esi, [byte esp+018h]
+        fchs
+        lea eax, [byte esp+05Ch]
+        fstp dword [byte esp+05Ch]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        fld dword [byte esp+068h]
+        fmul dword [byte esp+014h]
+        fld dword [byte esp+03Ch]
+        fmul dword [byte esp+014h]
+        mov eax, dword [byte esp+068h]
+        fld dword [byte esp+060h]
+        fmul dword [byte esp+018h]
+        mov dword [byte esp+04Ch], eax
+        fld dword [byte esp+044h]
+        fmul dword [byte esp+018h]
+        fld dword [byte esp+04Ch]
+        fchs
+        fmul dword [byte esp+018h]
+        mov eax, dword [byte esp+03Ch]
+        fld dword [byte esp+060h]
+        mov dword [byte esp+04Ch], eax
+        fmul dword [byte esp+014h]
+        fld dword [byte esp+04Ch]
+        fxch st4
+        faddp st6
+        fxch st3
+        fchs
+        fmul dword [byte esp+018h]
+        fxch st5
+        fstp dword [byte esp+068h]
+        fld dword [byte esp+044h]
+        fmul dword [byte esp+014h]
+        fxch st2
+        faddp st4
+        fldz
+        fxch st4
+        fstp dword [byte esp+03Ch]
+        faddp st2
+        faddp st3
+        fstp dword [byte esp+060h]
+        fxch
+        fstp dword [byte esp+044h]
+        fcomp dword [byte esp+044h]
+        fnstsw ax
+        sahf
+        jae short .8
+        fldz
+        fcomp dword [byte esp+060h]
+        fnstsw ax
+        sahf
+        jb short .11
+.8:
+        fld dword [byte esp+044h]
+        fcomp dword [F32_neg176]
+        fnstsw ax
+        sahf
+        jae short .9
+        fld dword [byte esp+060h]
+        fcomp dword [F32_neg176]
+        fnstsw ax
+        sahf
+        jb short .11
+.9:
+        fld dword [byte esp+03Ch]
+        fcomp dword [F32_180_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jbe short .10
+        fld dword [byte esp+068h]
+        fcomp dword [F32_180_PuckBehindNet]
+        fnstsw ax
+        sahf
+        ja short .11
+.10:
+        fld dword [byte esp+03Ch]
+        fcomp dword [F32_neg180_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .12
+        fld dword [byte esp+068h]
+        fcomp dword [F32_neg180_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .12
+.11:
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.12:
+        fld dword [byte esp+040h]
+        fld dword [byte esp+048h]
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        seta al
+        movzx esi, al
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        seta al
+        and eax, 0FFh
+        xor eax, esi
+        je near .15
+        fld dword [byte esp+048h]
+        fld dword [F32_192_PuckBehindNet]
+        fld dword [byte ebx+030h]
+        fchs
+        fxch st2
+        fld dword [byte esp+040h]
+        fxch
+        fsub st1
+        fxch st2
+        fsub st1
+        fxch st3
+        fmul qword [F64_0p5_PuckBehindNet]
+        fxch st3
+        fdivrp st2
+        fld st1
+        fld1
+        fsubrp
+        fxch st3
+        fstp dword [byte ebx+030h]
+        fxch st2
+        fstp st1
+        fmul dword [byte ebx+030h]
+        fadd dword [F32_192_PuckBehindNet]
+        fstp dword [byte esp+048h]
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jbe short .13
+        fld dword [byte esp+048h]
+        fcomp dword [F32_193_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .14
+        mov dword [byte esp+048h], 43410000h
+        jmp short .14
+.13:
+        fld dword [byte esp+048h]
+        fcomp dword [F32_191_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jbe short .14
+        mov dword [byte esp+048h], 433F0000h
+.14:
+        mov eax, dword [byte esp+048h]
+        fld dword [byte esp+048h]
+        mov dword [byte ebx+024h], eax
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jb short .15
+        mov eax, 1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.15:
+        fld dword [byte esp+044h]
+        fcomp dword [byte esp+060h]
+        fnstsw ax
+        sahf
+        je near .18
+        fldz
+        fcomp dword [byte esp+060h]
+        fnstsw ax
+        sahf
+        ja near .19
+        fldz
+        fcomp dword [byte esp+044h]
+        fnstsw ax
+        sahf
+        jbe near .19
+        fld dword [byte esp+03Ch]
+        fld dword [byte esp+060h]
+        fld dword [byte esp+044h]
+        fsub st1
+        fxch st2
+        fld dword [byte esp+068h]
+        fxch
+        fsub st1
+        fxch st2
+        fchs
+        fdivrp st3
+        fxch
+        fmul st2
+        faddp
+        fst dword [byte esp+058h]
+        fabs
+        fld dword [byte esp+040h]
+        fld dword [byte esp+048h]
+        fsub st1
+        fmulp st3
+        faddp st2
+        fxch
+        fstp dword [byte esp+034h]
+        fcomp qword [F64_144_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .16
+        fld dword [byte esp+034h]
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .16
+        mov dword [byte esp+01Ch], 1
+        jmp short .17
+.16:
+        fld dword [byte esp+058h]
+        fabs
+        fcomp qword [F64_153p5_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .17
+        fld dword [byte esp+034h]
+        fcomp dword [F32_201p5_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .17
+        mov eax, 14h
+        call randomd0
+        cwde
+        sub eax, byte 0Ah
+        mov dword [byte esp+024h], eax
+        mov edx, 64h
+        fild dword [byte esp+024h]
+        mov eax, ebx
+        fstp dword [byte ebx+030h]
+        call RandomPuckSpin
+        push dword [byte ebx+028h]
+        mov eax, 414h
+        push dword [byte ebx+020h]
+        call PlaySfxVolume
+        test byte [gmode], 1
+        jne short .17
+        mov eax, 4
+        call SetCrowdMood
+        xor eax, eax
+        call CommentNetHit
+.17:
+        xor edx, edx
+        call EndPenaltyShot
+        mov word [OneTimerPasser], dx
+        mov word [OneTimerReady], dx
+        mov word [OneTimerTarget], dx
+.18:
+        mov eax, esp
+        push eax
+        mov eax, dword [byte esp+020h]
+        push eax
+        push dword 0C2840000h
+        mov eax, ebx
+        push byte 0
+        call NetCollisionPoint
+        test eax, eax
+        je near .27
+        fld dword [byte esp+08h]
+        fld dword [esp]
+        call IF@ATAN2
+        fld dword [byte esp+04h]
+        fld dword [byte esp+060h]
+        fld1
+        mov edx, dword [byte esp+01Ch]
+        fxch
+        fadd qword [F64_66_PuckBehindNet]
+        fxch
+        fsubrp st2
+        fstp dword [byte esp+064h]
+        fstp dword [byte esp+04h]
+        fstp dword [byte esp+05Ch]
+        test edx, edx
+        je near .20
+        xor edi, edi
+        mov dword [byte esp+038h], edi
+        jmp near .23
+.19:
+        fldz
+        fcomp dword [byte esp+044h]
+        fnstsw ax
+        sahf
+        jae short .18
+        fldz
+        fcomp dword [byte esp+060h]
+        fnstsw ax
+        sahf
+        jbe short .18
+        fld dword [byte esp+060h]
+        fcomp dword [F32_neg176]
+        fnstsw ax
+        sahf
+        jb near .18
+        fld dword [byte esp+03Ch]
+        fld dword [byte esp+060h]
+        fld dword [byte esp+044h]
+        fsub st1
+        fxch st2
+        fld dword [byte esp+068h]
+        fxch
+        fsub st1
+        fxch st2
+        fchs
+        fdivrp st3
+        fxch
+        fmul st2
+        faddp
+        fabs
+        fld dword [byte esp+040h]
+        fld dword [byte esp+048h]
+        fsub st1
+        fmulp st3
+        faddp st2
+        fxch
+        fstp dword [byte esp+028h]
+        fcomp qword [F64_144_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae near .18
+        fld dword [byte esp+028h]
+        fcomp dword [F32_192_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae near .18
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+.20:
+        fld dword [byte esp+068h]
+        fabs
+        fcomp qword [F64_228_PuckBehindNet]
+        fnstsw ax
+        sahf
+        ja short .21
+        fld dword [byte esp+064h]
+        fabs
+        fcomp qword [F64_228_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jbe short .22
+.21:
+        mov dword [byte esp+038h], 40000000h
+        jmp short .23
+.22:
+        fld dword [byte esp+068h]
+        fmul to st0
+        fmul qword [F64_3p08642eneg05_PuckBehindNet]
+        fld dword [byte esp+064h]
+        fmul to st0
+        fmul qword [F64_8p26446eneg05_PuckBehindNet]
+        faddp
+        fstp dword [byte esp+038h]
+.23:
+        fld dword [esp]
+        fabs
+        fcomp qword [F64_108_PuckBehindNet]
+        fnstsw ax
+        sahf
+        jae short .24
+        mov dword [byte esp+05Ch], 40490FDBh
+.24:
+        cmp dword [byte esp+038h], 3F800000h
+        jle short .25
+        mov eax, esp
+        call PuckInNetDepth
+        fld dword [byte esp+05Ch]
+        fld st0
+        fadd qword [F64_3p14159_PuckBehindNet]
+        fstp st1
+        fstp dword [byte esp+05Ch]
+        jmp short .26
+.25:
+        mov eax, esp
+        call PuckInNetWidth
+.26:
+        fld dword [esp]
+        fmul dword [byte esp+014h]
+        fld dword [byte esp+08h]
+        fld dword [byte esp+018h]
+        fchs
+        fld st1
+        mov eax, dword [esp]
+        fxch
+        fstp dword [byte esp+018h]
+        mov dword [byte esp+024h], eax
+        fadd qword [F64_neg66]
+        fld dword [byte esp+024h]
+        fchs
+        fmul dword [byte esp+018h]
+        fxch
+        fstp st2
+        fxch
+        fst dword [byte esp+08h]
+        fmul dword [byte esp+018h]
+        fld dword [byte esp+08h]
+        fmul dword [byte esp+014h]
+        fld dword [byte esp+05Ch]
+        fxch st2
+        faddp st4
+        faddp st2
+        fxch st2
+        fstp dword [esp]
+        fstp dword [byte esp+08h]
+        fadd dword [byte ecx+01Ch]
+        fstp dword [byte esp+05Ch]
+        mov eax, dword [dword ebx+0FAh]
+        or byte [byte eax+030h], 10h
+        mov eax, ebx
+        push dword [byte esp+05Ch]
+        call PuckHitsNet
+        mov eax, ebx
+        push dword [byte esp+05Ch]
+        call PlayNetSound
+        fld dword [byte ebx+038h]
+        fld st0
+        fmul qword [F64_0p9_PuckBehindNet]
+        fstp st1
+        fstp dword [byte ebx+038h]
+        fld dword [byte ecx+020h]
+        fadd dword [esp]
+        fstp dword [byte ebx+020h]
+        fld dword [byte ecx+028h]
+        fadd dword [byte esp+08h]
+        mov eax, 1
+        fstp dword [byte ebx+028h]
+.27:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        nop
+;-----------------------------------------------------------------------------
+; CheckPuckNets                                   69984  97 PC, low confidence
+; Checks the puck against both nets
+;-----------------------------------------------------------------------------
+CheckPuckNets:
+        push ebx
+        push edx
+        mov ebx, eax
+        test byte [gmode], 1
+        jne short .2
+        mov eax, ebx
+        call PuckInHomeNet
+        test eax, eax
+        je short .1
+        mov eax, 1
+        pop edx
+        pop ebx
+        ret
+.1:
+        mov eax, ebx
+        call PuckInAwayNet
+        test eax, eax
+        je short .4
+        mov eax, 2
+        pop edx
+        pop ebx
+        ret
+.2:
+        mov edx, dword [PtrAwayIce]
+        mov eax, ebx
+        call PuckBehindNet
+        test eax, eax
+        je short .3
+        mov eax, 1
+        pop edx
+        pop ebx
+        ret
+.3:
+        mov edx, dword [PtrHomeIce]
+        mov eax, ebx
+        call PuckBehindNet
+        test eax, eax
+        je short .4
+        mov eax, 2
+        pop edx
+        pop ebx
+        ret
+.4:
+        xor eax, eax
+        pop edx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; GoalLinePuckTest                                699F0  97 PC, low confidence
+; Tests whether the puck crossed the goal line (for the goal judge)
+;-----------------------------------------------------------------------------
+GoalLinePuckTest:
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 24h
+        and esp, byte 0FFFFFFF8h
+        mov edx, eax
+        fldz
+        fcomp dword [byte eax+028h]
+        fnstsw ax
+        sahf
+        jae short .1
+        mov eax, dword [PtrAwayIce]
+        jmp short .2
+.1:
+        mov eax, dword [PtrHomeIce]
+.2:
+        fld dword [byte edx+020h]
+        fld dword [byte edx+028h]
+        fld dword [byte eax+01Ch]
+        lea edi, [byte esp+0Ch]
+        lea esi, [byte esp+018h]
+        fxch st2
+        fsub dword [byte eax+020h]
+        fxch
+        fsub dword [byte eax+028h]
+        fxch
+        fstp dword [byte esp+020h]
+        fstp dword [byte esp+01Ch]
+        fchs
+        lea eax, [byte esp+08h]
+        fstp dword [byte esp+08h]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        mov eax, dword [byte esp+020h]
+        fld dword [byte esp+020h]
+        mov dword [byte esp+010h], eax
+        fmul dword [byte esp+0Ch]
+        fld dword [byte esp+010h]
+        fchs
+        fmul dword [byte esp+018h]
+        fld dword [byte esp+01Ch]
+        fmul dword [byte esp+018h]
+        fld dword [byte esp+01Ch]
+        fmul dword [byte esp+0Ch]
+        fldz
+        fxch st2
+        faddp st4
+        faddp st2
+        fxch st2
+        fstp dword [byte esp+020h]
+        fstp dword [byte esp+01Ch]
+        fcomp dword [byte esp+01Ch]
+        fnstsw ax
+        sahf
+        jb short .3
+        fld dword [byte esp+01Ch]
+        fcomp dword [F32_neg176_GoalLinePuckTest]
+        fnstsw ax
+        sahf
+        jb short .3
+        fld dword [byte esp+020h]
+        fcomp dword [F32_180_GoalLinePuckTest]
+        fnstsw ax
+        sahf
+        ja short .3
+        fld dword [byte esp+020h]
+        fcomp dword [F32_neg180_GoalLinePuckTest]
+        fnstsw ax
+        sahf
+        jae short .4
+.3:
+        xor eax, eax
+        jmp near .9
+.4:
+        fld dword [byte esp+020h]
+        fabs
+        fld dword [byte esp+01Ch]
+        fld st0
+        fadd qword [F64_66_GoalLinePuckTest]
+        fstp st1
+        fstp dword [byte esp+01Ch]
+        fcomp qword [F64_228_GoalLinePuckTest]
+        fnstsw ax
+        sahf
+        ja short .5
+        fld dword [byte esp+01Ch]
+        fabs
+        fcomp qword [F64_228_GoalLinePuckTest]
+        fnstsw ax
+        sahf
+        jbe short .6
+.5:
+        mov dword [byte esp+014h], 40000000h
+        jmp short .7
+.6:
+        fld dword [byte esp+020h]
+        fmul to st0
+        fmul qword [F64_3p08642eneg05_GoalLinePuckTest]
+        fld dword [byte esp+01Ch]
+        fmul to st0
+        fmul qword [F64_8p26446eneg05_GoalLinePuckTest]
+        faddp
+        fstp dword [byte esp+014h]
+.7:
+        cmp dword [byte esp+014h], 3F800000h
+        jle short .8
+        xor eax, eax
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        ret
+.8:
+        mov eax, 1
+.9:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        ret
+        nop
+        push edx
+        mov edx, eax
+        fld dword [byte eax+038h]
+        fadd qword [F64_neg0p1_GoalLinePuckTest]
+        fldz
+        fxch
+        fstp dword [byte eax+038h]
+        fcomp dword [byte eax+038h]
+        fnstsw ax
+        sahf
+        jbe short .10
+        mov dword [byte edx+038h], 0
+.10:
+        fld dword [byte edx+040h]
+        fsincos
+        fld dword [byte edx+038h]
+        fmulp st2
+        fmul dword [byte edx+038h]
+        fld dword [byte edx+038h]
+        fadd qword [F64_neg0p1_GoalLinePuckTest]
+        fldz
+        fxch
+        fstp dword [byte edx+038h]
+        fxch st2
+        fstp dword [byte edx+02Ch]
+        fstp dword [byte edx+034h]
+        fcomp dword [byte edx+038h]
+        fnstsw ax
+        sahf
+        jbe short .11
+        mov dword [byte edx+038h], 0
+.11:
+        mov ax, word [byte edx+0Eh]
+        mov word [byte edx+054h], ax
+        fld dword [byte edx+02Ch]
+        fld dword [byte edx+034h]
+        mov eax, dword [byte edx+040h]
+        mov dword [byte edx+01Ch], eax
+        fxch
+        fadd dword [byte edx+020h]
+        fxch
+        fadd dword [byte edx+028h]
+        fxch
+        fstp dword [byte edx+020h]
+        mov eax, edx
+        fstp dword [byte edx+028h]
+        call PuckHeightAt
+        pop edx
+        ret
+        lea eax, [byte eax+00h]
+.12:
+        push ebx
+        push ecx
+        push edx
+        sub esp, byte 8
+        mov ecx, dword [dword eax+0F6h]
+        mov ecx, dword [ecx]
+        test ecx, ecx
+        je short .17
+.13:
+        mov eax, dword [byte ecx+028h]
+        and eax, 0FFFFh
+        cmp eax, byte 25h
+        jl short .16
+        cmp eax, byte 31h
+        jg short .16
+        cmp eax, byte 29h
+        jl short .14
+        cmp eax, byte 2Fh
+        jg short .14
+        mov ebx, esp
+        lea edx, [byte esp+04h]
+        call ShotAnimFrames
+        jmp short .15
+.14:
+        mov edx, esp
+        call PassAnimFrameForType
+.15:
+        mov edx, dword [esp]
+        cmp edx, dword [byte ecx+04h]
+        jge short .16
+        mov eax, 1
+        jmp short .18
+.16:
+        mov ecx, dword [byte ecx+020h]
+        test ecx, ecx
+        jne short .13
+.17:
+        xor eax, eax
+.18:
+        add esp, byte 8
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+;-----------------------------------------------------------------------------
+; UpdatePuckCarrier                               69C2C  97 PC, low confidence
+; Keeps the puck with its carrier
+;-----------------------------------------------------------------------------
+UpdatePuckCarrier:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        sub esp, byte 0Ch
+        mov eax, dword [puckc]
+        movsx edx, byte [eax]
+        mov eax, edx
+        shl eax, 5
+        add eax, edx
+        mov ecx, SortCords
+        shl eax, 3
+        add ecx, eax
+        mov eax, dword [dword ecx+0F6h]
+        mov eax, dword [eax]
+        mov esi, dword [PtrPuckFlags]
+        mov edx, dword [byte eax+028h]
+        mov bx, word [dword ecx+0A9h]
+        and edx, 0FFFFh
+        test bx, bx
+        jne short .9
+        mov eax, dword [dword ecx+0FAh]
+        test byte [byte eax+031h], 2
+        je short .9
+        cmp edx, 0CAh
+        jne short .8
+        mov edx, dword [BodyPointId]
+        jmp short .5
+.8:
+        cmp byte [dword ecx+0D0h], 0
+        setne al
+        mov edx, eax
+        and edx, 0FFh
+        jmp short .5
+.9:
+        cmp word [dword ecx+0A9h], byte 0
+        jle short .2
+        mov eax, ecx
+        call GoalLinePuckTest.12
+        test eax, eax
+        jne short .4
+.2:
+        cmp edx, byte 3Eh
+        jl short .3
+        cmp edx, 81h
+        jl short .4
+        cmp edx, 83h
+        jg short .4
+.3:
+        mov edx, dword [BodyPointId]
+        jmp short .5
+.4:
+        mov edx, dword [StickPointId]
+.5:
+        mov ebx, esp
+        mov eax, ecx
+        call ObjectFramePos
+        mov eax, dword [esp]
+        mov dword [byte esi+020h], eax
+        cmp word [dword ecx+0A9h], byte 0
+        jne short .10
+        mov eax, dword [dword ecx+0FAh]
+        test byte [byte eax+031h], 2
+        je short .10
+        mov eax, dword [byte esp+04h]
+        mov dword [byte esi+024h], eax
+        jmp short .7
+.10:
+        mov dword [byte esi+024h], 0
+.7:
+        mov eax, dword [byte esp+08h]
+        mov dword [byte esi+028h], eax
+        fld dword [byte ecx+02Ch]
+        mov dword [byte esi+030h], 0
+        mov ax, word [byte esi+0Eh]
+        fstp dword [byte esi+02Ch]
+        fld dword [byte ecx+034h]
+        mov word [byte esi+054h], ax
+        mov eax, esi
+        fstp dword [byte esi+034h]
+        call PuckHeightAt
+        add esp, byte 0Ch
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+%else
 ;-----------------------------------------------------------------------------
 ; PuckOffPost                                     67CC0  97 PC, low confidence
 ; Bounces the puck off a post
@@ -5104,6 +8097,7 @@ UpdatePuckCarrier:
         pop ecx
         pop ebx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; PuckGroundHeight                                69750  97 PC, low confidence
 ; Works out the puck's height over the ice
@@ -5374,6 +8368,50 @@ PuckBounceIce:
         pop edx
         ret
         db 08Dh,040h,00h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; UpdatePuck                                      69FC4  97 PC, low confidence
+; Moves the puck and tests it against the boards, glass and nets
+;-----------------------------------------------------------------------------
+UpdatePuck:
+        push edx
+        mov edx, dword [PtrPuckFlags]
+        mov eax, dword [dword edx+0FAh]
+        and byte [byte eax+030h], 0F7h
+        mov eax, dword [dword edx+0FAh]
+        and byte [byte eax+030h], 0EFh
+        mov eax, dword [puckc]
+        cmp byte [eax], 0Ch
+        je short .3
+        cmp word [BreakawayFlag], byte 8
+        je short .2
+        mov eax, edx
+        call PuckHitsBoards
+        test eax, eax
+        jne short .1
+        mov eax, edx
+        call PuckHitsGlass
+        test eax, eax
+        jne short .1
+        mov eax, edx
+        call CheckPuckNets
+        test eax, eax
+        jne short .1
+        mov eax, edx
+        call PuckGroundHeight
+        pop edx
+        ret
+.1:
+        and byte [gmode2], 0EFh
+.2:
+        mov eax, edx
+        call PuckBounceIce
+        mov eax, edx
+        call PuckHeightAt
+.3:
+        pop edx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; UpdatePuck                                      699D4  97 PC, low confidence
 ; Moves the puck and tests it against the boards, glass and nets
@@ -5416,6 +8454,7 @@ UpdatePuck:
 .3:
         pop edx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; GoalJudgeTest                                   69A44  97 PC, low confidence
 ; Tests a goal for the goal judge

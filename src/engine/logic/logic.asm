@@ -2358,6 +2358,280 @@ FindCreasePlayer:
         pop edx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; assgoalie                                      21C80  94G, medium confidence
+; assignment 2 (Setplass list for the goalie), the goalie AI
+;-----------------------------------------------------------------------------
+assgoalie:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        sub esp, byte 8
+        mov ecx, eax
+        call check4bench
+        test ax, ax
+        jne near .24
+        mov ah, byte [dword ecx+0BFh]
+        test ah, 2
+        je short .1
+        mov dword [byte ecx+05Ah], 0
+        mov dl, ah
+        mov dword [byte ecx+056h], 0FFFFFFFFh
+        and dl, 0FDh
+        mov byte [dword ecx+0BFh], dl
+.1:
+        cmp word [byte ecx+0Eh], byte 0
+        jge short .2
+        mov eax, dword [byte ecx+0Ch]
+        sar eax, 10h
+        neg eax
+        jmp short .3
+.2:
+        mov eax, dword [byte ecx+0Ch]
+        sar eax, 10h
+.3:
+        mov ebx, eax
+        mov eax, dword [dword ecx+0F6h]
+        mov eax, dword [eax]
+        mov esi, dword [byte eax+028h]
+        mov dh, byte [gmode]
+        and esi, 0FFFFh
+        test dh, 1
+        je near .8
+        mov eax, dword [PtrPuckObject]
+        mov edx, dword [dword eax+0AEh]
+        sar edx, 18h
+        cmp byte [dword edx+eax+0B2h], 33h
+        je near .8
+        mov eax, dword [dword ecx+0EEh]
+        mov dword [eax], 0
+        test byte [dword ecx+0BFh], 80h
+        jne short .4
+        mov dword [byte esp+04h], 1050h
+        jmp short .5
+.4:
+        mov dword [byte esp+04h], 0FFFFEFB0h
+.5:
+        mov eax, dword [dword ecx+0EEh]
+        fild dword [byte esp+04h]
+        fstp dword [byte eax+04h]
+        mov eax, dword [dword ecx+0EEh]
+        mov dword [byte eax+08h], 0
+        mov eax, dword [dword ecx+0EEh]
+        mov dword [byte eax+0Ch], 0
+        mov eax, dword [dword ecx+0EEh]
+        mov dword [byte eax+018h], 0
+        mov eax, ecx
+        call SetSkateSpeedFromRating
+        mov eax, dword [dword ecx+0EEh]
+        mov dword [byte eax+024h], 42C80000h
+        test byte [dword ecx+0BFh], 80h
+        jne short .6
+        mov dword [esp], 8000h
+        jmp short .7
+.6:
+        xor edi, edi
+        mov dword [esp], edi
+.7:
+        mov eax, dword [dword ecx+0EEh]
+        fild dword [esp]
+        fstp dword [byte eax+010h]
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.8:
+        mov eax, dword [puckc]
+        xor edx, edx
+        movsx eax, byte [eax]
+        mov dl, byte [dword ecx+0A4h]
+        cmp edx, eax
+        jne short .13
+        cmp esi, 104h
+        je short .9
+        cmp esi, 0E4h
+        jne short .10
+.9:
+        test byte [dword ecx+0BFh], 8
+        jne short .10
+        mov edx, dword [byte ecx+056h]
+        sub edx, byte 2
+        mov dword [byte ecx+056h], edx
+        cmp edx, byte 1
+        jge short .12
+        jmp short .11
+.10:
+        cmp ebx, 0CF0h
+        jge short .12
+.11:
+        mov dword [byte ecx+056h], 1
+.12:
+        mov edi, dword [byte ecx+056h]
+        dec edi
+        mov dword [byte ecx+056h], edi
+        jne short .14
+        mov edx, 9
+        mov eax, ecx
+        xor ebx, ebx
+        call AddPenalty2
+        mov eax, dword [PtrPuckFlags]
+        mov dword [byte eax+038h], edi
+        jmp short .14
+.13:
+        mov dword [byte ecx+056h], 0FFFFFFFFh
+.14:
+        test byte [dword ecx+0BFh], 8
+        jne near .21
+        xor edx, edx
+        mov dl, byte [dword ecx+0C6h]
+        mov ebx, 3
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ebx
+        mov dword [byte ecx+05Ah], eax
+        mov eax, dword [PtrPuckOwner]
+        mov bx, word [byte ecx+0Eh]
+        mov dx, word [eax]
+        xor edx, ebx
+        mov word [regd1], dx
+        test dx, dx
+        jge short .15
+        movsx ebx, word [eax]
+        xor edx, edx
+        mov eax, ecx
+        call GoaliePosTarget
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.15:
+        mov edx, dword [puckc]
+        xor eax, eax
+        movsx edx, byte [edx]
+        mov al, byte [dword ecx+0A4h]
+        cmp eax, edx
+        jne near .21
+        cmp dword [byte ecx+056h], byte 0
+        jge short .16
+        mov dword [byte ecx+056h], 5Ah
+.16:
+        cmp dword [byte ecx+056h], byte 5Ah
+        jge near .20
+        mov eax, 4
+        call randomd0
+        test ax, ax
+        jne near .20
+        mov eax, ecx
+        call BuildPassTargets
+        mov word [GoalieTarget], ax
+        cmp ax, 1E0h
+        jge short .17
+        cmp ax, 0F0h
+        jge near .23
+        mov eax, ecx
+        call StartGoalieSave
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.17:
+        mov eax, dword [PtrPuckFlags]
+        cmp dword [byte eax+05Ah], byte 20h
+        jl near .23
+        cmp esi, 0E4h
+        je near .23
+        cmp esi, 102h
+        je near .23
+        cmp esi, 103h
+        je near .23
+        cmp esi, 104h
+        je near .23
+        cmp esi, 105h
+        je near .23
+        cmp esi, 106h
+        je near .23
+        mov eax, ecx
+        call AIPassDecision
+        test ax, ax
+        jne near .24
+.18:
+        mov eax, ecx
+        call GoalieMoves
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.20:
+        cmp dword [byte ecx+056h], byte 5Ah
+        jge near .23
+        mov eax, ecx
+        call BuildPassTargets
+        mov word [GoalieTarget], ax
+        cmp ax, 0F0h
+        jl near .23
+        mov eax, ecx
+        call StartGoalieStance
+        mov eax, ecx
+        call GoalieMoves
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.21:
+        test byte [dword ecx+0BFh], 8
+        je short .23
+        mov eax, dword [puckc]
+        xor edx, edx
+        movsx eax, byte [eax]
+        mov dl, byte [dword ecx+0A4h]
+        cmp edx, eax
+        jne short .23
+        cmp dword [byte ecx+056h], byte 0
+        jge short .22
+        mov dword [byte ecx+056h], 5Ah
+.22:
+        cmp dword [byte ecx+056h], byte 5Ah
+        jge short .23
+        mov eax, ecx
+        call StartGoalieStance
+        mov eax, ecx
+        call BuildPassTargets
+        mov word [GoalieTarget], ax
+        cmp ax, 1E0h
+        jge short .23
+        cmp ax, 0F0h
+        jl short .24
+.23:
+        mov eax, ecx
+        call GoalieMoves
+.24:
+        add esp, byte 8
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+%else
 ;-----------------------------------------------------------------------------
 ; assgoalie                                      21B20  94G, medium confidence
 ; assignment 2 (Setplass list for the goalie), the goalie AI
@@ -2635,6 +2909,7 @@ assgoalie:
         pop ecx
         pop ebx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; KeepInsideRink                                  21E98  97 PC, low confidence
 ; Pulls a player's skating target back inside the boards when it lies past
@@ -4890,6 +5165,154 @@ asscenterd:
         pop ebx
         ret
         db 08Bh,0C0h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; asstofaceoff                                    23DF4  97 PC, low confidence
+; Assignment 6: a player skates to his faceoff spot (or to the bench, or to
+; the side for a penalty shot)
+;-----------------------------------------------------------------------------
+asstofaceoff:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        sub esp, byte 1Ch
+        mov edx, eax
+        test byte [dword eax+0BFh], 20h
+        jne near .11
+        mov eax, edx
+        call check4bench
+        test ax, ax
+        jne near .11
+        mov bl, byte [dword edx+0BFh]
+        test bl, 2
+        je near .6
+        mov cl, byte [dword edx+0C0h]
+        mov bh, bl
+        or cl, 20h
+        and bh, 0FDh
+        mov byte [dword edx+0C0h], cl
+        mov byte [dword edx+0BFh], bh
+        cmp word [penshotmode], byte 0
+        je near .5
+        mov cx, word [FaceoffRequest]
+        mov al, byte [dword edx+0A4h]
+        cmp ax, cx
+        jne near .5
+        xor esi, esi
+        mov word [ZoneTargetY], si
+        test byte [dword edx+0BFh], 80h
+        je short .1
+        mov eax, 0FFFFFF70h
+        jmp short .2
+.1:
+        mov eax, 90h
+.2:
+        mov word [regd1], ax
+        mov eax, dword [dword edx+0EEh]
+        fild word [ZoneTargetY]
+        fstp dword [eax]
+        mov eax, dword [dword edx+0EEh]
+        fild word [regd1]
+        fstp dword [byte eax+04h]
+        mov eax, dword [dword edx+0EEh]
+        and byte [byte eax+028h], 7Fh
+        mov eax, dword [dword edx+0EEh]
+        mov dword [byte eax+08h], 0
+        mov eax, dword [dword edx+0EEh]
+        mov dword [byte eax+0Ch], 0
+        test byte [dword edx+0BFh], 80h
+        je short .3
+        xor ecx, ecx
+        mov dword [byte esp+018h], ecx
+        jmp short .4
+.3:
+        mov dword [byte esp+018h], 8000h
+.4:
+        mov eax, dword [dword edx+0EEh]
+        fild dword [byte esp+018h]
+        fstp dword [byte eax+010h]
+        mov eax, dword [dword edx+0EEh]
+        mov dword [byte eax+014h], 0
+        mov eax, dword [dword edx+0EEh]
+        mov dword [byte eax+018h], 0
+        mov eax, edx
+        call SetSkateSpeedFromRating
+        mov eax, dword [dword edx+0EEh]
+        mov dword [byte eax+024h], 42C80000h
+        or byte [dword edx+0C0h], 4
+        jmp short .6
+.5:
+        mov eax, edx
+        call FaceoffSpotPosition
+.6:
+        fild word [byte edx+06h]
+        fstp dword [byte esp+04h]
+        mov eax, dword [dword edx+0EEh]
+        fld dword [byte esp+04h]
+        fsub dword [eax]
+        fldz
+        fxch
+        fstp dword [byte esp+0Ch]
+        fcomp dword [byte esp+0Ch]
+        fnstsw ax
+        sahf
+        jbe short .7
+        fld dword [byte esp+0Ch]
+        fchs
+        fstp dword [byte esp+014h]
+        jmp short .8
+.7:
+        mov eax, dword [byte esp+0Ch]
+        mov dword [byte esp+014h], eax
+.8:
+        fld dword [byte esp+014h]
+        fcomp dword [F32_48]
+        fnstsw ax
+        sahf
+        ja short .11
+        fild word [byte edx+0Eh]
+        fstp dword [esp]
+        mov eax, dword [dword edx+0EEh]
+        fld dword [esp]
+        fsub dword [byte eax+04h]
+        fldz
+        fxch
+        fstp dword [byte esp+010h]
+        fcomp dword [byte esp+010h]
+        fnstsw ax
+        sahf
+        jbe short .9
+        fld dword [byte esp+010h]
+        fchs
+        fstp dword [byte esp+08h]
+        jmp short .10
+.9:
+        mov eax, dword [byte esp+010h]
+        mov dword [byte esp+08h], eax
+.10:
+        fld dword [byte esp+08h]
+        fcomp dword [F32_48]
+        fnstsw ax
+        sahf
+        ja short .11
+        mov al, byte [dword edx+0B1h]
+        mov ch, byte [dword edx+0BFh]
+        mov dword [byte edx+060h], 0FFFFFF9Ch
+        inc al
+        or ch, 2
+        and al, 7
+        mov byte [dword edx+0BFh], ch
+        mov byte [dword edx+0B1h], al
+.11:
+        add esp, byte 1Ch
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        nop
+%else
 ;-----------------------------------------------------------------------------
 ; asstofaceoff                                    23C98  97 PC, low confidence
 ; Assignment 6: a player skates to his faceoff spot (or to the bench, or to
@@ -5036,6 +5459,7 @@ asstofaceoff:
         pop ebx
         ret
         db 090h
+%endif
 ;-----------------------------------------------------------------------------
 ; assfaceoff                                     23E90  94G, medium confidence
 ; assignment 7, players idle until the faceoff is over

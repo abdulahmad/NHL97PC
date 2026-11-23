@@ -8,6 +8,10 @@ section s_160000 progbits alloc noexec write align=1
 global str_PATH2, str_JSTICKS, str_RPEVENT2, str_WaitingForOtherComputer2, str_WarteAufAnderenComputer, str_BREAKIN, str_BREAKOUT, F32_10
 global F32_neg8, F32_neg8_StickReachZ, F64_0p013, F64_0p01, F64_0p000244141, F64_1p2, F64_neg8, F64_0p5
 global F64_50, F64_0p01_StickReachZ, F64_0p392699, F64_0p159155, F64_65536, SharedDataFlags, str_Rb, str_VantarPaAnnanDator
+%if VERSION = 11
+global F32_1000000, F64_150, F64_1p38006eneg07, F64_1p76206eneg06, F64_200_EstimateCpuSpeed, F64_2p39167eneg07, F64_33, F64_4p01469eneg07
+global F64_90
+%endif
 SharedDataFlags:                                ; four bytes of 1,1,1,0 at the start of the shared data block;
                                                 ; unreferenced
         db 01h,01h,01h,00h
@@ -57,6 +61,30 @@ str_VantarPaAnnanDator:                         ; Swedish "Waiting for other com
 str_WarteAufAnderenComputer:                    ; string "Warte auf anderen Computer."; used by PlayGame
         db 057h,061h,072h,074h,065h,020h,061h,075h,066h,020h,061h,06Eh,064h,065h,072h,065h
         db 06Eh,020h,043h,06Fh,06Dh,070h,075h,074h,065h,072h,02Eh,00h
+%if VERSION = 11
+F64_33:                                         ; double constant 33 (MHz); used by EstimateCpuSpeed
+        db 0,0,0,0,0,80h,40h,40h
+F64_1p76206eneg06:                              ; double constant 1.76206e-06 (loop scale at 33 MHz); used by
+                                                ; EstimateCpuSpeed
+        db 74h,8Ch,2,0F9h,0FBh,8Fh,0BDh,3Eh
+F64_90:                                         ; double constant 90 (MHz); used by EstimateCpuSpeed
+        db 0,0,0,0,0,80h,56h,40h
+F64_4p01469eneg07:                              ; double constant 4.01469e-07 (loop scale at 90 MHz); used by
+                                                ; EstimateCpuSpeed
+        db 0Eh,0ADh,43h,94h,2Fh,0F1h,9Ah,3Eh
+F64_150:                                        ; double constant 150 (MHz); used by EstimateCpuSpeed
+        db 0,0,0,0,0,0C0h,62h,40h
+F64_2p39167eneg07:                              ; double constant 2.39167e-07 (loop scale at 150 MHz); used by
+                                                ; EstimateCpuSpeed
+        db 42h,0ECh,66h,0Ah,0DAh,0Ch,90h,3Eh
+F64_200_EstimateCpuSpeed:                       ; double constant 200 (MHz); used by EstimateCpuSpeed
+        db 0,0,0,0,0,0,69h,40h
+F64_1p38006eneg07:                              ; double constant 1.38006e-07 (loop scale at 200 MHz); used by
+                                                ; EstimateCpuSpeed
+        db 99h,6Ah,45h,0BBh,0D7h,85h,82h,3Eh
+F32_1000000:                                    ; float constant 1000000 (MHz to Hz); used by EstimateCpuSpeed
+        db 0,24h,74h,49h
+%endif
 str_BREAKIN:                                    ; string " -------------------------BREAK
                                                 ; IN------------------------ "; used by RunInGameMenu
         db 020h,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh,02Dh

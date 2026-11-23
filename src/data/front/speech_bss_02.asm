@@ -26,10 +26,17 @@ SfxBankSizes:                                   ; sound effect bank sizes; used 
 MusicTrackTable:                                ; music track records; used by ChkMenuMusic, CloseMusicStream,
                                                 ; FeedMusicStream ...
         resb 320
+%if VERSION = 11
+PlayerCallTime:                                 ; time of the last player call; used by SayPlayerCall
+        resb 4
+PlayerCallLast:                                 ; last player call; used by SayPlayerCall
+        resb 4
+%else
 PlayerCallLast:                                 ; last player call; used by SayPlayerCall
         resb 4
 PlayerCallTime:                                 ; time of the last player call; used by SayPlayerCall
         resb 4
+%endif
 GameSoundsOn:                                   ; game sounds loaded; used by CloseSpeechFile, InitGameSounds,
                                                 ; InitSpeechBanks ...
         resb 4

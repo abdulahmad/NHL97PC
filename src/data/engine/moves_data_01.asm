@@ -237,8 +237,13 @@ str_TEMP:                                       ; string "TEMP"; used by InitSpe
         db 054h,045h,04Dh,050h,00h,00h,00h,00h
 str_SAUDPBP3TSF:                                ; string "%sAUDPBP3.TSF"; used by OpenSpeechBanks
         db 025h,073h,041h,055h,044h,050h,042h,050h,033h,02Eh,054h,053h,046h,00h,00h,00h
+%if VERSION = 11
+str_KTSF:                                       ; string "KTSF"; used by InitSpeechBanks, OpenSpeechBanks
+        db 6Bh,54h,53h,46h,0,0,0,0
+%else
 str_KTSF:                                       ; string "KTSF"; used by InitSpeechBanks, OpenSpeechBanks
         db 04Bh,054h,053h,046h,00h,00h,00h,00h
+%endif
 str_SAUDPBP2VIV:                                ; string "%sAUDPBP2.VIV"; used by OpenSpeechBanks
         db 025h,073h,041h,055h,044h,050h,042h,050h,032h,02Eh,056h,049h,056h,00h,00h,00h
 str_CBANK03dDAT:                                ; string "CBANK%03d.DAT"; used by OpenSpeechBanks

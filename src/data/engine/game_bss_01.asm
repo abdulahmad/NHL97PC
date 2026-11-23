@@ -86,6 +86,19 @@ GameKeyState:                                   ; game key state; used by Handle
 GameObjects:                                    ; game object records; used by Gameloop, LoadReplay,
                                                 ; LoadReplayData ...
         resb 52
+%if VERSION = 11
+PadStates:                                      ; pad state per slot; used by Gameloop, PlaySavedReplay,
+                                                ; ReplayPlayFrames ...
+        resb 16
+LineChangeKeyLow:                               ; line change key low byte; used by CheckLineChangeKeys,
+                                                ; Gameloop, RunSimFrames
+        resb 1
+LineChangeKeyFlags:                             ; line change key flags; used by CheckLineChangeKeys
+        resb 3
+GameTick:                                       ; game tick; used by Gameloop, InitGameVars,
+                                                ; PlaceOpeningPlayers ...
+        resb 4
+%else
 GameTick:                                       ; game tick; used by Gameloop, InitGameVars,
                                                 ; PlaceOpeningPlayers ...
         resb 4
@@ -97,6 +110,7 @@ LineChangeKeyLow:                               ; line change key low byte; used
         resb 1
 LineChangeKeyFlags:                             ; line change key flags; used by CheckLineChangeKeys
         resb 3
+%endif
 GameLoopTime:                                   ; game loop time; used by Gameloop
         resb 4
 DemoState:                                      ; demo game state; used by RunDemoGame

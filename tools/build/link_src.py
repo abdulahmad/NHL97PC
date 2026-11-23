@@ -29,7 +29,8 @@ if _td not in sys.path:
 import paths
 ROOT = paths.ROOT
 # sys.path: tools/paths.add_path()
-SHA1 = 'b5cba11fd78b3db4c9085ca11918128e52b76bdd'
+import rebuild_exe as _RB
+SHA1 = _RB.EXPECTED_SHA1      # 1.0, or 1.1 with NHL97_VERSION=11
 
 def read_elf(path):
     """minimal ELF32 reader: (data, sections, symbols, relocations by target section index)"""
@@ -63,17 +64,19 @@ def read_layout(path=os.path.join(ROOT, 'src/segments.txt')):
         segs.append(dict(obj=int(ob), start=int(s0, 16), end=int(s1, 16), bytes=int(nb), module=mod, src=src))
     return segs
 
-def link(segs, objdir, objs_le):
-    """objs_le: {1: (base, vsize), 2: ...}. Returns ({start: bytes}, [(src, tobj, toff)], errors)"""
+def link(segs, objdir, objs_le, secnames=None):
+    """objs_le: {1: (base, vsize), 2: ...}. Returns ({start: bytes}, [(src, tobj, toff)], errors).
+    secnames: the section name of each file (1.1 keeps the 1.0 names s_<1.0 start>); default s_<start>"""
     loaded = []; gsym = {}; errors = []
-    for sg in segs:
+    for k, sg in enumerate(segs):
         op = os.path.join(objdir, os.path.splitext(sg['src'])[0] + '.o')
         d, secs, syms, rels = read_elf(op)
-        si = [i for i, s in enumerate(secs) if s['name'] == 's_%05X' % sg['start']]
-        if len(si) != 1: errors.append('%s: expected one section s_%05X' % (op, sg['start'])); continue
+        sname = secnames[k] if secnames else 's_%05X' % sg['start']
+        si = [i for i, s in enumerate(secs) if s['name'] == sname]
+        if len(si) != 1: errors.append('%s: expected one section %s' % (op, sname)); continue
         si = si[0]
         for s in secs:
-            if s['size'] and s['type'] in (1, 8) and s['name'] != 's_%05X' % sg['start']:
+            if s['size'] and s['type'] in (1, 8) and s['name'] != sname:
                 errors.append('%s: unexpected section %s (one section per file)' % (op, s['name']))
         for sy in syms:
             if sy['bind'] == 1 and sy['shndx'] == si:
@@ -128,13 +131,17 @@ def main():
     a = ap.parse_args()
     import rebuild_exe as RB
     segs = read_layout()
+    secnames = None
+    if _RB.VERSION != '10':
+        secnames = ['s_%05X' % s['start'] for s in segs]
+        segs = read_layout(os.path.join(ROOT, _RB.VERSIONS[_RB.VERSION]['layout']))
     man = json.load(open(os.path.join(a.parts, 'manifest.json')))
     le = json.load(open(os.path.join(a.parts, 'le.json')))
     objs_le = {k + 1: (o['base'], o['virtual_size']) for k, o in enumerate(le['objects'])}
     ms = [(m['obj'], int(m['start'], 16), int(m['end'], 16), m['bytes']) for m in man['segments'] if not m.get('zero_pad')]
     if ms != [(s['obj'], s['start'], s['end'], s['bytes']) for s in segs]:
         sys.exit('build/parts was split with a different segment map than src/segments.txt: re-run rebuild_exe.py extract')
-    data, fixups, errors = link(segs, a.obj, objs_le)
+    data, fixups, errors = link(segs, a.obj, objs_le, secnames)
     for e in errors[:50]: print('error:', e, file=sys.stderr)
     if errors: sys.exit('link failed: %d errors' % len(errors))
     # parts for rebuild_exe.build: stubs + LE metadata from the extract, segment slices from the objects
@@ -176,7 +183,8 @@ def main():
         if nd: print('%d differing bytes in the segment slices (instruction address comments: grep the address in src/)' % nd)
         for tag, sset in (('fixup missing (in the EXE, not in src/)', ref - have), ('fixup extra (in src/, not in the EXE)', have - ref)):
             for s_, t_, o_, st_ in sorted(sset)[:8]: print('%s: source %05X -> object %d offset %X' % (tag, s_, t_, o_))
-    print(('MATCH: %s is byte-identical to the retail HOCKEY.EXE' if h == SHA1 else 'MISMATCH: %s differs from the retail HOCKEY.EXE') % rep['out'])
+    what = 'the retail HOCKEY.EXE' if _RB.VERSION == '10' else 'the patch 1.1 HOCKEY.EXE'
+    print(('MATCH: %s is byte-identical to ' + what if h == SHA1 else 'MISMATCH: %s differs from ' + what) % rep['out'])
     sys.exit(0 if h == SHA1 else 1)
 
 if __name__ == '__main__':

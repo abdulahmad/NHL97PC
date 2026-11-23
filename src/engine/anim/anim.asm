@@ -12,6 +12,144 @@ global DecodeAnimTree, DecodeAnimChild, DecodeAnimFile, ReadAnimValue, DecodeAni
 global UpdateMovePose, UpdateMovePose_31B, UpdateAllPoses, ScaleAnimTime, SetAnimClock, AddAnimClock, UpdateAnimBlends, AnimClockTick
 global SetAnimFrame, SetAnimFlags, ClearAnimFlags, InitAnimState, AllocAnimStateBlocks, StartAnim, StartAnimNow, BlendToAnim
 global ChangeAnim, InitAnimNodePool, FreeAnimStates, AllocAnimStates
+%if VERSION = 11
+extern AnimNodeFreeCount, AnimNodeFreeHead, AnimNodeFreeTail
+%endif
+%if VERSION = 11
+        lea eax, [byte eax+00h]
+;-----------------------------------------------------------------------------
+; AllocAnimNode                                   76584  97 PC, low confidence
+; Takes a node from the free animation node list
+;-----------------------------------------------------------------------------
+AllocAnimNode:
+        push edx
+        mov eax, dword [AnimNodeFreeHead]
+        mov edx, dword [byte eax+020h]
+        mov dword [AnimNodeFreeHead], edx
+        mov dword [byte eax+024h], 0
+        mov dword [byte eax+01Ch], 0
+        mov edx, dword [byte eax+024h]
+        mov dword [byte eax+020h], edx
+        dec dword [AnimNodeFreeCount]
+        pop edx
+        ret
+        nop
+;-----------------------------------------------------------------------------
+; InsertAnimNode                                  765B0  97 PC, low confidence
+; Inserts an animation node after another
+;-----------------------------------------------------------------------------
+InsertAnimNode:
+        push ebx
+        push ecx
+        push edx
+        mov edx, dword [byte eax+020h]
+        mov dword [eax], 0
+        test edx, edx
+        je short .4
+        mov ebx, dword [byte eax+024h]
+        mov dword [byte edx+024h], ebx
+.4:
+        mov ebx, dword [byte eax+024h]
+        test ebx, ebx
+        je short .5
+        mov ecx, ebx
+        mov ebx, dword [byte eax+020h]
+        mov dword [byte ecx+020h], ebx
+.5:
+        mov ebx, dword [AnimNodeFreeTail]
+        mov dword [byte ebx+020h], eax
+        mov ecx, dword [AnimNodeFreeCount]
+        mov dword [AnimNodeFreeTail], eax
+        inc ecx
+        mov eax, edx
+        mov dword [AnimNodeFreeCount], ecx
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+.6:
+        push ebx
+        push ecx
+        push edx
+        mov edx, eax
+        call AllocAnimNode
+        mov ebx, eax
+        mov dword [byte eax+024h], edx
+        test edx, edx
+        je short .2
+        mov ecx, dword [byte edx+020h]
+        mov dword [byte eax+020h], ecx
+        test ecx, ecx
+        je short .1
+        mov dword [byte ecx+024h], eax
+.1:
+        mov dword [byte edx+020h], ebx
+        jmp short .3
+.2:
+        mov dword [byte eax+020h], edx
+.3:
+        mov eax, ebx
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; AddAnimNode                                     76628  97 PC, low confidence
+; Adds an animation node to a list
+;-----------------------------------------------------------------------------
+AddAnimNode:
+        push ebx
+        push ecx
+        push edx
+        mov edx, eax
+        call AllocAnimNode
+        mov ebx, eax
+        mov dword [byte eax+020h], edx
+        test edx, edx
+        je short .2
+        mov ecx, dword [byte edx+024h]
+        mov dword [byte eax+024h], ecx
+        test ecx, ecx
+        je short .1
+        mov dword [byte ecx+020h], eax
+.1:
+        mov dword [byte edx+024h], ebx
+        jmp short .3
+.2:
+        mov dword [byte eax+024h], edx
+.3:
+        mov eax, ebx
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; ResetAnimBlend                                  76658  97 PC, low confidence
+; Resets an animation blend and frees its children
+;-----------------------------------------------------------------------------
+ResetAnimBlend:
+        push edx
+        mov dl, byte [byte eax+01Dh]
+        mov dword [byte eax+010h], 3F800000h
+        and dl, 0FAh
+        mov byte [byte eax+01Dh], dl
+        mov eax, dword [byte eax+020h]
+        test eax, eax
+        je short .2
+.1:
+        test byte [byte eax+01Dh], 2
+        je short .2
+        call InsertAnimNode
+        test eax, eax
+        jne short .1
+.2:
+        pop edx
+        ret
+        lea eax, [byte eax+00h]
+%else
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; AllocAnimNode                                   75F14  97 PC, low confidence
@@ -147,6 +285,7 @@ ResetAnimBlend:
         pop edx
         ret
         db 08Dh,040h,00h
+%endif
 ;-----------------------------------------------------------------------------
 ; LoadAnimFile                                 76010  97 PC, medium confidence
 ; (name, ...): loads a ".4da" animation file (_splitpath_ / _makepath_), from
@@ -1503,6 +1642,163 @@ AddAnimClock:
         add dword [ReplayRecordBuf], eax
         ret
         db 090h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; UpdateAnimBlends                                774A4  97 PC, low confidence
+; Updates the animation blends
+;-----------------------------------------------------------------------------
+UpdateAnimBlends:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov edi, eax
+        mov edx, dword [eax]
+        mov ah, byte [byte edx+01Dh]
+        test ah, 2
+        jne near .15
+        test ah, 1
+        je short .1
+        mov ebx, dword [byte edx+020h]
+.1:
+        mov ecx, dword [ReplayRecordBuf]
+        mov eax, dword [byte edx+0Ch]
+        mov esi, dword [edx]
+        cmp eax, ecx
+        jg near .15
+.2:
+        test byte [byte edx+01Ch], 40h
+        je short .3
+        mov eax, dword [edx]
+        mov al, byte [byte eax+0Dh]
+        and eax, 0FFh
+        mov ecx, dword [byte edx+04h]
+        dec eax
+        cmp eax, ecx
+        jne short .3
+        or byte [byte edx+01Dh], 8
+.3:
+        test byte [byte edx+01Dh], 8
+        jne near .6
+        mov eax, dword [dword edx+0354h]
+        add eax, byte 4
+        mov ebp, dword [byte edx+04h]
+        mov dword [dword edx+0354h], eax
+        inc ebp
+        mov cl, byte [byte edx+01Dh]
+        mov dword [byte edx+04h], ebp
+        test cl, 1
+        je short .6
+        mov eax, dword [ebx]
+        xor ecx, ecx
+        mov cl, byte [byte eax+0Dh]
+        mov ebp, dword [byte ebx+04h]
+        dec ecx
+        cmp ecx, ebp
+        jg short .5
+        mov ch, byte [byte eax+0Eh]
+        test ch, 10h
+        je short .4
+        mov eax, dword [ebx]
+        mov dword [byte ebx+04h], 0
+        mov eax, dword [byte eax+08h]
+        mov dword [dword ebx+0354h], eax
+        jmp short .6
+.4:
+        test ch, 20h
+        jne short .6
+        mov eax, edx
+        call ResetAnimBlend
+        jmp short .6
+.5:
+        mov ecx, dword [dword ebx+0354h]
+        lea eax, [byte ebp+01h]
+        add ecx, byte 4
+        mov dword [byte ebx+04h], eax
+        mov dword [dword ebx+0354h], ecx
+.6:
+        xor eax, eax
+        mov ebp, dword [byte edx+04h]
+        mov al, byte [byte esi+0Dh]
+        cmp eax, ebp
+        jg short .8
+        mov ch, byte [byte edx+01Ch]
+        test ch, 20h
+        je short .7
+        mov eax, dword [edx]
+        mov dword [byte edx+04h], 0
+        mov eax, dword [byte eax+08h]
+        mov dword [dword edx+0354h], eax
+        jmp short .8
+.7:
+        mov al, ch
+        or al, 80h
+        mov byte [byte edx+01Ch], al
+.8:
+        mov ecx, dword [byte edx+0Ch]
+        add ecx, dword [byte edx+08h]
+        mov ebp, dword [byte edx+030h]
+        mov dword [byte edx+0Ch], ecx
+        test ebp, ebp
+        je short .9
+        mov eax, edx
+        call dword [byte edx+030h]
+.9:
+        test byte [byte edx+01Ch], 80h
+        je short .11
+        test byte [byte edx+01Dh], 1
+        je short .10
+        mov eax, edx
+        call ResetAnimBlend
+.10:
+        mov esi, dword [edi]
+        cmp edx, esi
+        jne short .14
+        mov eax, esi
+        call InsertAnimNode
+        mov dword [edi], eax
+        jmp short .15
+.11:
+        mov cl, byte [byte edx+01Dh]
+        test cl, 2
+        jne short .15
+        test cl, 4
+        je short .13
+        fld dword [byte edx+014h]
+        fadd dword [byte edx+010h]
+        fstp dword [byte edx+010h]
+        cmp dword [byte edx+010h], 3F800000h
+        jl short .12
+        mov eax, edx
+        call ResetAnimBlend
+        mov dword [byte edx+010h], 3F800000h
+        jmp short .13
+.12:
+        fldz
+        fcomp dword [byte edx+010h]
+        fnstsw ax
+        sahf
+        jae short .14
+.13:
+        mov ebp, dword [ReplayRecordBuf]
+        cmp ebp, dword [byte edx+0Ch]
+        jge near .2
+        jmp short .15
+.14:
+        mov eax, edx
+        call InsertAnimNode
+.15:
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        nop
+%else
 ;-----------------------------------------------------------------------------
 ; UpdateAnimBlends                                76E30  97 PC, low confidence
 ; Updates the animation blends
@@ -1658,6 +1954,7 @@ UpdateAnimBlends:
         pop ebx
         ret
         db 090h
+%endif
 ;-----------------------------------------------------------------------------
 ; AnimClockTick                                   76FB4  97 PC, low confidence
 ; Advances the animation clock
@@ -1869,6 +2166,511 @@ InitAnimState:
         pop edx
         ret
         db 08Dh,040h,00h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; AllocAnimStateBlocks                            777E0  97 PC, low confidence
+; Allocates the animation state blocks
+;-----------------------------------------------------------------------------
+AllocAnimStateBlocks:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov edx, dword [AnimNodePool]
+        mov eax, dword [AnimStateCount]
+        sub eax, edx
+        mov dword [AnimStatesReady], eax
+        mov ecx, eax
+        je short .10
+        add edx, eax
+        mov dword [AnimNodePool], edx
+.1:
+        mov edx, dword [AnimNodeFreeHead]
+        add edx, eax
+        mov dword [AnimNodeFreeHead], edx
+        mov edx, dword [AnimNodeFreeTail]
+.3:
+        mov esi, dword [AnimStateBlocks]
+        add edx, eax
+        xor ebx, ebx
+        mov dword [AnimNodeFreeTail], edx
+        test esi, esi
+        jle short .10
+        xor eax, eax
+.5:
+        mov edx, dword [AnimNodePool]
+        add edx, eax
+        mov ebp, dword [byte edx+020h]
+        test ebp, ebp
+        je short .8
+        lea esi, [ecx+ebp]
+        mov dword [byte edx+020h], esi
+.8:
+        mov esi, dword [byte edx+024h]
+        test esi, esi
+        je short .9
+        add esi, ecx
+        mov dword [byte edx+024h], esi
+.9:
+        mov edi, dword [AnimStateBlocks]
+        inc ebx
+        add eax, 358h
+        cmp ebx, edi
+        jl short .5
+.10:
+        mov edi, dword [AnimStateBlocks]
+        xor ecx, ecx
+        test edi, edi
+        jle short .7
+        xor ebx, ebx
+.11:
+        mov edx, dword [AnimNodePool]
+        add edx, ebx
+        cmp dword [edx], byte 0
+        je short .6
+        mov eax, dword [byte edx+028h]
+        mov eax, dword [dword eax*4+MoveFuncPair]
+        mov dword [edx], eax
+        mov eax, dword [byte edx+028h]
+        mov eax, dword [dword eax*4+MoveFuncTable]
+        mov dword [byte edx+030h], eax
+        mov eax, edx
+        call InitAnimState
+        mov esi, dword [byte edx+04h]
+        mov eax, dword [edx]
+        shl esi, 2
+        mov eax, dword [byte eax+08h]
+        add eax, esi
+        mov dword [dword edx+0354h], eax
+.6:
+        mov ebp, dword [AnimStateBlocks]
+        inc ecx
+        add ebx, 358h
+        cmp ecx, ebp
+        jl short .11
+.7:
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+;-----------------------------------------------------------------------------
+; StartAnim                                       778C8  97 PC, low confidence
+; Starts an animation
+;-----------------------------------------------------------------------------
+StartAnim:
+        push ebx
+        push ecx
+        push esi
+        mov ebx, eax
+        mov esi, dword [byte eax+01Ch]
+        mov eax, dword [edx]
+        mov dword [byte ebx+028h], eax
+        mov eax, dword [byte edx+04h]
+        mov dword [byte ebx+02Ch], eax
+        mov eax, dword [byte edx+08h]
+        mov dword [ebx], eax
+        fld dword [byte edx+014h]
+        mov eax, ebx
+        fstp dword [byte ebx+018h]
+        call InitAnimState
+        mov eax, dword [byte edx+010h]
+        mov dword [byte ebx+04h], eax
+        mov ecx, dword [byte edx+08h]
+        shl eax, 2
+        mov ecx, dword [byte ecx+08h]
+        add eax, ecx
+        mov dword [dword ebx+0354h], eax
+        mov eax, dword [byte edx+08h]
+        fild word [byte eax+020h]
+        fmul dword [byte edx+018h]
+        call __CHP
+        fistp dword [byte ebx+08h]
+        mov eax, dword [byte edx+024h]
+        mov dword [byte ebx+030h], eax
+        mov eax, dword [byte edx+0Ch]
+        and esi, 510h
+        mov edx, eax
+        mov dword [byte ebx+01Ch], eax
+        or edx, esi
+        mov dword [byte ebx+01Ch], edx
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; StartAnimNow                                    77934  97 PC, low confidence
+; Starts an animation without blending
+;-----------------------------------------------------------------------------
+StartAnimNow:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        mov ebx, eax
+        mov ecx, dword [eax]
+        test ecx, ecx
+        jne short .1
+        call AllocAnimNode
+        mov dword [ebx], eax
+        jmp short .2
+.1:
+        mov eax, ecx
+        call ResetAnimBlend
+.2:
+        mov ebx, dword [ebx]
+        mov eax, ebx
+        call StartAnim
+        mov eax, dword [ReplayRecordBuf]
+        mov esi, dword [byte ebx+08h]
+        mov dword [byte ebx+010h], 3F800000h
+        add eax, esi
+        mov dx, word [byte ebx+01Ch]
+        mov dword [byte ebx+0Ch], eax
+        and edx, 0FFFFFAEFh
+        mov edi, dword [byte ebx+030h]
+        mov word [byte ebx+01Ch], dx
+        test edi, edi
+        je short .3
+        mov eax, ebx
+        call dword [byte ebx+030h]
+.3:
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; BlendToAnim                                     7798C  97 PC, low confidence
+; Blends into a new animation
+;-----------------------------------------------------------------------------
+BlendToAnim:
+        push ebx
+        push ecx
+        push edi
+        mov ecx, dword [byte eax+020h]
+        mov ebx, eax
+        test ecx, ecx
+        je short .2
+.1:
+        mov ebx, dword [byte ebx+020h]
+        cmp dword [byte ebx+020h], byte 0
+        jne short .1
+.2:
+        mov eax, ebx
+        call InsertAnimNode.6
+        mov ecx, eax
+        mov ebx, eax
+        call StartAnim
+        mov eax, dword [ReplayRecordBuf]
+        mov edi, dword [byte ecx+08h]
+        add eax, edi
+        mov dword [byte ecx+0Ch], eax
+        mov eax, dword [byte esp+010h]
+        mov dword [byte ecx+010h], eax
+        cmp eax, 3F800000h
+        je short .3
+        or byte [byte ecx+01Ch], 10h
+.3:
+        cmp dword [byte ebx+030h], byte 0
+        je short .4
+        mov eax, ebx
+        call dword [byte ebx+030h]
+.4:
+        pop edi
+        pop ecx
+        pop ebx
+        ret 4
+        lea eax, [byte eax+00h]
+        push ebx
+        push ecx
+        mov ebx, eax
+        test eax, eax
+        je short .7
+        mov ecx, dword [ebx]
+        mov eax, dword [byte edx+08h]
+        mov cl, byte [byte ecx+0Dh]
+        cmp cl, byte [byte eax+0Dh]
+        jne short .7
+        test byte [byte ebx+01Dh], 1
+        je short .5
+        mov ecx, dword [byte ebx+020h]
+        jmp short .6
+.5:
+        mov eax, ebx
+        call InsertAnimNode.6
+        mov ecx, eax
+        or byte [byte ebx+01Dh], 1
+.6:
+        fld1
+        mov eax, dword [byte ebx+04h]
+        fsub dword [byte esp+0Ch]
+        mov dword [byte edx+010h], eax
+        mov eax, ecx
+        fstp dword [byte ebx+010h]
+        call StartAnim
+        mov dl, byte [byte ecx+01Dh]
+        mov eax, dword [byte esp+0Ch]
+        or dl, 2
+        mov dword [byte ecx+010h], eax
+        mov byte [byte ecx+01Dh], dl
+.7:
+        pop ecx
+        pop ebx
+        ret 4
+;-----------------------------------------------------------------------------
+; ChangeAnim                                      77A3C  97 PC, low confidence
+; Changes a player's animation
+;-----------------------------------------------------------------------------
+ChangeAnim:
+        push ecx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 0Ch
+        and esp, byte 0FFFFFFF8h
+        mov edi, eax
+        mov esi, edx
+        mov dword [byte esp+08h], ebx
+        mov ecx, dword [byte edx+08h]
+        mov edx, dword [eax]
+        test edx, edx
+        jne short .1
+        mov edx, esi
+        call StartAnimNow
+        jmp near .14
+.1:
+        mov eax, dword [edx]
+        mov ebx, edx
+        mov dl, byte [byte eax+0Eh]
+        test dl, 10h
+        je short .3
+        test byte [byte ebx+01Ch], 80h
+        je short .2
+        mov eax, dword [byte eax+08h]
+        mov dh, byte [byte ebx+01Ch]
+        mov dword [byte ebx+04h], 0
+        and dh, 7Fh
+        mov dword [dword ebx+0354h], eax
+        mov byte [byte ebx+01Ch], dh
+.2:
+        test byte [byte ecx+0Eh], 10h
+        je near .7
+        mov edx, dword [ebx]
+        mov al, byte [byte ecx+0Dh]
+        cmp al, byte [byte edx+0Dh]
+        jne short .7
+        mov eax, dword [byte ebx+04h]
+        mov dword [byte esi+010h], eax
+        jmp short .7
+.3:
+        test dl, 20h
+        je short .6
+        test byte [byte ebx+01Ch], 80h
+        je short .7
+        xor edx, edx
+        mov dl, byte [byte eax+0Dh]
+        mov ecx, ebx
+        dec edx
+        mov dword [esp], edx
+        je short .4
+        call GetAnimEntry
+        jmp short .5
+.4:
+        mov eax, dword [byte eax+08h]
+.5:
+        mov dword [dword ebx+0354h], eax
+        mov eax, dword [esp]
+        mov dword [byte ecx+04h], eax
+        and byte [byte ecx+01Ch], 7Fh
+        or byte [byte ebx+01Dh], 8
+        jmp short .7
+.6:
+        mov al, byte [byte eax+0Dh]
+        and eax, 0FFh
+        mov ecx, dword [byte ebx+04h]
+        mov edx, dword [byte esp+08h]
+        sub eax, ecx
+        cmp eax, edx
+        jg short .7
+        mov dword [byte esp+08h], eax
+.7:
+        cmp dword [byte esp+08h], byte 0
+        jg short .8
+        mov edx, esi
+        mov eax, ebx
+        call StartAnim
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+.8:
+        mov eax, ebx
+        call AddAnimNode
+        mov dword [edi], eax
+        mov dl, byte [byte ebx+01Dh]
+        or dl, 2
+        mov ecx, eax
+        mov byte [byte ebx+01Dh], dl
+        mov edx, esi
+        mov dword [byte esp+04h], eax
+        call StartAnim
+        fild dword [byte esp+08h]
+        fld1
+        fdivrp
+        or word [byte ecx+01Ch], 510h
+        fst dword [byte ecx+014h]
+        fstp dword [byte ecx+010h]
+        mov eax, dword [byte ebx+0Ch]
+        mov edx, dword [byte ecx+020h]
+        mov dword [byte ecx+0Ch], eax
+        mov eax, 2
+        test edx, edx
+        je short .10
+.9:
+        inc eax
+        mov edx, dword [byte edx+020h]
+        cmp eax, byte 4
+        jge short .10
+        test edx, edx
+        jne short .9
+.10:
+        test edx, edx
+        je short .13
+        cmp dword [byte edx+020h], byte 0
+        je short .13
+.19:
+        mov eax, dword [byte edx+020h]
+        test byte [byte eax+01Dh], 2
+        je short .20
+        call InsertAnimNode
+        and byte [byte edx+01Dh], 0FEh
+        jmp short .21
+.20:
+        mov edx, eax
+.21:
+        cmp dword [byte edx+020h], byte 0
+        jne short .19
+.13:
+        mov eax, dword [byte esp+04h]
+        cmp dword [byte eax+030h], byte 0
+        je short .14
+        mov edx, eax
+        call dword [byte edx+030h]
+.14:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop ecx
+        ret
+        LD mov, eax, eax
+        push ebx
+        sub esp, byte 4
+        mov ebx, eax
+        mov dword [esp], edx
+        mov eax, dword [eax]
+        mov dl, byte [byte eax+0Eh]
+        test dl, 10h
+        je short .15
+        or byte [byte ebx+01Ch], 20h
+        jmp short .17
+.15:
+        test dl, 20h
+        je short .16
+        or byte [byte ebx+01Ch], 40h
+        jmp short .17
+.16:
+        mov al, byte [byte eax+0Dh]
+        and eax, 0FFh
+        mov edx, dword [byte ebx+04h]
+        sub eax, edx
+        mov dword [esp], eax
+.17:
+        cmp dword [esp], byte 0
+        jg short .18
+        mov eax, ebx
+        call InsertAnimNode
+        add esp, byte 4
+        pop ebx
+        ret
+.18:
+        fld dword [byte ebx+010h]
+        fchs
+        fild dword [esp]
+        fdivp
+        mov dx, word [byte ebx+01Ch]
+        mov dword [byte ebx+030h], 0
+        or edx, 410h
+        mov word [byte ebx+01Ch], dx
+        fst dword [byte ebx+014h]
+        fadd dword [byte ebx+010h]
+        mov eax, ebx
+        fstp dword [byte ebx+010h]
+        add esp, byte 4
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+;-----------------------------------------------------------------------------
+; InitAnimNodePool                                77C1C  97 PC, low confidence
+; Sets up the free animation node list
+;-----------------------------------------------------------------------------
+InitAnimNodePool:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        mov ebx, dword [AnimStateBlocks]
+        xor edx, edx
+        test ebx, ebx
+        jle short .2
+        xor eax, eax
+.1:
+        mov ebx, dword [AnimNodePool]
+        add ebx, eax
+        lea ecx, [dword ebx+0358h]
+        mov dword [byte ebx+020h], ecx
+        mov ebx, dword [AnimNodePool]
+        mov dword [byte ebx+eax+01Ch], 0
+        mov ebx, dword [AnimNodePool]
+        mov dword [ebx+eax], 0
+        inc edx
+        mov ecx, dword [AnimStateBlocks]
+        add eax, 358h
+        cmp edx, ecx
+        jl short .1
+.2:
+        mov eax, dword [AnimStateBlocks]
+        dec eax
+        imul eax, dword 358h
+        mov edx, dword [AnimNodePool]
+        mov dword [byte edx+eax+020h], 0
+        mov eax, dword [AnimStateBlocks]
+        mov dword [AnimNodeFreeCount], eax
+        mov eax, dword [AnimNodePool]
+        mov esi, dword [AnimStateBlocks]
+        mov dword [AnimNodeFreeHead], eax
+        imul eax, esi, dword 358h
+        mov edx, dword [AnimNodePool]
+        add eax, edx
+        sub eax, 358h
+        mov dword [AnimNodeFreeTail], eax
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        nop
+%else
 ;-----------------------------------------------------------------------------
 ; AllocAnimStateBlocks                            7716C  97 PC, low confidence
 ; Allocates the animation state blocks
@@ -2354,6 +3156,7 @@ InitAnimNodePool:
         pop ebx
         ret
         db 08Bh,0C0h
+%endif
 ;-----------------------------------------------------------------------------
 ; FreeAnimStates                                  77610  97 PC, low confidence
 ; Frees the animation states
@@ -2373,6 +3176,82 @@ FreeAnimStates:
         pop ebx
         ret
         db 08Bh,0C0h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; AllocAnimStates                                 77CDC  97 PC, low confidence
+; (count): allocates the "ANIMSTAT" block (count x 358h) and clears it
+;-----------------------------------------------------------------------------
+AllocAnimStates:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        inc eax
+        mov dword [AnimStateBlocks], eax
+        imul eax, dword 358h
+        push edx
+        push eax
+        push dword str_ANIMSTAT
+        mov ebx, 14h
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [AnimNodePool], eax
+        mov dword [AnimStateCount], eax
+        lea ecx, [byte eax+034h]
+        mov edx, ebx
+        sub ecx, eax
+        mov eax, AnimStateBlocks
+        call ReplayRegisterStates
+        mov edx, dword [AnimStateBlocks]
+        xor edi, edi
+        test edx, edx
+        jle short .2
+        xor esi, esi
+.1:
+        mov eax, dword [AnimNodePool]
+        mov ebx, ecx
+        mov edx, ecx
+        add eax, esi
+        inc edi
+        call ReplayRegisterStates
+        mov ebx, dword [AnimStateBlocks]
+        add esi, 358h
+        cmp edi, ebx
+        jl short .1
+.2:
+        mov eax, AllocAnimStateBlocks
+        call ReplayRegisterObjects
+        call InitAnimNodePool
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+        add byte [eax], al
+        push ecx
+        push esi
+        push edi
+        mov esi, edx
+        mov edi, ebx
+        xor edx, edx
+        call LoadModelByName
+        push eax
+        mov ebx, 8
+        mov dword [esi], eax
+        call InitModelInstance
+        add esp, byte 4
+        mov eax, dword [esi]
+        xor edx, edx
+        call CreateModelInstance
+        push eax
+        mov dword [edi], eax
+        call UpdateModelInstance
+        add esp, byte 4
+        pop edi
+        pop esi
+        pop ecx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; AllocAnimStates                                 77630  97 PC, low confidence
 ; (count): allocates the "ANIMSTAT" block (count x 358h) and clears it
@@ -2446,3 +3325,4 @@ AllocAnimStates:
         pop esi
         pop ecx
         ret
+%endif
