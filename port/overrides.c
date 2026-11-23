@@ -216,7 +216,7 @@ void install_rdtsc_traps(void);
 static void install_x87_stack_fix(void)
 {
     static const uint8_t fldz4[8] = { 0xD9, 0xEE, 0xD9, 0xEE, 0xD9, 0xEE, 0xD9, 0xEE };
-    uint8_t *p = GAME_ADDR(0x121AF3);
+    uint8_t *p = GAME_ADDR(SYM___sys_init_387_emulator + 0x23);   /* 1.0 121AF3 */
     const char *e = getenv("NHL97_X87DUMMIES");
     if (e && *e && *e != '0') return;
     if (memcmp(p, fldz4, 8) || p[-6] != 0xD9 || p[-5] != 0x2D) { fprintf(stderr, "overrides: the four fldz at 121AF3 not found, not patched\n"); return; }
@@ -273,7 +273,7 @@ static void install_wait_ticks_online(void)
  * every negative answer is "no chunk". A real chunk is a game address, never negative. */
 static void install_stream_guard(void)
 {
-    static const uint32_t at[3] = { 0x4A731, 0x4A87E, 0x4A9F9 };
+    const uint32_t at[3] = { SYM_PumpMusicStream + 0x39, SYM_FeedMusicStream_105 + 0x2D, SYM_FeedMusicStream_277 + 0x36 };
     int i;
     for (i = 0; i < 3; i++) {
         uint8_t *p = GAME_ADDR(at[i]);
@@ -304,7 +304,7 @@ static void install_whole_frames(void)
 {
     static const uint8_t head[] = { 0x53, 0x8B, 0x44, 0x24, 0x08, 0x8B, 0x54, 0x24, 0x0C, 0xB9 };
     static const uint8_t mid[] = { 0x8B, 0x5C, 0x24, 0x10, 0xE8 };
-    uint8_t *f = GAME_ADDR(0x1047D0u);
+    uint8_t *f = GAME_ADDR(SYM_BlitFrameToScreen);
     int32_t rel;
     if (getenv("NHL97_TORN")) return;                          /* a test aid: the old way */
     if (memcmp(f, head, sizeof head) || memcmp(f + 14, mid, sizeof mid) || f[23] != 0x5B || f[24] != 0xC3) {

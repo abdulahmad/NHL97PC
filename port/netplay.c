@@ -48,9 +48,9 @@
 #define O_READPADS     SYM_PollControllers     /* the controllers into SlotWords, the hot keys into HotKeyFlags */
 #define O_INITPADS     SYM_InitSlotTable       /* InitSlotTable(eax: the 8 controller set-up bytes): SlotWords' high bytes, the teams */
 #define O_MENU         SYM_RunInGameMenu
-#define D_SCENE        0x19D384u               /* the camera scene flag (a scene function runs: RunCameraScene) */
-#define O_STREAMSVC    0x3EF68u                /* sub_3EF68, the audio stream service */
-#define O_NEXTCHUNK    0x3FBE4u                /* sub_3FBE4, the stream's next chunk (0: none) */
+#define D_SCENE        SYM_ActiveCameraScene               /* the camera scene flag (a scene function runs: RunCameraScene) */
+#define O_STREAMSVC    SYM_CdStreamService     /* the audio stream service */
+#define O_NEXTCHUNK    SYM_CdStreamNextPacket  /* the stream's next chunk (0: none) */
 #define O_TICK_ISR     SYM_TimerISR            /* has inc dword [tickcount] (FF 05 addr) */
 #define O_CSEED_FN     SYM_GetRandState        /* mov eax, <the C library's rand state> / ret */
 #define D_EASEED       SYM_seed                /* randomd0's state */
@@ -123,19 +123,24 @@ static void game_call_eax(void *fn, uint32_t eax)
 /* ---- the states: the game's image without the input it reads live, the host's step counters, then dos.c's (DOS memory, the
  * DPMI blocks). The keyboard's key table, the controller words and the hot keys stay as they are when a state is loaded, so a key
  * held now stays held. ---- */
-static const struct { uint32_t lo, hi; } live[] = {
-    { 0x16D8ACu, 0x16D8B4u },           /* PollControllers' hot key repeat times */
-    { 0x16D8FCu, 0x16D90Cu },           /* SlotWords */
-    { 0x170764u, 0x170814u },           /* the keyboard handler: key table and its flags */
-    { 0x1CD244u, 0x1CD24Eu },           /* Ctrl, Alt, HotKeyFlags */
-};
+#define LIVE_N 4
+typedef struct { uint32_t lo, hi; } live_range;
+static void live_ranges(live_range *live)
+{
+    live[0].lo = SYM_PadPollTick;       live[0].hi = SYM_KeyRepeatTick;      /* PollControllers' hot key repeat times */
+    live[1].lo = SYM_SlotWords;         live[1].hi = SYM_InputRecordTail;    /* SlotWords */
+    live[2].lo = SYM_KeyStateTable;     live[2].hi = SYM_KeyMapNormal + 4;   /* the keyboard handler: key table and its flags */
+    live[3].lo = SYM_KeyboardPadHomeOn; live[3].hi = SYM_KeyboardLastKey;    /* Ctrl, Alt, HotKeyFlags */
+}
 
 static int nh_regions(void *user, ob_snap_region *r, int max)
 {
     uint32_t at = OBJ1_BASE;
     int n = 0, i;
     (void)user;
-    for (i = 0; i < (int)(sizeof live / sizeof *live); i++) {
+    live_range live[LIVE_N];
+    live_ranges(live);
+    for (i = 0; i < LIVE_N; i++) {
         if (n >= max) return -1;
         r[n].p = GAME_ADDR(at); r[n].n = live[i].lo - at; n++;
         at = live[i].hi;

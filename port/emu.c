@@ -12,11 +12,12 @@ int traps(const uint8_t *ip)
 /* ---- pushf / popf ----
  * The game's interrupt flag is vif. The drivers save it with pushf, cli and restore it with popf, but in a user process popf
  * leaves IF alone without trapping, so the restore would be lost and interrupts would stay off. Each pushf / popf of the game's
- * code (flagops.h, from the IDA listing of object 1) is replaced by int3 and emulated with vif in place of IF. */
-static const struct { uint32_t addr; uint8_t kind; } flagops[] = {
+ * code (flagops.h, from tools/build/gen_port_sites.py, one table per version) is replaced by int3 and emulated with vif in
+ * place of IF. */
+typedef struct { uint32_t addr; uint8_t kind; } flagop_t;
 #include "flagops.h"
-};
-#define NFLAGOPS (int)(sizeof flagops / sizeof *flagops)
+#define FLAGOPS   (game_v11 ? flagops11 : flagops10)
+#define NFLAGOPS  (game_v11 ? (int)(sizeof flagops11 / sizeof *flagops11) : (int)(sizeof flagops10 / sizeof *flagops10))
 
 static volatile int64_t ptr_hook_ns;
 int64_t game_pointer_ns(void) { return ptr_hook_ns; }
@@ -24,6 +25,7 @@ int64_t game_pointer_ns(void) { return ptr_hook_ns; }
 void install_flag_traps(void)
 {
     static const uint8_t first[4] = { 0x9C, 0x9D, 0x66, 0x66 };
+    const flagop_t *flagops = FLAGOPS;
     int i, n = 0;
     for (i = 0; i < NFLAGOPS; i++) {
         uint8_t *p = GAME_ADDR(flagops[i].addr);
@@ -45,8 +47,8 @@ void install_flag_traps(void)
  * is replaced by int3, nop and answered as a 200 MHz Pentium's counter (NHL97_CPUMHZ sets another rate). The answer is locked to the
  * game's own tick count, as patch 1.1 does with the timer chip on CPUs without the counter (sub_F9650, 14CDD, sub_65164 in 1.1), so
  * the time since a simulation step always agrees with the ticks the game has counted; NHL97_TSC=host uses the host clock instead. */
-static const uint32_t rdtsc_sites[] = { 0x14CDD, 0x60D2E, 0x60D4A, 0xE2F3A, 0xE461E, 0xF967D, 0xF968E };
-#define NRDTSC (int)(sizeof rdtsc_sites / sizeof *rdtsc_sites)
+#define rdtsc_sites (game_v11 ? rdtsc_sites11 : rdtsc_sites10)   /* flagops.h */
+#define NRDTSC (game_v11 ? (int)(sizeof rdtsc_sites11 / sizeof *rdtsc_sites11) : (int)(sizeof rdtsc_sites10 / sizeof *rdtsc_sites10))
 static uint64_t tsc_mhz = 200;
 static int tsc_host;                    /* NHL97_TSC=host: the host clock instead of the tick-locked counter */
 
@@ -72,7 +74,7 @@ static int emulate_rdtsc(ctx_t *c, const uint8_t *ip)
     if (ip[1] != 0x90) return 0;
     for (i = 0; i < NRDTSC && rdtsc_sites[i] != orig; i++) ;
     if (i == NRDTSC) return 0;
-    if (orig == 0x14CDD && netplay_running()) {
+    if (orig >= SYM_Gameloop && orig < SYM_InitGameDisplay && netplay_running()) {   /* Gameloop's rdtsc (1.0 14CDD) */
         /* online: no drawing between steps (as the game itself does in its own network play); the time since the last record is 0 */
         t = *(volatile uint32_t *)GAME_ADDR(SYM_InputRecordStamp);
         R(c, EAX) = (uint32_t)t; R(c, EDX) = 0;
@@ -100,6 +102,7 @@ static int emulate_rdtsc(ctx_t *c, const uint8_t *ip)
 static int flagop_kind(const uint8_t *ip)
 {
     uint32_t orig = ORIG_FROM(ip);
+    const flagop_t *flagops = FLAGOPS;
     int lo = 0, hi = NFLAGOPS - 1;
     while (lo <= hi) {
         int mid = (lo + hi) / 2;

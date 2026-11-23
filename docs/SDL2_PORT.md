@@ -4,7 +4,10 @@ The game's own 32-bit code runs natively through SDL2 on Windows and Linux, the 
 [NHL96PC](https://github.com/abdulahmad/NHL96PC)'s port, whose host this is. `src/` is not touched: `./build.sh` still prints MATCH.
 
 `port/le_load.c` loads your retail `HOCKEY.EXE` (next to the program, in `retail/`, or `NHL97_EXE`), maps the four LE objects at
-`0x20000000` and applies the fixups. Watcom `start` is skipped: the host fills the C library's start-up variables and calls
+`0x20000000` and applies the fixups. It runs the retail 1.0 `HOCKEY.EXE` or the patch 1.1 one, chosen by the file's size
+(`game_v11`). The port reaches the game by `SYM_<label>` (`port/game_syms.h`, `tools/build/gen_port_syms.py`), which holds the
+address in both versions; the trapped pushf / popf / rdtsc come from `port/flagops.h` (`tools/build/gen_port_sites.py`). Run both
+tools after `./build.sh` and `./build.sh 11`. Watcom `start` is skipped: the host fills the C library's start-up variables and calls
 `__InitRtns` / `__CMain`. DOS, DPMI, the VESA BIOS, the mouse driver, the timer, keyboard, sound cards and joystick are emulated in
 `port/` (the instruction that needs them faults and the host answers it). The window, menu bar, overlay, scaler and controllers are
 [Overbar](https://github.com/abdulahmad/overbar), the git submodule `port/overbar` (`git submodule update --init`).
@@ -23,7 +26,7 @@ Run it in the folder with the installed NHL 97 game files, or set `NHL97_ROOT`. 
 
 The game addresses the host uses are `SYM_<label>` names of this source tree (`port/game_syms.h`, written by
 `tools/build/gen_port_syms.py`). `port/flagops.h` (every pushf / popf, trapped so the interrupt flag is virtual) is written by
-`tools/build/gen_flagops.py` from the IDA listing. Differences from the 96 host:
+`tools/build/gen_port_sites.py` from NASM listings of src/, with the rdtsc sites, for 1.0 and 1.1. Differences from the 96 host:
 
 - No bound DOS/4GW in the EXE: the LE header is at 2C90h.
 - `WaitRetrace` has no mode switch; its loop count is `dword_171E34`. `WaitDisplayRetrace` had no label in the listing.

@@ -27,15 +27,17 @@
 #define SYM(s) s
 #endif
 
-#define O_DRAW        0x4BA00u        /* DrawGameFrame: push ebx, ecx, edx, esi, ebp / sub esp, 30h (8 bytes) */
-#define O_RUNCAM      0x1B85Cu        /* RunCameraScene(eax = ticks since the last frame) */
+#define O_DRAW        SYM_DrawGameFrame   /* push ebx, ecx, edx, esi, ebp / sub esp, 30h (8 bytes) */
+#define O_RUNCAM      SYM_RunCameraScene  /* RunCameraScene(eax = ticks since the last frame) */
 #define STEP_TICKS    3
 
-static const struct { uint32_t lo, hi; } cam_regions[] = {
-    { 0x1B9058u, 0x1B92D0u }, { 0x19D0A4u, 0x19D38Cu }, { 0x16B72Cu, 0x16B730u },
-};
-#define NREG (int)(sizeof cam_regions / sizeof *cam_regions)
-#define CAM_BYTES ((0x1B92D0u - 0x1B9058u) + (0x19D38Cu - 0x19D0A4u) + 4u)
+/* the camera state: CameraStateRecords .. GoalieAnimData (278h bytes), CameraPathPoints .. CameraDebugText (2E8h bytes) and
+ * F32_ViewAngle, the same sizes in 1.0 and 1.1; cam_addrs() fills in the addresses of the version loaded */
+#define REC_BYTES     0x278u
+#define PATH_BYTES    0x2E8u
+static struct { uint32_t lo, hi; } cam_regions[3];
+#define NREG 3
+#define CAM_BYTES (REC_BYTES + PATH_BYTES + 4u)
 
 int nh_frames_mode(void);             /* netplay.c: 0 Pentium 100, 1 60 fps, 2 unlocked (the setting or NHL97_FRAMES) */
 int netplay_running(void);
@@ -63,13 +65,20 @@ static void load(const uint32_t *from)
 
 /* the floats a blended frame mixes (field-aligned: CameraStateRecords starts with 7 bytes of flags); everything else in the
  * regions is the newer state as it is */
-static const struct { uint32_t lo, hi; } blend_ranges[] = {
-    { 0x1B905Fu, 0x1B907Bu },           /* CameraStateRecords +7 .. +23h: the current position and angles */
-    { 0x1B92ABu, 0x1B92CFu },           /*   +253h: the view matrix (3x3) */
-    { 0x19D188u, 0x19D1B8u },           /* CameraPos .. CameraFocusVec */
-    { 0x19D31Cu, 0x19D348u },           /* CameraEye .. CameraFovTarget */
-    { 0x16B72Cu, 0x16B730u },           /* F32_ViewAngle */
-};
+static struct { uint32_t lo, hi; } blend_ranges[5];
+
+static void cam_addrs(void)
+{
+    cam_regions[0].lo = SYM_CameraStateRecords; cam_regions[0].hi = SYM_CameraStateRecords + REC_BYTES;
+    cam_regions[1].lo = SYM_CameraPathPoints;   cam_regions[1].hi = SYM_CameraPathPoints + PATH_BYTES;
+    cam_regions[2].lo = SYM_F32_ViewAngle;      cam_regions[2].hi = SYM_F32_ViewAngle + 4;
+    /* CameraStateRecords +7 .. +23h: the current position and angles; +253h: the view matrix (3x3) */
+    blend_ranges[0].lo = SYM_CameraStateRecords + 7;     blend_ranges[0].hi = SYM_CameraStateRecords + 0x23;
+    blend_ranges[1].lo = SYM_CameraStateRecords + 0x253; blend_ranges[1].hi = SYM_CameraStateRecords + 0x277;
+    blend_ranges[2].lo = SYM_CameraPos;  blend_ranges[2].hi = SYM_CameraPathTime;          /* CameraPos .. CameraFocusVec */
+    blend_ranges[3].lo = SYM_CameraEye;  blend_ranges[3].hi = SYM_CameraViewParams;        /* CameraEye .. CameraFovTarget */
+    blend_ranges[4].lo = SYM_F32_ViewAngle; blend_ranges[4].hi = SYM_F32_ViewAngle + 4;
+}
 static int blend_word[CAM_BYTES / 4];   /* the byte offset in the state of each float to mix, -1 ends */
 
 static void blend_init(void)
@@ -249,6 +258,7 @@ void camera_install(void)
 {
     static const uint8_t head[8] = { 0x53, 0x51, 0x52, 0x56, 0x55, 0x83, 0xEC, 0x30 };
     uint8_t *d = GAME_ADDR(O_DRAW), *p, *call = NULL;
+    cam_addrs();
     for (p = d + 8; p < d + 0x80; p++) {
         int32_t rel;
         if (*p != 0xE8) continue;
