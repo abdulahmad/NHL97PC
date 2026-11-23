@@ -4078,6 +4078,223 @@ CountTeamResults:
         pop edi
         pop esi
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; MatchupAnnouncement                             D5150  97 PC, low confidence
+; Plays the matchup announcement
+;-----------------------------------------------------------------------------
+MatchupAnnouncement:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        enter 0Ch, 0
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        xor edx, edx
+        cmp eax, byte 10h
+        jne near .12
+        cmp dword [SeasonActive], byte 0
+        jne near .12
+        imul esi, dword [SeasonDefaultUser], byte 1Ch
+        mov esi, dword [dword esi+SeasonUserReplay]
+        jmp short .4
+.1:
+        jne short .6
+.2:
+        mov byte [byte edx+ebp-0Ch], 1
+.3:
+        mov edx, ebx
+.4:
+        test esi, esi
+        jle short .8
+        cmp edx, byte 0Bh
+        jge short .8
+        dec esi
+        mov eax, dword [SeasonUserTeam]
+        mov ebx, esi
+        mov eax, dword [byte eax+020h]
+        shl ebx, 4
+        add eax, ebx
+        movsx ecx, byte [eax]
+        lea ebx, [byte edx+01h]
+        cmp ecx, dword [SeasonDefaultUser]
+        jne short .7
+        mov cl, byte [byte eax+02h]
+        cmp cl, byte [byte eax+03h]
+        jle short .1
+.5:
+        mov byte [byte edx+ebp-0Ch], 3
+        jmp short .3
+.6:
+        mov byte [byte edx+ebp-0Ch], 2
+        jmp short .3
+.7:
+        movsx ecx, byte [byte eax+01h]
+        cmp ecx, dword [SeasonDefaultUser]
+        jne short .4
+        mov cl, byte [byte eax+02h]
+        cmp cl, byte [byte eax+03h]
+        jg short .6
+        je short .2
+        jmp short .5
+.8:
+        cmp edx, byte 0Bh
+        jge short .11
+        mov eax, edx
+        jmp short .10
+.9:
+        inc eax
+        mov byte [byte eax+ebp-0Dh], 0
+.10:
+        cmp eax, byte 0Ch
+        jl short .9
+.11:
+        call IsAllStarDay
+        test eax, eax
+        jne near .32
+        lea eax, [byte ebp-0Ch]
+        push eax
+        push dword [SeasonDefaultUser]
+        push dword 0B0000005h
+        call PaEvent
+        add esp, byte 0Ch
+        jmp near .32
+.12:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 20h
+        je short .13
+        cmp eax, byte 10h
+        jne near .32
+        cmp dword [SeasonActive], byte 0
+        je near .32
+.13:
+        movzx esi, byte [PlayoffUserIndex]
+        xor eax, eax
+.14:
+        mov edx, dword [dword eax*4+PlayoffTeams]
+        cmp edx, dword [dword esi*4+PlayoffTeams]
+        jne short .15
+        mov ebx, eax
+.15:
+        inc eax
+        cmp eax, byte 1Fh
+        jl short .14
+        mov eax, ebx
+        mov esi, 2
+        cdq
+        idiv esi
+        test edx, edx
+        je short .16
+        lea edx, [byte ebx-01h]
+        jmp short .17
+.16:
+        lea edx, [byte ebx+01h]
+.17:
+        mov ecx, dword [PlayoffRoundBits]
+        and ecx, byte 7
+        mov eax, dword [dword ebx*4+PlayoffTeamNames]
+        shr ecx, 1
+        mov edx, dword [dword edx*4+PlayoffTeamNames]
+        cmp eax, ecx
+        jne short .20
+        cmp ebx, byte 18h
+        je short .18
+        cmp ebx, byte 19h
+        jne short .20
+.18:
+        push edx
+        push eax
+        push byte 5
+.19:
+        push dword [dword ebx*4+PlayoffTeams]
+        jmp near .31
+.20:
+        mov esi, dword [PlayoffRoundBits]
+        and esi, byte 7
+        shr esi, 1
+        cmp eax, esi
+        jne short .22
+        cmp ebx, byte 1Ah
+        je short .21
+        cmp ebx, byte 1Bh
+        jne short .22
+.21:
+        push edx
+        push eax
+        push byte 6
+        jmp short .19
+.22:
+        mov esi, dword [PlayoffRoundBits]
+        and esi, byte 7
+        shr esi, 1
+        cmp eax, esi
+        jne short .23
+        push edx
+        push esi
+        push byte 4
+        jmp short .19
+.23:
+        cmp edx, esi
+        jne short .24
+        cmp ebx, byte 1Ch
+        je short .25
+.24:
+        cmp ebx, byte 1Dh
+        jne short .26
+.25:
+        push edx
+        push eax
+        push byte 8
+        jmp short .19
+.26:
+        mov ecx, dword [PlayoffRoundBits]
+        and ecx, byte 7
+        shr ecx, 1
+        shl ebx, 2
+        cmp edx, ecx
+        jne short .28
+        push ecx
+        push eax
+        push byte 7
+.27:
+        push dword [dword ebx+PlayoffTeams]
+        jmp short .31
+.28:
+        cmp eax, edx
+        jle short .29
+        push edx
+        push eax
+        push byte 1
+        jmp short .27
+.29:
+        jne short .30
+        push edx
+        push edx
+        push byte 3
+        jmp short .27
+.30:
+        push edx
+        push eax
+        push byte 2
+        push dword [dword ebx+PlayoffTeams]
+.31:
+        push dword 0B0000006h
+        call PaEvent
+        add esp, byte 14h
+.32:
+        leave
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+%else
 ;-----------------------------------------------------------------------------
 ; MatchupAnnouncement                             D4AAC  97 PC, low confidence
 ; Plays the matchup announcement
@@ -4290,6 +4507,7 @@ MatchupAnnouncement:
         pop ebx
         ret
         db 00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h,00h
+%endif
 GoalieMaskList:                                 ; used by GoalieMaskScreen
         dd str_Barasso
         dd str_PIT

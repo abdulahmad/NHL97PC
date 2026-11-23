@@ -178,9 +178,20 @@ def routine_starts(L, known=None, A=None):
         if not m: continue
         name = m.group(1)
         prev = None
-        for j in range(k - 1, -1, -1):
+        j = k - 1
+        while j >= 0:
             s = L[j].strip()
-            if not s or s.startswith(';') or s.startswith('%'): continue
+            if s.startswith('%else'):                    # the line before an %else branch is the one before its %if
+                depth = 0
+                while j > 0:
+                    j -= 1
+                    t = L[j].strip()
+                    if t.startswith('%endif'): depth += 1
+                    elif t.startswith('%if'):
+                        if depth == 0: break
+                        depth -= 1
+                j -= 1; continue
+            if not s or s.startswith(';') or s.startswith('%'): j -= 1; continue
             prev = j; break
         if prev is None: start = True
         else:

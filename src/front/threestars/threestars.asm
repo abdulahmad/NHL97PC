@@ -42,6 +42,73 @@ StarScore:
         pop ebx
         ret
         db 08Bh,0C0h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; StarBonus                                       A7998  97 PC, low confidence
+; Adds the bonus for picking the three stars
+;-----------------------------------------------------------------------------
+StarBonus:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        mov ebx, eax
+        mov ecx, dword [gameopts]
+        mov ecx, dword [byte ecx+01h]
+        shl ecx, 13h
+        mov eax, 5
+        shr ecx, 1Eh
+        shl eax, cl
+        mov ecx, eax
+        shl eax, 2
+        sub eax, ecx
+        shl eax, 2
+        mov esi, eax
+        shl esi, 4
+        movsx edx, word [ebx]
+        sub esi, eax
+        lea eax, [dword edx*4+00h]
+        sub eax, edx
+        shl eax, 3
+        add edx, eax
+        shl edx, 2
+        mov eax, edx
+        sar edx, 1Fh
+        idiv esi
+        mov edx, dword [ebx]
+        sar edx, 10h
+        cmp edx, ecx
+        jl short .4
+        cmp eax, byte 28h
+        jge short .5
+.4:
+        xor eax, eax
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.5:
+        mov eax, dword [byte ebx+06h]
+        sar eax, 10h
+        sub edx, eax
+        sar edx, 2
+        add eax, eax
+        sub edx, eax
+        mov eax, edx
+.3:
+        cmp word [byte ebx+08h], byte 0
+        jne short .6
+        cwde
+        add eax, ecx
+.6:
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+%else
 ;-----------------------------------------------------------------------------
 ; StarBonus                                       A72C8  97 PC, low confidence
 ; Adds the bonus for picking the three stars
@@ -121,6 +188,7 @@ StarBonus:
         pop ebx
         ret
         db 090h
+%endif
 StarBonus_AC:
         movsx eax, word [eax]
         movsx edx, word [edx]
@@ -128,6 +196,134 @@ StarBonus_AC:
         mov eax, edx
         ret
         db 090h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; PickThreeStars                                  A7A24  97 PC, low confidence
+; Picks the three stars of the game
+;-----------------------------------------------------------------------------
+PickThreeStars:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        mov edi, eax
+        mov esi, HomePlayerRecords
+        mov ecx, eax
+        xor edx, edx
+        xor ebx, ebx
+        add esi, 0FDh
+        jmp short .2
+.1:
+        mov eax, esi
+        add ecx, byte 8
+        call StarScore
+        mov word [byte ecx-04h], 0
+        mov word [byte ecx-02h], 0
+        inc ebx
+        mov word [byte ecx-08h], ax
+        add esi, 125h
+        mov word [byte ecx-06h], dx
+        inc edx
+.2:
+        mov eax, dword [ThreeStarsCount]
+        sar eax, 10h
+        cmp edx, eax
+        jl short .1
+        mov esi, AwayPlayerRecords
+        lea ecx, [dword ebx*8+00h]
+        xor edx, edx
+        add esi, 0FDh
+        add ecx, edi
+        jmp short .4
+.3:
+        mov eax, esi
+        add ecx, byte 8
+        call StarScore
+        mov word [byte ecx-04h], 1
+        mov word [byte ecx-02h], 0
+        inc ebx
+        mov word [byte ecx-08h], ax
+        add esi, 125h
+        mov word [byte ecx-06h], dx
+        inc edx
+.4:
+        mov eax, dword [HomeInjuredCount]
+        sar eax, 10h
+        cmp edx, eax
+        jl short .3
+        mov esi, HomeRosterData+1B94h
+        lea ecx, [dword ebx*8+00h]
+        xor edx, edx
+        add esi, 0FDh
+        add ecx, edi
+        jmp short .6
+.5:
+        mov eax, esi
+        add ecx, byte 8
+        call StarBonus
+        mov word [byte ecx-04h], 0
+        mov word [byte ecx-02h], 1
+        inc ebx
+        mov word [byte ecx-08h], ax
+        add esi, 125h
+        mov word [byte ecx-06h], dx
+        inc edx
+.6:
+        mov eax, dword [HomeRosterData+1B90h]
+        sar eax, 10h
+        cmp edx, eax
+        jl short .5
+        mov esi, AwayRosterData+1B94h
+        lea ecx, [dword ebx*8+00h]
+        xor edx, edx
+        add esi, 0FDh
+        add ecx, edi
+        jmp short .8
+.7:
+        mov eax, esi
+        add ecx, byte 8
+        call StarBonus
+        mov word [byte ecx-04h], 1
+        mov word [byte ecx-02h], 1
+        inc ebx
+        mov word [byte ecx-08h], ax
+        add esi, 125h
+        mov word [byte ecx-06h], dx
+        inc edx
+.8:
+        mov eax, dword [AwayRosterData+1B90h]
+        sar eax, 10h
+        cmp edx, eax
+        jl short .7
+        mov esi, ebx
+        cmp ebx, byte 38h
+        jge short .10
+        lea edx, [dword ebx*8+00h]
+        add edx, edi
+.9:
+        mov word [edx], 0
+        mov word [byte edx+02h], 0
+        mov word [byte edx+04h], 0
+        inc ebx
+        mov word [byte edx+06h], 0
+        add edx, byte 8
+        cmp ebx, byte 38h
+        jl short .9
+.10:
+        mov ecx, StarBonus_AC
+        mov ebx, 8
+        mov edx, esi
+        mov eax, edi
+        call qsort_
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        nop
+%else
 ;-----------------------------------------------------------------------------
 ; PickThreeStars                                  A7380  97 PC, low confidence
 ; Picks the three stars of the game
@@ -254,6 +450,7 @@ PickThreeStars:
         pop ebx
         ret
         db 090h
+%endif
 ;-----------------------------------------------------------------------------
 ; DrawThreeStarStats                              A74F4  97 PC, low confidence
 ; Post-game: one star's stat lines (goals, assists, shots, +/-, hits, penalty

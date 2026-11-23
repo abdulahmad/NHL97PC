@@ -7,7 +7,11 @@ extern DrawTextAt, FillRect, FillRectColor, FloatsToInts, FreeModelFile, FreeMod
 extern MatMul, MatRotY, memcpy_, OpenResourceArchive, ProjectPoints, SetArtArchive, str_AiconsViv, str_Cross
 extern TransformTranslateVecs, UpdateModelInstance, UpdateModelPart, VecMulMat, VecScale, VecSub
 global BuildCameraDebugView, DrawCameraPath, LoadAiIcons, FreeCameraDebug
+%if VERSION = 11
+        LD mov, eax, eax
+%else
         db 08Bh,0C0h
+%endif
 ;-----------------------------------------------------------------------------
 ; BuildCameraDebugView                            776F8  97 PC, low confidence
 ; Builds the camera debug view

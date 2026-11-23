@@ -52,6 +52,485 @@ StandingsScreenJumpTable:                       ; jump table for the switch case
         dd StandingsScreen_6F4
         dd StandingsScreen_70B
         dd StandingsScreen_718
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; StandingsScreen                              91983  96 PC, medium confidence
+; The standings screen by conference (1WST, 1EST)
+;-----------------------------------------------------------------------------
+StandingsScreen:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 7CCh, 0
+        sub ebp, 82h
+        push byte 0
+        push dword 0A28h
+        push dword str_Factoid
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword 0A5Ch
+        push dword str_Rts
+        mov dword [byte ebp+032h], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword 29206h
+        push dword str_Ross
+        mov dword [byte ebp+04Ah], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [byte ebp+026h], 0FFFFFFFFh
+        push byte 0
+        mov dword [byte ebp+07Eh], 0
+        mov dword [byte ebp+05Eh], 3
+        push dword 616h
+        mov dword [byte ebp+036h], 1
+        mov dword [byte ebp+06Eh], 0FFFFFFFFh
+        push dword str_Standmenu
+        xor esi, esi
+        mov dword [byte ebp+07Ah], eax
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [StandingsBuffer], eax
+.1:
+        imul eax, esi, byte 64h
+        mov edx, dword [byte ebp+032h]
+        add edx, eax
+        mov dword [dword ebp+esi*4-08Eh], edx
+        inc esi
+        mov byte [edx], 0
+        cmp esi, byte 1Ah
+        jl short .1
+        lea edx, [byte ebp+022h]
+        mov eax, SeasonFilePath
+        call OpenLeagueFile
+        call SetHighlightText
+        mov ebx, dword [byte ebp+022h]
+        lea edx, [byte ebp-0Ah]
+        lea eax, [byte ebp-026h]
+        call SortStandings
+        mov ebx, dword [byte ebp+022h]
+        lea edx, [byte ebp-0Ah]
+        lea eax, [dword ebp-08Eh]
+        call BuildStandingsFactoids
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 48h
+        call LoadDataFile
+        mov ebx, eax
+        mov dword [byte ebp+04Eh], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 49h
+        call LoadDataFile
+        mov dword [byte ebp+06Ah], eax
+        mov dword [byte ebp+076h], eax
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push dword str_BGWS
+        push ebx
+        call FindShape
+        add esp, byte 8
+        push dword str_TTLW
+        mov dword [byte ebp+062h], eax
+        push dword [byte ebp+06Ah]
+        mov dword [byte ebp+072h], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_FACT
+        push ebx
+        mov dword [byte ebp+03Eh], eax
+        call FindShape
+        add esp, byte 8
+        push dword SeasonSparkleShapes
+        push dword str_LBL1LBL2LBL3LBR1LBR2LTL1L3
+        push ebx
+        mov dword [byte ebp+02Ah], eax
+        call FindShapeList
+        add esp, byte 0Ch
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        mov ebx, dword [byte ebp+062h]
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [byte ebp+066h], eax
+        mov edx, ebx
+        mov eax, ebx
+        mov esi, BlankMenuItem
+        call DrawScreenBackground
+        mov eax, 13h
+        mov edx, dword [StandingsBuffer]
+        mov ecx, 52h
+        call InitMenuItems
+        mov edi, dword [StandingsBuffer]
+        rep movsb
+        mov eax, dword [StandingsBuffer]
+        mov dword [eax], 0
+        mov esi, dword [StandingsBuffer]
+        mov ecx, 52h
+        lea edi, [dword esi+05C4h]
+        mov esi, ScreenFrameItem
+        rep movsb
+        mov eax, dword [StandingsBuffer]
+        mov dword [dword eax+05C4h], 12h
+        mov eax, dword [StandingsBuffer]
+        push dword str_WC00
+        mov dword [byte eax+062h], 4
+        lea edx, [dword ebp-074Ah]
+        mov eax, dword [StandingsBuffer]
+        push dword [byte ebp+06Ah]
+        mov dword [byte eax+066h], edx
+        call FindShape
+        add esp, byte 8
+        push dword str_WC01
+        mov edx, eax
+        mov eax, dword [StandingsBuffer]
+        push dword [byte ebp+06Ah]
+        mov dword [byte eax+06Ch], edx
+        call FindShape
+        add esp, byte 8
+        push dword str_WC01
+        mov edx, eax
+        mov eax, dword [StandingsBuffer]
+        push dword [byte ebp+06Ah]
+        mov dword [byte eax+070h], edx
+        call FindShape
+        mov edx, eax
+        mov eax, dword [StandingsBuffer]
+        mov dword [byte eax+074h], edx
+        mov eax, dword [StandingsBuffer]
+        mov edx, dword [byte eax+06Ch]
+        movsx edx, word [byte edx+0Ch]
+        mov dword [byte eax+078h], edx
+        mov eax, dword [StandingsBuffer]
+        mov edx, dword [byte eax+06Ch]
+        movsx edx, word [byte edx+0Eh]
+        mov dword [byte eax+07Ch], edx
+        mov eax, dword [StandingsBuffer]
+        mov eax, dword [byte eax+06Ch]
+        add esp, byte 8
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        movsx ebx, word [byte eax+0Eh]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        lea eax, [dword ebp-074Ah]
+        call SetRegionRect
+        push byte 0
+        push byte 0
+        push dword 15Eh
+        push dword 172h
+        mov ecx, 5
+        push dword 0DCh
+        mov ebx, 9
+        lea eax, [dword ebp-01F6h]
+        push dword [byte ebp+062h]
+        mov edx, dword [StandingsBuffer]
+        push byte 0
+        add edx, 0A4h
+        xor esi, esi
+        call InitScrollTable
+.2:
+        lea edx, [byte esi+05h]
+        imul edx, byte 52h
+        mov eax, dword [StandingsBuffer]
+        mov dword [byte edx+eax+010h], 4
+        mov eax, esi
+        shl eax, 6
+        lea ebx, [dword ebp-074Ah]
+        add eax, byte 40h
+        add eax, ebx
+        mov ebx, dword [StandingsBuffer]
+        mov dword [byte edx+ebx+014h], eax
+        cmp esi, byte 8
+        jge short .3
+        lea edx, [byte esi+01h]
+        jmp short .4
+.3:
+        lea edx, [byte esi+02h]
+.4:
+        imul edx, byte 12h
+        push byte 12h
+        lea ebx, [byte edx+069h]
+        mov ecx, 1FEh
+        mov edx, 50h
+        call SetRegionRect
+        inc esi
+        cmp esi, byte 0Dh
+        jl short .2
+        xor esi, esi
+.5:
+        imul edx, esi, byte 66h
+        mov eax, dword [byte ebp+022h]
+        mov ebx, esi
+        mov eax, dword [byte eax+014h]
+        shl ebx, 3
+        add edx, dword [byte ebp+04Ah]
+        add eax, ebx
+        call FindTeamRecord
+        imul edx, esi, dword 194Fh
+        mov eax, dword [byte ebp+022h]
+        mov eax, dword [byte eax+01Ch]
+        add eax, ebx
+        add edx, dword [byte ebp+07Ah]
+        inc esi
+        call FindGameRecord
+        cmp esi, byte 1Ah
+        jl short .5
+        xor esi, esi
+.6:
+        mov dword [byte ebp+056h], 0
+        mov dword [byte ebp+05Ah], 0
+        mov dword [byte ebp+042h], 0
+        mov eax, dword [byte ebp+022h]
+        mov dword [byte ebp+03Ah], 0
+        mov dword [byte ebp+046h], 0
+        movsx ebx, word [byte eax+02h]
+        mov dword [byte ebp+052h], 0
+        dec ebx
+        jmp near .17
+.7:
+        mov edx, ebx
+        mov eax, dword [byte ebp+022h]
+        shl edx, 4
+        mov eax, dword [byte eax+020h]
+        add eax, edx
+        movsx edx, byte [byte eax+02h]
+        cmp edx, byte 0FFFFFFFFh
+        je near .16
+        movsx edx, byte [eax]
+        cmp edx, esi
+        je short .8
+        movsx eax, byte [byte eax+01h]
+        cmp eax, esi
+        jne near .16
+.8:
+        mov edx, ebx
+        mov eax, dword [byte ebp+022h]
+        shl edx, 4
+        mov eax, dword [byte eax+020h]
+        add eax, edx
+        movsx edi, byte [eax]
+        cmp edi, esi
+        jne short .9
+        movsx ecx, byte [byte eax+03h]
+        movsx edx, byte [byte eax+02h]
+        movsx eax, byte [byte eax+01h]
+        mov dword [byte ebp+02Eh], eax
+        jmp short .10
+.9:
+        mov dword [byte ebp+02Eh], edi
+        movsx edx, byte [byte eax+03h]
+        movsx ecx, byte [byte eax+02h]
+.10:
+        mov edi, dword [byte ebp+02Eh]
+        mov eax, dword [dword esi*4+PlayoffColumns]
+        shl edi, 2
+        cmp eax, dword [dword edi+PlayoffColumns]
+        jne short .13
+        cmp edx, ecx
+        jne short .11
+        inc dword [byte ebp+042h]
+        jmp short .13
+.11:
+        jge short .12
+        inc dword [byte ebp+03Ah]
+        jmp short .13
+.12:
+        inc dword [byte ebp+046h]
+.13:
+        mov eax, dword [byte ebp+05Ah]
+        add eax, dword [byte ebp+056h]
+        add eax, dword [byte ebp+052h]
+        cmp eax, byte 0Ah
+        je short .16
+        cmp edx, ecx
+        jne short .14
+        inc dword [byte ebp+052h]
+        jmp short .16
+.14:
+        jge short .15
+        inc dword [byte ebp+056h]
+        jmp short .16
+.15:
+        inc dword [byte ebp+05Ah]
+.16:
+        push dword [byte ebp+052h]
+        push dword [byte ebp+056h]
+        lea eax, [dword ebp-03CAh]
+        push dword [byte ebp+05Ah]
+        lea edx, [esi+esi*8]
+        push dword str_DDD3
+        add eax, edx
+        push eax
+        call sprintf_
+        add esp, byte 14h
+        push dword [byte ebp+042h]
+        push dword [byte ebp+03Ah]
+        push dword [byte ebp+046h]
+        lea eax, [dword ebp-02E0h]
+        push dword str_DDD3
+        add edx, eax
+        push edx
+        dec ebx
+        call sprintf_
+        add esp, byte 14h
+.17:
+        test ebx, ebx
+        jge near .7
+        inc esi
+        cmp esi, byte 1Ah
+        jl near .6
+.18:
+        cmp dword [byte ebp+026h], byte 0FFFFFFFFh
+        jne near StandingsScreen_718.46
+        push dword [byte ebp+066h]
+        call SetDrawTarget
+        add esp, byte 4
+        push dword [byte ebp+072h]
+        call BlitShape2
+        add esp, byte 4
+        push dword [byte ebp+03Eh]
+        call BlitShape2
+        add esp, byte 4
+        push dword [byte ebp+02Ah]
+        mov esi, 1
+        call DrawShapeAtOwnPos
+        add esp, byte 4
+.19:
+        push dword [dword esi*4+SeasonSparkleShapes]
+        call DrawShapeAtOwnPos
+        inc esi
+        inc esi
+        add esp, byte 4
+        cmp esi, byte 8
+        jl short .19
+        mov eax, dword [StandingsBuffer]
+        push dword [byte eax+02Ah]
+        push dword [byte eax+026h]
+        push dword [byte eax+01Ah]
+        call BlitArt
+        mov eax, dword [StandingsBuffer]
+        add esp, byte 0Ch
+        push dword [byte eax+07Ch]
+        push dword [byte eax+078h]
+        push dword [byte eax+06Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        mov edx, dword [byte ebp+066h]
+        lea eax, [dword ebp-01F6h]
+        call DrawScrollBar
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        cmp dword [byte ebp+06Eh], byte 0FFFFFFFFh
+        je short .20
+        mov eax, dword [byte ebp+06Eh]
+        push dword [dword ebp+eax*4-08Eh]
+        push dword 1A4h
+        push dword 10Eh
+        push byte 1
+        call DrawTextAligned
+        add esp, byte 10h
+.20:
+        xor esi, esi
+.21:
+        mov eax, dword [dword ebp-01D2h]
+        add eax, byte 6Fh
+        add eax, esi
+        call GetLangText
+        push eax
+        imul eax, dword [byte ebp+07Eh], byte 12h
+        add eax, byte 69h
+        push eax
+        imul eax, esi, byte 3Ch
+        add eax, 122h
+        push eax
+        push byte 1
+        inc esi
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp esi, byte 5
+        jl short .21
+        inc dword [byte ebp+07Eh]
+        xor esi, esi
+.22:
+        movzx edx, byte [byte esi+ebp-026h]
+        mov eax, dword [dword edx*4+PlayoffColumns]
+        cmp eax, dword [byte ebp+05Eh]
+        jne near StandingsScreen_718.34
+        mov eax, dword [byte ebp+07Eh]
+        shl eax, 2
+        cmp dword [byte ebp+07Eh], byte 8
+        jle short .23
+        mov dword [dword eax+ebp-0FEh], edx
+        jmp short .24
+.23:
+        mov dword [dword eax+ebp-0FAh], edx
+.24:
+        movzx eax, byte [byte esi+ebp-026h]
+        cmp byte [byte eax+ebp-0Ah], 1
+        jne short .25
+        push dword 0FF00AA00h
+        jmp short .27
+.25:
+        cmp byte [byte eax+ebp-0Ah], 3
+        jne short .26
+        push dword 0FFAA0000h
+        jmp short .27
+.26:
+        push byte 0FFFFFFFFh
+.27:
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        movzx eax, byte [byte esi+ebp-026h]
+        cmp eax, dword [byte ebp+06Eh]
+        jne short .28
+        push dword 0FFFFFF50h
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+.28:
+        imul ebx, dword [byte ebp+07Eh], byte 12h
+        movzx eax, byte [byte esi+ebp-026h]
+        imul eax, byte 66h
+        add eax, dword [byte ebp+04Ah]
+        add eax, byte 3Eh
+        push eax
+        add ebx, byte 69h
+        push ebx
+        push byte 50h
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+        cmp dword [byte ebp+07Eh], byte 3
+        jge short .29
+        push dword str_Punct_StandingsScreen
+        push ebx
+        push byte 41h
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+.29:
+        xor ebx, ebx
+.30:
+        mov eax, dword [dword ebp-01D2h]
+        add eax, ebx
+        cmp eax, byte 8
+        ja near StandingsScreen_718.33
+        jmp dword [dword cs:eax*4+StandingsScreenJumpTable]
+%else
 ;-----------------------------------------------------------------------------
 ; StandingsScreen                              912E3  96 PC, medium confidence
 ; The standings screen by conference (1WST, 1EST)
@@ -529,6 +1008,7 @@ StandingsScreen:
         cmp eax, byte 8
         ja near StandingsScreen_718.33
         jmp dword [nosplit cs:eax*4+StandingsScreenJumpTable]
+%endif
 StandingsScreen_65C:
         movzx eax, byte [byte esi+ebp-026h]
         imul eax, dword 194Fh
@@ -813,6 +1293,53 @@ CompareStandingsValue:
         mov eax, edx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; CompareStandings                                923BC  97 PC, low confidence
+; Sort helper: compares two teams in the standings
+;-----------------------------------------------------------------------------
+CompareStandings:
+        push ebx
+        push ecx
+        mov ebx, eax
+        mov eax, edx
+        movzx edx, byte [ebx]
+        movzx eax, byte [eax]
+        shl edx, 2
+        shl eax, 2
+        mov ebx, dword [dword edx+StandingsWins]
+        mov ecx, dword [dword eax+StandingsWins]
+        add ebx, ebx
+        add ecx, ecx
+        add ebx, dword [dword edx+StandingsTies]
+        add ecx, dword [dword eax+StandingsTies]
+        cmp ebx, ecx
+        je short .1
+        mov eax, ecx
+        sub eax, ebx
+        pop ecx
+        pop ebx
+        ret
+.1:
+        mov ebx, dword [dword edx+StandingsWins]
+        cmp ebx, dword [dword eax+StandingsWins]
+        je short .2
+        mov eax, dword [dword eax+StandingsWins]
+        sub eax, ebx
+        pop ecx
+        pop ebx
+        ret
+.2:
+        mov ebx, dword [dword edx+StandingsGoalsFor]
+        sub ebx, dword [dword edx+StandingsGoalsAgainst]
+        mov edx, dword [dword eax+StandingsGoalsFor]
+        sub edx, dword [dword eax+StandingsGoalsAgainst]
+        mov eax, edx
+        sub eax, ebx
+        pop ecx
+        pop ebx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; CompareStandings                                91D1C  97 PC, low confidence
 ; Sort helper: compares two teams in the standings
@@ -855,6 +1382,7 @@ CompareStandings:
         pop ecx
         pop ebx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; SortStandings                                   91D7F  97 PC, low confidence
 ; Sorts the standings

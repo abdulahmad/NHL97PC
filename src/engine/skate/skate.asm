@@ -33,7 +33,11 @@ global SpeedTowardSpot, StartMoveAtSpeed, CrossoverMove, GoalieSlideMove, Goalie
 global GlideBackwardMove_23, GlideBackwardMove_2F, GlideBackwardMove_3B, GlideBackwardMove_47, GlideBackwardMove_53, TurnBackwardMoveJumpTable, TurnBackwardMove, TurnBackwardMove_31
 global TurnBackwardMove_41, TurnBackwardMove_51, TurnBackwardMove_61, TurnBackwardMove_71, TurnBackwardMove_BC, TurnBackwardMove_C2, StopBackwardMove, FaceoffPuckDrop
 global SetSkateSpeedFromRating
+%if VERSION = 11
+        lea eax, [byte eax+00h]
+%else
         db 090h
+%endif
 ;-----------------------------------------------------------------------------
 ; ResetAnimTimer                                  60D6C  97 PC, low confidence
 ; Resets a player's animation timer

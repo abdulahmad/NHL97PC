@@ -12,6 +12,9 @@ global str_LX0D3, str_LC0D3, str_DTOP, str_DBOT, str_08x, str_KWKJSK122691, str_
 global str_MB023, str_MB03, str_AR02d2, str_LT02d2, str_MB004, str_X_WaitForOtherComputer, str_DOSCompatibleIPX, str_DOSKompatibelIPX
 global str_DOSKompatiblesIPX, str_HARTFSH, str_ROSSFSH, str_NORRISFSH, str_SELKEFSH, str_VEZINAFSH, str_JENNINGFSH, str_CALDERFSH
 global str_PEARSONFSH, str_EATROPHYFSH, str_PRESIDNTFSH, str_SMYTHEFSH, str_CAMPBELLFSH, str_WALESFSH, str_STANLEYFSH
+%if VERSION = 11
+global str_PeerVersionOlder, str_PeerVersionOlderGerman, str_PeerVersionOlderSwedish
+%endif
 str_MEDIABUFFER:                                ; string "MEDIA BUFFER"; used by AllocMediaBuffer
         db 04Dh,045h,044h,049h,041h,020h,042h,055h,046h,046h,045h,052h,00h
 str_STATICBUF:                                  ; string "STATIC BUF"; used by AllocStaticBuffer
@@ -59,6 +62,93 @@ str_FILEclose:                                  ; string "FILEclose"; used by Fi
         db 046h,049h,04Ch,045h,063h,06Ch,06Fh,073h,065h,00h,00h,00h
 str_Pktlayer:                                   ; string "pktlayer"; used by NetInit
         db 070h,06Bh,074h,06Ch,061h,079h,065h,072h,00h,00h,00h,00h
+%if VERSION = 11
+str_PeerVersionOlder:                           ; message: the connected computer runs an older version; used
+                                                ; by StartNetworkLink
+        db 54h,68h,65h,20h,76h,65h,72h,73h
+        db 69h,6Fh,6Eh,20h,6Fh,66h,20h,4Eh
+        db 48h,4Ch,20h,27h,39h,37h,20h,79h
+        db 6Fh,75h,20h,68h,61h,76h,65h,20h
+        db 63h,6Fh,6Eh,6Eh,65h,63h,74h,65h
+        db 64h,20h,74h,6Fh,20h,69h,73h,20h
+        db 6Fh,6Ch,64h,65h,72h,0Ah,74h,68h
+        db 61h,6Eh,20h,74h,68h,65h,20h,6Fh
+        db 6Eh,65h,20h,79h,6Fh,75h,20h,68h
+        db 61h,76h,65h,2Eh,20h,20h,54h,68h
+        db 65h,20h,70h,65h,72h,73h,6Fh,6Eh
+        db 20h,77h,68h,6Fh,73h,65h,20h,63h
+        db 6Fh,6Dh,70h,75h,74h,65h,72h,20h
+        db 79h,6Fh,75h,0Ah,63h,6Fh,6Eh,6Eh
+        db 65h,63h,74h,65h,64h,20h,74h,6Fh
+        db 20h,63h,61h,6Eh,20h,67h,65h,74h
+        db 20h,74h,68h,65h,20h,75h,70h,64h
+        db 61h,74h,65h,20h,74h,6Fh,20h,74h
+        db 68h,65h,69h,72h,20h,76h,65h,72h
+        db 73h,69h,6Fh,6Eh,20h,66h,72h,6Fh
+        db 6Dh,0Ah,74h,68h,65h,20h,45h,41h
+        db 20h,53h,70h,6Fh,72h,74h,73h,20h
+        db 57h,65h,62h,20h,73h,69h,74h,65h
+        db 2Ch,20h,61h,74h,20h,57h,57h,57h
+        db 2Eh,45h,41h,53h,50h,4Fh,52h,54h
+        db 53h,2Eh,43h,4Fh,4Dh,0,0,0
+str_PeerVersionOlderSwedish:                    ; Swedish older-version message; used by StartNetworkLink
+        db 44h,65h,6Eh,20h,4Eh,48h,4Ch,20h
+        db 39h,37h,2Dh,76h,65h,72h,73h,69h
+        db 6Fh,6Eh,20h,73h,6Fh,6Dh,20h,64h
+        db 75h,20h,6Bh,6Fh,70h,70h,6Ch,61h
+        db 74h,20h,75h,70h,70h,20h,64h,69h
+        db 67h,20h,74h,69h,6Ch,6Ch,20h,0E4h
+        db 72h,0Ah,0E4h,6Ch,64h,72h,65h,20h
+        db 0E4h,6Eh,20h,64h,65h,6Eh,20h,76h
+        db 65h,72h,73h,69h,6Fh,6Eh,20h,64h
+        db 75h,20h,68h,61h,72h,2Eh,20h,0C4h
+        db 67h,61h,72h,65h,6Eh,20h,74h,69h
+        db 6Ch,6Ch,20h,64h,61h,74h,6Fh,72h
+        db 6Eh,20h,73h,6Fh,6Dh,0Ah,64h,75h
+        db 20h,6Bh,6Fh,70h,70h,6Ch,61h,74h
+        db 20h,64h,69h,67h,20h,74h,69h,6Ch
+        db 6Ch,20h,6Bh,61h,6Eh,20h,66h,0E5h
+        db 20h,65h,6Eh,20h,75h,70h,70h,64h
+        db 61h,74h,65h,72h,61h,64h,20h,76h
+        db 65h,72h,73h,69h,6Fh,6Eh,20h,66h
+        db 72h,0E5h,6Eh,0Ah,45h,6Ch,65h,63h
+        db 74h,72h,6Fh,6Eh,69h,63h,20h,41h
+        db 72h,74h,73h,20h,57h,65h,62h,2Dh
+        db 73h,69h,64h,61h,20h,70h,0E5h,20h
+        db 61h,64h,72h,65h,73h,73h,20h,57h
+        db 57h,57h,2Eh,45h,41h,53h,50h,4Fh
+        db 52h,54h,2Eh,43h,4Fh,4Dh,0,0
+str_PeerVersionOlderGerman:                     ; German older-version message; used by StartNetworkLink
+        db 44h,69h,65h,20h,56h,65h,72h,73h
+        db 69h,6Fh,6Eh,20h,76h,6Fh,6Eh,20h
+        db 4Eh,48h,4Ch,20h,27h,39h,37h,2Ch
+        db 20h,6Dh,69h,74h,20h,64h,65h,72h
+        db 20h,53h,69h,65h,20h,76h,65h,72h
+        db 62h,75h,6Eh,64h,65h,6Eh,20h,73h
+        db 69h,6Eh,64h,2Ch,0Ah,69h,73h,74h
+        db 20h,0E4h,6Ch,74h,65h,72h,20h,61h
+        db 6Ch,73h,20h,64h,69h,65h,2Ch,20h
+        db 64h,69h,65h,20h,53h,69h,65h,20h
+        db 62h,65h,73h,69h,74h,7Ah,65h,6Eh
+        db 2Eh,20h,44h,69h,65h,20h,50h,65h
+        db 72h,73h,6Fh,6Eh,2Ch,20h,6Dh,69h
+        db 74h,0Ah,64h,65h,72h,65h,6Eh,20h
+        db 43h,6Fh,6Dh,70h,75h,74h,65h,72h
+        db 20h,53h,69h,65h,20h,76h,65h,72h
+        db 62h,75h,6Eh,64h,65h,6Eh,20h,73h
+        db 69h,6Eh,64h,2Ch,20h,6Bh,61h,6Eh
+        db 6Eh,20h,73h,69h,63h,68h,20h,65h
+        db 69h,6Eh,0Ah,55h,70h,64h,61h,74h
+        db 65h,20h,76h,6Fh,6Eh,20h,64h,65h
+        db 72h,20h,45h,6Ch,65h,63h,74h,72h
+        db 6Fh,6Eh,69h,63h,20h,41h,72h,74h
+        db 73h,20h,57h,65h,62h,73h,69h,74h
+        db 65h,20h,62h,65h,73h,6Fh,72h,67h
+        db 65h,6Eh,2Ch,0Ah,75h,6Eh,74h,65h
+        db 72h,20h,57h,57h,57h,2Eh,45h,41h
+        db 53h,50h,4Fh,52h,54h,53h,2Eh,43h
+        db 4Fh,4Dh,0,0
+%endif
 str_Disconnecting:                              ; string "Disconnecting"; used by NetDisconnect
         db 044h,069h,073h,063h,06Fh,06Eh,06Eh,065h,063h,074h,069h,06Eh,067h,00h,00h,00h
 str_X_WaitForOtherComputer:                     ; string "X"; used by WaitForOtherComputer

@@ -68,6 +68,7 @@ jobs:
           path: vault
           sparse-checkout: |
             NHL97-PC/HOCKEY.EXE
+            NHL97-PC/1.1/HOCKEY.EXE
           sparse-checkout-cone-mode: false
       - name: build the DOS EXE and compare
         if: env.VAULT_TOKEN != ''
@@ -75,6 +76,10 @@ jobs:
           sudo apt-get update -q && sudo apt-get install -y -q nasm python3
           ./build.sh vault/NHL97-PC/HOCKEY.EXE 2>&1 | tee build.log
           tail -1 build.log | grep -q '^MATCH'
+          if [ -f vault/NHL97-PC/1.1/HOCKEY.EXE ]; then
+            ./build.sh 11 vault/NHL97-PC/1.1/HOCKEY.EXE 2>&1 | tee build11.log
+            tail -1 build11.log | grep -q '^MATCH'
+          else echo "patch 1.1 HOCKEY.EXE not in the vault, 1.1 MATCH check skipped"; fi
   netsec:
     runs-on: ubuntu-latest
     steps:

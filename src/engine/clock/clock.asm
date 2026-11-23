@@ -2,10 +2,13 @@
 bits 32
 %include "hockey.inc"
 section s_650E5 progbits alloc exec nowrite align=1
-extern AudioDriverVersion, ClockDataBase, ClockDataRate, ClockDataTicks, CopyVec3, F32_4_UpdateScoreClockData, F32_8_UpdateScoreClockData, F64_0p0001_UpdateScoreClockData
+extern CpuSpeedCount, ClockDataBase, ClockDataRate, ClockDataTicks, CopyVec3, F32_4_UpdateScoreClockData, F32_8_UpdateScoreClockData, F64_0p0001_UpdateScoreClockData
 extern F64_0p2_UpdateScoreClockData, F64_0p5_UpdateScoreClockData, F64_10000, F64_3p14159_UpdateGameDisplay, RefreshViewDistance, ReplayRecordBuf, ScoreClockShown, SetObjectHeight
 extern SortCords, StartNextMove, UpdateScoreboardPos, UpdateScoreboardSpin
 global StartWhistleStop, UpdateScoreClockData, ResetClockData, UpdateGameDisplay
+%if VERSION = 11
+extern CpuIsPentium, F32_11931, F64_100_UpdateScoreClockData
+%endif
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; StartWhistleStop                                650E8  97 PC, low confidence
@@ -57,6 +60,179 @@ StartWhistleStop:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; UpdateScoreClockData                            656F8  97 PC, low confidence
+; Updates the clock and score data shown in game
+;-----------------------------------------------------------------------------
+UpdateScoreClockData:
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 14h
+        and esp, byte 0FFFFFFF8h
+        mov esi, eax
+        fld dword [byte esi+020h]
+        mov eax, 43960000h
+        xor edi, edi
+        fstp dword [edx]
+        fld dword [byte esi+024h]
+        mov dword [byte esp+010h], eax
+        fstp dword [byte edx+04h]
+        mov eax, dword [byte esi+028h]
+        mov dword [byte edx+08h], eax
+        mov eax, dword [byte esi+01Ch]
+        mov dword [ebx], eax
+        mov ah, byte [dword esi+0A4h]
+        mov dword [byte esp+0Ch], edi
+        cmp ah, 0Dh
+        jne short .1
+        mov eax, dword [dword esi+0FAh]
+        mov ebx, dword [byte eax+08h]
+        mov dword [byte eax+028h], ebx
+.1:
+        cmp dword [ScoreClockShown], byte 0
+        je near .7
+        cmp byte [dword esi+0A4h], 0Dh
+        jae short .3
+        cmp word [dword esi+0A9h], byte 0
+        jl short .3
+        mov ebx, dword [dword esi+0F6h]
+        mov ebx, dword [ebx]
+        fild dword [byte ebx+08h]
+        mov eax, dword [byte ebx+0Ch]
+        mov edi, dword [byte ebx+08h]
+        mov ebx, dword [ReplayRecordBuf]
+        sub eax, edi
+        sub ebx, eax
+        mov dword [byte esp+08h], ebx
+        fstp dword [byte esp+010h]
+        fild dword [byte esp+08h]
+        fdiv dword [byte esp+010h]
+        fldz
+        fxch
+        fstp dword [byte esp+0Ch]
+        fcomp dword [byte esp+0Ch]
+        fnstsw ax
+        sahf
+        jbe short .8
+        xor eax, eax
+        mov dword [byte esp+0Ch], eax
+.8:
+        fld dword [byte esp+0Ch]
+        fcomp dword [F32_4_UpdateScoreClockData]
+        fnstsw ax
+        sahf
+        jbe short .3
+        mov dword [byte esp+0Ch], 40800000h
+.3:
+        fld dword [byte esp+010h]
+        fcomp qword [F64_0p0001_UpdateScoreClockData]
+        fnstsw ax
+        sahf
+        jb near .7
+        cmp dword [CpuIsPentium], byte 0
+        je short .9
+        cmp dword [CpuSpeedCount], byte 0
+        je near .7
+.9:
+        test ecx, ecx
+        je near .7
+        mov ebx, dword [CpuIsPentium]
+        test ebx, ebx
+        jne short .10
+        mov dword [esp], ecx
+        mov dword [byte esp+04h], ebx
+        fild qword [esp]
+        fmul qword [F64_100_UpdateScoreClockData]
+        fld dword [byte esp+010h]
+        fmul dword [F32_11931]
+        fdivp
+        jmp short .11
+.10:
+        mov eax, dword [CpuSpeedCount]
+        xor edi, edi
+        mov dword [esp], eax
+        mov dword [byte esp+04h], edi
+        fild qword [esp]
+        fmul dword [byte esp+010h]
+        mov dword [esp], ecx
+        mov dword [byte esp+04h], edi
+        fild qword [esp]
+        fmul qword [F64_10000]
+        fdivrp
+.11:
+        fadd dword [byte esp+0Ch]
+        fstp dword [byte esp+0Ch]
+        fldz
+        fcomp dword [byte esp+0Ch]
+        fnstsw ax
+        sahf
+        jbe short .12
+        xor ecx, ecx
+        mov dword [byte esp+0Ch], ecx
+.12:
+        fld dword [byte esp+0Ch]
+        fcomp dword [F32_8_UpdateScoreClockData]
+        fnstsw ax
+        sahf
+        jbe short .5
+        mov dword [byte esp+0Ch], 41000000h
+.5:
+        cmp byte [dword esi+0A4h], 0Dh
+        jne short .6
+        fld dword [byte esp+0Ch]
+        fld st0
+        fld st0
+        fmul qword [F64_0p2_UpdateScoreClockData]
+        fxch st2
+        fmul dword [byte esi+030h]
+        fxch st2
+        fmul qword [F64_0p5_UpdateScoreClockData]
+        fxch st2
+        fadd dword [byte edx+04h]
+        mov eax, dword [dword esi+0FAh]
+        fstp dword [byte edx+04h]
+        fld dword [byte esi+02Ch]
+        fsub st2
+        fmul st1
+        fadd dword [edx]
+        fstp dword [edx]
+        fld dword [byte esi+034h]
+        fsubrp st2
+        fmulp
+        fadd dword [byte edx+08h]
+        fstp dword [byte edx+08h]
+        test dword [byte eax+0Ch], 7FFFFFFFh
+        je short .7
+        fld dword [byte esp+0Ch]
+        fmul dword [byte eax+0Ch]
+        fadd dword [byte eax+028h]
+        fstp dword [byte eax+028h]
+        jmp short .7
+.6:
+        fld dword [byte esp+0Ch]
+        fld st0
+        fmul dword [byte esi+02Ch]
+        fadd dword [edx]
+        fld st1
+        fxch
+        fstp dword [edx]
+        fmul dword [byte esi+030h]
+        fadd dword [byte edx+04h]
+        fstp dword [byte edx+04h]
+        fmul dword [byte esi+034h]
+        fadd dword [byte edx+08h]
+        fstp dword [byte edx+08h]
+.7:
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        ret
+        lea eax, [byte eax+00h]
+%else
 ;-----------------------------------------------------------------------------
 ; UpdateScoreClockData                            65164  97 PC, low confidence
 ; Updates the clock and score data shown in game
@@ -128,7 +304,7 @@ UpdateScoreClockData:
         fnstsw ax
         sahf
         jb near .7
-        mov edi, dword [AudioDriverVersion]
+        mov edi, dword [CpuSpeedCount]
         test edi, edi
         je near .7
         test ecx, ecx
@@ -218,6 +394,7 @@ UpdateScoreClockData:
         pop esi
         ret
         db 090h
+%endif
 ;-----------------------------------------------------------------------------
 ; ResetClockData                                  65338  97 PC, low confidence
 ; Clears the in-game clock data
@@ -259,6 +436,92 @@ ResetClockData:
         pop edx
         pop ebx
         ret 4
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; UpdateGameDisplay                               6595C  97 PC, low confidence
+; Updates the in-game display data each frame
+;-----------------------------------------------------------------------------
+UpdateGameDisplay:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 2Ch
+        mov dword [byte ebp-04h], eax
+        mov edi, SortCords
+        xor esi, esi
+.1:
+        mov ecx, dword [byte ebp-04h]
+        lea ebx, [byte ebp-08h]
+        lea edx, [byte ebp-014h]
+        mov eax, edi
+        call UpdateScoreClockData
+        cmp esi, byte 0Dh
+        jne short .2
+        mov eax, dword [dword edi+0FAh]
+        push dword [byte eax+028h]
+        lea eax, [byte ebp-020h]
+        lea edx, [byte ebp-020h]
+        call ResetClockData
+        lea eax, [byte ebp-014h]
+        call RefreshViewDistance
+        jmp near .5
+.2:
+        cmp esi, byte 0Eh
+        je short .3
+        cmp esi, byte 0Fh
+        jne short .4
+.3:
+        fld dword [byte ebp-014h]
+        push eax
+        fistp dword [esp]
+        pop eax
+        fld dword [byte ebp-0Ch]
+        xor edx, edx
+        mov dword [byte ebp-02Ch], eax
+        mov dword [byte ebp-028h], edx
+        push eax
+        fistp dword [esp]
+        pop eax
+        mov dword [byte ebp-024h], eax
+        cmp esi, byte 0Eh
+        sete al
+        lea edx, [byte ebp-02Ch]
+        and eax, 0FFh
+        call UpdateScoreboardPos
+        fld dword [byte ebp-08h]
+        fadd qword [F64_3p14159_UpdateGameDisplay]
+        sub esp, byte 4
+        fstp dword [esp]
+        cmp esi, byte 0Eh
+        sete al
+        and eax, 0FFh
+        call UpdateScoreboardSpin
+        jmp short .5
+.4:
+        lea edx, [byte ebp-014h]
+        mov eax, dword [dword edi+0F2h]
+        call CopyVec3
+        mov eax, dword [dword edi+0F2h]
+        push dword [byte ebp-08h]
+        call SetObjectHeight
+.5:
+        inc esi
+        add edi, 108h
+        cmp esi, byte 10h
+        jl near .1
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; UpdateGameDisplay                               6539C  97 PC, low confidence
 ; Updates the in-game display data each frame
@@ -343,3 +606,4 @@ UpdateGameDisplay:
         pop ecx
         pop ebx
         ret
+%endif

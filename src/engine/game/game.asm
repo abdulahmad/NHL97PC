@@ -55,6 +55,11 @@ global GoalieReachFactor, PlayerReachFactor, StickReachX, StickReachY, StickReac
 global ToggleFKeyFlag, ShowCameraView, RandomDiceRoll, CountDebugUnlock, ResetDebugUnlock, DebugKeys, GameFunctionKeys, HandleGameKeys
 global Gameloop, InitGameDisplay, SaveGameDisplay, SetGameBrightness, PlayGame, RunDemoGame, RunInGameMenu, PenaltyPanelBlank
 global PenaltyShotPanelBlank, SpecialTeamsPanelBlank, InjuryPanelBlank, PeriodPanelBlank, GoalScorerPanelBlank
+%if VERSION = 11
+global EstimateCpuSpeed
+extern CpuHasCpuid, CpuIsPentium, CpuSignature, CpuType, F32_1000000, F64_150, F64_1p38006eneg07, F64_1p76206eneg06
+extern F64_200_EstimateCpuSpeed, F64_2p39167eneg07, F64_33, F64_4p01469eneg07, F64_90, WaitTicks
+%endif
 ;-----------------------------------------------------------------------------
 ; AllInPlace                                   1303C  95 PC, medium confidence
 ; 1 when none of the 12 skater sort objects is on the ice with temp5 != -100
@@ -1590,6 +1595,397 @@ ResetDebugUnlock:
         pop edx
         ret
         db 090h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; DebugKeys                                       14294  97 PC, low confidence
+; (key): the debug keys, active once the unlock count (DebugUnlockCount) reaches 4
+;-----------------------------------------------------------------------------
+DebugKeys:
+        push dword 18h
+        call __CHK
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        cmp dword [LinkGameActive], byte 0
+        je short .2
+.1:
+        xor eax, eax
+        jmp near .33
+.2:
+        cmp eax, byte 56h
+        jb short .6
+        jbe near .15
+        cmp eax, byte 69h
+        jb short .4
+        jbe near .23
+        cmp eax, byte 70h
+        jb short .3
+        jbe near .17
+        cmp eax, byte 74h
+        jb short .1
+        jbe near .25
+        cmp eax, byte 76h
+        je near .12
+        xor eax, eax
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.3:
+        cmp eax, byte 6Fh
+        je near .16
+        xor eax, eax
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.4:
+        cmp eax, byte 67h
+        jb short .5
+        jbe near .18
+        jmp near .10
+.5:
+        cmp eax, byte 66h
+        je near .24
+        xor eax, eax
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.6:
+        cmp eax, byte 35h
+        jb short .8
+        jbe near .30
+        cmp eax, byte 48h
+        jb short .7
+        jbe near .14
+        cmp eax, byte 53h
+        jb near .1
+        jbe near .21
+        cmp eax, byte 54h
+        je near .26
+        xor eax, eax
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.7:
+        cmp eax, byte 47h
+        je near .22
+        xor eax, eax
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.8:
+        cmp eax, byte 32h
+        jb short .9
+        jbe near .28
+        cmp eax, byte 34h
+        je near .29
+        xor eax, eax
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.9:
+        cmp eax, byte 31h
+        je near .27
+        xor eax, eax
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.10:
+        test byte [gmode], 2
+        jne short .13
+.11:
+        mov eax, dword [PtrPuckOwner]
+        mov word [eax], 10B0h
+        mov eax, dword [PtrAwayIce]
+        call Goal
+        jmp near .32
+.12:
+        test byte [gmode], 2
+        jne short .11
+.13:
+        mov eax, dword [PtrPuckOwner]
+        mov word [eax], 0EF50h
+        mov eax, dword [PtrHomeIce]
+        call Goal
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.14:
+        mov ah, 1
+        mov ecx, 1
+        xor dl, dl
+        xor esi, esi
+        mov byte [PeriodHomeTeam], ah
+        mov byte [PeriodAwayTeam], dl
+        mov word [HomeSimGoals], cx
+        xor eax, eax
+        mov word [AwaySimGoals], si
+        mov al, byte [PeriodHomeTeam]
+        mov word [HomeSimShots], si
+        mov word [hmtmstruct], ax
+        xor eax, eax
+        mov word [AwaySimShots], cx
+        mov al, dl
+        mov edx, 2
+        mov word [StatsPanelOn], si
+        mov word [Period], dx
+        mov word [gsp], dx
+        mov dh, byte [gmode]
+        mov word [gameclock], si
+        or dh, 40h
+        mov word [awtmstruct], ax
+        mov byte [gmode], dh
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.15:
+        mov edi, 1
+        xor cl, cl
+        xor esi, esi
+        xor eax, eax
+        mov byte [PeriodHomeTeam], cl
+        mov word [hmtmstruct], si
+        mov word [awtmstruct], di
+        mov word [HomeSimGoals], ax
+        mov word [AwaySimGoals], di
+        mov word [HomeSimShots], di
+        mov word [StatsPanelOn], ax
+        mov word [gameclock], ax
+        mov ch, 1
+        mov esi, 2
+        mov al, byte [gmode]
+        mov byte [PeriodAwayTeam], ch
+        mov word [Period], si
+        mov word [gsp], si
+        or al, 40h
+        xor ch, ch
+        mov byte [gmode], al
+        mov word [AwaySimShots], cx
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.16:
+        xor dl, dl
+        xor esi, esi
+        xor eax, eax
+        mov byte [PeriodHomeTeam], dl
+        mov word [hmtmstruct], si
+        mov word [awtmstruct], si
+        mov word [HomeSimGoals], si
+        mov word [HomeSimShots], si
+        mov word [AwaySimShots], si
+        mov word [StatsPanelOn], ax
+        xor dh, dh
+        mov esi, 2
+        mov byte [PeriodAwayTeam], dh
+        mov word [AwaySimGoals], dx
+        mov word [Period], si
+        mov word [gsp], si
+        mov word [gameclock], dx
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.17:
+        xor ecx, ecx
+        xor ebx, ebx
+        mov word [gameclock], cx
+        mov word [StatsPanelOn], bx
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.18:
+        mov ax, word [hmtmstruct]
+        mov di, word [awtmstruct]
+        xor esi, esi
+        xor ecx, ecx
+        mov word [gameclock], si
+        mov word [StatsPanelOn], cx
+        cmp ax, di
+        jne short .19
+        mov ebx, 3
+        mov word [gsp], bx
+        mov word [Period], bx
+        jmp short .20
+.19:
+        mov eax, 2
+        mov word [gsp], ax
+        mov word [Period], ax
+.20:
+        or byte [gmode], 40h
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.21:
+        mov dword [CupCelebrationActive], 1
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.22:
+        mov word [DebugModelRefresh], 1
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.23:
+        mov word [ForcePenaltyCall], 1
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.24:
+        call DebugRestoreEnergy
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.25:
+        inc word [DebugModelIndex]
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.26:
+        dec word [DebugModelIndex]
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.27:
+        mov eax, dword [puckc]
+        mov ch, byte [eax]
+        test ch, ch
+        jl near .32
+        mov ebx, 1
+        mov edx, 12h
+        cmp ch, 6
+        jmp near .31
+.28:
+        mov eax, dword [puckc]
+        mov ch, byte [eax]
+        test ch, ch
+        jl near .32
+        mov ebx, 2
+        mov edx, 13h
+        cmp ch, 6
+        jmp near .31
+.29:
+        mov eax, dword [puckc]
+        mov ch, byte [eax]
+        test ch, ch
+        jl near .32
+        mov ebx, 4
+        mov edx, 21h
+        cmp ch, 6
+        jmp short .31
+.30:
+        mov eax, dword [puckc]
+        mov bl, byte [eax]
+        test bl, bl
+        jl short .32
+        movsx edx, bl
+        mov eax, edx
+        shl eax, 5
+        add eax, edx
+        cmp word [dword eax*8+PlayerAssignWords], byte 0
+        jle short .32
+        mov eax, dword [puckc]
+        cmp byte [eax], 6
+        setge al
+        xor ah, ah
+        cwde
+        xor edx, edx
+        call RandomDiceRoll
+        mov dl, byte [dword eax+0A4h]
+        mov word [FaceoffRequest], dx
+        mov ax, word [dword eax+0BAh]
+        mov word [DelayedPen], ax
+        mov eax, dword [puckc]
+        xor ebx, ebx
+        mov cl, byte [eax]
+        mov edx, 22h
+        cmp cl, 6
+.31:
+        setl al
+        xor ah, ah
+        cwde
+        call RandomDiceRoll
+        call AddPenalty
+.32:
+        mov eax, 1
+.33:
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+%else
 ;-----------------------------------------------------------------------------
 ; DebugKeys                                       14294  97 PC, low confidence
 ; (key): the debug keys, active once the unlock count (DebugUnlockCount) reaches 4
@@ -1979,6 +2375,7 @@ DebugKeys:
         pop ebx
         ret
         db 08Dh,040h,00h
+%endif
 ;-----------------------------------------------------------------------------
 ; GameFunctionKeys                                14710  97 PC, low confidence
 ; (key): Ctrl+F1-F9 toggles (ShowFrameRate), +, - and =
@@ -2336,6 +2733,820 @@ HandleGameKeys:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; Gameloop                                                        14AC8  96 PC
+; The game loop PlayGame runs: takes input records out of the ring, then
+; draws
+;-----------------------------------------------------------------------------
+Gameloop:
+        push dword 28h
+        call __CHK
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        push byte 1
+        call WaitTicks
+        add esp, byte 4
+        call TicksSinceLast
+        push byte 0
+        push byte 18h
+        push dword str_RPEVENT2
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [ReplayMode], eax
+        call IsInputRecording
+        test eax, eax
+        je short .1
+        call StartInputRecording
+.1:
+        mov ebp, ObjectPositions
+        add ebp, byte 58h
+.2:
+        cmp word [gameover], byte 0
+        jne near .30
+        cmp dword [GameRunning], byte 0
+        jne near .30
+        call FreeReplayBuffer
+        cmp word [SimFrames], byte 0
+        jne near .29
+.3:
+        mov esi, dword [GameRunning]
+        test esi, esi
+        jne near .29
+        call ServiceIdle
+        xor edi, edi
+.23:
+        call InputRecordAvail
+        test eax, eax
+        je near .9
+        cmp edi, dword [InGameMenuRequest]
+        jne near .9
+        mov eax, PadStates
+        call TakeInputRecord
+        test byte [gmode2], 4
+        jne short .5
+        cmp edi, dword [ReplayTick]
+        je short .5
+        cmp edi, dword [ReplayPlaying]
+        jne short .5
+        mov eax, dword [ReplayMode]
+        and byte [eax], 0F0h
+        mov eax, dword [ReplayMode]
+        or byte [eax], 3
+        mov eax, dword [ReplayMode]
+        mov word [byte eax+02h], 0
+        mov eax, dword [ReplayMode]
+        or byte [byte eax+02h], 18h
+        mov edx, PadStates
+        mov eax, dword [ReplayMode]
+        mov ebx, 14h
+        add eax, byte 4
+        call memcpy_
+        mov eax, dword [ReplayMode]
+        call ReplayRecordTick
+.5:
+        mov eax, dword [LineChangeKeyLow]
+        sar eax, 10h
+        mov edx, dword [RefPlayer]
+        add esi, eax
+        cmp edi, edx
+        jg short .6
+        mov ebx, edx
+        sub ebx, eax
+        mov dword [RefPlayer], ebx
+.6:
+        mov eax, 1
+        call RunSimFrames
+        test byte [gmode2], 4
+        jne short .7
+        mov ecx, dword [ReplayTick]
+        cmp edi, ecx
+        jne short .7
+        cmp ecx, dword [ReplayPlaying]
+        jne short .7
+        call ReplayPauseRecording
+        jmp short .24
+.7:
+        test byte [gmode2], 4
+        je short .24
+        cmp edi, dword [ReplayTick]
+        je short .24
+        cmp edi, dword [ReplayPlaying]
+        jne short .24
+        mov eax, dword [ReplayMode]
+        and byte [eax], 0F0h
+        mov eax, dword [ReplayMode]
+        or byte [eax], 4
+        mov ecx, dword [ReplayMode]
+        mov word [byte ecx+02h], 0
+        mov ecx, dword [ReplayMode]
+        or byte [byte ecx+02h], 4
+        mov eax, dword [ReplayMode]
+        call ReplayRecordTick
+        call ReplayRecordFinal
+.24:
+        call ServiceIdle
+        jmp near .23
+.9:
+        cmp dword [InGameMenuRequest], byte 0
+        jne near .14
+        call HandleGameKeys
+        mov eax, esi
+        call DrawGameOverlays
+        mov ecx, ebp
+        xor edi, edi
+        xor esi, esi
+.10:
+        imul edx, esi, dword 760h
+        mov ebx, ecx
+        mov eax, dword [dword edi+GameObjects]
+        add edi, byte 4
+        add ecx, 760h
+        mov edx, dword [dword edx+ReplayFrames]
+        inc esi
+        call UpdateAllPoses
+        cmp esi, byte 0Dh
+        jl short .10
+        call ServiceIdle
+        cmp dword [LinkGameActive], byte 0
+        jne short .11
+        cmp dword [GameTick], byte 0
+        je short .25
+.11:
+        xor esi, esi
+        mov dword [GameLoopTime], esi
+        mov dword [GameTick], esi
+        jmp short .13
+.25:
+        cmp dword [CpuIsPentium], byte 0
+        je short .26
+        rdtsc
+        jmp short .27
+.26:
+        mov eax, dword [tickcount]
+        imul edx, eax, dword 2E9Bh
+        add edx, 2E9Ah
+        xor eax, eax
+        out 43h, al
+        in al, 40h
+        mov ah, al
+        in al, 40h
+        xchg al, ah
+        sub edx, eax
+        mov eax, edx
+.27:
+        mov edx, dword [CpuIsPentium]
+        mov dword [GameLoopTime], eax
+        test edx, edx
+        jne short .28
+        cmp eax, dword [InputRecordStamp]
+        jae short .28
+        add eax, 2E9Bh
+        mov dword [GameLoopTime], eax
+.28:
+        mov ecx, dword [GameLoopTime]
+        mov eax, dword [InputRecordStamp]
+        sub ecx, eax
+        mov dword [GameLoopTime], ecx
+.13:
+        mov eax, dword [GameLoopTime]
+        call UpdateGameDisplay
+        mov eax, dword [tickcount]
+        call DrawGameFrame
+        call ServiceIdle
+        call RedrawGameView
+.14:
+        cmp dword [InGameMenuRequest], byte 0
+        je short .15
+        cmp word [SimFrames], byte 0
+        jne short .15
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 40h
+        je short .15
+        call RunInGameMenu
+.15:
+        cmp word [SimFrames], byte 0
+        je near .3
+.29:
+        call IsInputRecording
+        test eax, eax
+        jne short .17
+        call StopInputRecording
+.17:
+        mov edi, dword [GameRunning]
+        test edi, edi
+        jne near .20
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 40h
+        je short .20
+        call PeriodOver
+        test byte [gmode], 40h
+        je short .18
+        mov dword [GameRunning], 1
+        jmp near .2
+.18:
+        cmp dword [InGameMenuRequest], byte 3
+        jne near .2
+        call RunInGameMenu
+        cmp dword [GameRunning], byte 2
+        je short .19
+        mov esi, 1
+        call CheckIntermission
+        mov dword [GameTick], esi
+        xor esi, esi
+        mov dword [GameFrame], edi
+        mov word [SimFrames], si
+.19:
+        call IsInputRecording
+        test eax, eax
+        je near .2
+        call StartInputRecording
+        jmp near .2
+.20:
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 40h
+        jne near .2
+        cmp dword [GameRunning], byte 2
+        je near .2
+        mov dword [GameRunning], 1
+        jmp near .2
+.30:
+        call IsInputRecording
+        test eax, eax
+        jne short .22
+        call StopInputRecording
+.22:
+        cmp dword [GameRunning], byte 1
+        jne short .31
+        mov eax, dword [GameSettings]
+        and eax, byte 70h
+        cmp eax, byte 40h
+        je short .31
+        mov dword [InGameMenuRequest], 3
+        call RunInGameMenu
+        call UpdateUserRecords
+.31:
+        call EndGameCleanup
+        mov eax, 4
+        call FadeOut
+        mov edx, dword [ReplayMode]
+        push edx
+        call FreeMemBlock
+        add esp, byte 4
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        nop
+;-----------------------------------------------------------------------------
+; InitGameDisplay                                 14EBC  97 PC, low confidence
+; From PlayGame: copies the display options (DisplayModes) and sets the 640x480
+; game screen
+;-----------------------------------------------------------------------------
+InitGameDisplay:
+        push dword 2Ch
+        call __CHK
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        sub esp, byte 14h
+        mov ecx, 10h
+        mov edi, VideoModePanelMode
+        mov esi, DisplayModes
+        mov edx, esp
+        mov eax, DisplaySettings
+        rep movsd
+        call PickVideoMode
+        mov eax, dword [esp]
+        mov ebx, 1E0h
+        mov dword [VideoModePanelMode], eax
+        mov eax, dword [byte esp+04h]
+        mov edx, 280h
+        mov dword [VideoModeSel], eax
+        mov eax, dword [brightness]
+        mov dword [DisplayHeight], ebx
+        and eax, byte 3
+        mov dword [DisplayWidth], edx
+        test al, 1
+        setne al
+        and eax, 0FFh
+        mov dword [VideoModeChanged], eax
+        mov eax, dword [brightness]
+        and eax, byte 3
+        test al, 2
+        setne al
+        and eax, 0FFh
+        mov dword [DisplayFlags], eax
+        mov eax, dword [DisplayOptions]
+        and eax, byte 0Fh
+        mov word [CameraViewKey], ax
+        xor eax, eax
+        call PickGameEvents
+        mov dword [GameEventPtr], eax
+        mov eax, 1
+        call PickGameEvents
+        mov dword [DisplayBuffer], eax
+        mov eax, dword [AllStarTeamCode]
+        sar eax, 10h
+        cmp eax, byte 15h
+        jne short .1
+        mov eax, 14h
+        jmp short .2
+.1:
+        cmp eax, byte 14h
+        jne short .2
+        mov eax, 15h
+.2:
+        mov edx, dword [gameopts]
+        mov edx, dword [byte edx+01h]
+        and edx, 0FC000h
+        inc eax
+        cmp edx, 84000h
+        je short .3
+        cmp edx, 88000h
+        jne short .4
+.3:
+        xor eax, eax
+.4:
+        mov dword [DisplayBufferSize], eax
+        mov eax, dword [AudioOptions]
+        shl eax, 6
+        shr eax, 1Fh
+        mov dword [ShowFrameRate], eax
+        mov eax, dword [AudioOptions]
+        shl eax, 7
+        shr eax, 1Fh
+        mov dword [ShowStands], eax
+        mov eax, dword [AudioOptions]
+        shl eax, 9
+        shr eax, 1Fh
+        mov dword [ShowRink], eax
+        mov eax, dword [AudioOptions]
+        shl eax, 5
+        shr eax, 1Fh
+        mov dword [ShowCenterLogo], eax
+        mov eax, dword [AudioOptions]
+        shl eax, 0Ah
+        shr eax, 1Fh
+        mov dword [ShowOverlay], eax
+        mov dword [ShowCrowd], eax
+        mov eax, dword [AudioOptions]
+        shl eax, 2
+        shr eax, 1Fh
+        mov dword [ShowBenches], eax
+        mov eax, dword [AudioOptions]
+        xor ecx, ecx
+        shl eax, 4
+        mov dword [ShowShadows], ecx
+        shr eax, 1Fh
+        mov dword [CameraScenesEnabled], ecx
+        mov dword [PlayerNamesOn], eax
+        add esp, byte 14h
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; SaveGameDisplay                                 1503C  97 PC, low confidence
+; Writes the game's display options back (brightness) after the game
+;-----------------------------------------------------------------------------
+SaveGameDisplay:
+        push dword 18h
+        call __CHK
+        push ebx
+        push ecx
+        push edx
+        push edi
+        push ebp
+        mov eax, DisplaySettings
+        call GetVideoModeList
+        mov edx, dword [brightness]
+        mov ebx, dword [VideoModeChanged]
+        and dl, 0FCh
+        test ebx, ebx
+        je short .2
+        cmp dword [DisplayFlags], byte 0
+        je short .1
+        or byte [brightness], 3
+        jmp short .4
+.1:
+        or dl, 1
+        jmp short .3
+.2:
+        cmp dword [DisplayFlags], byte 0
+        je short .3
+        or dl, 2
+.3:
+        mov dword [brightness], edx
+.4:
+        mov edx, dword [BrightnessLevel]
+        sar edx, 10h
+        sub edx, byte 28h
+        mov ebx, 0Ah
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ebx
+        mov dl, byte [brightness]
+        mov bl, byte [DetailLevel]
+        and eax, byte 0Fh
+        and dl, 0C3h
+        shl eax, 2
+        mov byte [brightness], dl
+        mov dh, byte [DisplayOptions]
+        mov edi, dword [brightness]
+        and dh, 0F0h
+        or edi, eax
+        mov eax, dword [SavedCameraView]
+        mov byte [DisplayOptions], dh
+        sar eax, 10h
+        mov ebp, dword [DisplayOptions]
+        and eax, byte 0Fh
+        and bl, 0FDh
+        or ebp, eax
+        mov eax, dword [ShowFrameRate]
+        mov byte [DetailLevel], bl
+        and eax, byte 1
+        mov edx, dword [AudioOptions]
+        shl eax, 19h
+        or edx, eax
+        mov dword [AudioOptions], edx
+        mov bh, byte [DetailLevel]
+        mov eax, dword [ShowStands]
+        and bh, 0FEh
+        and eax, byte 1
+        mov byte [DetailLevel], bh
+        shl eax, 18h
+        or dword [AudioOptions], eax
+        mov cl, byte [MusicOptions]
+        mov eax, dword [ShowRink]
+        and cl, 0BFh
+        and eax, byte 1
+        mov byte [MusicOptions], cl
+        shl eax, 16h
+        or dword [AudioOptions], eax
+        mov ch, byte [DetailLevel]
+        mov eax, dword [ShowCenterLogo]
+        and ch, 0FBh
+        and eax, byte 1
+        mov byte [DetailLevel], ch
+        shl eax, 1Ah
+        or dword [AudioOptions], eax
+        mov dword [brightness], edi
+        mov dl, byte [MusicOptions]
+        mov eax, dword [ShowShadows]
+        and dl, 7Fh
+        and eax, byte 1
+        mov byte [MusicOptions], dl
+        shl eax, 17h
+        or dword [AudioOptions], eax
+        mov dword [DisplayOptions], ebp
+        mov dh, byte [MusicOptions]
+        mov eax, dword [ShowOverlay]
+        and dh, 0DFh
+        and eax, byte 1
+        mov byte [MusicOptions], dh
+        shl eax, 15h
+        or dword [AudioOptions], eax
+        mov bl, byte [MusicOptions]
+        mov eax, dword [ShowCrowd]
+        and bl, 0DFh
+        and eax, byte 1
+        mov byte [MusicOptions], bl
+        shl eax, 15h
+        or dword [AudioOptions], eax
+        mov bh, byte [DetailLevel]
+        mov eax, dword [ShowBenches]
+        and bh, 0DFh
+        and eax, byte 1
+        mov byte [DetailLevel], bh
+        shl eax, 1Dh
+        or dword [AudioOptions], eax
+        pop ebp
+        pop edi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; SetGameBrightness                               15204  97 PC, low confidence
+; The brightness (28h-64h) from the display options
+;-----------------------------------------------------------------------------
+SetGameBrightness:
+        push dword 1Ch
+        call __CHK
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov eax, dword [brightness]
+        shl eax, 1Ah
+        shr eax, 1Ch
+        lea ebx, [dword eax*4+00h]
+        add ebx, eax
+        add ebx, ebx
+        add ebx, byte 28h
+        mov word [str_D_ChangeViewSize], bx
+        cmp bx, byte 64h
+        jle short .1
+        mov word [str_D_ChangeViewSize], 64h
+        jmp short .2
+.1:
+        cmp bx, byte 28h
+        jge short .2
+        mov word [str_D_ChangeViewSize], 28h
+.2:
+        mov ebx, dword [BrightnessLevel]
+        mov edx, dword [ViewScreenWidth]
+        sar ebx, 10h
+        imul edx, ebx
+        mov ecx, 64h
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ecx
+        mov edx, dword [ViewScreenHeight]
+        imul edx, ebx
+        mov ecx, eax
+        mov ebx, 64h
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ebx
+        mov ebx, eax
+        mov eax, dword [ViewSizeIndex]
+        test byte [byte eax+04h], 2
+        je short .3
+        sar ebx, 1
+.3:
+        mov eax, dword [ViewScreenWidth]
+        mov edx, eax
+        sar edx, 1Fh
+        LD sub, eax, edx
+        sar eax, 1
+        mov edi, eax
+        mov edx, ecx
+        mov eax, ecx
+        sar edx, 1Fh
+        LD sub, eax, edx
+        sar eax, 1
+        sub edi, eax
+        mov eax, dword [ViewScreenHeight]
+        mov edx, eax
+        sar edx, 1Fh
+        LD sub, eax, edx
+        sar eax, 1
+        mov ebp, dword [ViewSizeIndex]
+        mov dh, byte [byte ebp+04h]
+        mov esi, eax
+        test dh, 2
+        je short .4
+        sub esi, ebx
+        jmp short .5
+.4:
+        mov edx, ebx
+        mov eax, ebx
+        sar edx, 1Fh
+        LD sub, eax, edx
+        sar eax, 1
+        sub esi, eax
+.5:
+        mov eax, dword [ViewSizeIndex]
+        mov dword [ViewWindowW], ecx
+        mov dword [ViewWindowH], ebx
+        mov dword [ViewWindowX], edi
+        mov edx, ecx
+        mov dword [ViewWindowY], esi
+        call SetViewSize
+        mov eax, dword [ViewSizeIndex]
+        mov ebx, esi
+        mov edx, edi
+        call SetViewOrigin
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+;-----------------------------------------------------------------------------
+; PlayGame                                                        15320  95 PC
+;
+; (&savefile): without an open saved game runs the pre-game screens (LoadRockMusic, LoadGameGfx, SetupGame;
+; gameresult 2 on cancel), otherwise LoadGameState from the file, rebuilds lines (SetupTeamLines) and
+; resumes; then Gameloop; in league / Play-Off mode a completed game (gameresult 1) deletes
+;
+; <league>\game.sav; called from temp_files, import_export and PlayoffModeLoop
+;-----------------------------------------------------------------------------
+PlayGame:
+        push dword 28h
+        call __CHK
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        cmp dword [LinkGameActive], byte 0
+        je short .1
+        mov dword [seed], 12435768h
+        jmp short .2
+.1:
+        call rand_
+        add dword [seed], eax
+.2:
+        mov eax, dword [gameopts]
+        mov edx, dword [byte eax+01h]
+        shl edx, 0Ch
+        mov eax, dword [byte eax+01h]
+        shr edx, 1Ah
+        shl eax, 6
+        shl edx, 10h
+        shr eax, 1Ah
+        mov esi, dword [seed]
+        add eax, edx
+        add esi, eax
+        mov edx, 20h
+        mov dword [seed], esi
+        call InitGameDisplay
+        call ResetReplayBuffer
+        mov eax, 34h
+        call AllocAnimStates
+        mov eax, 3Ch
+        call ShowLoadingBar
+        xor eax, eax
+        call SetAnimClock
+        xor eax, eax
+.3:
+        add eax, 760h
+        xor edi, edi
+        mov dword [dword eax+GameRecord], edi
+        cmp eax, 5FE0h
+        jne short .3
+        cmp byte [FrontMusicOn], 0
+        sete al
+        and eax, 0FFh
+        mov dword [ReplayLoaded], eax
+        mov eax, VideoModePanelMode
+        call InitGameGraphics
+        call InitAnimPoints
+        call ReplaySetupObjects
+        mov eax, dword [SavedCameraView]
+        xor edx, edx
+        sar eax, 10h
+        call SelectCameraView
+        mov eax, 1
+        xor edx, edx
+        call StartCameraPath
+        cmp dword [ClockShown], byte 0
+        jne short .4
+        mov edx, 20h
+        mov eax, 70h
+        call LoadDataFileLib
+        mov dword [ClockShown], eax
+.4:
+        push byte 0
+        call OpenResourceArchive
+        add esp, byte 4
+        call ResetScoringLog
+        mov eax, 0C350h
+        call InitReplayBuffer
+        mov eax, 64h
+        call ShowLoadingBar
+        cmp dword [LinkGameActive], byte 0
+        je near .10
+        mov eax, 2Eh
+        xor edx, edx
+        call LoadDataFile
+        mov dword [FrontShapeFile], eax
+        xor edx, edx
+        mov eax, 2Fh
+        call LoadDataFileLib
+        mov dword [FrontTextFile], eax
+        call SetNormalText
+        push byte 0FFFFFFFFh
+        call MatchColor
+        add esp, byte 4
+        call SetTextColor
+        mov eax, dword [GameSettings]
+        shl eax, 1Ch
+        shr eax, 1Eh
+        cmp eax, byte 1
+        jb short .5
+        jbe short .7
+        cmp eax, byte 2
+        je short .6
+        jmp short .9
+.5:
+        test eax, eax
+        jne short .9
+        mov eax, str_WaitingForOtherComputer2
+        jmp short .8
+.6:
+        mov eax, str_VantarPaAnnanDator
+        jmp short .8
+.7:
+        mov eax, str_WarteAufAnderenComputer
+.8:
+        call LinkSyncGame
+.9:
+        mov edx, dword [FrontShapeFile]
+        push edx
+        call FreeMemBlock
+        add esp, byte 4
+        mov ecx, dword [FrontTextFile]
+        xor ebx, ebx
+        push ecx
+        mov dword [FrontShapeFile], ebx
+        call FreeMemBlock
+        add esp, byte 4
+        mov dword [FrontTextFile], ebx
+.10:
+        call ClearMenuGameFlag
+        call InitGameVideo
+        call LoadGameLogos
+        call SetGameBrightness
+        call SetupPauseArt
+        mov eax, 947Ah
+        call SetRinkDetail
+        xor ebx, ebx
+        xor edx, edx
+        mov eax, 0FFFFFFFFh
+        call FadeGamePalette
+        mov eax, 1
+        call ResetRenderTimers
+        call ResetInputState
+        call StartInputRecording
+        call BeginGame
+        mov dword [GameRunning], eax
+        cmp eax, byte 2
+        je short .14
+        call Gameloop
+.14:
+        call ReplayFreeFrames
+        mov edi, dword [ClockShown]
+        test edi, edi
+        je short .12
+        push edi
+        call FreeMemBlock
+        xor eax, eax
+        add esp, byte 4
+        mov dword [ClockShown], eax
+.12:
+        call ClearOverlayWindows
+        call FreeAnimStates
+        mov ecx, 0Dh
+        mov eax, GameObjects
+        xor edx, edx
+        call __STOSD
+        call FreeAnimTables
+        call FreeGameGraphics
+        mov edx, dword [QuantizePalette]
+        test edx, edx
+        je short .13
+        push edx
+        call FreeMemBlock
+        xor ecx, ecx
+        add esp, byte 4
+        mov dword [QuantizePalette], ecx
+.13:
+        call IsInputRecording
+        test eax, eax
+        jne short .15
+        call StopInputRecording
+.15:
+        call CleanupPauseArt
+        push dword 1E0h
+        push dword 280h
+        push byte 0
+        push byte 0
+        call SetViewRect
+        add esp, byte 10h
+        call SaveGameDisplay
+        mov eax, 1
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+%else
 ;-----------------------------------------------------------------------------
 ; Gameloop                                                        14AC8  96 PC
 ; The game loop PlayGame runs: takes input records out of the ring, then
@@ -3119,6 +4330,7 @@ PlayGame:
         pop ebx
         ret
         db 08Dh,040h,00h
+%endif
 ;-----------------------------------------------------------------------------
 ; RunDemoGame                                  15578  96 PC, medium confidence
 ; Attract-mode demo game: seeds rand from the time, InitSlotTable, loads the game, starts InputRecordTimer,
@@ -3316,6 +4528,104 @@ RunDemoGame:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+        nop
+;-----------------------------------------------------------------------------
+; EstimateCpuSpeed                              1589C  97 PC 1.1
+; Estimates the CPU clock in Hz without rdtsc: counts a busy loop over 20 timer ticks five times,
+; keeps the second best count and scales it by the loop time of the detected CPU class
+;-----------------------------------------------------------------------------
+EstimateCpuSpeed:
+        push dword 2Ch
+        call __CHK
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 0Ch
+        and esp, byte 0FFFFFFF8h
+        xor edi, edi
+        xor esi, esi
+        mov dword [byte esp+08h], edi
+.1:
+        push byte 1
+        call WaitTicks
+        add esp, byte 4
+        xor ebx, ebx
+        mov eax, dword [tickcount]
+        mov edx, eax
+.2:
+        mov eax, dword [tickcount]
+        sub eax, edx
+        cmp eax, byte 14h
+        jge short .3
+        inc ebx
+        jmp short .2
+.3:
+        cmp ebx, edi
+        jle short .4
+        mov dword [byte esp+08h], edi
+        mov edi, ebx
+        jmp short .5
+.4:
+        cmp ebx, dword [byte esp+08h]
+        jle short .5
+        mov dword [byte esp+08h], ebx
+.5:
+        inc esi
+        cmp esi, byte 5
+        jl short .1
+        xor esi, esi
+        mov edi, dword [CpuHasCpuid]
+        mov dword [byte esp+04h], esi
+        test edi, edi
+        je short .6
+        fild dword [byte esp+08h]
+        fmul qword [F64_200_EstimateCpuSpeed]
+        fmul qword [F64_1p38006eneg07]
+        jmp short .9
+.6:
+        cmp dword [CpuIsPentium], byte 0
+        je short .7
+        cmp dword [CpuSignature], byte 0
+        je short .7
+        fild dword [byte esp+08h]
+        fmul qword [F64_150]
+        fmul qword [F64_2p39167eneg07]
+        jmp short .9
+.7:
+        cmp dword [CpuIsPentium], byte 0
+        je short .8
+        fild dword [byte esp+08h]
+        fmul qword [F64_90]
+        fmul qword [F64_4p01469eneg07]
+        jmp short .9
+.8:
+        cmp dword [CpuType], byte 0
+        je short .10
+        fild dword [byte esp+08h]
+        fmul qword [F64_33]
+        fmul qword [F64_1p76206eneg06]
+.9:
+        fstp dword [byte esp+04h]
+.10:
+        fld dword [byte esp+04h]
+        fmul dword [F32_1000000]
+        call __CHP
+        fistp dword [esp]
+        mov eax, dword [esp]
+        mov esp, ebp
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+%endif
 ;-----------------------------------------------------------------------------
 ; RunInGameMenu                                                   1583F  96 PC
 ; Opens the menu InGameMenuRequest asks for (pre-game menu, pause)

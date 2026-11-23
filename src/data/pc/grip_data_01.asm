@@ -32,6 +32,9 @@ Pow10TableHigh:                                 ; powers of ten, high dwords; us
         db 089h,045h,0Eh,00h,00h,00h,090h,01Eh,0C4h,0BCh,0D6h,042h,08h,00h,00h,00h
         db 00h,00h,084h,0D7h,097h,041h,04h,00h,00h,00h,00h,00h,00h,088h,0C3h,040h
         db 01h,00h,00h,00h,00h,00h,00h,00h,024h,040h,00h,00h,00h,00h
+%if VERSION = 11
+        db 0,0,0,0
+%endif
 str_DOSJoystick:                                ; string "DOS-Joystick"; used by LoadJoystickConfig,
                                                 ; SetupOptionsAnim
         db 044h,04Fh,053h,02Dh,04Ah,06Fh,079h,073h,074h,069h,063h,06Bh,00h,00h

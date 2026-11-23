@@ -35,14 +35,36 @@ import paths
 ROOT = paths.ROOT
 PAGE = 0x1000
 RELOC_BLOCK = 512   # wlink RELOC_PAGE_SIZE
-EXPECTED_SIZE = 1865388
-EXPECTED_SHA1 = 'b5cba11fd78b3db4c9085ca11918128e52b76bdd'
+# NHL97_VERSION=11 (./build.sh 11) works on the patch 1.1 HOCKEY.EXE: its own size, sha1 and places, and the 1.1 segment layout
+VERSIONS = {
+    '10': dict(size=1865388, sha1='b5cba11fd78b3db4c9085ca11918128e52b76bdd', layout=None, env='NHL97_EXE',
+               places=('retail/HOCKEY.EXE', 'HOCKEY.EXE', '../EA-NHL-Disassembly-Project/NHL97-PC/HOCKEY.EXE')),
+    '11': dict(size=1871324, sha1='dadba8ec9aeb111f044ca2457736447ef2929809', layout='src/segments_v11.txt', env='NHL97_EXE11',
+               places=('retail/HOCKEY11.EXE', '../EA-NHL-Disassembly-Project/NHL97-PC/1.1/HOCKEY.EXE')),
+}
+VERSION = os.environ.get('NHL97_VERSION', '10')
+if VERSION not in VERSIONS: sys.exit('NHL97_VERSION must be 10 or 11')
+EXPECTED_SIZE = VERSIONS[VERSION]['size']
+EXPECTED_SHA1 = VERSIONS[VERSION]['sha1']
 SEGMAP = 'segmap97pc.json'
-EXE_PLACES = ('retail/HOCKEY.EXE', 'HOCKEY.EXE', '../EA-NHL-Disassembly-Project/NHL97-PC/HOCKEY.EXE')
+EXE_PLACES = VERSIONS[VERSION]['places']
+
+def load_segmap():
+    """segmap97pc.json; for 1.1 its segment lists come from src/segments_v11.txt (same files, 1.1 places)"""
+    segmap = json.load(open(os.path.join(ROOT, SEGMAP)))
+    lay = VERSIONS[VERSION]['layout']
+    if lay:
+        onames = segmap['objects']
+        for o in onames: segmap[o] = []
+        for ln in open(os.path.join(ROOT, lay)):
+            if ln.startswith('#') or not ln.strip(): continue
+            ob, s0, s1, nb, mod, src = ln.split()
+            segmap[onames[int(ob) - 1]].append(dict(start=int(s0, 16), end=int(s1, 16), module=mod, obj=int(ob), file=src))
+    return segmap
 
 def default_exe():
-    if os.environ.get('NHL97_EXE'):
-        return os.environ['NHL97_EXE']
+    if os.environ.get(VERSIONS[VERSION]['env']):
+        return os.environ[VERSIONS[VERSION]['env']]
     for rel in EXE_PLACES:
         p = os.path.join(ROOT, rel)
         if os.path.isfile(p):
@@ -51,7 +73,7 @@ def default_exe():
 
 def check_exe(exe):
     if not os.path.isfile(exe):
-        sys.exit('%s not found. Put your NHL 97 HOCKEY.EXE at retail/HOCKEY.EXE (%d bytes, sha1 %s).' % (exe, EXPECTED_SIZE, EXPECTED_SHA1))
+        sys.exit('%s not found. Put your NHL 97 %sHOCKEY.EXE at %s (%d bytes, sha1 %s).' % (exe, 'patch 1.1 ' if VERSION == '11' else '', EXE_PLACES[0], EXPECTED_SIZE, EXPECTED_SHA1))
     d = open(exe, 'rb').read(); h = hashlib.sha1(d).hexdigest()
     if len(d) != EXPECTED_SIZE or h != EXPECTED_SHA1:
         sys.exit('%s: %d bytes, sha1 %s. Expected %d bytes, sha1 %s.' % (exe, len(d), h, EXPECTED_SIZE, EXPECTED_SHA1))
@@ -232,7 +254,7 @@ def global_to_pages(objs, npages, fixups):
 # ----------------------------------------------------------------------------------------------- split
 def split(exe, parts):
     d = open(exe, 'rb').read()
-    segmap = json.load(open(os.path.join(ROOT, SEGMAP)))
+    segmap = load_segmap()
     onames = segmap['objects']
     os.makedirs(parts, exist_ok=True)
     W = lambda name, data: open(os.path.join(parts, name), 'wb').write(data)

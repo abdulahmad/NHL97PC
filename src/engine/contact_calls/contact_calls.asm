@@ -416,6 +416,174 @@ puckfaceoff:
         pop edx
         ret
         db 090h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; ChkPenaltyCall                                  2F614  97 PC, low confidence
+; From a body check (ResolveBodyCheck): whether the referee calls a penalty on the hit (skill and energy
+; chance), AddPenalty2, penalty camera (priority 4), overlay, line update
+;-----------------------------------------------------------------------------
+ChkPenaltyCall:
+        push ebx
+        push ecx
+        mov ecx, eax
+        cmp byte [dword eax+0A4h], 0Ch
+        je near .7
+        test byte [gmode], 1
+        jne near .7
+        cmp word [BreakawayFlag], byte 0
+        jne near .7
+        cmp word [ForcePenaltyCall], byte 0
+        jne near .2
+        mov eax, dword [gameopts]
+        test byte [byte eax+02h], 1
+        je near .7
+        call CarrierInShotArea
+        mov ax, word [PuckZone]
+        mov word [OneTimerTarget], ax
+        cmp ax, 1
+        je near .7
+        cmp edx, byte 0Fh
+        jle near .7
+        mov al, byte [dword ecx+0BEh]
+        test al, al
+        je near .7
+        cmp al, 64h
+        je short .2
+        mov eax, dword [dword ecx+0A3h]
+        mov edx, dword [dword ecx+0FEh]
+        sar eax, 18h
+        mov eax, dword [byte edx+eax*2+016h]
+        mov edx, 1000h
+        sar eax, 10h
+        sub edx, eax
+        mov eax, edx
+        xor edx, edx
+        mov ebx, 42h
+        mov dl, byte [dword ecx+0BEh]
+        sub ebx, edx
+        sar eax, 8
+        mov edx, ebx
+        sub edx, eax
+        mov eax, edx
+        test edx, edx
+        jg short .1
+        mov eax, 1
+.1:
+        cwde
+        call randomd0
+        test ax, ax
+        jne near .7
+.2:
+        xor eax, eax
+        mov word [ForcePenaltyCall], ax
+        test byte [dword ecx+0C0h], 10h
+        jne near .7
+        mov eax, ecx
+        call ChkTwoInBox
+        test eax, eax
+        je near .7
+        mov eax, 2
+        call randomd0
+        test ax, ax
+        sete al
+        and eax, 0FFh
+        add eax, byte 3
+        call SetCrowdMood
+        mov dh, byte [dword ecx+0C0h]
+        or dh, 4
+        mov bl, byte [dword ecx+0BEh]
+        mov byte [dword ecx+0C0h], dh
+        cmp bl, 4Bh
+        jb short .3
+        mov eax, dword [dword ecx+0A3h]
+        mov edx, dword [dword ecx+0FEh]
+        sar eax, 18h
+        mov word [byte edx+eax*2+050h], 8004h
+        jmp short .4
+.3:
+        mov eax, dword [dword ecx+0A3h]
+        mov edx, dword [dword ecx+0FEh]
+        sar eax, 18h
+        mov word [byte edx+eax*2+050h], 8003h
+.4:
+        mov eax, dword [dword ecx+0FEh]
+        mov edx, dword [dword eax+0108h]
+        mov eax, dword [dword ecx+0A3h]
+        sar eax, 18h
+        imul eax, dword 125h
+        or byte [dword edx+eax+0161h], 4
+        cmp word [dword ecx+0A9h], byte 0
+        jne short .5
+        mov eax, dword [dword ecx+0A3h]
+        sar eax, 18h
+        sub eax, byte 19h
+        imul eax, dword 125h
+        mov edx, dword [dword ecx+0FEh]
+        mov edx, dword [dword edx+0108h]
+        add edx, 1D42h
+        jmp short .6
+.5:
+        mov eax, dword [dword ecx+0A3h]
+        sar eax, 18h
+        imul eax, dword 125h
+        mov edx, dword [dword ecx+0FEh]
+        mov edx, dword [dword edx+0108h]
+        add edx, 0A3h
+.6:
+        add eax, edx
+        mov edx, dword [LastTouchPlayer]
+        mov bh, byte [dword ecx+0BFh]
+        push edx
+        test bh, 40h
+        setne dl
+        and edx, 0FFh
+        push edx
+        push eax
+        push dword 0A0000009h
+        call CommentaryEvent
+        add esp, byte 10h
+        mov edx, 2
+        mov eax, dword [dword ecx+0F2h]
+        call SetFaceExpression
+        mov eax, dword [dword ecx+0F2h]
+        xor edx, edx
+        call SetFaceMouth
+        mov edx, 1
+        mov eax, dword [dword ecx+0F2h]
+        call SetFaceBlink
+        xor eax, eax
+        mov al, byte [dword ecx+0A4h]
+        xor ebx, ebx
+        add eax, byte 10h
+        mov edx, 0Dh
+        mov dword [RefState], eax
+        mov eax, ecx
+        call AddPenalty2
+        xor eax, eax
+        mov al, byte [dword ecx+0A4h]
+        call PenaltyCallCameraScene
+        xor eax, eax
+        mov al, byte [dword ecx+0A4h]
+        push eax
+        mov ebx, 1F4h
+        push ebx
+        push byte 0Dh
+        mov dword [RefPlayer], ebx
+        call QueueOverlayPanel
+        add esp, byte 0Ch
+        mov edx, dword [dword ecx+0A3h]
+        mov ah, byte [dword ecx+0BFh]
+        sar edx, 18h
+        test ah, 40h
+        setne al
+        xor ah, ah
+        cwde
+        call UpdateLinesForAbsent
+.7:
+        pop ecx
+        pop ebx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; ChkPenaltyCall                                  2F4B8  97 PC, low confidence
 ; From a body check (ResolveBodyCheck): whether the referee calls a penalty on the hit (skill and energy
@@ -583,6 +751,7 @@ ChkPenaltyCall:
         pop ebx
         ret
         db 090h
+%endif
 ;-----------------------------------------------------------------------------
 ; PenaltyChance                                   2F744  97 PC, low confidence
 ; Chance a referee sees an infraction: by the player's discipline (+0CDh),
@@ -1263,6 +1432,84 @@ ChkBodyContact_370:
         pop ebx
         ret
         db 08Dh,040h,00h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; checkint                                          30034  94G, low confidence
+; interference: the hit player has no puck and is not the
+; goalie; AddPenalty 14h by chance
+;-----------------------------------------------------------------------------
+checkint:
+        push ebx
+        push ecx
+        push edx
+        test byte [gmode], 1
+        jne near .1
+        cmp word [BreakawayFlag], byte 0
+        jne near .1
+        mov ecx, dword [byte eax+02Ch]
+        xor edx, edx
+        mov dl, byte [byte ecx+06Ch]
+        mov eax, edx
+        shl eax, 5
+        add eax, edx
+        shl eax, 3
+        add eax, SortCords
+        mov dh, byte [dword eax+0A4h]
+        cmp dh, 0Ch
+        je short .1
+        xor ebx, ebx
+        mov bl, dh
+        mov edx, dword [puckc]
+        movsx edx, byte [edx]
+        cmp ebx, edx
+        je short .1
+        mov edx, dword [dword ecx+0102h]
+        movsx ax, byte [dword eax+0A6h]
+        cmp ax, word [byte edx+08h]
+        je short .1
+        cmp ax, word [byte edx+0Ah]
+        je short .1
+        cmp ax, word [byte edx+0Ch]
+        je short .1
+        mov eax, dword [PtrPuckFlags]
+        cmp dword [byte eax+05Ah], byte 0FFFFFFC0h
+        jge short .1
+        mov eax, ecx
+        call PenaltyChance
+        cmp ax, 5
+        jg short .1
+        mov ebx, 1
+        mov edx, 14h
+        mov eax, ecx
+        call AddPenalty
+.1:
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        cmp word [ShotType], byte 0
+        jne short .2
+        mov eax, dword [dword eax+0102h]
+        mov eax, dword [dword eax+0FAh]
+        sar eax, 10h
+        test eax, eax
+        jge short .3
+.2:
+        mov word [PassReceiver], 8
+        ret
+.3:
+        mov eax, 9
+        call randomd0
+        mov word [PassReceiver], ax
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; checkint                                          2FED8  94G, low confidence
 ; interference: the hit player has no puck and is not the
@@ -1333,3 +1580,4 @@ checkint:
         call randomd0
         mov word [PassReceiver], ax
         ret
+%endif

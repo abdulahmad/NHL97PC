@@ -1,0 +1,25 @@
+address,name,source,confidence,evidence,file
+1589C,EstimateCpuSpeed,new,medium,"Estimates the CPU clock in Hz without rdtsc: counts a busy loop over 20 timer ticks five times, keeps the second best count and scales it by the loop time of the detected CPU class",src/engine/game/game.asm
+1600D8,F64_33,new,medium,"double constant 33 (MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+1600E0,F64_1p76206eneg06,new,medium,"double constant 1.76206e-06 (loop scale at 33 MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+1600E8,F64_90,new,medium,"double constant 90 (MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+1600F0,F64_4p01469eneg07,new,medium,"double constant 4.01469e-07 (loop scale at 90 MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+1600F8,F64_150,new,medium,"double constant 150 (MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+160100,F64_2p39167eneg07,new,medium,"double constant 2.39167e-07 (loop scale at 150 MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+160108,F64_200_EstimateCpuSpeed,new,medium,"double constant 200 (MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+160110,F64_1p38006eneg07,new,medium,"double constant 1.38006e-07 (loop scale at 200 MHz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+160118,F32_1000000,new,medium,"float constant 1000000 (MHz to Hz); used by EstimateCpuSpeed",src/data/shared_data_01.asm
+160E08,str_KTSF_InitSpeechBanks,new,medium,"string 'KTSF'; used by InitSpeechBanks",src/data/front/speech_data_01.asm
+16302B,F64_100_UpdateScoreClockData,new,medium,"double constant 100; used by UpdateScoreClockData",src/data/engine/collide_data_01.asm
+163033,F32_11931,new,medium,"float constant 11931 (PIT counts per 10 ms); used by UpdateScoreClockData",src/data/engine/collide_data_01.asm
+1632E0,F32_4_PuckOffPost2,new,medium,"float constant 4 (a second copy, new in 1.1); used by PuckOffPost",src/data/engine/collide_data_01.asm
+163D8C,F64_48_GoalieMoves2,new,medium,"double constant 48 (a second copy, new in 1.1); used by GoalieMoves",src/data/engine/collide_data_01.asm
+167588,str_PeerVersionOlder,new,medium,"message: the connected computer runs an older version; used by StartNetworkLink",src/data/front/league_db_data_01.asm
+167658,str_PeerVersionOlderSwedish,new,medium,"Swedish older-version message; used by StartNetworkLink",src/data/front/league_db_data_01.asm
+167728,str_PeerVersionOlderGerman,new,medium,"German older-version message; used by StartNetworkLink",src/data/front/league_db_data_01.asm
+16DDD4,LinkPeerMinSequence,new,medium,"lowest LinkRemoteSequence seen, starts at 1; above 0 means the peer is older",src/data/pc/link_data_01.asm
+16DDDC,LinkBlockAcked,new,medium,"cleared before LinkHandshake, set when the peer acknowledges; used by LinkReceiveBlock",src/data/pc/link_data_01.asm
+1BFB2C,GoalieMoveDist,new,medium,"per-move distance table, the GoalieMoveTable of 1.0 moved 4 bytes; used by GoalieMoves",src/data/engine/anim_bss_01.asm
+1BFBC8,AnimNodeFreeCount,new,medium,"free animation nodes; used by AllocAnimNode, InitAnimNodePool",src/data/engine/anim_bss_01.asm
+1BFBCC,AnimNodeFreeHead,new,medium,"head of the free animation node list; used by AllocAnimNode, AllocAnimStateBlocks",src/data/engine/anim_bss_01.asm
+1BFBD0,AnimNodeFreeTail,new,medium,"tail of the free animation node list; nodes are freed onto it",src/data/engine/anim_bss_01.asm

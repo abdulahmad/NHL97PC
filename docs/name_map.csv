@@ -8132,7 +8132,7 @@ FFED8,ClipProjectPoints,sub_FFED8,new,low,3D library: clips a list of points aga
 16E2FC,VesaModeIndex,dword_16E2FC,new,low,VESA video mode index,src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm
 16E300,VesaModeChanged,dword_16E300,new,low,set when the VESA mode changed,src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm
 16E304,VideoModeList,dword_16E304,new,low,video mode list,src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm
-16E308,AudioDriverVersion,dword_16E308,new,low,audio driver version,src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm
+16E308,CpuSpeedCount,dword_16E308,new,medium,"InitVideoModeList stores rdtsc cycles over 100 timer ticks (was AudioDriverVersion); OpenAudioStream compares it with 85000000",src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm
 16E30C,GfxFixBuffer,dword_16E30C,new,low,graphics fix buffer,src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm
 16E310,IdleContext,dword_16E310,new,low,idle handler context,src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm
 16E314,IdleNextTick,dword_16E314,new,low,tick of the next idle handler run,src/data/lib/ea/ea_alloc_gfx_fix_buffer_data_01.asm

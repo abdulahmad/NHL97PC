@@ -12,6 +12,9 @@ extern PadSlotFlags, PresentFuncInput, RemoveTimerCallback, SlotTableCount, slot
 extern UpdateOptionsAnim, ViewScreenHeight, ViewScreenWidth, ZeroMem
 global ReadKeyboardPad, ReadKeyboardPlayers, ReadInputDriver, ReadJoystickPads, PollControllers, InputRecordTimer, InitSlotTable, StartInputRecording
 global StopInputTimer, StartInputTimer, ResetInputState, IsInputRecording, StopInputRecording, InputRecordAvail, TakeInputRecord
+%if VERSION = 11
+extern CpuIsPentium
+%endif
         db 00h,00h,00h,00h
 ;-----------------------------------------------------------------------------
 ; ReadKeyboardPad                                 E2590  97 PC, low confidence
@@ -736,6 +739,134 @@ PollControllers:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; InputRecordTimer                                                E34C8  96 PC
+; Timer callback; every 4th tick pushes 0x12-byte record (4 slot dwords +
+; ticks) into ring of 5
+;-----------------------------------------------------------------------------
+InputRecordTimer:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        cmp word [InputRecordOn], byte 0
+        je near .11
+        cmp dword [InputRecordStopped], byte 0
+        jne near .11
+        mov dword [InputRecordStopped], 1
+        cmp dword [InputRecordPaused], byte 0
+        jne short .1
+        call UpdateOptionsAnim
+.1:
+        cmp dword [InputPlaybackOn], byte 0
+        jne short .2
+        call PollControllers
+.2:
+        cmp dword [LinkGameActive], byte 0
+        je short .4
+        mov eax, dword [LinkInputFrame]
+        call LinkInputTick
+        test eax, eax
+        je near .15
+        mov ebp, dword [LinkInputFrame]
+        test ebp, ebp
+        jne short .12
+        mov eax, dword [LinkFrameDelay]
+        dec eax
+        mov dword [LinkInputFrame], eax
+        jmp near .15
+.12:
+        lea eax, [byte ebp-01h]
+        mov dword [LinkInputFrame], eax
+        jmp near .15
+.4:
+        cmp dword [InputRecordTaken], byte 0
+        jne near .15
+        mov dword [InputRecordTaken], 1
+        cmp dword [InputPlaybackOn], byte 0
+        jne near .5
+        cmp dword [InputRecordCount], byte 5
+        jge near .5
+        mov edx, dword [InputRecordHead]
+        lea eax, [dword edx*4+00h]
+        add eax, edx
+        mov ebx, InputRecordRing
+        shl eax, 2
+        push byte 10h
+        add ebx, eax
+        push ebx
+        push dword SlotWords
+        call bcopy
+        mov ax, word [HotKeyFlags]
+        mov word [byte ebx+012h], 3
+        mov word [byte ebx+010h], ax
+        mov edx, dword [InputRecordHead]
+        inc edx
+        mov ebx, 5
+        mov eax, edx
+        sar edx, 1Fh
+        idiv ebx
+        mov ecx, dword [InputRecordCount]
+        add esp, byte 0Ch
+        inc ecx
+        mov esi, dword [CpuIsPentium]
+        mov dword [InputRecordCount], ecx
+        mov dword [InputRecordHead], edx
+        test esi, esi
+        je short .13
+        rdtsc
+        jmp short .14
+.13:
+        mov eax, dword [tickcount]
+        imul edx, eax, dword 2E9Bh
+        add edx, 2E9Ah
+        xor eax, eax
+        out 43h, al
+        in al, 40h
+        mov ah, al
+        in al, 40h
+        xchg al, ah
+        sub edx, eax
+        mov eax, edx
+.14:
+        mov dword [InputRecordStamp], eax
+.5:
+        xor edi, edi
+        mov dword [InputRecordTaken], edi
+.15:
+        mov edx, dword [InputPlaybackOn]
+        test edx, edx
+        jne short .7
+        mov dword [InputPlaybackOn], 2
+        jmp short .16
+.7:
+        lea ebx, [byte edx-01h]
+        mov dword [InputPlaybackOn], ebx
+.16:
+        mov esi, dword [InputRecordPaused]
+        test esi, esi
+        jne short .9
+        mov dword [InputRecordPaused], 3
+        jmp short .17
+.9:
+        lea edi, [byte esi-01h]
+        mov dword [InputRecordPaused], edi
+.17:
+        xor eax, eax
+        mov dword [InputRecordStopped], eax
+.11:
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        lea eax, [byte eax+00h]
+%else
 ;-----------------------------------------------------------------------------
 ; InputRecordTimer                                                E2E28  96 PC
 ; Timer callback; every 4th tick pushes 0x12-byte record (4 slot dwords +
@@ -845,6 +976,7 @@ InputRecordTimer:
         pop ebx
         ret
         db 08Dh,040h,00h
+%endif
 ;-----------------------------------------------------------------------------
 ; InitSlotTable                                E2F98  96 PC, medium confidence
 ; Slot words and teams from the 8 controller set-up bytes

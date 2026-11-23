@@ -91,6 +91,9 @@ KbdIdleHook:                                    ; routine called while waiting f
                                                 ; PollHotkeys); used by KbdFlush, KbdIdleCall, SetKbdIdleHook
                                                 ; ...
         dd PollHotkeys
+%if VERSION = 11
+        db 0,0,0,0,0,0,0,0
+%endif
 tickcount:                                      ; used by AllStarSound, AnimateHistoryTrophy, AnimateMatchup
                                                 ; ...
         db 00h,00h,00h,00h
@@ -100,6 +103,20 @@ TimerTicks:                                     ; timer interrupt tick count; us
 TimerTickStep:                                  ; ticks added per timer interrupt; used by DebugLineCount,
                                                 ; DebugPrintLine, TimerISR
         db 00h,00h,00h,00h
+%if VERSION = 11
+TimerRate:                                      ; timer divisor and chain rate; used by InstallTimer, TimerISR
+        db 0,10h,0,0
+GoalieTickData:                                 ; goalie tick data pointers; used by GoalieTick
+        db 0,0
+oldint8off:                                     ; the original timer interrupt handler, chained from the timer
+                                                ; ISR and restored on exit; used by InstallTimer,
+                                                ; RestoreTimer, TimerISR
+        db 0,0,0,0
+oldint8sel:                                     ; selector of the previous timer handler; used by
+                                                ; InstallTimer, RestoreTimer
+        db 0,0,0,0,0,0,0,0
+        db 0,0
+%else
 TimerRate:                                      ; timer divisor and chain rate; used by InstallTimer, TimerISR
         db 00h,010h,00h,00h,00h,00h
 oldint8off:                                     ; the original timer interrupt handler, chained from the timer
@@ -111,6 +128,7 @@ oldint8sel:                                     ; selector of the previous timer
         db 00h,00h
 GoalieTickData:                                 ; goalie tick data pointers; used by GoalieTick
         db 00h,00h,00h,00h,00h,00h,00h,00h
+%endif
 TimerInISR:                                     ; nonzero while the timer ISR is running its callbacks
                                                 ; (re-entry guard); used by TimerISR
         db 00h,00h,00h,00h

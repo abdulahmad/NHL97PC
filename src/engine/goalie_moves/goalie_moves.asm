@@ -15,6 +15,9 @@ extern ResetAnimTimer, SetSPA, SortCords, StepMove, str_FADING, str_LOOP, str_MA
 extern str_SCALED, str_SLAVE, VecDot, VecLength
 global GoalieCoverMove, GoalieRecoverMove, GoalieIdleMove, StartGoalieSave, StartGoalieStance, PickSaveAnim, SaveDirection, goaliesave
 global GoalieMoves, PuckDeflectAngle, PuckDeflect
+%if VERSION = 11
+extern F64_48_GoalieMoves2, GoalieMoveDist, GoalieTickCount
+%endif
         db 08Dh,040h,00h
 ;-----------------------------------------------------------------------------
 ; GoalieCoverMove                                 747E8  97 PC, low confidence
@@ -1177,6 +1180,890 @@ goaliesave:
         pop ebx
         ret
         db 090h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; GoalieMoves                                     75AF0  97 PC, low confidence
+; Goalie movement and saves
+;-----------------------------------------------------------------------------
+GoalieMoves:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        sub esp, 0B4h
+        sub ebp, 82h
+        mov dword [byte ebp+07Ah], eax
+        test byte [dword eax+0BFh], 80h
+        je short .1
+        mov dword [byte ebp+042h], 0FFFFEF50h
+        jmp short .2
+.1:
+        mov dword [byte ebp+042h], 10B0h
+.2:
+        fild dword [byte ebp+042h]
+        mov eax, dword [PtrPuckFlags]
+        mov ebx, dword [PtrPuckOwner]
+        mov dword [byte ebp+04Eh], eax
+        mov eax, dword [byte eax+02Ch]
+        mov edx, dword [PtrPuckTarget]
+        mov dword [byte ebp+032h], eax
+        mov eax, dword [byte ebp+04Eh]
+        movsx ebx, word [ebx]
+        mov eax, dword [byte eax+034h]
+        movsx edx, word [edx]
+        mov dword [byte ebp+046h], eax
+        mov eax, dword [byte ebp+07Ah]
+        fstp dword [byte ebp+04Ah]
+        call GoaliePosTarget
+        mov eax, dword [byte ebp+07Ah]
+        test byte [dword eax+0BFh], 20h
+        jne near .26
+        mov eax, dword [dword eax+0F6h]
+        mov eax, dword [eax]
+        mov eax, dword [byte eax+028h]
+        and eax, 0FFFFh
+        mov dword [byte ebp+07Eh], eax
+        cmp eax, 0FBh
+        jl short .3
+        cmp eax, 0FFh
+        jg short .3
+        mov eax, dword [byte ebp+07Ah]
+        cmp byte [dword eax+0A4h], 6
+        setb al
+        xor edx, edx
+        mov bx, word [PuckOwnerTeam]
+        mov dl, al
+        cmp bx, byte 6
+        setl al
+        and eax, 0FFh
+        cmp eax, edx
+        je near .26
+.3:
+        test byte [gmode], 1
+        jne near .26
+        mov eax, dword [puckc]
+        mov cl, byte [eax]
+        test cl, cl
+        jl short .4
+        mov edx, dword [byte ebp+07Ah]
+        cmp byte [dword edx+0A4h], 6
+        setb dl
+        and edx, 0FFh
+        cmp cl, 6
+        setl al
+        and eax, 0FFh
+        cmp eax, edx
+        je near .26
+.4:
+        fldz
+        mov eax, dword [byte ebp+04Eh]
+        fldz
+        xor edx, edx
+        fxch
+        fcomp dword [byte eax+028h]
+        fnstsw ax
+        sahf
+        setb al
+        mov dl, al
+        fcomp dword [byte ebp+04Ah]
+        fnstsw ax
+        sahf
+        setb al
+        and eax, 0FFh
+        xor eax, edx
+        jne near .26
+        mov eax, dword [byte ebp+07Ah]
+        call goaliesave
+        test eax, eax
+        jne near .26
+        fldz
+        fldz
+        xor edx, edx
+        fxch
+        fcomp dword [byte ebp+046h]
+        fnstsw ax
+        sahf
+        setb al
+        mov dl, al
+        fcomp dword [byte ebp+04Ah]
+        fnstsw ax
+        sahf
+        setb al
+        and eax, 0FFh
+        xor eax, edx
+        jne near .26
+        fld dword [byte ebp+046h]
+        fabs
+        fcomp qword [F64_0p0001_GoalieMoves]
+        fnstsw ax
+        sahf
+        jbe short .5
+        mov eax, dword [byte ebp+04Eh]
+        fld dword [byte ebp+04Ah]
+        fsub dword [byte eax+028h]
+        fdiv dword [byte ebp+046h]
+        fldz
+        fxch
+        fstp dword [byte ebp+03Ah]
+        fcomp dword [byte ebp+03Ah]
+        fnstsw ax
+        sahf
+        ja near .26
+        fld dword [byte ebp+03Ah]
+        fmul dword [byte ebp+032h]
+        mov eax, dword [byte ebp+04Eh]
+        fadd dword [byte eax+020h]
+        fabs
+        fcomp qword [F64_240_GoalieMoves]
+        fnstsw ax
+        sahf
+        jmp short .7
+.5:
+        mov eax, dword [byte ebp+04Eh]
+        cmp dword [byte eax+038h], 41400000h
+        jle short .6
+        fld dword [byte eax+028h]
+        mov eax, dword [byte ebp+07Ah]
+        fsub dword [byte eax+028h]
+        fabs
+        fcomp qword [F64_144_GoalieMoves]
+        fnstsw ax
+        sahf
+        ja near .26
+.6:
+        mov eax, dword [byte ebp+04Eh]
+        fld dword [byte eax+028h]
+        mov eax, dword [byte ebp+07Ah]
+        sub esp, byte 8
+        fsub dword [byte eax+028h]
+        mov eax, dword [byte ebp+04Eh]
+        fstp qword [esp]
+        fld dword [byte eax+020h]
+        mov eax, dword [byte ebp+07Ah]
+        fsub dword [byte eax+020h]
+        sub esp, byte 8
+        fstp qword [esp]
+        call hypot_
+        fcomp qword [F64_576_GoalieMoves]
+        fnstsw ax
+        sahf
+        ja near .26
+        mov eax, dword [byte ebp+04Eh]
+        fld dword [byte eax+028h]
+        fabs
+        fcomp qword [F64_4272_GoalieMoves]
+        fnstsw ax
+        sahf
+.7:
+        ja near .26
+        mov eax, dword [byte ebp+07Ah]
+        mov edx, dword [PtrPuckFlags]
+        fld dword [byte eax+020h]
+        fsub dword [byte edx+020h]
+        fstp dword [byte ebp-032h]
+        fld dword [byte edx+024h]
+        fchs
+        mov eax, dword [byte ebp+07Ah]
+        fstp dword [byte ebp-02Eh]
+        fld dword [byte eax+028h]
+        fsub dword [byte edx+028h]
+        fstp dword [byte ebp-02Ah]
+        mov eax, dword [byte edx+02Ch]
+        mov dword [byte ebp-026h], eax
+        mov eax, dword [byte edx+030h]
+        lea ecx, [byte ebp-01Ah]
+        mov dword [byte ebp-022h], eax
+        lea ebx, [byte ebp-0Eh]
+        mov eax, dword [byte edx+034h]
+        lea edx, [byte ebp-026h]
+        mov dword [byte ebp-01Eh], eax
+        lea eax, [byte ebp-032h]
+        call SaveDirection
+        fld1
+        fxch
+        fstp dword [byte ebp+05Ah]
+        mov eax, 1
+        fadd dword [GoalieTickCount]
+        mov dword [byte ebp+036h], eax
+        fcomp dword [byte ebp+05Ah]
+        fnstsw ax
+        sahf
+        jb near .26
+        mov eax, dword [byte ebp+07Ah]
+        lea edi, [byte ebp+026h]
+        lea esi, [byte ebp+02Ah]
+        fld dword [byte eax+01Ch]
+        fchs
+        lea eax, [byte ebp+02Eh]
+        fstp dword [byte ebp+02Eh]
+        fld dword [eax]
+        fsincos
+        fstp dword [edi]
+        fstp dword [esi]
+        fld dword [byte ebp-012h]
+        mov eax, dword [byte ebp-016h]
+        fmul dword [byte ebp+026h]
+        mov dword [byte ebp+05Eh], eax
+        fld dword [byte ebp-01Ah]
+        fchs
+        mov eax, dword [byte ebp+04Eh]
+        fld dword [byte eax+020h]
+        mov eax, dword [byte ebp+07Ah]
+        fsub dword [byte eax+020h]
+        mov eax, dword [byte ebp+04Eh]
+        fld dword [byte eax+028h]
+        mov eax, dword [byte ebp+07Ah]
+        fsub dword [byte eax+028h]
+        fxch
+        call IF@ATAN2
+        mov eax, dword [byte ebp+07Ah]
+        fsub dword [byte eax+01Ch]
+        fld qword [F64_6p28319_GoalieMoves]
+        fxch
+        call IF@DFMOD
+        fld dword [byte ebp-012h]
+        fmul dword [byte ebp+02Ah]
+        fld dword [byte ebp-01Ah]
+        fmul dword [byte ebp+026h]
+        fxch st3
+        fmul dword [byte ebp+02Ah]
+        fxch st3
+        faddp
+        fxch st2
+        faddp st3
+        fxch
+        fstp dword [byte ebp+06Ah]
+        fxch
+        fstp dword [byte ebp+066h]
+        fst dword [byte ebp+02Eh]
+        fst qword [byte ebp+06h]
+        fcomp qword [F64_3p14159_GoalieMoves]
+        fnstsw ax
+        sahf
+        jbe short .8
+        fld qword [byte ebp+06h]
+        fadd qword [F64_neg6p28319_GoalieMoves]
+        fstp dword [byte ebp+02Eh]
+.8:
+        fld dword [byte ebp+02Eh]
+        fst qword [byte ebp+0Eh]
+        fcomp qword [F64_neg3p14159_GoalieMoves]
+        fnstsw ax
+        sahf
+        jae short .9
+        fld qword [byte ebp+0Eh]
+        fadd qword [F64_6p28319_GoalieMoves]
+        fstp dword [byte ebp+02Eh]
+.9:
+        fld dword [byte ebp+02Eh]
+        fabs
+        fcomp qword [F64_0p349066_GoalieMoves]
+        fnstsw ax
+        sahf
+        jae near .13
+        sub esp, byte 8
+        fld dword [byte ebp+066h]
+        fstp qword [esp]
+        sub esp, byte 8
+        fld dword [byte ebp+06Ah]
+        fstp qword [esp]
+        call hypot_
+        fcomp qword [F64_48_GoalieMoves2]
+        fnstsw ax
+        sahf
+        jae near .13
+        fld dword [byte ebp+05Eh]
+        fcomp dword [F32_144_GoalieMoves]
+        fnstsw ax
+        sahf
+        jbe short .10
+        mov esi, 1
+        jmp short .27
+.10:
+        fld dword [byte ebp+05Eh]
+        fcomp dword [F32_24_GoalieMoves]
+        fnstsw ax
+        sahf
+        jae short .11
+        mov esi, 14h
+        jmp short .27
+.11:
+        xor esi, esi
+.27:
+        lea eax, [dword esi*4+00h]
+        sub eax, esi
+        lea edx, [dword eax*4+00h]
+        fld dword [dword edx+GoalieAnimFrame]
+        fsub dword [byte ebp+05Eh]
+        fabs
+        fmul qword [F64_2_GoalieMoves]
+        sub esp, byte 8
+        fld dword [dword edx+GoalieAnimPoses]
+        fsub dword [byte ebp+066h]
+        mov eax, dword [byte ebp+07Ah]
+        fstp qword [esp]
+        mov bh, byte [dword eax+0D0h]
+        fstp qword [byte ebp-02h]
+        test bh, bh
+        je short .28
+        fld dword [dword edx+GoalieAnimTime]
+        fchs
+        fstp dword [byte ebp+03Eh]
+        jmp short .29
+.28:
+        mov eax, dword [dword edx+GoalieAnimTime]
+        mov dword [byte ebp+03Eh], eax
+.29:
+        fld dword [byte ebp+03Eh]
+        fsub dword [byte ebp+06Ah]
+        sub esp, byte 8
+        fstp qword [esp]
+        call hypot_
+        fadd qword [byte ebp-02h]
+        fst dword [dword esi*4+GoalieMoveDist]
+        fstp dword [byte ebp+06Eh]
+        jmp near .22
+.13:
+        mov edx, 47C35000h
+        xor esi, esi
+        xor ebx, ebx
+        mov dword [byte ebp+062h], edx
+        mov dword [byte ebp+06Eh], edx
+        mov dword [byte ebp+07Eh], esi
+        xor edx, edx
+        xor cl, cl
+.14:
+        mov edi, dword [byte ebp+07Eh]
+        cmp edi, byte 0Fh
+        jl short .15
+        cmp edi, byte 13h
+        jg short .15
+        mov eax, dword [puckc]
+        cmp cl, byte [eax]
+        jle near .21
+.15:
+        fld dword [dword edx+GoalieAnimFrame]
+        fsub dword [byte ebp+05Eh]
+        fabs
+        fmul qword [F64_2_GoalieMoves]
+        sub esp, byte 8
+        fld dword [dword edx+GoalieAnimPoses]
+        fsub dword [byte ebp+066h]
+        mov eax, dword [byte ebp+07Ah]
+        fstp qword [esp]
+        mov ch, byte [dword eax+0D0h]
+        fstp qword [byte ebp+016h]
+        cmp cl, ch
+        je short .16
+        fld dword [dword edx+GoalieAnimTime]
+        fchs
+        fstp dword [byte ebp+076h]
+        jmp short .30
+.16:
+        mov eax, dword [dword edx+GoalieAnimTime]
+        mov dword [byte ebp+076h], eax
+.30:
+        fld dword [byte ebp+076h]
+        fsub dword [byte ebp+06Ah]
+        sub esp, byte 8
+        fstp qword [esp]
+        call hypot_
+        fadd qword [byte ebp+016h]
+        fst dword [dword ebx+GoalieMoveDist]
+        fcomp dword [byte ebp+06Eh]
+        fnstsw ax
+        sahf
+        ja short .20
+        mov eax, dword [dword ebx+GoalieMoveDist]
+        mov dword [byte ebp+06Eh], eax
+        mov eax, dword [byte ebp+07Ah]
+        mov ch, byte [dword eax+0D0h]
+        mov esi, dword [byte ebp+07Eh]
+        cmp cl, ch
+        je short .18
+        fld dword [dword edx+GoalieAnimTime]
+        fchs
+        fstp dword [byte ebp+072h]
+        jmp short .31
+.18:
+        mov eax, dword [dword edx+GoalieAnimTime]
+        mov dword [byte ebp+072h], eax
+.31:
+        fld dword [byte ebp+06Ah]
+        fld dword [byte ebp+066h]
+        fsub dword [dword edx+GoalieAnimPoses]
+        fxch
+        fsub dword [byte ebp+072h]
+        fxch
+        fstp dword [byte ebp+052h]
+        fstp dword [byte ebp+056h]
+.20:
+        fld dword [dword ebx+GoalieMoveDist]
+        fcomp dword [byte ebp+062h]
+        fnstsw ax
+        sahf
+        ja short .21
+        fld dword [dword ebx+GoalieAnimData]
+        fadd dword [F32_neg1_GoalieMoves]
+        fcomp dword [byte ebp+05Ah]
+        fnstsw ax
+        sahf
+        jae short .21
+        mov eax, dword [dword ebx+GoalieMoveDist]
+        mov dword [byte ebp+062h], eax
+.21:
+        mov edi, dword [byte ebp+07Eh]
+        add ebx, byte 4
+        inc edi
+        add edx, byte 0Ch
+        mov dword [byte ebp+07Eh], edi
+        cmp edi, byte 15h
+        jl near .14
+.22:
+        fld dword [byte ebp+05Ah]
+        fsub dword [dword esi*4+GoalieAnimData]
+        mov edx, dword [byte ebp+07Eh]
+        fstp dword [byte ebp+02Eh]
+        cmp edx, byte 5
+        jl short .23
+        cmp edx, byte 7
+        jg short .23
+        fld dword [byte ebp+02Eh]
+        fadd dword [F32_2_GoalieMoves]
+        fstp dword [byte ebp+02Eh]
+.23:
+        fild dword [byte ebp+036h]
+        fcomp dword [byte ebp+02Eh]
+        fnstsw ax
+        sahf
+        jbe near .26
+        fld dword [byte ebp+06Eh]
+        fcomp dword [F32_480_GoalieMoves]
+        fnstsw ax
+        sahf
+        jae near .26
+        mov eax, dword [byte ebp+07Ah]
+        mov eax, dword [dword eax+0FAh]
+        call ResetAnimTimer
+        lea eax, [dword esi*4+00h]
+        cmp dword [dword eax+GoalieAnimFiles], byte 1
+        jle near .25
+        fld dword [byte ebp+052h]
+        sub esp, byte 8
+        fild dword [dword eax+GoalieAnimFiles]
+        fxch
+        fstp qword [esp]
+        sub esp, byte 8
+        fld dword [byte ebp+056h]
+        fstp qword [esp]
+        fstp qword [byte ebp+01Eh]
+        call hypot_
+        fdiv qword [byte ebp+01Eh]
+        mov eax, dword [byte ebp+07Ah]
+        mov eax, dword [dword eax+0FAh]
+        fstp dword [byte eax+08h]
+        mov eax, dword [byte ebp+07Ah]
+        mov eax, dword [dword eax+0FAh]
+        fld dword [byte eax+08h]
+        fld st0
+        fmul qword [F64_0p6_GoalieMoves]
+        fstp st1
+        fstp dword [byte eax+08h]
+        mov eax, dword [byte ebp+07Ah]
+        mov eax, dword [dword eax+0FAh]
+        cmp dword [byte eax+08h], 41400000h
+        jle short .24
+        mov dword [byte eax+08h], 41400000h
+.24:
+        fld dword [byte ebp+052h]
+        fld dword [byte ebp+056h]
+        call IF@ATAN2
+        mov eax, dword [byte ebp+07Ah]
+        fadd dword [byte eax+01Ch]
+        mov eax, dword [dword eax+0FAh]
+        fstp dword [byte eax+034h]
+.25:
+        mov eax, dword [byte ebp+07Ah]
+        or byte [dword eax+0BFh], 20h
+        xor ebx, ebx
+        mov edx, dword [dword esi*4+MoveAnimIds]
+        push dword 3F19999Ah
+        call SetSPA
+.26:
+        lea esp, [dword ebp+082h]
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        LD mov, eax, eax
+;-----------------------------------------------------------------------------
+; PuckDeflectAngle                                7614C  97 PC, low confidence
+; Works out the angle of a deflection
+;-----------------------------------------------------------------------------
+PuckDeflectAngle:
+        push ebx
+        push ecx
+        push esi
+        push ebp
+        mov ebp, esp
+        sub esp, byte 14h
+        and esp, byte 0FFFFFFF8h
+        mov esi, dword [byte ebp+018h]
+        mov ecx, eax
+        mov ebx, edx
+        cmp dword [byte ebp+014h], 3F800000h
+        jge short .1
+        fld dword [ebx]
+        mov eax, ecx
+        fstp dword [esi]
+        mov edx, dword [byte ebx+04h]
+        mov dword [byte esi+04h], edx
+        mov edx, dword [byte ebx+08h]
+        mov dword [byte esi+08h], edx
+        jmp short .4
+.1:
+        mov edx, ebx
+        mov eax, ecx
+        call VecDot
+        fdiv dword [byte ebp+014h]
+        fldz
+        fxch
+        fstp dword [byte esp+0Ch]
+        fcomp dword [byte esp+0Ch]
+        fnstsw ax
+        sahf
+        ja short .2
+        cmp dword [byte esp+0Ch], 3F800000h
+        jle short .3
+.2:
+        mov dword [byte esp+010h], 461C4000h
+        jmp short .5
+.3:
+        fld dword [byte esp+0Ch]
+        fld dword [ebx]
+        fmul st1
+        fstp dword [esi]
+        fld dword [byte ebx+04h]
+        fmul st1
+        fstp dword [byte esi+04h]
+        fmul dword [byte ebx+08h]
+        fstp dword [byte esi+08h]
+        fld dword [ecx]
+        fsub dword [esi]
+        fstp dword [esp]
+        fld dword [byte ecx+04h]
+        fsub dword [byte esi+04h]
+        fstp dword [byte esp+04h]
+        fld dword [byte ecx+08h]
+        fsub dword [byte esi+08h]
+        mov eax, esp
+        fstp dword [byte esp+08h]
+.4:
+        call VecLength
+        fstp dword [byte esp+010h]
+.5:
+        fld dword [byte esp+010h]
+        mov esp, ebp
+        pop ebp
+        pop esi
+        pop ecx
+        pop ebx
+        ret 8
+;-----------------------------------------------------------------------------
+; PuckDeflect                                     761F8  97 PC, low confidence
+; Deflects the puck off a player
+;-----------------------------------------------------------------------------
+PuckDeflect:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        push ebp
+        sub esp, byte 4Ch
+        mov ebp, eax
+        mov eax, dword [PtrPuckFlags]
+        mov edx, dword [byte eax+020h]
+        mov dword [byte esp+024h], edx
+        mov edx, dword [byte eax+024h]
+        mov dword [byte esp+02Ch], edx
+        mov edx, dword [byte eax+028h]
+        mov dword [byte esp+028h], edx
+        mov edx, dword [dword eax+0D2h]
+        fld dword [byte esp+02Ch]
+        mov dword [byte esp+040h], edx
+        mov edx, dword [dword eax+0D6h]
+        mov eax, dword [dword eax+0DAh]
+        mov dword [byte esp+03Ch], edx
+        mov dword [byte esp+044h], eax
+        fcomp dword [F32_672]
+        fnstsw ax
+        sahf
+        ja near .9
+        fld dword [byte ebp+020h]
+        fsub dword [byte esp+024h]
+        fabs
+        fcomp qword [F64_480_PuckDeflect]
+        fnstsw ax
+        sahf
+        ja near .9
+        fld dword [byte ebp+028h]
+        fsub dword [byte esp+028h]
+        fabs
+        fcomp qword [F64_480_PuckDeflect]
+        fnstsw ax
+        sahf
+        ja near .9
+        fld dword [byte esp+024h]
+        fld dword [byte esp+02Ch]
+        fld dword [byte esp+028h]
+        mov edx, esp
+        mov eax, esp
+        fxch st2
+        fsub dword [byte esp+040h]
+        fxch
+        fsub dword [byte esp+03Ch]
+        fxch st2
+        fsub dword [byte esp+044h]
+        fxch
+        fstp dword [esp]
+        fxch
+        fstp dword [byte esp+04h]
+        fstp dword [byte esp+08h]
+        call VecDot
+        mov dx, word [dword ebp+0A9h]
+        fstp dword [byte esp+034h]
+        test dx, dx
+        jne near .1
+        mov eax, dword [dword ebp+0FAh]
+        and byte [byte eax+031h], 0FBh
+        mov dh, byte [dword ebp+0D0h]
+        xor ecx, ecx
+        test dh, dh
+        setne cl
+        lea ebx, [byte esp+0Ch]
+        mov eax, ebp
+        mov edx, dword [dword ecx*4+DeflectAnims]
+        mov dword [byte esp+038h], ecx
+        call ObjectFramePos
+        fld dword [byte esp+0Ch]
+        fld dword [byte esp+010h]
+        fld dword [byte esp+014h]
+        lea eax, [byte esp+018h]
+        mov edx, esp
+        fxch st2
+        fsub dword [byte esp+040h]
+        fxch
+        fsub dword [byte esp+03Ch]
+        push eax
+        fxch st2
+        fsub dword [byte esp+048h]
+        push dword [byte esp+038h]
+        fxch
+        fstp dword [byte esp+014h]
+        fxch
+        fstp dword [byte esp+018h]
+        lea eax, [byte esp+014h]
+        fstp dword [byte esp+01Ch]
+        call PuckDeflectAngle
+        fldz
+        fxch
+        fstp dword [byte esp+030h]
+        fcomp dword [byte esp+030h]
+        fnstsw ax
+        sahf
+        ja short .2
+        mov eax, dword [GameSettings]
+        shl eax, 17h
+        shr eax, 1Eh
+        fild dword [dword eax*4+F32_7p84727eneg44]
+        fcomp dword [byte esp+030h]
+        fnstsw ax
+        sahf
+        jbe short .2
+        mov eax, dword [dword ebp+0FAh]
+        or byte [byte eax+031h], 4
+        fld dword [byte esp+018h]
+        fadd dword [byte esp+040h]
+        mov eax, dword [PtrPuckFlags]
+        fstp dword [byte eax+020h]
+        fld dword [byte esp+01Ch]
+        fadd dword [byte esp+03Ch]
+        mov eax, dword [PtrPuckFlags]
+        fstp dword [byte eax+024h]
+        fld dword [byte esp+020h]
+        fadd dword [byte esp+044h]
+        mov eax, dword [PtrPuckFlags]
+        fstp dword [byte eax+028h]
+        mov eax, ecx
+        jmp near .10
+.1:
+        mov dword [byte esp+038h], 0FFFFFFFFh
+.2:
+        mov ecx, 4
+        xor edi, edi
+.3:
+        mov eax, dword [PtrPuckFlags]
+        cmp dword [byte eax+030h], 41A00000h
+        jle short .4
+        mov ebx, 0Fh
+        mov edx, ecx
+        mov eax, ecx
+        sar edx, 1Fh
+        idiv ebx
+        mov esi, edx
+        jmp short .5
+.4:
+        mov esi, edi
+.5:
+        cmp esi, dword [byte esp+038h]
+        je near .8
+        lea ebx, [byte esp+0Ch]
+        mov eax, ebp
+        mov edx, dword [dword esi*4+DeflectAnims]
+        call ObjectFramePos
+        fld dword [byte esp+0Ch]
+        fld dword [byte esp+010h]
+        fld dword [byte esp+014h]
+        lea eax, [byte esp+018h]
+        mov edx, esp
+        fxch st2
+        fsub dword [byte esp+040h]
+        fxch
+        fsub dword [byte esp+03Ch]
+        push eax
+        fxch st2
+        fsub dword [byte esp+048h]
+        push dword [byte esp+038h]
+        fxch
+        fstp dword [byte esp+014h]
+        fxch
+        fstp dword [byte esp+018h]
+        lea eax, [byte esp+014h]
+        fstp dword [byte esp+01Ch]
+        call PuckDeflectAngle
+        fldz
+        fxch
+        fstp dword [byte esp+048h]
+        fcomp dword [byte esp+048h]
+        fnstsw ax
+        sahf
+        ja near .8
+        mov eax, dword [GameSettings]
+        shl eax, 17h
+        shr eax, 1Eh
+        fild dword [dword eax*4+F32_7p84727eneg44]
+        fcomp dword [byte esp+048h]
+        fnstsw ax
+        sahf
+        jbe near .8
+        mov eax, dword [dword ebp+0F6h]
+        fld dword [byte esp+018h]
+        mov edx, dword [PtrPuckFlags]
+        mov eax, dword [eax]
+        fadd dword [byte esp+040h]
+        mov eax, dword [byte eax+028h]
+        fstp dword [byte edx+020h]
+        fld dword [byte esp+01Ch]
+        fadd dword [byte esp+03Ch]
+        mov edx, dword [PtrPuckFlags]
+        fstp dword [byte edx+024h]
+        fld dword [byte esp+020h]
+        mov edx, dword [PtrPuckFlags]
+        fadd dword [byte esp+044h]
+        and eax, 0FFFFh
+        fstp dword [byte edx+028h]
+        cmp eax, 102h
+        je short .6
+        cmp eax, 0E4h
+        je short .6
+        cmp eax, 105h
+        je short .6
+        cmp eax, 104h
+        jne short .7
+.6:
+        mov eax, ebp
+        call PlayerGetsPuck
+        mov eax, dword [PtrPuckFlags]
+        mov word [byte eax+06Dh], 4
+        mov eax, dword [PtrPuckFlags]
+        cmp dword [byte eax+056h], byte 0
+        jge short .9
+        mov dword [byte eax+056h], 5Ah
+        jmp short .9
+.7:
+        mov eax, esi
+        add esp, byte 4Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.8:
+        inc edi
+        inc ecx
+        cmp edi, byte 0Fh
+        jl near .3
+.9:
+        mov eax, 0FFFFFFFFh
+.10:
+        add esp, byte 4Ch
+        pop ebp
+        pop edi
+        pop esi
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        add byte [eax], al
+        ret
+        lea eax, [byte eax+00h]
+        push ebx
+        push edx
+        mov ebx, eax
+        test eax, eax
+        je short .12
+.11:
+        mov edx, dword [byte ebx+01Ch]
+        mov eax, str_MIRROR
+        and edx, byte 8
+        mov edx, dword [byte ebx+01Ch]
+        mov eax, str_SCALED
+        and edx, byte 10h
+        mov edx, dword [byte ebx+01Ch]
+        mov eax, str_LOOP
+        and edx, byte 20h
+        mov edx, dword [byte ebx+01Ch]
+        mov eax, str_MASTER
+        and edx, 100h
+        mov edx, dword [byte ebx+01Ch]
+        mov eax, str_SLAVE
+        and edx, 200h
+        mov edx, dword [byte ebx+01Ch]
+        mov eax, str_FADING
+        and edx, 400h
+        mov ebx, dword [byte ebx+020h]
+        test ebx, ebx
+        jne short .11
+.12:
+        pop edx
+        pop ebx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; GoalieMoves                                     75500  97 PC, low confidence
 ; Goalie movement and saves
@@ -2022,3 +2909,4 @@ PuckDeflect:
         pop edx
         pop ebx
         ret
+%endif

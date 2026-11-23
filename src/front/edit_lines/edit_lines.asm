@@ -42,6 +42,107 @@ global DrawLinesScreen_32B, SetLinesListPos, DrawLinesLabel, InitLinesLabelList,
 global DrawLinesCardDetails_41B, DrawLinesCardDetails_517, DrawRatingMeter, DrawRatingMeter_59, DrawRatingMeterArt, RatingMeterColour, DrawRatingMeters, DrawCardRatings
 global LoadLinesArt, LoadEditLinesArt, ShowLinesIntro, ShowLinesIntro_FE, DrawLinesIntroText, LinesIntroSound, LinesIntroSparkle, LinesIntroSparkle_82
 global LinesIntroSparkle_88, LinesIntroSparkle_B6, ShowLinesPopup
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; EditLinesScreen                              968EC  96 PC, medium confidence
+; The edit lines screen (bt09 / bh09, slid / slup / sldw scroll, power play bkpp and penalty kill bkpk
+; boxes, jerseys): who plays on each line; returns 2 for a player card
+;-----------------------------------------------------------------------------
+EditLinesScreen:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        enter 10Ch, 0
+        sub ebp, 82h
+        mov edi, eax
+        mov dword [byte ebp+07Ah], edx
+        mov dword [byte ebp+072h], 0
+        cmp byte [FrontMusicOn], 0
+        je short .1
+        test eax, eax
+        jl short .1
+        call MusicEnabled
+.1:
+        push byte 0
+        push dword 99Ch
+        push dword str_EditLinesMenu
+        call AllocMemBlock
+        add esp, byte 0Ch
+        push byte 0
+        push dword 780h
+        push dword str_EditLinesRegions
+        mov esi, eax
+        call AllocMemBlock
+        mov dword [LinesTextPos], 0
+        mov dword [LinesTextLength], 0
+        mov dword [byte ebp+06Ah], eax
+        mov dword [byte ebp+06Eh], eax
+        mov eax, esi
+        mov dword [LinesTextLine], 0
+        mov dword [LinesIntroTeam], eax
+        lea eax, [byte ebp-0Ah]
+        add esp, byte 0Ch
+        mov dword [LinesTeamText], eax
+        lea eax, [byte ebp+05Ah]
+        mov dword [LinesTextScroll], 0
+        mov dword [LinesTitleText], eax
+        call SetNormalText
+        push byte 0FFFFFFFFh
+        call MakeColor
+        add esp, byte 4
+        call SetTextColor
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 11h
+        call LoadDataFile
+        mov dword [LinesArtFile], eax
+        mov eax, 3
+        xor edx, edx
+        call SecondsToSamples
+        call WaitSoundTime
+        mov eax, 10h
+        call LoadDataFile
+        mov edx, dword [byte ebp+07Ah]
+        mov dword [LinesShapeFile], eax
+        mov eax, edi
+        mov ebx, 1Eh
+        call AllocTempGameTeam
+        mov edx, dword [byte ebp+06Ah]
+        mov eax, esi
+        call InitEditLinesScreen
+        mov edx, dword [byte ebp+07Ah]
+        mov eax, edi
+        call EditLinesSetup
+        call LoadEditLinesArt
+        mov edx, 1
+        mov eax, esi
+        call DrawLinesScreen
+        push byte 0
+        push byte 12h
+        push dword 0C8h
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [LinesIntroBitmap], eax
+        cmp byte [FrontMusicOn], 0
+        jne short .2
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 51h
+        call LoadDataFileFlag0
+        mov dword [LinesFontFile], eax
+        jmp short .3
+.2:
+        mov dword [LinesFontFile], 0
+.3:
+        call ShowLinesIntro
+        mov dword [byte ebp+07Eh], 0
+        jmp near EditLinesScreen_2C7.23
+%else
 ;-----------------------------------------------------------------------------
 ; EditLinesScreen                              9623E  96 PC, medium confidence
 ; The edit lines screen (bt09 / bh09, slid / slup / sldw scroll, power play bkpp and penalty kill bkpk
@@ -141,6 +242,7 @@ EditLinesScreen:
         call ShowLinesIntro
         mov dword [byte ebp+07Eh], 0
         jmp near EditLinesScreen_2C7.23
+%endif
 EditLinesScreen_17F:
         call ShowScreen
         inc dword [byte ebp+07Eh]
@@ -251,6 +353,391 @@ EditLinesScreen_18C:
         mov dword [byte ebp+072h], 1
         call LoadLinesForTeam
         jmp near EditLinesScreen_2C7.23
+%if VERSION = 11
+EditLinesScreen_2C7:
+        cmp dword [LinesIntroArt], byte 0
+        je short .17
+        push dword [LinesIntroArt]
+        call FreeMemBlock
+        mov dword [LinesIntroArt], 0
+        add esp, byte 4
+.17:
+        cmp dword [LinesFontFile], byte 0
+        je short .18
+        push dword [LinesFontFile]
+        call FreeMemBlock
+        mov dword [LinesFontFile], 0
+        jmp short .19
+.18:
+        push dword [LinesShapeFile]
+        call FreeMemBlock
+        mov dword [LinesShapeFile], 0
+.19:
+        add esp, byte 4
+        call ExitScreen
+        cmp dword [LinesShapeFile], byte 0
+        jne near .21
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 10h
+        call LoadDataFile
+        push dword str_00003
+        push eax
+        mov dword [LinesShapeFile], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_OVAL
+        push dword [LinesShapeFile]
+        mov dword [LinesOvalShape], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_CRCL
+        push dword [LinesShapeFile]
+        mov dword [LinesCircleShape], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [LinesSwapShape], eax
+        cmp dword [EditLinesPage], byte 3
+        jne short .20
+        push dword str_SW06
+        mov ecx, str_HLRT
+        mov ebx, str_SW06
+        mov eax, dword [LinesShapeFile]
+        lea edx, [dword esi+01ECh]
+        call InitShapeListBox
+        push dword str_HLLF
+        push dword [LinesShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword str_HLRT
+        push dword [LinesShapeFile]
+        mov dword [LinesHighlightShape], eax
+        call FindShape
+        add esp, byte 8
+        mov dword [LinesForwardShape], eax
+.20:
+        push dword str_AB022
+        mov ecx, str_AB012
+        mov ebx, str_AB002
+        mov eax, dword [LinesShapeFile]
+        lea edx, [dword esi+023Eh]
+        call InitShapeListBox
+        push dword str_AB052
+        mov ecx, str_AB042
+        mov ebx, str_AB032
+        mov eax, dword [LinesShapeFile]
+        lea edx, [dword esi+0290h]
+        call InitShapeListBox
+.21:
+        cmp byte [FrontMusicOn], 0
+        jne short .22
+        cmp dword [LinesFontFile], byte 0
+        jne short .22
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 51h
+        call LoadDataFileFlag0
+        mov dword [LinesFontFile], eax
+.22:
+        call ShowLinesIntro
+.23:
+        cmp dword [byte ebp+07Eh], byte 0
+        jne near EditLinesScreen_69D.37
+        push byte 0
+        lea eax, [byte ebp+066h]
+        mov ecx, ShowLinesIntro_FE
+        mov ebx, 0FFFFFFFFh
+        push eax
+        mov edx, esi
+        mov eax, 1Eh
+        call RunMenu
+        cmp dword [byte ebp+066h], byte 8
+        ja near EditLinesScreen_69D.33
+        mov eax, dword [byte ebp+066h]
+        jmp dword [dword cs:eax*4+EditLinesScreenJumpTable]
+EditLinesScreen_49D:
+        inc dword [EditLinesPage]
+        cmp dword [EditLinesPage], byte 3
+        jle short .24
+        mov dword [EditLinesPage], 0
+.24:
+        mov edx, 1
+        mov eax, esi
+        call DrawLinesScreen
+        jmp short EditLinesScreen_2C7.23
+EditLinesScreen_4C4:
+        imul eax, byte 52h
+        add eax, esi
+        cmp dword [EditLinesPage], byte 3
+        je short .26
+        mov edx, dword [byte eax+01Ah]
+        movsx ebx, word [byte edx+06h]
+        imul ebx, dword [LinesDefenceCount]
+        mov ecx, dword [byte eax+02Ah]
+        movsx edx, word [byte edx+04h]
+        sub ecx, ebx
+        add edx, dword [byte eax+026h]
+        push ecx
+        add edx, byte 0Fh
+        push edx
+        push byte 0
+        push dword LinesDefenceGrid
+        mov ebx, dword [byte eax+026h]
+        mov eax, dword [LinesDefenceCount]
+        push dword LinesDefenceList
+        mov edx, eax
+        call RunScrollList
+        cmp eax, dword [LinesForwardChoice]
+        je near .27
+        test eax, eax
+        jl near .27
+        cmp eax, dword [LinesDefenceCount]
+        jge short .27
+        mov dword [LinesForwardChoice], eax
+.25:
+        mov eax, 1
+        jmp short .28
+.26:
+        mov edx, dword [byte eax+01Ah]
+        movsx ecx, word [byte edx+06h]
+        imul ecx, dword [LinesForwardCount]
+        mov ebx, dword [byte eax+02Ah]
+        movsx edx, word [byte edx+04h]
+        sub ebx, ecx
+        add edx, dword [byte eax+026h]
+        push ebx
+        add edx, byte 0Fh
+        push edx
+        push byte 0
+        mov ecx, ebx
+        push dword LinesForwardGrid
+        mov ebx, dword [byte eax+026h]
+        mov eax, dword [LinesForwardCount]
+        push dword LinesForwardList
+        mov edx, eax
+        call RunScrollList
+        cmp eax, dword [LinesSpecialChoice]
+        je short .27
+        test eax, eax
+        jl short .27
+        cmp eax, dword [LinesForwardCount]
+        jge short .27
+        mov dword [LinesSpecialChoice], eax
+        jmp short .25
+.27:
+        xor eax, eax
+.28:
+        test eax, eax
+        je near EditLinesScreen_2C7.23
+        imul eax, dword [byte ebp+066h], byte 52h
+        add eax, esi
+        call SetLinesListPos
+        call SetScreenTarget
+        imul eax, dword [byte ebp+066h], byte 52h
+        push dword [byte esi+eax+02Ah]
+        push dword [byte esi+eax+026h]
+        push dword [byte esi+eax+01Ah]
+        jmp near EditLinesScreen_61B.31
+EditLinesScreen_5BA:
+        push byte 1
+        mov eax, 0C5h
+        mov ecx, 1
+        mov edx, 2
+        xor ebx, ebx
+        call GetLangText
+        call ShowMessageBox
+        cmp eax, byte 1
+        jne near EditLinesScreen_49D.24
+        mov edx, dword [byte ebp+07Ah]
+        mov eax, edi
+        call LoadEditLinesRoster
+        jmp near EditLinesScreen_49D.24
+EditLinesScreen_5EF:
+        call ShowLinesPopup
+        mov eax, dword [EditLinesTeam]
+        mov dl, byte [dword eax+02121h]
+        mov dh, byte [dword eax+02122h]
+        mov byte [dword eax+02121h], dh
+        mov eax, dword [EditLinesTeam]
+        mov byte [dword eax+02122h], dl
+        jmp near EditLinesScreen_49D.24
+EditLinesScreen_61B:
+        cmp dword [EditLinesPage], byte 3
+        jne short .29
+        dec dword [LinesSpecialChoice]
+        cmp dword [LinesSpecialChoice], byte 0
+        jge short .30
+        mov eax, dword [LinesForwardCount]
+        dec eax
+        mov dword [LinesSpecialChoice], eax
+        jmp short .30
+.29:
+        dec dword [LinesForwardChoice]
+        cmp dword [LinesForwardChoice], byte 0
+        jge short .30
+        mov eax, dword [LinesDefenceCount]
+        dec eax
+        mov dword [LinesForwardChoice], eax
+.30:
+        lea eax, [dword esi+0148h]
+        call SetLinesListPos
+        call SetScreenTarget
+        push dword [dword esi+0172h]
+        push dword [dword esi+016Eh]
+        push dword [dword esi+0162h]
+.31:
+        call DrawArt
+        add esp, byte 0Ch
+        mov edx, DrawLinesCardDetails_517
+        mov eax, DrawLinesCardDetails_41B
+        call DrawRatingMeters
+        call PresentScreen
+        jmp near EditLinesScreen_2C7.23
+EditLinesScreen_69D:
+        cmp dword [EditLinesPage], byte 3
+        jne short .32
+        inc dword [LinesSpecialChoice]
+        mov eax, dword [LinesSpecialChoice]
+        cmp eax, dword [LinesForwardCount]
+        jl short EditLinesScreen_61B.30
+        mov dword [LinesSpecialChoice], 0
+        jmp short EditLinesScreen_61B.30
+.32:
+        inc dword [LinesForwardChoice]
+        mov eax, dword [LinesForwardChoice]
+        cmp eax, dword [LinesDefenceCount]
+        jl short EditLinesScreen_61B.30
+        mov dword [LinesForwardChoice], 0
+        jmp near EditLinesScreen_61B.30
+.33:
+        cmp dword [byte ebp+066h], byte 0Ah
+        jl near EditLinesScreen_2C7.23
+        cmp dword [byte ebp+066h], byte 1Eh
+        jge near EditLinesScreen_2C7.23
+        cmp dword [EditLinesPage], byte 3
+        jne short .34
+        cmp dword [byte ebp+066h], byte 0Ch
+        jne short .34
+        call ShowLinesPopup
+        mov eax, dword [EditLinesTeam]
+        mov dh, byte [dword eax+02121h]
+        mov dl, byte [dword eax+02122h]
+        mov byte [dword eax+02121h], dl
+        mov eax, dword [EditLinesTeam]
+        mov byte [dword eax+02122h], dh
+        jmp near EditLinesScreen_49D.24
+.34:
+        cmp dword [LinesIntroArt], byte 0
+        je short .35
+        push dword [LinesIntroArt]
+        call FreeMemBlock
+        mov dword [LinesIntroArt], 0
+        add esp, byte 4
+.35:
+        cmp byte [FrontMusicOn], 0
+        je short .36
+        push dword [LinesShapeFile]
+        call FreeMemBlock
+        add esp, byte 4
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov dword [LinesScreenBitmap], eax
+        call SetScreenTarget
+        push byte 0
+        mov eax, dword [LinesScreenBitmap]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        call PresentScreen
+.36:
+        mov edx, dword [byte ebp+066h]
+        mov eax, esi
+        sub edx, byte 0Ah
+        call EditLinesGridScreen
+        cmp byte [FrontMusicOn], 0
+        je near EditLinesScreen_2C7.22
+        push dword [LinesScreenBitmap]
+        call FreeBitmap
+        add esp, byte 4
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        xor edx, edx
+        mov eax, 10h
+        call LoadDataFile
+        push dword str_00003
+        push eax
+        mov dword [LinesShapeFile], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_OVAL
+        push dword [LinesShapeFile]
+        mov dword [LinesOvalShape], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_CRCL
+        push dword [LinesShapeFile]
+        mov dword [LinesCircleShape], eax
+        call FindShape
+        mov edx, 1
+        add esp, byte 8
+        mov dword [LinesSwapShape], eax
+        mov eax, esi
+        call DrawLinesScreen
+        jmp near EditLinesScreen_2C7.22
+.37:
+        push dword [LinesIntroBitmap]
+        call FreeBitmap
+        add esp, byte 4
+        call FreeEditLinesScreen
+        push dword [LinesCardBitmap]
+        call FreeBitmap
+        add esp, byte 4
+        cmp byte [FrontMusicOn], 0
+        jne short .39
+        push dword [LinesScreenBitmap]
+        call FreeBitmap
+        add esp, byte 4
+        cmp dword [LinesFontFile], byte 0
+        je short .38
+        push dword [LinesFontFile]
+        call FreeMemBlock
+        add esp, byte 4
+.38:
+        push dword [LinesLogoBitmap]
+        call FreeBitmap
+        add esp, byte 4
+.39:
+        push dword [LinesArtFile]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [LinesShapeFile]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+06Eh]
+        call FreeMemBlock
+        add esp, byte 4
+        push esi
+        call FreeMemBlock
+        add esp, byte 4
+        cmp byte [FrontMusicOn], 0
+        je short .41
+        test edi, edi
+        jl short .40
+        call LoadFrontEndSfx
+.40:
+        call LoadLogoNames
+.41:
+        mov eax, dword [byte ebp+072h]
+%else
 EditLinesScreen_2C7:
         cmp dword [LinesIntroArt], byte 0
         je short .17
@@ -634,6 +1121,7 @@ EditLinesScreen_69D:
         call LoadLogoNames
 .41:
         mov eax, dword [byte ebp+072h]
+%endif
 EditLinesScreen_8E8:
         lea esp, [dword ebp+082h]
         pop ebp
@@ -642,6 +1130,248 @@ EditLinesScreen_8E8:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; InitEditLinesScreen                             971E0  97 PC, low confidence
+; From EditLinesScreen: creates its bitmap and menu items and draws the title
+; and line art (TITL, STKL, STCR, ...)
+;-----------------------------------------------------------------------------
+InitEditLinesScreen:
+        push ecx
+        push esi
+        push edi
+        enter 20h, 0
+        push eax
+        push edx
+        push ebx
+        push byte 0
+        push dword 1E0h
+        push dword 280h
+        call CreateBitmap
+        mov edx, dword [byte ebp-024h]
+        add esp, byte 0Ch
+        mov dword [LinesScreenBitmap], eax
+        mov eax, ebx
+        call InitMenuItems
+        push dword str_00003
+        push dword [LinesShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword str_TITL5
+        push dword [LinesArtFile]
+        mov dword [LinesOvalShape], eax
+        call FindShape
+        add esp, byte 8
+        push dword str_STKL
+        push dword [LinesShapeFile]
+        mov ebx, eax
+        call FindShape
+        add esp, byte 8
+        push dword str_STCR
+        push dword [LinesShapeFile]
+        mov edi, eax
+        call FindShape
+        add esp, byte 8
+        push dword [LinesScreenBitmap]
+        mov esi, eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword [LinesOvalShape]
+        call BlitShape
+        add esp, byte 4
+        push ebx
+        call BlitShape
+        add esp, byte 4
+        push edi
+        call DrawShape
+        add esp, byte 4
+        push esi
+        call DrawShape
+        add esp, byte 4
+        push dword str_DFLT
+        push dword [LinesShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape
+        add esp, byte 4
+        push dword str_SBTL
+        push dword [LinesShapeFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call BlitShape
+        mov eax, dword [LinesScreenBitmap]
+        mov edi, dword [byte ebp-024h]
+        mov esi, ScreenTitleItem
+        mov eax, dword [byte eax+02Ch]
+        add esp, byte 4
+        mov ebx, eax
+        mov edx, eax
+        mov ecx, 52h
+        call DrawScreenBackground
+        rep movsb
+        mov eax, dword [byte ebp-024h]
+        mov ecx, 52h
+        mov edi, eax
+        mov dword [eax], 0
+        mov esi, BlankMenuItem
+        lea edi, [byte edi+052h]
+        rep movsb
+        mov ecx, 52h
+        mov edi, eax
+        mov dword [byte eax+052h], 1
+        mov esi, ScreenFrameItem
+        lea edi, [dword edi+0A4h]
+        rep movsb
+        mov ebx, 3
+        mov dword [dword eax+0A4h], 2
+        jmp short .2
+.1:
+        mov eax, ebx
+        mov edx, dword [byte ebp-028h]
+        shl eax, 6
+        add edx, eax
+        imul eax, ebx, byte 52h
+        add eax, dword [byte ebp-024h]
+        inc ebx
+        mov dword [byte eax+014h], edx
+.2:
+        cmp ebx, dword [byte ebp-02Ch]
+        jl short .1
+        mov edx, dword [byte ebp-02Ch]
+        mov esi, dword [byte ebp-024h]
+        mov ecx, str_TB07
+        add esi, 0F6h
+        sub edx, byte 3
+        mov eax, esi
+        mov ebx, str_TB06
+        call InitLinesList
+        push dword str_TB07
+        mov eax, dword [LinesArtFile]
+        mov edx, esi
+        mov esi, dword [byte ebp-024h]
+        call InitShapeListBox
+        add esi, 148h
+        mov dword [LinesForwardChoice], 0
+        mov eax, esi
+        mov dword [LinesSpecialChoice], 0
+        call SetLinesListPos
+        mov eax, dword [byte ebp-024h]
+        mov eax, dword [dword eax+0162h]
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        movsx ebx, word [byte eax+0Eh]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        mov eax, esi
+        call InitListBox
+        xor ebx, ebx
+.3:
+        push ebx
+        push dword str_DF02d
+        lea eax, [byte ebp-020h]
+        push eax
+        call sprintf_
+        add esp, byte 0Ch
+        lea eax, [byte ebp-020h]
+        push eax
+        push dword [LinesArtFile]
+        inc ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [dword ebx*4+RatingMeterShapes], eax
+        cmp ebx, byte 4
+        jl short .3
+        push dword str_DF00
+        mov edx, dword [byte ebp-024h]
+        mov ecx, str_DF01
+        mov ebx, str_DF00
+        mov eax, dword [LinesArtFile]
+        add edx, 19Ah
+        mov dword [LinesListTop], 0
+        call InitShapeListBox
+        push dword str_AB022
+        mov edx, dword [byte ebp-024h]
+        mov ecx, str_AB012
+        mov ebx, str_AB002
+        mov eax, dword [LinesShapeFile]
+        add edx, 23Eh
+        call InitShapeListBox
+        push dword str_AB052
+        mov edx, dword [byte ebp-024h]
+        mov ecx, str_AB042
+        mov ebx, str_AB032
+        mov eax, dword [LinesShapeFile]
+        add edx, 290h
+        call InitShapeListBox
+        push dword [LinesScreenBitmap]
+        call SetDrawTarget
+        xor ebx, ebx
+        add esp, byte 4
+        jmp short .6
+.4:
+        imul eax, ebx, byte 52h
+        add eax, dword [byte ebp-024h]
+        cmp dword [byte eax+01Ah], byte 0
+        je short .5
+        push dword [byte eax+02Ah]
+        push dword [byte eax+026h]
+        push dword [byte eax+01Ah]
+        call DrawArt
+        add esp, byte 0Ch
+.5:
+        inc ebx
+.6:
+        cmp ebx, dword [byte ebp-02Ch]
+        jl short .4
+        mov dword [EditLinesPage], 0
+        mov dword [byte ebp-04h], 58h
+        mov dword [byte ebp-08h], 72h
+        push dword str_TV00
+        mov dword [byte ebp-010h], 5Eh
+        mov edi, 4Bh
+        push dword [LinesShapeFile]
+        xor ebx, ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [byte ebp-0Ch], eax
+.7:
+        xor esi, esi
+.8:
+        mov eax, esi
+        imul eax, edi
+        add eax, dword [byte ebp-08h]
+        push eax
+        mov eax, dword [byte ebp-010h]
+        imul eax, ebx
+        add eax, dword [byte ebp-04h]
+        push eax
+        push dword [byte ebp-0Ch]
+        inc esi
+        call DrawArt
+        add esp, byte 0Ch
+        cmp esi, byte 4
+        jl short .8
+        inc ebx
+        cmp ebx, byte 5
+        jl short .7
+        mov eax, dword [LinesScreenBitmap]
+        xor edx, edx
+        mov eax, dword [byte eax+02Ch]
+        call WipeScreen
+        cmp byte [FrontMusicOn], 0
+        je short .9
+        push dword [LinesScreenBitmap]
+        call FreeBitmap
+        add esp, byte 4
+.9:
+        leave
+        pop edi
+        pop esi
+        pop ecx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; InitEditLinesScreen                             96B32  97 PC, low confidence
 ; From EditLinesScreen: creates its bitmap and menu items and draws the title
@@ -882,6 +1612,7 @@ InitEditLinesScreen:
         pop esi
         pop ecx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; LayoutLinesCard                                 96E85  97 PC, low confidence
 ; Lays out the player card of the lines screen
@@ -1167,6 +1898,97 @@ LayoutLinesCard:
         add eax, byte 12h
         mov dword [LinesCardY], 106h
         mov dword [LinesCardLayout+0Ch], eax
+%if VERSION = 11
+LayoutLinesCard_39D:
+        leave
+        jmp near DrawPlayerLines_23B
+;-----------------------------------------------------------------------------
+; DrawLinesCardLogo                               978D6  97 PC, low confidence
+; Draws the team logo on the lines player card
+;-----------------------------------------------------------------------------
+DrawLinesCardLogo:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        cmp dword [EditLinesPage], byte 3
+        je short .5
+        push dword str_TV00
+        push dword [LinesShapeFile]
+        xor esi, esi
+        call FindShape
+        add esp, byte 8
+        mov edi, eax
+.1:
+        cmp byte [FrontMusicOn], 0
+        je short .2
+        call SetScreenTarget
+.2:
+        xor ebx, ebx
+.3:
+        mov eax, esi
+        mov edx, ebx
+        shl eax, 5
+        push dword [dword eax+edx*8+LinesCardLayout+04h]
+        push dword [dword eax+edx*8+LinesCardLayout]
+        push edi
+        inc ebx
+        call DrawArt
+        add esp, byte 0Ch
+        cmp ebx, byte 4
+        jl short .3
+        cmp byte [FrontMusicOn], 0
+        je short .6
+        call PresentScreen
+.6:
+        inc esi
+        call ServiceIdle
+        cmp esi, byte 5
+        jl short .1
+        jmp near DrawPlayerLines_23B
+.5:
+        push dword str_LMON
+        push dword [LinesShapeFile]
+        call FindShape
+        mov ebx, eax
+        add esp, byte 8
+        cmp byte [FrontMusicOn], 0
+        je short .7
+        call SetScreenTarget
+        push ebx
+        call BlitShape
+        add esp, byte 4
+        call PresentScreen
+        jmp near DrawPlayerLines_23B
+.7:
+        push eax
+        call BlitShape
+        mov eax, dword [LinesLogoBitmap]
+        movsx ecx, word [byte ebx+0Eh]
+        mov eax, dword [byte eax+02Ch]
+        add esp, byte 4
+        add ecx, 95h
+        movsx edx, word [byte eax+06h]
+        movsx esi, word [byte eax+04h]
+        push edx
+        sar edx, 1
+        push esi
+        sub ecx, edx
+        movsx edx, word [byte ebx+0Ch]
+        sar esi, 1
+        add edx, 0ECh
+        push ecx
+        sub edx, esi
+        push edx
+        mov ebx, dword [LinesScreenBitmap]
+        xor ecx, ecx
+        push byte 0
+        mov edx, dword [byte ebx+02Ch]
+        mov ebx, 10h
+        call DrawShadedLogo
+        jmp near DrawPlayerLines_23B
+%else
 LayoutLinesCard_39D:
         leave
         jmp near DrawPlayerLines_23B
@@ -1256,6 +2078,7 @@ DrawLinesCardLogo:
         mov ebx, 10h
         call DrawShadedLogo
         jmp near DrawPlayerLines_23B
+%endif
 ;-----------------------------------------------------------------------------
 ; EditLinesSetup                                  9732A  97 PC, low confidence
 ; Loads the art and data of the edit lines screen
@@ -1901,6 +2724,134 @@ EditLinesSetup:
         call FreeMemBlock
         add esp, byte 4
         jmp near EditLinesScreen_8E8
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; AllocTempGameTeam                               98195  97 PC, low confidence
+; Edit lines: allocates the "temp game team" block and draws the arena button
+; (SW00, AR%02d)
+;-----------------------------------------------------------------------------
+AllocTempGameTeam:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        mov ebx, eax
+        mov esi, edx
+        push byte 20h
+        push dword 2123h
+        push dword str_TempGameTeam
+        call AllocMemBlock
+        add esp, byte 0Ch
+        mov dword [EditLinesTeam], eax
+        test ebx, ebx
+        jl short .3
+        jne short .2
+        mov ecx, 2123h
+        mov esi, AutoLineData
+.1:
+        mov edi, eax
+        rep movsb
+        jmp short .4
+.2:
+        mov ecx, 2123h
+        mov esi, homelines
+        jmp short .1
+.3:
+        test esi, esi
+        jl short .4
+        imul edx, esi, dword 32C6h
+        mov ebx, dword [RosterTeams]
+        add edx, ebx
+        call CopyTeamRoster
+.4:
+        call LoadLinesArt
+        push byte 20h
+        push byte 5
+        push byte 6Ah
+        call CreateBitmap
+        add esp, byte 0Ch
+        push byte 20h
+        push byte 2Ch
+        push byte 3
+        mov dword [LinesCellBitmap], eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push dword str_SW00
+        push dword [LinesShapeFile]
+        mov dword [LinesSwitchShape], eax
+        call FindShape
+        add esp, byte 8
+        push byte 20h
+        movsx edx, word [byte eax+06h]
+        push edx
+        movsx eax, word [byte eax+04h]
+        push eax
+        call CreateBitmap
+        add esp, byte 0Ch
+        push dword [LinesCellBitmap]
+        mov dword [LinesPopupBitmap], eax
+        call SetDrawTarget
+        add esp, byte 4
+        push dword 0FF00h
+        call MakeColor
+        add esp, byte 4
+        push dword 0FFFF00h
+        xor ebx, ebx
+        mov esi, eax
+        call MakeColor
+        add esp, byte 4
+        mov edi, eax
+.5:
+        mov eax, ebx
+        imul eax, esi
+        mov ecx, 6Ah
+        cdq
+        idiv ecx
+        mov edx, edi
+        and eax, esi
+        sub edx, eax
+        push edx
+        push byte 5
+        mov eax, ecx
+        push byte 1
+        sub eax, ebx
+        push byte 0
+        dec eax
+        push eax
+        inc ebx
+        call FillRect
+        add esp, byte 14h
+        cmp ebx, byte 6Ah
+        jl short .5
+        push dword [LinesSwitchShape]
+        call SetDrawTarget
+        xor ebx, ebx
+        add esp, byte 4
+.6:
+        mov eax, ebx
+        imul eax, esi
+        mov ecx, 2Ch
+        cdq
+        idiv ecx
+        mov edx, edi
+        and eax, esi
+        sub edx, eax
+        push edx
+        push byte 1
+        push byte 3
+        push ebx
+        push byte 0
+        call FillRect
+        inc ebx
+        add esp, byte 14h
+        cmp ebx, byte 2Ch
+        jl short .6
+        pop edi
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; AllocTempGameTeam                               97AE7  97 PC, low confidence
 ; Edit lines: allocates the "temp game team" block and draws the arena button
@@ -2027,6 +2978,7 @@ AllocTempGameTeam:
         pop ecx
         pop ebx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; FreeEditLinesScreen                             97C32  97 PC, low confidence
 ; From EditLinesScreen when it leaves: frees its bitmaps and blocks
@@ -2536,6 +3488,290 @@ LoadLinesForTeam:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; HomePlayerRecord                                9889C  97 PC, low confidence
+; Returns the home team record of a roster slot
+;-----------------------------------------------------------------------------
+HomePlayerRecord:
+        push ebx
+        push ecx
+        push edx
+        mov bl, byte [eax]
+        mov edx, dword [EditLinesTeam]
+        movzx cx, bl
+        cmp cx, word [dword edx+0A1h]
+        jge short .1
+        movzx ebx, bl
+        imul ebx, dword 125h
+        add edx, ebx
+        test byte [dword edx+0161h], 4
+        jne short .1
+        and byte [dword edx+0161h], 0FDh
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.1:
+        mov byte [eax], 0FFh
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; AwayPlayerRecord                                988DA  97 PC, low confidence
+; Returns the away team record of a roster slot
+;-----------------------------------------------------------------------------
+AwayPlayerRecord:
+        push ebx
+        push ecx
+        push edx
+        mov bl, byte [eax]
+        mov edx, dword [EditLinesTeam]
+        movzx cx, bl
+        cmp cx, word [dword edx+01D40h]
+        jge short .1
+        movzx ebx, bl
+        imul ebx, dword 125h
+        add edx, ebx
+        test byte [dword edx+01E00h], 4
+        jne short .1
+        and byte [dword edx+01E00h], 0FDh
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.1:
+        mov byte [eax], 0FFh
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; LoadEditLinesRoster                             98918  97 PC, low confidence
+; Edit lines: allocates and fills the "roster" table for the team
+;-----------------------------------------------------------------------------
+LoadEditLinesRoster:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        enter 4, 0
+        push eax
+        mov dword [byte ebp-04h], 0
+        test eax, eax
+        jl short .4
+        jne short .1
+        mov ebx, AllStarHomeLines
+        jmp short .2
+.1:
+        mov ebx, AllStarAwayLines
+.2:
+        mov edx, DbKeyBuffer
+        mov eax, ebx
+        call KeysEqual
+        test eax, eax
+        je short .3
+        mov ebx, 36h
+        mov eax, dword [EditLinesTeam]
+        mov edx, 0FFh
+        add eax, 20EDh
+        call memset_
+        xor eax, eax
+        call BuildAutoLines
+        jmp near CopyTeamRoster_203
+.3:
+        push eax
+        push dword 194Fh
+        push dword str_Roster2
+        call AllocMemBlock
+        mov edx, eax
+        add esp, byte 0Ch
+        mov dword [byte ebp-04h], eax
+        mov eax, ebx
+        call FindGameRecord
+        jmp short .5
+.4:
+        cmp dword [RosterTeams], byte 0
+        je short .5
+        imul edx, dword 32C6h
+        mov eax, dword [RosterTeams]
+        mov eax, dword [edx+eax]
+        mov dword [byte ebp-04h], eax
+.5:
+        mov esi, dword [EditLinesTeam]
+        lea edi, [dword esi+020EDh]
+        mov esi, dword [byte ebp-04h]
+        mov ecx, 36h
+        lea esi, [dword esi+087h]
+        xor edx, edx
+        rep movsb
+        jmp short .7
+.6:
+        imul eax, edx, dword 125h
+        inc edx
+        or byte [dword ebx+eax+0161h], 2
+.7:
+        mov ebx, dword [EditLinesTeam]
+        movsx eax, word [dword ebx+0A1h]
+        cmp edx, eax
+        jl short .6
+        xor edx, edx
+        jmp short .9
+.8:
+        imul eax, edx, dword 125h
+        inc edx
+        or byte [dword ebx+eax+01E00h], 2
+.9:
+        mov ebx, dword [EditLinesTeam]
+        movsx eax, word [dword ebx+01D40h]
+        cmp edx, eax
+        jl short .8
+        xor edx, edx
+.10:
+        lea esi, [edx+edx*2]
+        xor ebx, ebx
+.11:
+        mov eax, dword [EditLinesTeam]
+        add eax, 20EDh
+        add eax, esi
+        add eax, ebx
+        inc ebx
+        call HomePlayerRecord
+        cmp ebx, byte 3
+        jl short .11
+        inc edx
+        cmp edx, byte 4
+        jl short .10
+        xor edx, edx
+.12:
+        xor ebx, ebx
+        lea esi, [edx+edx]
+.13:
+        mov eax, dword [EditLinesTeam]
+        add eax, 20F9h
+        add eax, esi
+        add eax, ebx
+        inc ebx
+        call HomePlayerRecord
+        cmp ebx, byte 2
+        jl short .13
+        inc edx
+        cmp edx, byte 3
+        jl short .12
+        xor edx, edx
+.14:
+        lea esi, [edx+edx*4]
+        xor ebx, ebx
+.15:
+        mov eax, dword [EditLinesTeam]
+        add eax, 20FFh
+        add eax, esi
+        add eax, ebx
+        inc ebx
+        call HomePlayerRecord
+        cmp ebx, byte 5
+        jl short .15
+        inc edx
+        cmp edx, byte 2
+        jl short .14
+        xor edx, edx
+.16:
+        xor ebx, ebx
+.17:
+        mov esi, edx
+        mov eax, dword [EditLinesTeam]
+        shl esi, 2
+        add eax, 2109h
+        add eax, esi
+        add eax, ebx
+        inc ebx
+        call HomePlayerRecord
+        cmp ebx, byte 4
+        jl short .17
+        inc edx
+        cmp edx, byte 2
+        jl short .16
+        xor edx, edx
+.18:
+        xor ebx, ebx
+.19:
+        mov eax, edx
+        mov esi, dword [EditLinesTeam]
+        shl eax, 2
+        add esi, 2113h
+        add eax, esi
+        add eax, ebx
+        inc ebx
+        call HomePlayerRecord
+        cmp ebx, byte 4
+        jl short .19
+        inc edx
+        cmp edx, byte 2
+        jl short .18
+        xor edx, edx
+.20:
+        xor ebx, ebx
+.21:
+        mov esi, dword [EditLinesTeam]
+        lea eax, [edx+edx*2]
+        add esi, 211Bh
+        add eax, esi
+        add eax, ebx
+        inc ebx
+        call HomePlayerRecord
+        cmp ebx, byte 3
+        jl short .21
+        inc edx
+        cmp edx, byte 2
+        jl short .20
+        xor edx, edx
+.22:
+        mov eax, dword [EditLinesTeam]
+        add eax, 2111h
+        add eax, edx
+        inc edx
+        call HomePlayerRecord
+        cmp edx, byte 2
+        jl short .22
+        xor edx, edx
+.23:
+        mov eax, dword [EditLinesTeam]
+        add eax, 2121h
+        add eax, edx
+        inc edx
+        call AwayPlayerRecord
+        cmp edx, byte 2
+        jl short .23
+        xor eax, eax
+        call BuildAutoLines
+        cmp dword [byte ebp-08h], byte 0
+        jl near CopyTeamRoster_203
+        push dword [byte ebp-04h]
+        call FreeMemBlock
+        add esp, byte 4
+        jmp near CopyTeamRoster_203
+        push ebx
+        push ecx
+        push edx
+        mov ebx, eax
+        xor edx, edx
+.24:
+        mov eax, dword [EditLinesTeam]
+        add eax, edx
+        movzx ecx, byte [dword eax+02121h]
+        cmp ecx, ebx
+        jne short .25
+        mov byte [dword eax+02121h], 0FFh
+.25:
+        inc edx
+        cmp edx, byte 2
+        jl short .24
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; HomePlayerRecord                                981EE  97 PC, low confidence
 ; Returns the home team record of a roster slot
@@ -2818,6 +4054,7 @@ LoadEditLinesRoster:
         pop ecx
         pop ebx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; FindPlayerInLines                               984D3  97 PC, low confidence
 ; Finds a player in the lines
@@ -4204,6 +5441,192 @@ EditLinesGridScreen_10B1:
         mov edx, dword [byte ebp+07Eh]
         mov ebx, edi
         jmp short EditLinesGridScreen_1087.76
+%if VERSION = 11
+EditLinesGridScreen_10DB:
+        lea eax, [dword ebp-0156h]
+        xor edx, edx
+        mov ecx, 1
+        call ScrollDown
+        jmp short EditLinesGridScreen_1087.75
+.77:
+        mov eax, dword [byte ebp+076h]
+        mov esi, dword [byte ebp+046h]
+        add eax, 19Ah
+        sub esi, byte 0Ah
+        mov dword [byte ebp+04Eh], eax
+        cmp dword [EditLinesPage], byte 3
+        jne short .78
+        cmp dword [byte ebp+046h], byte 0Ah
+        jl near EditLinesGridScreen_1010
+        mov eax, dword [EditLinesTeam]
+        movsx eax, word [dword eax+01D40h]
+        add eax, byte 0Ah
+        cmp eax, dword [byte ebp+046h]
+        jle near EditLinesGridScreen_1010
+        cmp esi, dword [byte ebp+07Eh]
+        je near EditLinesGridScreen_1010
+        mov ebx, 1
+        mov edx, edi
+        mov eax, esi
+        call DrawSpecialLines
+        call SetScreenTarget
+        mov eax, esi
+        call DrawPlayerHealth
+        mov edx, esi
+        mov eax, dword [byte ebp+04Eh]
+        mov dword [byte ebp+07Eh], esi
+        jmp near EditLinesGridScreen_FA7.69
+.78:
+        cmp dword [byte ebp+046h], byte 0Ah
+        jl near EditLinesGridScreen_1010
+        cmp dword [byte ebp+046h], byte 14h
+        jge near EditLinesGridScreen_1010
+        mov eax, dword [byte ebp+07Eh]
+        sub eax, dword [dword ebp-0132h]
+        cmp eax, esi
+        je near EditLinesGridScreen_1010
+        mov edx, dword [byte ebp+07Eh]
+        mov eax, dword [dword ebp-0132h]
+        mov ebx, edi
+        xor ecx, ecx
+        call DrawDefenceLines
+        mov eax, dword [byte ebp+046h]
+        mov edx, dword [dword ebp-0132h]
+        mov ecx, 1
+        sub eax, byte 0Ah
+        mov ebx, edi
+        add edx, eax
+        mov eax, dword [dword ebp-0132h]
+        mov dword [byte ebp+07Eh], edx
+        call DrawDefenceLines
+        call SetScreenTarget
+        mov eax, dword [byte ebp+07Eh]
+        call DrawPlayerLines
+        mov eax, dword [byte ebp+07Eh]
+        mov edx, dword [byte ebp+07Eh]
+        call DrawLinesGridHeader
+        mov eax, dword [byte ebp+04Eh]
+        jmp near EditLinesGridScreen_FA7.69
+.79:
+        push edi
+        call FreeBitmap
+        add esp, byte 4
+        cmp dword [EditLinesPage], byte 3
+        je short .84
+        lea eax, [dword ebp-0156h]
+        call FreeScrollList
+.84:
+        push dword [byte ebp+04Ah]
+        call FreeMemBlock
+        add esp, byte 4
+        push dword [byte ebp+076h]
+        call FreeMemBlock
+        add esp, byte 4
+        cmp byte [FrontMusicOn], 0
+        jne near EditLinesScreen_8E8
+        mov eax, dword [dword ebp-015Ah]
+        xor edx, edx
+        call DrawLinesScreen
+        jmp near .82
+.81:
+        call SetScreenTarget
+        push dword [byte ebp+06Ah]
+        push dword [byte ebp+06Eh]
+        mov esi, dword [byte ebp+066h]
+        push dword [byte ebp+066h]
+        sub esi, dword [byte ebp+062h]
+        push esi
+        call SetClipWindow
+        add esp, byte 10h
+        push byte 0
+        mov eax, dword [LinesScreenBitmap]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        push dword [byte ebp+06Ah]
+        mov ebx, dword [byte ebp+05Eh]
+        push dword [byte ebp+06Eh]
+        add ebx, dword [byte ebp+062h]
+        push ebx
+        push dword [byte ebp+05Eh]
+        call SetClipWindow
+        add esp, byte 10h
+        push byte 0
+        mov eax, dword [LinesScreenBitmap]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        mov eax, dword [byte ebp+06Eh]
+        push dword [byte ebp+06Eh]
+        sub eax, dword [byte ebp+062h]
+        push eax
+        push ebx
+        push esi
+        call SetClipWindow
+        add esp, byte 10h
+        push byte 0
+        mov eax, dword [LinesScreenBitmap]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        mov eax, dword [byte ebp+06Ah]
+        add esp, byte 0Ch
+        add eax, dword [byte ebp+062h]
+        push eax
+        push dword [byte ebp+06Ah]
+        push ebx
+        push esi
+        call SetClipWindow
+        add esp, byte 10h
+        push byte 0
+        mov eax, dword [LinesScreenBitmap]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        call ServiceIdle
+        mov eax, dword [byte ebp+062h]
+        add dword [byte ebp+066h], eax
+        sub dword [byte ebp+05Eh], eax
+        mov eax, dword [byte ebp+052h]
+        add dword [byte ebp+06Eh], eax
+        sub dword [byte ebp+06Ah], eax
+.82:
+        mov eax, dword [byte ebp+066h]
+        cmp eax, dword [byte ebp+05Eh]
+        jge short .83
+        mov eax, dword [byte ebp+06Eh]
+        cmp eax, dword [byte ebp+06Ah]
+        jl near .81
+.83:
+        call SetScreenTarget
+        mov eax, dword [byte ebp+06Ah]
+        add eax, dword [byte ebp+052h]
+        push eax
+        mov eax, dword [byte ebp+06Eh]
+        sub eax, dword [byte ebp+052h]
+        push eax
+        mov eax, dword [byte ebp+05Eh]
+        add eax, dword [byte ebp+062h]
+        push eax
+        mov eax, dword [byte ebp+066h]
+        sub eax, dword [byte ebp+062h]
+        push eax
+        call SetClipWindow
+        add esp, byte 10h
+        push byte 0
+        mov eax, dword [LinesScreenBitmap]
+        push byte 0
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call ResetClipWindow
+        call PresentScreen
+        jmp near EditLinesScreen_8E8
+%else
 EditLinesGridScreen_10DB:
         lea eax, [dword ebp-0156h]
         xor edx, edx
@@ -4388,6 +5811,7 @@ EditLinesGridScreen_10DB:
         call ResetClipWindow
         call PresentScreen
         jmp near EditLinesScreen_8E8
+%endif
 ;-----------------------------------------------------------------------------
 ; DrawScoringLines                                99992  97 PC, low confidence
 ; Edit lines grid: the "Scoring Line %d" rows (SL%02d)
@@ -4709,6 +6133,48 @@ DrawLinesCell:
         call FillRect
         add esp, byte 14h
         jmp near FindBestForSlot_68
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; DrawLinesGridArt                                9A3E4  97 PC, low confidence
+; Draws the art of the lines grid
+;-----------------------------------------------------------------------------
+DrawLinesGridArt:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 4, 0
+        push dword str_POWR
+        mov dword [byte ebp-04h], 16Ch
+        push dword [LinesArtFile]
+        mov esi, 49h
+        call FindShape
+        add esp, byte 8
+        mov dword [LinesCellArt], eax
+        cmp dword [EditLinesPage], byte 3
+        jne short .1
+        mov eax, dword [EditLinesTeam]
+        movsx edi, word [dword eax+01D40h]
+        jmp short .2
+.1:
+        mov edi, 0Ah
+.2:
+        xor ebx, ebx
+        jmp short .4
+.3:
+        push esi
+        push dword [byte ebp-04h]
+        inc ebx
+        push dword [LinesCellArt]
+        add esi, byte 13h
+        call DrawArt
+        add esp, byte 0Ch
+.4:
+        cmp ebx, edi
+        jl short .3
+        jmp near LayoutLinesCard_39D
+%else
 ;-----------------------------------------------------------------------------
 ; DrawLinesGridArt                                99D40  97 PC, low confidence
 ; Draws the art of the lines grid
@@ -4749,6 +6215,7 @@ DrawLinesGridArt:
         cmp ebx, edi
         jl short .3
         jmp near LayoutLinesCard_39D
+%endif
 ;-----------------------------------------------------------------------------
 ; FillStatBar                                     99DAC  97 PC, low confidence
 ; Fills a stat bar
@@ -4822,6 +6289,277 @@ FillStatBar:
         pop edi
         pop esi
         ret 8
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; DrawLinesGridHeader                             9A4E5  97 PC, low confidence
+; Draws the header of the lines grid
+;-----------------------------------------------------------------------------
+DrawLinesGridHeader:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 8, 0
+        push eax
+        push dword str_CHEK
+        mov dword [byte ebp-04h], 4
+        push dword [LinesArtFile]
+        xor ebx, ebx
+        call FindShape
+        add esp, byte 8
+        mov esi, eax
+.1:
+        movsx eax, word [byte esi+06h]
+        add eax, dword [LinesGridRowY+10h]
+        push eax
+        mov eax, dword [LinesGridRowY]
+        sub eax, dword [byte ebp-04h]
+        movsx edx, word [byte esi+04h]
+        push eax
+        add edx, dword [dword ebx*4+LinesGridX]
+        push edx
+        push dword [dword ebx*4+LinesGridX]
+        call SetClipWindow
+        mov eax, dword [LinesScreenBitmap]
+        add esp, byte 10h
+        push dword [byte eax+02Ch]
+        inc ebx
+        call BlitShape
+        add esp, byte 4
+        cmp ebx, byte 4
+        jl short .1
+        push dword 1E0h
+        push byte 0
+        push dword 280h
+        push byte 0
+        xor ebx, ebx
+        call SetClipWindow
+        add esp, byte 10h
+.2:
+        xor eax, eax
+        xor edx, edx
+.3:
+        mov ecx, dword [EditLinesTeam]
+        mov dword [byte ebp-08h], ecx
+        lea ecx, [ebx+ebx*2]
+        add ecx, dword [byte ebp-08h]
+        movzx ecx, byte [dword ecx+eax+020EDh]
+        cmp ecx, dword [byte ebp-0Ch]
+        jne short .4
+        inc edx
+        jmp short .5
+.4:
+        inc eax
+        cmp eax, byte 3
+        jl short .3
+.5:
+        test edx, edx
+        je short .6
+        mov eax, dword [dword ebx*4+LinesGridRowY]
+        sub eax, dword [byte ebp-04h]
+        push eax
+        push dword [LinesGridX]
+        push esi
+        call DrawArt
+        add esp, byte 0Ch
+.6:
+        inc ebx
+        cmp ebx, byte 4
+        jl short .2
+        xor ebx, ebx
+.7:
+        xor eax, eax
+        xor edx, edx
+.8:
+        mov ecx, dword [EditLinesTeam]
+        mov dword [byte ebp-08h], ecx
+        lea ecx, [ebx+ebx]
+        add ecx, dword [byte ebp-08h]
+        movzx ecx, byte [dword ecx+eax+020F9h]
+        cmp ecx, dword [byte ebp-0Ch]
+        jne short .9
+        inc edx
+        jmp short .10
+.9:
+        inc eax
+        cmp eax, byte 2
+        jl short .8
+.10:
+        test edx, edx
+        je short .11
+        mov eax, dword [dword ebx*4+LinesGridRowY]
+        sub eax, dword [byte ebp-04h]
+        push eax
+        push dword [LinesGridHeaderArt]
+        push esi
+        call DrawArt
+        add esp, byte 0Ch
+.11:
+        inc ebx
+        cmp ebx, byte 3
+        jl short .7
+        xor ebx, ebx
+.12:
+        xor eax, eax
+        xor edx, edx
+.13:
+        mov ecx, dword [EditLinesTeam]
+        mov dword [byte ebp-08h], ecx
+        lea ecx, [ebx+ebx*4]
+        add ecx, dword [byte ebp-08h]
+        movzx ecx, byte [dword ecx+eax+020FFh]
+        cmp ecx, dword [byte ebp-0Ch]
+        jne short .14
+        inc edx
+        jmp short .15
+.14:
+        inc eax
+        cmp eax, byte 5
+        jl short .13
+.15:
+        test edx, edx
+        je short .16
+        mov eax, dword [dword ebx*4+LinesGridRowY]
+        sub eax, dword [byte ebp-04h]
+        push eax
+        push dword [LinesGridHeaderPtr]
+        push esi
+        call DrawArt
+        add esp, byte 0Ch
+.16:
+        inc ebx
+        cmp ebx, byte 2
+        jl short .12
+        xor ebx, ebx
+.17:
+        xor eax, eax
+        xor edx, edx
+.18:
+        mov ecx, dword [EditLinesTeam]
+        mov dword [byte ebp-08h], ecx
+        mov ecx, ebx
+        shl ecx, 2
+        add ecx, dword [byte ebp-08h]
+        movzx ecx, byte [dword ecx+eax+02109h]
+        cmp ecx, dword [byte ebp-0Ch]
+        jne short .19
+        inc edx
+        jmp short .20
+.19:
+        inc eax
+        cmp eax, byte 4
+        jl short .18
+.20:
+        test edx, edx
+        je short .21
+        mov eax, dword [dword ebx*4+LinesGridRowY+08h]
+        sub eax, dword [byte ebp-04h]
+        push eax
+        push dword [LinesGridHeaderPtr]
+        push esi
+        call DrawArt
+        add esp, byte 0Ch
+.21:
+        inc ebx
+        cmp ebx, byte 2
+        jl short .17
+        xor eax, eax
+        xor edx, edx
+.22:
+        mov ebx, dword [EditLinesTeam]
+        movzx ebx, byte [dword ebx+eax+02111h]
+        cmp ebx, dword [byte ebp-0Ch]
+        jne short .23
+        inc edx
+        jmp short .24
+.23:
+        inc eax
+        cmp eax, byte 2
+        jl short .22
+.24:
+        test edx, edx
+        je short .25
+        mov eax, dword [LinesGridRowY+10h]
+        sub eax, dword [byte ebp-04h]
+        push eax
+        push dword [LinesGridHeaderPtr]
+        push esi
+        call DrawArt
+        add esp, byte 0Ch
+.25:
+        xor ebx, ebx
+.26:
+        xor eax, eax
+        xor edx, edx
+.27:
+        mov edi, ebx
+        mov ecx, dword [EditLinesTeam]
+        shl edi, 2
+        add ecx, edi
+        movzx ecx, byte [dword ecx+eax+02113h]
+        cmp ecx, dword [byte ebp-0Ch]
+        jne short .28
+        inc edx
+        jmp short .29
+.28:
+        inc eax
+        cmp eax, byte 4
+        jl short .27
+.29:
+        test edx, edx
+        je short .30
+        mov eax, dword [dword ebx*4+LinesGridRowY]
+        sub eax, dword [byte ebp-04h]
+        push eax
+        push dword [LinesGridLabelPtr]
+        push esi
+        call DrawArt
+        add esp, byte 0Ch
+.30:
+        inc ebx
+        cmp ebx, byte 2
+        jl short .26
+        xor ebx, ebx
+.31:
+        lea edi, [ebx+ebx*2]
+        xor eax, eax
+        xor edx, edx
+.32:
+        mov ecx, dword [EditLinesTeam]
+        add ecx, edi
+        movzx ecx, byte [dword ecx+eax+0211Bh]
+        cmp ecx, dword [byte ebp-0Ch]
+        jne short .33
+        inc edx
+        jmp short .34
+.33:
+        inc eax
+        cmp eax, byte 3
+        jl short .32
+.34:
+        test edx, edx
+        je short .35
+        mov eax, dword [dword ebx*4+LinesGridRowY+08h]
+        sub eax, dword [byte ebp-04h]
+        push eax
+        push dword [LinesGridLabelPtr]
+        push esi
+        call DrawArt
+        add esp, byte 0Ch
+.35:
+        inc ebx
+        cmp ebx, byte 2
+        jl short .31
+        jmp near LayoutLinesCard_39D
+        push ebp
+        mov ebp, esp
+        push byte 6
+        push dword [byte ebp+08h]
+        call DrawStatHeader
+        pop ebp
+        ret 4
+%else
 ;-----------------------------------------------------------------------------
 ; DrawLinesGridHeader                             99E41  97 PC, low confidence
 ; Draws the header of the lines grid
@@ -5091,6 +6829,7 @@ DrawLinesGridHeader:
         call DrawStatHeader
         pop ebp
         ret 4
+%endif
 ;-----------------------------------------------------------------------------
 ; DrawForwardLines                                9A0EC  97 PC, low confidence
 ; Draws the forward lines grid
@@ -6263,6 +8002,187 @@ DrawLinesScreen_31A:
         mov ecx, str_TB03
         mov ebx, str_TB02
         jmp short DrawLinesScreen_2E6.7
+%if VERSION = 11
+DrawLinesScreen_32B:
+        push dword str_TB01
+        mov ecx, str_TB01
+        mov ebx, str_TB00
+        mov edi, dword [LinesArtFile]
+        mov edx, eax
+        mov eax, edi
+        call InitShapeListBox
+        push dword str_SW06
+        mov ecx, str_HLRT
+        mov ebx, str_SW06
+        mov eax, dword [LinesShapeFile]
+        mov edx, esi
+        call InitShapeListBox
+        push dword str_HLLF
+        push dword [LinesShapeFile]
+        call FindShape
+        add esp, byte 8
+        push dword str_HLRT
+        push dword [LinesShapeFile]
+        mov dword [LinesHighlightShape], eax
+        call FindShape
+        mov dword [RatingMeterLevel], 0
+        mov dword [RatingMeterShapes], 0
+        mov dword [RatingMeterFrame], 0
+        add esp, byte 8
+        mov dword [LinesForwardShape], eax
+.8:
+        mov eax, dword [byte ebp-01Ch]
+        mov edx, dword [byte ebp-01Ch]
+        mov ecx, str_DF01
+        add eax, 148h
+        mov ebx, str_DF00
+        call SetLinesListPos
+        push dword str_DF00
+        add edx, 19Ah
+        mov eax, dword [LinesArtFile]
+        call InitShapeListBox
+        push dword str_AB022
+        mov edx, dword [byte ebp-01Ch]
+        mov ecx, str_AB012
+        mov ebx, str_AB002
+        mov eax, dword [LinesShapeFile]
+        add edx, 23Eh
+        call InitShapeListBox
+        push dword str_AB052
+        mov edx, dword [byte ebp-01Ch]
+        mov ecx, str_AB042
+        mov ebx, str_AB032
+        mov eax, dword [LinesShapeFile]
+        add edx, 290h
+        call InitShapeListBox
+        cmp byte [FrontMusicOn], 0
+        jne short .9
+        push dword [LinesScreenBitmap]
+        call SetDrawTarget
+        add esp, byte 4
+.9:
+        call DrawLinesPlayerCard
+        mov esi, 0Ah
+        xor edi, edi
+.10:
+        mov dword [byte ebp-04h], 0
+.11:
+        mov eax, edi
+        mov edx, dword [byte ebp-04h]
+        shl eax, 5
+        mov ebx, dword [dword eax+edx*8+LinesCardLayout+04h]
+        mov edx, dword [dword eax+edx*8+LinesCardLayout]
+        imul eax, esi, byte 52h
+        push dword [LinesCardY]
+        mov ecx, dword [LinesCardX]
+        inc dword [byte ebp-04h]
+        add ebx, byte 6
+        mov dword [byte ebp-0Ch], eax
+        mov eax, dword [byte ebp-01Ch]
+        add edx, byte 0Ah
+        add eax, dword [byte ebp-0Ch]
+        inc esi
+        call InitListBox
+        cmp dword [byte ebp-04h], byte 4
+        jl short .11
+        inc edi
+        cmp edi, byte 5
+        jl short .10
+        cmp dword [EditLinesPage], byte 3
+        jne near .13
+        xor esi, esi
+.12:
+        lea eax, [byte esi+0Ah]
+        imul eax, byte 52h
+        push dword [LinesCardY]
+        mov ecx, dword [LinesCardX]
+        mov ebx, dword [dword esi*8+LinesCardLayout+04h]
+        mov edx, dword [dword esi*8+LinesCardLayout]
+        add eax, dword [byte ebp-01Ch]
+        inc esi
+        call InitListBox
+        cmp esi, byte 2
+        jl short .12
+        mov eax, dword [byte ebp-01Ch]
+        mov ebx, dword [LinesCardLayout+4]
+        mov eax, dword [dword eax+0206h]
+        add ebx, dword [LinesCardY]
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        mov eax, dword [byte ebp-01Ch]
+        push edx
+        sub ebx, edx
+        mov edx, dword [byte ebp-01Ch]
+        sub ebx, byte 0Ah
+        add eax, 1ECh
+        mov edx, dword [dword edx+0212h]
+        call InitListBox
+        mov eax, dword [byte ebp-01Ch]
+        mov eax, dword [dword eax+0206h]
+        movsx edx, word [byte eax+06h]
+        movsx ecx, word [byte eax+04h]
+        lea eax, [byte esi+0Ah]
+        imul eax, byte 52h
+        mov ebx, dword [byte ebp-01Ch]
+        push edx
+        mov edx, dword [byte ebp-01Ch]
+        mov ebx, dword [dword ebx+0216h]
+        mov edx, dword [dword edx+0212h]
+        add eax, dword [byte ebp-01Ch]
+        call InitListBox
+.13:
+        cmp byte [FrontMusicOn], 0
+        je short .14
+        call SetScreenTarget
+        jmp short .15
+.14:
+        push dword [LinesScreenBitmap]
+        call SetDrawTarget
+        add esp, byte 4
+.15:
+        cmp dword [EditLinesPage], byte 3
+        jne short .16
+        mov eax, dword [byte ebp-01Ch]
+        push dword [dword eax+0216h]
+        push dword [dword eax+0212h]
+        mov eax, dword [LinesPopupBitmap]
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+.16:
+        xor esi, esi
+.17:
+        imul ebx, esi, byte 52h
+        add ebx, dword [byte ebp-01Ch]
+        cmp dword [byte ebx+01Ah], byte 0
+        je short .18
+        push dword [byte ebx+02Ah]
+        push dword [byte ebx+026h]
+        push dword [byte ebx+01Ah]
+        call DrawArt
+        add esp, byte 0Ch
+.18:
+        inc esi
+        cmp esi, byte 0Ah
+        jl short .17
+        cmp byte [FrontMusicOn], 0
+        je short .19
+        call PresentScreen
+.19:
+        mov dword [LinesTextPos], 0
+        mov dword [LinesTextLength], 0
+        cmp byte [FrontMusicOn], 0
+        jne near CopyTeamRoster_203
+        cmp dword [byte ebp-020h], byte 0
+        je near CopyTeamRoster_203
+        call SetScreenTarget
+        mov eax, dword [LinesScreenBitmap]
+        push dword [byte eax+02Ch]
+        call BlitShape
+        add esp, byte 4
+        call PresentScreen
+        jmp near CopyTeamRoster_203
+%else
 DrawLinesScreen_32B:
         push str_TB01
         mov ecx, str_TB01
@@ -6442,6 +8362,7 @@ DrawLinesScreen_32B:
         add esp, byte 4
         call PresentScreen
         jmp near CopyTeamRoster_203
+%endif
 ;-----------------------------------------------------------------------------
 ; SetLinesListPos                                 9B25A  97 PC, low confidence
 ; Sets the lines list position
@@ -6616,6 +8537,67 @@ InitLinesLabelList:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; InitLinesList                                   9BABC  97 PC, low confidence
+; Sets up the lines list box
+;-----------------------------------------------------------------------------
+InitLinesList:
+        push ebx
+        push ecx
+        push esi
+        push edi
+        push ebp
+        mov ebp, esp
+        push eax
+        mov edi, edx
+        xor esi, esi
+        jmp short .2
+.1:
+        imul eax, esi, byte 52h
+        add eax, dword [byte ebp-04h]
+        mov dword [byte eax+022h], 0
+        push byte 1
+        mov edx, dword [byte eax+022h]
+        mov ecx, 1
+        mov dword [byte eax+01Eh], edx
+        mov ebx, 1E0h
+        mov dword [byte eax+01Ah], edx
+        mov edx, 280h
+        inc esi
+        call InitListBox
+.2:
+        cmp esi, edi
+        jl short .1
+        jmp near CopyTeamRoster_203
+;-----------------------------------------------------------------------------
+; DrawLinesPlayerCard                             9BB00  97 PC, low confidence
+; Draws the lines screen player card
+;-----------------------------------------------------------------------------
+DrawLinesPlayerCard:
+        push ecx
+        push edx
+        call LayoutLinesCard
+        call DrawLinesCardLogo
+        mov edx, DrawLinesCardDetails_16C
+        mov eax, DrawLinesCardDetails
+        call DrawRatingMeters
+        cmp byte [FrontMusicOn], 0
+        je short .1
+        call SetScreenTarget
+.1:
+        mov edx, DrawLinesCardDetails_517
+        mov eax, DrawLinesCardDetails_41B
+        call DrawRatingMeters
+        cmp byte [FrontMusicOn], 0
+        je short .2
+        call PresentScreen
+.2:
+        call DrawCardRatings
+        pop edx
+        pop ecx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; InitLinesList                                   9B418  97 PC, low confidence
 ; Sets up the lines list box
@@ -6675,6 +8657,7 @@ DrawLinesPlayerCard:
         pop edx
         pop ecx
         ret
+%endif
 ;-----------------------------------------------------------------------------
 ; DrawLinesCardDetails                            9B4AA  97 PC, low confidence
 ; Draws the details on the lines player card
@@ -7485,6 +9468,516 @@ DrawRatingMeters:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; DrawCardRatings                                 9C445  97 PC, low confidence
+; Draws the ratings on the lines player card
+;-----------------------------------------------------------------------------
+DrawCardRatings:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 18h, 0
+        mov byte [byte ebp-018h], 42h
+        mov byte [byte ebp-017h], 58h
+        mov byte [byte ebp-016h], 31h
+        mov byte [byte ebp-015h], 31h
+        mov byte [byte ebp-014h], 0
+        mov esi, 0FFFFFFF7h
+        mov eax, dword [LinesCardX]
+        mov dword [byte ebp-010h], 2
+        sar eax, 1
+        push dword 0E8CC48h
+        add eax, byte 6
+        mov dword [byte ebp-08h], 2
+        mov dword [byte ebp-04h], eax
+        call MakeColor
+        add esp, byte 4
+        mov edi, eax
+        cmp byte [FrontMusicOn], 0
+        je short .1
+        call SetScreenTarget
+.1:
+        cmp dword [EditLinesPage], byte 0
+        jne near .5
+        xor ebx, ebx
+.2:
+        mov eax, esi
+        push edi
+        neg eax
+        push eax
+        mov eax, ebx
+        shl eax, 5
+        mov edx, dword [dword eax+LinesCardLayout+04h]
+        push dword [byte ebp-010h]
+        add edx, esi
+        mov eax, dword [dword eax+LinesCardLayout]
+        push edx
+        add eax, dword [byte ebp-04h]
+        push eax
+        inc ebx
+        call FillRect
+        add esp, byte 14h
+        cmp ebx, byte 5
+        jl short .2
+        push edi
+        mov eax, dword [LinesCardLayout+40h]
+        push dword [byte ebp-08h]
+        sub eax, dword [LinesCardLayout]
+        push eax
+        mov eax, dword [LinesCardLayout+4]
+        add eax, esi
+        push eax
+        mov eax, dword [LinesCardLayout]
+        add eax, dword [byte ebp-04h]
+        push eax
+        call FillRect
+        add esp, byte 14h
+        push edi
+        mov eax, dword [LinesCardLayout+80h]
+        push dword [byte ebp-08h]
+        sub eax, dword [LinesCardLayout+60h]
+        push eax
+        add esi, dword [LinesCardLayout+64h]
+        mov eax, dword [LinesCardLayout+60h]
+        push esi
+        add eax, dword [byte ebp-04h]
+        mov dword [byte ebp-0Ch], 0FFFFFFE6h
+        push eax
+        xor ebx, ebx
+        mov edi, 14h
+        call FillRect
+        mov byte [byte ebp-016h], 30h
+        add esp, byte 14h
+.3:
+        mov al, bl
+        add al, 31h
+        mov byte [byte ebp-015h], al
+        mov eax, dword [dword ebx*8+LinesCardLayout+04h]
+        add eax, edi
+        push eax
+        mov eax, dword [dword ebx*8+LinesCardLayout]
+        add eax, dword [byte ebp-0Ch]
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        inc ebx
+        call DrawArt
+        add esp, byte 0Ch
+        cmp ebx, byte 4
+        jl short .3
+        xor ebx, ebx
+.4:
+        mov al, bl
+        mov esi, dword [dword ebx*8+LinesCardLayout+064h]
+        add al, 35h
+        add esi, edi
+        mov byte [byte ebp-015h], al
+        mov eax, dword [dword ebx*8+LinesCardLayout+060h]
+        push esi
+        add eax, dword [byte ebp-0Ch]
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        inc ebx
+        call DrawArt
+        add esp, byte 0Ch
+        cmp ebx, byte 3
+        jl short .4
+        mov eax, dword [LinesCardLayout+24h]
+        sub eax, byte 0Eh
+        push eax
+        mov eax, dword [LinesCardLayout+20h]
+        add eax, byte 0Ch
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 38h
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [LinesCardLayout+64h]
+        add esp, byte 0Ch
+        sub eax, byte 0Eh
+        push eax
+        mov eax, dword [LinesCardLayout+60h]
+        add eax, byte 3Ah
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 39h
+        jmp near .14
+.5:
+        cmp dword [EditLinesPage], byte 1
+        jne near .9
+        xor ebx, ebx
+.6:
+        mov eax, esi
+        push edi
+        neg eax
+        push eax
+        mov eax, ebx
+        shl eax, 5
+        mov edx, dword [dword eax+LinesCardLayout+04h]
+        push dword [byte ebp-010h]
+        add edx, esi
+        mov eax, dword [dword eax+LinesCardLayout]
+        push edx
+        add eax, dword [byte ebp-04h]
+        push eax
+        inc ebx
+        call FillRect
+        add esp, byte 14h
+        cmp ebx, byte 5
+        jl short .6
+        push edi
+        mov eax, dword [LinesCardLayout+80h]
+        push dword [byte ebp-08h]
+        sub eax, dword [LinesCardLayout]
+        push eax
+        mov eax, dword [LinesCardLayout+4]
+        add eax, esi
+        push eax
+        mov eax, dword [LinesCardLayout]
+        add eax, dword [byte ebp-04h]
+        push eax
+        xor ebx, ebx
+        call FillRect
+        add esp, byte 14h
+.7:
+        mov eax, esi
+        push edi
+        neg eax
+        push eax
+        mov eax, ebx
+        shl eax, 5
+        mov edx, dword [dword eax+LinesCardLayout+014h]
+        push dword [byte ebp-010h]
+        add edx, esi
+        mov eax, dword [dword eax+LinesCardLayout+010h]
+        push edx
+        add eax, dword [byte ebp-04h]
+        push eax
+        inc ebx
+        call FillRect
+        add esp, byte 14h
+        cmp ebx, byte 4
+        jl short .7
+        push edi
+        mov eax, dword [LinesCardLayout+70h]
+        push dword [byte ebp-08h]
+        sub eax, dword [LinesCardLayout+10h]
+        push eax
+        add esi, dword [LinesCardLayout+14h]
+        mov eax, dword [LinesCardLayout+10h]
+        push esi
+        add eax, dword [byte ebp-04h]
+        push eax
+        call FillRect
+        add esp, byte 14h
+        push edi
+        push dword [byte ebp-08h]
+        mov eax, dword [LinesCardLayout+94h]
+        push byte 28h
+        add eax, byte 1Eh
+        push eax
+        mov eax, dword [LinesCardLayout+90h]
+        add eax, byte 56h
+        push eax
+        call FillRect
+        add esp, byte 14h
+        push edi
+        push dword [byte ebp-08h]
+        mov eax, dword [LinesCardLayout+9Ch]
+        push byte 28h
+        add eax, byte 1Eh
+        push eax
+        mov eax, dword [LinesCardLayout+98h]
+        add eax, byte 56h
+        push eax
+        call FillRect
+        add esp, byte 14h
+        mov eax, dword [LinesCardLayout+9Ch]
+        push edi
+        sub eax, dword [LinesCardLayout+94h]
+        push eax
+        mov eax, dword [LinesCardLayout+94h]
+        push dword [byte ebp-010h]
+        add eax, byte 1Eh
+        push eax
+        mov eax, dword [LinesCardLayout+90h]
+        add eax, byte 7Eh
+        sub eax, dword [byte ebp-010h]
+        mov dword [byte ebp-0Ch], 0FFFFFFE0h
+        push eax
+        xor ebx, ebx
+        mov edi, 14h
+        call FillRect
+        add esp, byte 14h
+.8:
+        mov al, bl
+        add al, 32h
+        mov byte [byte ebp-015h], al
+        mov eax, dword [dword ebx*8+LinesCardLayout+04h]
+        add eax, edi
+        push eax
+        mov eax, dword [dword ebx*8+LinesCardLayout]
+        add eax, dword [byte ebp-0Ch]
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [dword ebx*8+LinesCardLayout+014h]
+        add esp, byte 0Ch
+        add eax, edi
+        push eax
+        mov eax, dword [dword ebx*8+LinesCardLayout+010h]
+        add eax, dword [byte ebp-0Ch]
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        inc ebx
+        call DrawArt
+        add esp, byte 0Ch
+        cmp ebx, byte 2
+        jl short .8
+        mov eax, dword [LinesCardLayout+44h]
+        sub eax, byte 0Eh
+        push eax
+        mov eax, dword [LinesCardLayout+40h]
+        add eax, byte 18h
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 39h
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [LinesCardLayout+54h]
+        add esp, byte 0Ch
+        sub eax, byte 0Eh
+        push eax
+        mov eax, dword [LinesCardLayout+50h]
+        sub eax, byte 16h
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 38h
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [LinesCardLayout+14h]
+        add esp, byte 0Ch
+        add eax, byte 38h
+        push eax
+        mov eax, dword [LinesCardLayout+90h]
+        add eax, dword [LinesCardX]
+        add eax, byte 11h
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 36h
+        jmp near .14
+.9:
+        cmp dword [EditLinesPage], byte 2
+        jne near .13
+        xor ebx, ebx
+.10:
+        mov eax, esi
+        push edi
+        neg eax
+        push eax
+        mov eax, ebx
+        shl eax, 5
+        mov edx, dword [dword eax+LinesCardLayout+04h]
+        push dword [byte ebp-010h]
+        add edx, esi
+        mov eax, dword [dword eax+LinesCardLayout]
+        push edx
+        add eax, dword [byte ebp-04h]
+        push eax
+        inc ebx
+        call FillRect
+        add esp, byte 14h
+        cmp ebx, byte 4
+        jl short .10
+        push edi
+        mov eax, dword [LinesCardLayout+60h]
+        push dword [byte ebp-08h]
+        sub eax, dword [LinesCardLayout]
+        push eax
+        mov eax, dword [LinesCardLayout+4]
+        add eax, esi
+        push eax
+        mov eax, dword [LinesCardLayout]
+        add eax, dword [byte ebp-04h]
+        push eax
+        xor ebx, ebx
+        call FillRect
+        add esp, byte 14h
+.11:
+        mov eax, esi
+        push edi
+        neg eax
+        push eax
+        mov eax, ebx
+        shl eax, 5
+        mov edx, dword [dword eax+LinesCardLayout+014h]
+        push dword [byte ebp-010h]
+        add edx, esi
+        mov eax, dword [dword eax+LinesCardLayout+010h]
+        push edx
+        add eax, dword [byte ebp-04h]
+        push eax
+        inc ebx
+        call FillRect
+        add esp, byte 14h
+        cmp ebx, byte 3
+        jl short .11
+        push edi
+        mov eax, dword [LinesCardLayout+50h]
+        push dword [byte ebp-08h]
+        sub eax, dword [LinesCardLayout+10h]
+        push eax
+        add esi, dword [LinesCardLayout+14h]
+        mov eax, dword [LinesCardLayout+10h]
+        push esi
+        add eax, dword [byte ebp-04h]
+        mov dword [byte ebp-0Ch], 0FFFFFFE0h
+        push eax
+        xor ebx, ebx
+        mov edi, 14h
+        call FillRect
+        add esp, byte 14h
+.12:
+        mov al, bl
+        add al, 34h
+        mov byte [byte ebp-015h], al
+        mov eax, dword [dword ebx*8+LinesCardLayout+04h]
+        add eax, edi
+        push eax
+        mov eax, dword [dword ebx*8+LinesCardLayout]
+        add eax, dword [byte ebp-0Ch]
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [dword ebx*8+LinesCardLayout+014h]
+        add esp, byte 0Ch
+        add eax, edi
+        push eax
+        mov eax, dword [dword ebx*8+LinesCardLayout+010h]
+        add eax, dword [byte ebp-0Ch]
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        call FindShape
+        add esp, byte 8
+        push eax
+        inc ebx
+        call DrawArt
+        add esp, byte 0Ch
+        cmp ebx, byte 2
+        jl short .12
+        mov eax, dword [LinesCardLayout+44h]
+        sub eax, byte 0Eh
+        push eax
+        mov eax, dword [LinesCardLayout+40h]
+        sub eax, byte 1Ch
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 38h
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [LinesCardLayout+54h]
+        add esp, byte 0Ch
+        sub eax, byte 0Eh
+        push eax
+        mov eax, dword [LinesCardLayout+30h]
+        add eax, byte 16h
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 37h
+        jmp short .14
+.13:
+        cmp dword [EditLinesPage], byte 3
+        jne short .15
+        mov eax, dword [LinesCardLayout+4]
+        add eax, dword [LinesCardY]
+        add eax, byte 14h
+        push eax
+        mov eax, dword [LinesCardLayout]
+        add eax, byte 1Eh
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 30h
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        mov eax, dword [LinesCardLayout+0Ch]
+        add eax, dword [LinesCardY]
+        add esp, byte 0Ch
+        add eax, byte 14h
+        push eax
+        mov eax, dword [LinesCardLayout+8]
+        add eax, byte 6Eh
+        push eax
+        lea eax, [byte ebp-018h]
+        push eax
+        push dword [LinesArtFile]
+        mov byte [byte ebp-015h], 31h
+.14:
+        call FindShape
+        add esp, byte 8
+        push eax
+        call DrawArt
+        add esp, byte 0Ch
+.15:
+        cmp byte [FrontMusicOn], 0
+        je near LayoutLinesCard_39D
+        call PresentScreen
+        jmp near LayoutLinesCard_39D
+%else
 ;-----------------------------------------------------------------------------
 ; DrawCardRatings                                 9BDA1  97 PC, low confidence
 ; Draws the ratings on the lines player card
@@ -7993,6 +10486,7 @@ DrawCardRatings:
         je near LayoutLinesCard_39D
         call PresentScreen
         jmp near LayoutLinesCard_39D
+%endif
 ;-----------------------------------------------------------------------------
 ; LoadLinesArt                                    9C3BF  97 PC, low confidence
 ; Loads the lines screen art
@@ -8128,6 +10622,192 @@ LoadLinesArt:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; LoadEditLinesArt                                9CC17  97 PC, low confidence
+; Edit lines: opens the art library and loads the FART / LOGO pictures
+;-----------------------------------------------------------------------------
+LoadEditLinesArt:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 14h, 0
+        mov eax, 63h
+        call OpenDataLibrary
+        xor esi, esi
+        jmp near .5
+.1:
+        mov edi, esi
+        imul edx, esi, dword 125h
+        mov eax, dword [LinesTeamText]
+        shl edi, 2
+        mov dword [edi+eax], 0
+        mov eax, dword [EditLinesTeam]
+        add eax, 0A3h
+        add eax, edx
+        lea ebx, [byte eax+027h]
+        cmp byte [ebx], 0
+        je near .3
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push byte 0
+        push ebx
+        call OpenArtArchive
+        add esp, byte 8
+        mov dword [byte ebp-04h], eax
+        test eax, eax
+        je near .11
+        push dword str_FART
+        push eax
+        call FindShapeQuiet
+        mov ebx, eax
+        add esp, byte 8
+        test eax, eax
+        je short .2
+        push byte 20h
+        movsx eax, word [byte eax+06h]
+        push eax
+        movsx eax, word [byte ebx+04h]
+        push eax
+        call CreateBitmap
+        mov edx, eax
+        mov eax, dword [LinesTeamText]
+        mov dword [edi+eax], edx
+        add esp, byte 0Ch
+        mov eax, dword [LinesTeamText]
+        push dword [edi+eax]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push ebx
+        call DrawArt
+        add esp, byte 0Ch
+.2:
+        push dword [byte ebp-04h]
+        call FreeMemBlock
+        add esp, byte 4
+        jmp short .11
+.3:
+        push dword str_LOGO3
+        push dword [LinesShapeFile]
+        call FindShapeQuiet
+        mov ebx, eax
+        add esp, byte 8
+        test eax, eax
+        je short .11
+        push byte 20h
+        movsx eax, word [byte eax+06h]
+        push eax
+        movsx eax, word [byte ebx+04h]
+        push eax
+        call CreateBitmap
+        mov edx, eax
+        mov eax, dword [LinesTeamText]
+        mov dword [edi+eax], edx
+        add esp, byte 0Ch
+        mov eax, dword [LinesTeamText]
+        push dword [edi+eax]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push ebx
+        call DrawArt
+        add esp, byte 0Ch
+.11:
+        call ServiceIdle
+        inc esi
+.5:
+        mov eax, dword [EditLinesTeam]
+        movsx eax, word [dword eax+0A1h]
+        cmp esi, eax
+        jl near .1
+        mov eax, 37h
+        call OpenDataLibrary
+        xor esi, esi
+        jmp near .10
+.6:
+        mov eax, dword [LinesTitleText]
+        mov edx, esi
+        mov dword [eax+edx*4], 0
+        imul edx, esi, dword 125h
+        mov eax, dword [EditLinesTeam]
+        add eax, 1D42h
+        add eax, edx
+        lea ebx, [byte eax+027h]
+        cmp byte [ebx], 0
+        jne short .7
+        mov edx, str_NOFACEFSH
+        lea eax, [byte ebp-014h]
+        lea ebx, [byte ebp-014h]
+        call strcpy_
+.7:
+        cmp byte [ebx], 0
+        je near .12
+        mov eax, 3
+        call SecondsToSamples
+        call WaitSoundTime
+        push byte 0
+        push ebx
+        call OpenArtArchive
+        add esp, byte 8
+        mov dword [byte ebp-04h], eax
+        test eax, eax
+        je short .12
+        push dword str_FART
+        push eax
+        call FindShapeQuiet
+        mov ebx, eax
+        add esp, byte 8
+        test eax, eax
+        je short .8
+        push byte 20h
+        movsx eax, word [byte eax+06h]
+        push eax
+        movsx eax, word [byte ebx+04h]
+        push eax
+        mov edi, esi
+        call CreateBitmap
+        mov edx, eax
+        mov eax, dword [LinesTitleText]
+        mov dword [eax+edi*4], edx
+        add esp, byte 0Ch
+        mov eax, dword [LinesTitleText]
+        push dword [eax+edi*4]
+        call SetDrawTarget
+        add esp, byte 4
+        push byte 0
+        call ClearScreen
+        add esp, byte 4
+        push byte 0
+        push byte 0
+        push ebx
+        call DrawArt
+        add esp, byte 0Ch
+.8:
+        push dword [byte ebp-04h]
+        call FreeMemBlock
+        add esp, byte 4
+.12:
+        call ServiceIdle
+        inc esi
+.10:
+        mov eax, dword [EditLinesTeam]
+        movsx eax, word [dword eax+01D40h]
+        cmp esi, eax
+        jl near .6
+        jmp near LayoutLinesCard_39D
+%else
 ;-----------------------------------------------------------------------------
 ; LoadEditLinesArt                                9C573  97 PC, low confidence
 ; Edit lines: opens the art library and loads the FART / LOGO pictures
@@ -8312,6 +10992,7 @@ LoadEditLinesArt:
         cmp esi, eax
         jl near .6
         jmp near LayoutLinesCard_39D
+%endif
 ;-----------------------------------------------------------------------------
 ; ShowLinesIntro                                  9C7B7  97 PC, low confidence
 ; Shows the lines screen intro
@@ -8411,6 +11092,306 @@ ShowLinesIntro_FE:
         jne near LinesIntroSparkle_82
         mov edx, dword [LinesForwardShape]
         jmp near LinesIntroSparkle_88
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; DrawLinesIntroText                              9CFC8  97 PC, low confidence
+; Draws the lines intro text
+;-----------------------------------------------------------------------------
+DrawLinesIntroText:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 50h, 0
+        xor edx, edx
+        cmp dword [EditLinesPage], byte 3
+        jne short .1
+        mov dword [byte ebp-08h], 0Ch
+        jmp short .2
+.1:
+        mov dword [byte ebp-08h], 1Eh
+.2:
+        mov eax, dword [LinesTextPos]
+        mov ebx, dword [LinesIntroTeam]
+        mov dword [byte ebp-0Ch], eax
+        mov eax, 0Ah
+        jmp short .6
+.3:
+        imul esi, eax, byte 52h
+        cmp dword [byte esi+ebx+04h], byte 1
+        jne short .5
+        cmp eax, dword [LinesTextPos]
+        je short .4
+        mov dword [LinesTextPos], eax
+.4:
+        inc edx
+        jmp short .7
+.5:
+        inc eax
+.6:
+        cmp eax, dword [byte ebp-08h]
+        jl short .3
+.7:
+        test edx, edx
+        jne short .8
+        mov dword [LinesTextPos], edx
+.8:
+        mov eax, dword [LinesTextLength]
+        cmp eax, dword [LinesTextPos]
+        je near .17
+        cmp eax, byte 0Ah
+        jl near .16
+        cmp eax, dword [byte ebp-08h]
+        jge near .16
+        lea edi, [byte eax-0Ah]
+        mov eax, edi
+        sar eax, 2
+        and edi, byte 3
+        mov edx, eax
+        mov dword [byte ebp-04h], eax
+        shl edx, 3
+        lea eax, [edi+edi]
+        add eax, edx
+        cmp word [dword eax+LinesSlotPositions], byte 0
+        jl near .16
+        cmp dword [EditLinesPage], byte 3
+        jne short .9
+        movsx edx, word [dword eax+LinesSlotPositions]
+        imul edx, dword 125h
+        mov ebx, dword [EditLinesTeam]
+        add ebx, 1D42h
+        jmp short .10
+.9:
+        movsx edx, word [dword eax+LinesSlotPositions]
+        imul edx, dword 125h
+        mov ebx, dword [EditLinesTeam]
+        add ebx, 0A3h
+.10:
+        mov al, byte [byte edx+ebx+018h]
+        add edx, ebx
+        mov byte [byte ebp-050h], al
+        lea esi, [byte edx+08h]
+        mov byte [byte ebp-04Eh], 20h
+        mov byte [byte ebp-04Fh], 2Eh
+        xor eax, eax
+        jmp short .12
+.11:
+        inc eax
+        mov dl, byte [ebx]
+        mov byte [byte eax+ebp-04Eh], dl
+.12:
+        lea ebx, [esi+eax]
+        cmp byte [ebx], 0
+        jne short .11
+        mov byte [byte eax+ebp-04Dh], 0
+        lea eax, [byte ebp-050h]
+        push eax
+        call MeasureText
+        sar eax, 1
+        lea edx, [byte eax+01h]
+        mov eax, dword [LinkTextFont]
+        inc eax
+        mov ebx, dword [byte ebp-04h]
+        mov dword [byte ebp-010h], eax
+        mov eax, edi
+        shl ebx, 5
+        shl eax, 3
+        add eax, ebx
+        add esp, byte 4
+        mov esi, dword [dword eax+LinesCardLayout]
+        mov ebx, dword [dword eax+LinesCardLayout+04h]
+        add esi, byte 2Ch
+        add ebx, byte 40h
+        sub esi, edx
+        cmp dword [EditLinesPage], byte 3
+        jne short .13
+        sub ebx, byte 3Eh
+        add esi, byte 3Dh
+        jmp short .15
+.13:
+        cmp dword [byte ebp-04h], byte 4
+        jne short .14
+        test edi, edi
+        jne short .14
+        mov edi, dword [dword eax+LinesCardLayout]
+        lea eax, [edx+edx]
+        lea ecx, [esi+eax]
+        add edi, byte 5Ah
+        cmp edi, ecx
+        jge short .15
+        mov esi, edi
+        sub esi, eax
+        jmp short .15
+.14:
+        cmp edi, byte 3
+        jne short .15
+        sub ebx, byte 6
+.15:
+        mov eax, dword [byte ebp-010h]
+        add eax, ebx
+        push eax
+        add edx, edx
+        push ebx
+        add edx, esi
+        push edx
+        push esi
+        call SetClipWindow
+        add esp, byte 10h
+        push ebx
+        mov eax, dword [LinesIntroBitmap]
+        push esi
+        push dword [byte eax+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call ResetClipWindow
+.16:
+        mov eax, dword [LinesTextPos]
+        mov dword [LinesTextLength], eax
+.17:
+        mov eax, 0Ah
+        mov ebx, dword [LinesIntroTeam]
+        jmp near .27
+.18:
+        imul edx, eax, byte 52h
+        cmp dword [byte edx+ebx+04h], byte 1
+        jne near .26
+        cmp eax, dword [byte ebp-0Ch]
+        je near .28
+        sub eax, byte 0Ah
+        mov edx, eax
+        mov edi, eax
+        sar edx, 2
+        and edi, byte 3
+        mov dword [byte ebp-04h], edx
+        lea eax, [edi+edi]
+        shl edx, 3
+        add eax, edx
+        cmp word [dword eax+LinesSlotPositions], byte 0
+        jl near .28
+        cmp dword [EditLinesPage], byte 3
+        jne short .19
+        movsx edx, word [dword eax+LinesSlotPositions]
+        imul edx, dword 125h
+        mov ebx, dword [EditLinesTeam]
+        add ebx, 1D42h
+        jmp short .20
+.19:
+        movsx ebx, word [dword eax+LinesSlotPositions]
+        imul ebx, dword 125h
+        mov edx, dword [EditLinesTeam]
+        add edx, 0A3h
+.20:
+        mov al, byte [byte edx+ebx+018h]
+        add edx, ebx
+        mov byte [byte ebp-050h], al
+        lea esi, [byte edx+08h]
+        mov byte [byte ebp-04Eh], 20h
+        mov byte [byte ebp-04Fh], 2Eh
+        xor eax, eax
+        jmp short .22
+.21:
+        inc eax
+        mov dl, byte [ebx]
+        mov byte [byte eax+ebp-04Eh], dl
+.22:
+        lea ebx, [esi+eax]
+        cmp byte [ebx], 0
+        jne short .21
+        mov byte [byte eax+ebp-04Dh], 0
+        lea eax, [byte ebp-050h]
+        push eax
+        call MeasureText
+        sar eax, 1
+        lea edx, [byte eax+01h]
+        mov ebx, edi
+        mov eax, dword [byte ebp-04h]
+        shl ebx, 3
+        shl eax, 5
+        add eax, ebx
+        add esp, byte 4
+        mov esi, dword [dword eax+LinesCardLayout]
+        mov ebx, dword [dword eax+LinesCardLayout+04h]
+        add esi, byte 2Ch
+        add ebx, byte 40h
+        sub esi, edx
+        cmp dword [EditLinesPage], byte 3
+        jne short .23
+        sub ebx, byte 3Eh
+        add esi, byte 3Dh
+        jmp short .25
+.23:
+        cmp dword [byte ebp-04h], byte 4
+        jne short .24
+        test edi, edi
+        jne short .24
+        mov eax, dword [dword eax+LinesCardLayout]
+        add edx, edx
+        add eax, byte 5Ah
+        lea edi, [esi+edx]
+        cmp edi, eax
+        jle short .25
+        mov esi, eax
+        sub esi, edx
+        jmp short .25
+.24:
+        cmp edi, byte 3
+        jne short .25
+        sub ebx, byte 6
+.25:
+        push ebx
+        mov eax, dword [LinesIntroBitmap]
+        push esi
+        push dword [byte eax+02Ch]
+        call ConvertArtXY
+        add esp, byte 0Ch
+        lea eax, [byte ebp-050h]
+        push eax
+        push ebx
+        push esi
+        push byte 0
+        call DrawTextAligned
+        add esp, byte 10h
+        jmp short .28
+.26:
+        inc eax
+.27:
+        cmp eax, dword [byte ebp-08h]
+        jl near .18
+.28:
+        mov eax, dword [tickcount]
+        mov ebx, eax
+        cmp eax, dword [LinesTextScroll]
+        jle near LayoutLinesCard_39D
+        cmp dword [LinesTextLine], byte 0
+        sete al
+        movzx eax, al
+        lea esi, [byte ebx+010h]
+        mov dword [LinesTextLine], eax
+        test eax, eax
+        je short .31
+        mov edx, DrawRatingMeterArt
+        mov eax, DrawRatingMeter
+        call DrawRatingMeters
+        cmp dword [EditLinesPage], byte 3
+        jne short .30
+.29:
+        mov dword [LinesTextScroll], esi
+        jmp near LayoutLinesCard_39D
+.30:
+        add ebx, byte 50h
+        jmp short .32
+.31:
+        mov edx, DrawRatingMeterArt
+        mov eax, RatingMeterColour
+        call DrawRatingMeters
+        cmp dword [EditLinesPage], byte 3
+        je short .29
+        add ebx, byte 28h
+.32:
+        mov dword [LinesTextScroll], ebx
+        jmp near LayoutLinesCard_39D
+%else
 ;-----------------------------------------------------------------------------
 ; DrawLinesIntroText                              9C924  97 PC, low confidence
 ; Draws the lines intro text
@@ -8709,6 +11690,7 @@ DrawLinesIntroText:
 .32:
         mov dword [LinesTextScroll], ebx
         jmp near LayoutLinesCard_39D
+%endif
 ;-----------------------------------------------------------------------------
 ; LinesIntroSound                                 9CCB1  97 PC, low confidence
 ; Plays a random lines intro sound
@@ -8828,6 +11810,135 @@ LinesIntroSparkle_B6:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; ShowLinesPopup                                  9D4C1  97 PC, low confidence
+; Shows a lines screen popup
+;-----------------------------------------------------------------------------
+ShowLinesPopup:
+        push ebx
+        push ecx
+        push edx
+        push esi
+        push edi
+        enter 38h, 0
+        mov byte [byte ebp-01Ch], 53h
+        mov byte [byte ebp-01Bh], 57h
+        mov byte [byte ebp-01Ah], 30h
+        mov byte [byte ebp-019h], 30h
+        mov eax, 30Bh
+        mov byte [byte ebp-018h], 0
+        call PlaySfx
+        xor ebx, ebx
+.1:
+        mov al, bl
+        add al, 30h
+        mov byte [byte ebp-019h], al
+        lea eax, [byte ebp-01Ch]
+        push eax
+        push dword [LinesShapeFile]
+        inc ebx
+        call FindShape
+        add esp, byte 8
+        mov dword [byte ebp+ebx*4-03Ch], eax
+        cmp ebx, byte 7
+        jl short .1
+        mov ebx, dword [LinesIntroTeam]
+        mov eax, dword [dword ebx+0216h]
+        push dword str_LMON
+        mov dword [byte ebp-04h], eax
+        mov eax, dword [dword ebx+0206h]
+        push dword [LinesShapeFile]
+        mov edi, dword [dword ebx+0212h]
+        movsx esi, word [byte eax+04h]
+        movsx ebx, word [byte eax+06h]
+        call FindShape
+        add esp, byte 8
+        push byte 0
+        push ebx
+        push esi
+        call CreateBitmap
+        add esp, byte 0Ch
+        mov ebx, 6
+        mov esi, eax
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-0Ch], eax
+        mov dword [byte ebp-08h], eax
+        jmp short .5
+.2:
+        push esi
+        call SetDrawTarget
+        mov eax, dword [LinesPopupBitmap]
+        mov eax, dword [byte eax+02Ch]
+        movsx edx, word [byte eax+0Eh]
+        add esp, byte 4
+        sub edx, dword [byte ebp-04h]
+        push edx
+        movsx edx, word [byte eax+0Ch]
+        sub edx, edi
+        push edx
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0
+        push dword [byte ebp+ebx*4-038h]
+        call DrawArt
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push dword [byte ebp-04h]
+        push edi
+        push dword [byte esi+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+.3:
+        mov eax, dword [byte ebp-0Ch]
+        cmp eax, dword [byte ebp-08h]
+        jle short .4
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-08h], eax
+        jmp short .3
+.4:
+        mov eax, dword [byte ebp-08h]
+        add eax, byte 6
+        dec ebx
+        mov dword [byte ebp-0Ch], eax
+        call ServiceIdle
+.5:
+        test ebx, ebx
+        jge short .2
+        push esi
+        call SetDrawTarget
+        mov eax, dword [LinesPopupBitmap]
+        mov eax, dword [byte eax+02Ch]
+        movsx ebx, word [byte eax+0Eh]
+        add esp, byte 4
+        sub ebx, dword [byte ebp-04h]
+        movsx edx, word [byte eax+0Ch]
+        push ebx
+        sub edx, edi
+        push edx
+        push eax
+        call BlitArt
+        add esp, byte 0Ch
+        push byte 0
+        push byte 0
+        push dword [byte ebp-020h]
+        call DrawArt
+        add esp, byte 0Ch
+        call SetScreenTarget
+        push dword [byte ebp-04h]
+        push edi
+        push dword [byte esi+02Ch]
+        call BlitArt
+        add esp, byte 0Ch
+        call PresentScreen
+        push esi
+        call FreeBitmap
+        add esp, byte 4
+        jmp near LayoutLinesCard_39D
+%else
 ;-----------------------------------------------------------------------------
 ; ShowLinesPopup                                  9CE1D  97 PC, low confidence
 ; Shows a lines screen popup
@@ -8955,3 +12066,4 @@ ShowLinesPopup:
         call FreeBitmap
         add esp, byte 4
         jmp near LayoutLinesCard_39D
+%endif

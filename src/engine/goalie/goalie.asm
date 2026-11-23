@@ -2391,6 +2391,20 @@ UpdateGoalie:
         pop ebx
         ret
         db 08Dh,040h,00h
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; GoalieTick                                      612E8  97 PC, low confidence
+; Runs the goalie and animation clock for one frame
+;-----------------------------------------------------------------------------
+GoalieTick:
+        push edx
+        mov edx, eax
+        call UpdateGoalie
+        mov eax, dword [dword edx+0F6h]
+        call AnimClockTick
+        pop edx
+        ret
+%else
 ;-----------------------------------------------------------------------------
 ; GoalieTick                                      60D28  97 PC, low confidence
 ; Runs the goalie and animation clock for one frame
@@ -2421,3 +2435,4 @@ GoalieTick:
         pop ecx
         pop ebx
         ret
+%endif

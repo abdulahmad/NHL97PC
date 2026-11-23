@@ -154,6 +154,9 @@ global str_PLDHKDD, str_BRKGRAB, str_RLSGRAB, str_MISGRAB, str_BRKPULJ, str_RLSP
 global str_CUPSK8, str_CUPCASK, str_CUPKISS, str_CUPUPDW, str_CUPGLAU, str_CUPGLAD, str_rhand, str_Lhand
 global str_stickheel, str_Sticktip, str_Lknee, str_Lankle, str_Rknee, str_Rankle, str_Pelvis, str_back
 global str_chin, str_Lelbow, str_Relbow, str_lshldr, str_rshldr
+%if VERSION = 11
+global F32_11931, F32_4_PuckOffPost2, F64_100_UpdateScoreClockData, F64_48_GoalieMoves2
+%endif
 str_CUPP:                                       ; string "CUPP"; used by BuildCupPatchArt
         db 043h,055h,050h,050h,00h,00h,00h,00h
 str_2d:                                         ; string "%2d"; used by DrawJerseyLettering
@@ -1527,6 +1530,13 @@ F64_0p0001_UpdateScoreClockData:                ; double constant 0.0001; used b
         db 02Dh,043h,01Ch,0EBh,0E2h,036h,01Ah,03Fh
 F64_10000:                                      ; double constant 10000; used by UpdateScoreClockData
         db 00h,00h,00h,00h,00h,088h,0C3h,040h
+%if VERSION = 11
+F64_100_UpdateScoreClockData:                   ; double constant 100; used by UpdateScoreClockData
+        db 0,0,0,0,0,0,59h,40h
+F32_11931:                                      ; float constant 11931 (PIT counts per 10 ms); used by
+                                                ; UpdateScoreClockData
+        db 0,6Ch,3Ah,46h
+%endif
 F32_8_UpdateScoreClockData:                     ; float constant 8; used by UpdateScoreClockData
         db 00h,00h,00h,041h
 F64_0p2_UpdateScoreClockData:                   ; double constant 0.2; used by UpdateScoreClockData
@@ -1698,6 +1708,40 @@ F64_neg12100:                                   ; double constant -12100; used b
         db 00h,00h,00h,00h,00h,0A2h,0C7h,0C0h
 F64_180_NetCollisionPoint:                      ; double constant 180; used by NetCollisionPoint
         db 00h,00h,00h,00h,00h,080h,066h,040h
+%if VERSION = 11
+F32_4_PuckOffPost:                              ; float constant 4; used by PuckOffPost
+F32_4_NetCollisionPoint:                        ; float constant 4; used by NetCollisionPoint
+        db 0,0,80h,40h
+F32_2_NetCollisionPoint:                        ; float constant 2; used by NetCollisionPoint
+        db 0,0,0,40h
+F64_3p08642eneg05:                              ; double constant 3.086419753e-05; used by NetCollisionPoint
+        db 71h,8Bh,89h,0C0h,85h,2Eh,0,3Fh
+F64_110_NetCollisionPoint:                      ; double constant 110; used by NetCollisionPoint
+        db 0,0,0,0,0,80h,5Bh,40h
+F32_12_PuckInNetDepth:                          ; float constant 12; used by PuckInNetDepth
+        db 0,0,40h,41h
+F32_neg12_PuckInNetWidth:                       ; float constant -12; used by PuckInNetWidth
+        db 0,0,40h,0C1h
+F64_6p28319_PlayNetSound:                       ; double constant 6.28319; used by PlayNetSound
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,19h,40h
+F64_3p14159_PlayNetSound:                       ; double constant 3.14159; used by PlayNetSound
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,9,40h
+F64_neg6p28319_PlayNetSound:                    ; double constant -6.28319; used by PlayNetSound
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,19h,0C0h
+F64_neg3p14159_PlayNetSound:                    ; double constant -3.14159; used by PlayNetSound
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,9,0C0h
+F64_1p74533_PlayNetSound:                       ; double constant 1.74533; used by PlayNetSound
+        db 0E2h,0E8h,8Ch,64h,0DEh,0ECh,0FBh,3Fh
+F64_0p0001_PuckOffPost:                         ; double constant 0.0001; used by PuckOffPost
+        db 2Dh,43h,1Ch,0EBh,0E2h,36h,1Ah,3Fh
+F32_2_PuckOffPost:                              ; float constant 2; used by PuckOffPost
+        db 0,0,0,40h
+F32_22p5625:                                    ; float constant 22.5625; used by PuckOffPost
+        db 0,80h,0B4h,41h
+F32_4_PuckOffPost2:                             ; float constant 4 (a second copy, new in 1.1); used by
+                                                ; PuckOffPost
+        db 0,0,80h,40h
+%else
 F32_4_NetCollisionPoint:                        ; float constant 4; used by NetCollisionPoint
         db 00h,00h,080h,040h
 F32_2_NetCollisionPoint:                        ; float constant 2; used by NetCollisionPoint
@@ -1728,6 +1772,7 @@ F32_22p5625:                                    ; float constant 22.5625; used b
         db 00h,080h,0B4h,041h
 F32_4_PuckOffPost:                              ; float constant 4; used by PuckOffPost
         db 00h,00h,080h,040h
+%endif
 F64_2_PuckOffPost:                              ; double constant 2; used by PuckOffPost
         db 00h,00h,00h,00h,00h,00h,00h,040h
 F64_3p14159_PuckOffPost:                        ; double constant 3.14159; used by PuckOffPost
@@ -2480,6 +2525,34 @@ F64_neg0p785398_GoalieSave:                     ; double constant -0.785398; use
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,0BFh
 F64_0p785398_GoalieSave:                        ; double constant 0.785398; used by goaliesave
         db 097h,0D1h,07Eh,05Ah,0FBh,021h,0E9h,03Fh
+%if VERSION = 11
+F64_48_GoalieMoves:                             ; double constant 48; used by GoalieMoves
+F64_48:                                         ; double constant 48; used by goaliesave
+        db 0,0,0,0,0,0,48h,40h
+F64_0p0001_GoalieMoves:                         ; double constant 0.0001; used by GoalieMoves
+        db 2Dh,43h,1Ch,0EBh,0E2h,36h,1Ah,3Fh
+F64_144_GoalieMoves:                            ; double constant 144; used by GoalieMoves
+        db 0,0,0,0,0,0,62h,40h
+F64_576_GoalieMoves:                            ; double constant 576; used by GoalieMoves
+        db 0,0,0,0,0,0,82h,40h
+F64_4272_GoalieMoves:                           ; double constant 4272; used by GoalieMoves
+        db 0,0,0,0,0,0B0h,0B0h,40h
+F64_240_GoalieMoves:                            ; double constant 240; used by GoalieMoves
+        db 0,0,0,0,0,0,6Eh,40h
+F64_6p28319_GoalieMoves:                        ; double constant 6.28319; used by GoalieMoves
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,19h,40h
+F64_3p14159_GoalieMoves:                        ; double constant 3.14159; used by GoalieMoves
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,9,40h
+F64_neg6p28319_GoalieMoves:                     ; double constant -6.28319; used by GoalieMoves
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,19h,0C0h
+F64_neg3p14159_GoalieMoves:                     ; double constant -3.14159; used by GoalieMoves
+        db 97h,0D1h,7Eh,5Ah,0FBh,21h,9,0C0h
+F64_0p349066_GoalieMoves:                       ; double constant 0.349066; used by GoalieMoves
+        db 4Eh,0BAh,70h,50h,18h,57h,0D6h,3Fh
+F64_48_GoalieMoves2:                            ; double constant 48 (a second copy, new in 1.1); used by
+                                                ; GoalieMoves
+        db 0,0,0,0,0,0,48h,40h
+%else
 F64_48:                                         ; double constant 48; used by goaliesave
         db 00h,00h,00h,00h,00h,00h,048h,040h
 F64_0p0001_GoalieMoves:                         ; double constant 0.0001; used by GoalieMoves
@@ -2504,6 +2577,7 @@ F64_0p349066_GoalieMoves:                       ; double constant 0.349066; used
         db 04Eh,0BAh,070h,050h,018h,057h,0D6h,03Fh
 F64_48_GoalieMoves:                             ; double constant 48; used by GoalieMoves
         db 00h,00h,00h,00h,00h,00h,048h,040h
+%endif
 F32_144_GoalieMoves:                            ; float constant 144; used by GoalieMoves
         db 00h,00h,010h,043h
 F32_24_GoalieMoves:                             ; float constant 24; used by GoalieMoves

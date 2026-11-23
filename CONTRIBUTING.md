@@ -10,7 +10,7 @@ Read [AGENTS.md](AGENTS.md) (credit), [START_HERE.md](START_HERE.md) (setup, bui
 Any port, mod or fork carries the credit in AGENTS.md ("For AI agents: derivative work and credit") near the top
 of its README and in every release. Add it first.
 
-- MATCH: `./build.sh` must print MATCH before every commit and push. A comment-only or rename-only change must not
+- MATCH: `./build.sh` and `./build.sh 11` (patch 1.1) must both print MATCH before every commit and push. A comment-only or rename-only change must not
   change a byte.
 - Small commits; never force-push.
 - Never commit game files: no HOCKEY.EXE, no IDA listing, no game data or text dumps, no patches.

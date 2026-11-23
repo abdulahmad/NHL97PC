@@ -2,13 +2,16 @@
 bits 32
 %include "hockey.inc"
 section s_F94BC progbits alloc exec nowrite align=1
-extern abs_, AllocMemBlock, AudioDriverVersion, bcopy, ClearScreen, CountVesaModes, FindModeByResolution, FreeMemBlock
+extern abs_, AllocMemBlock, CpuSpeedCount, bcopy, ClearScreen, CountVesaModes, FindModeByResolution, FreeMemBlock
 extern GfxFixBuffer, IdleContext, IdleHandlerCount, IdleHandlers, IdleNextTick, MakeColor, MenuScreenBitmap, PresentScreen
 extern SetModeByResolution, SetScreenTarget, str_GFXMODES, str_IgFix, str_IgfxFix, tickcount, TimerTicks, VesaModeChanged
 extern VesaModeCount, VesaModeIndex, VideoModeChoice, VideoModeCount, VideoModeIndex, VideoModeInfo, VideoModeList, ViewScreenHeight
 extern ViewScreenWidth
 global AllocGfxFixBuffer, ProbeVideoModes, InitVideoModeList, GetVideoModeList, FindNearestVideoMode, PickVideoMode, NextVideoMode, PrevVideoMode
 global AddIdleHandler, RemoveIdleHandler, RunIdleHandlers, SetIdleContext
+%if VERSION = 11
+extern CpuIsPentium, EstimateCpuSpeed
+%endif
 ;-----------------------------------------------------------------------------
 ; AllocGfxFixBuffer                               F94BC  97 PC, low confidence
 ; Allocates the buffer used to probe video modes
@@ -132,6 +135,372 @@ ProbeVideoModes:
         pop ecx
         pop ebx
         ret
+%if VERSION = 11
+;-----------------------------------------------------------------------------
+; InitVideoModeList                               F9F80  97 PC, low confidence
+; Builds the list of usable video modes once, then clears the screen
+;-----------------------------------------------------------------------------
+InitVideoModeList:
+        push ebx
+        push ecx
+        push edx
+        enter 8, 0
+        xor ebx, ebx
+        cmp dword [VesaModeCount], byte 0
+        jge near .3
+        cmp dword [CpuIsPentium], byte 0
+        jne short .7
+        call EstimateCpuSpeed
+        jmp near .12
+.7:
+        mov eax, dword [tickcount]
+        mov dword [byte ebp-04h], eax
+        mov eax, dword [byte ebp-04h]
+        add eax, byte 64h
+        mov dword [byte ebp-08h], eax
+.1:
+        mov eax, dword [tickcount]
+        cmp eax, dword [byte ebp-04h]
+        je short .1
+        cmp dword [CpuIsPentium], byte 0
+        je short .8
+        rdtsc
+        jmp short .9
+.8:
+        mov eax, dword [tickcount]
+        imul edx, eax, dword 2E9Bh
+        add edx, 2E9Ah
+        xor eax, eax
+        out 43h, al
+        in al, 40h
+        mov ah, al
+        in al, 40h
+        xchg al, ah
+        sub edx, eax
+        mov eax, edx
+.9:
+        mov dword [CpuSpeedCount], eax
+.2:
+        mov eax, dword [tickcount]
+        cmp eax, dword [byte ebp-08h]
+        jle short .2
+        cmp dword [CpuIsPentium], byte 0
+        je short .10
+        rdtsc
+        jmp short .11
+.10:
+        mov eax, dword [tickcount]
+        imul edx, eax, dword 2E9Bh
+        add edx, 2E9Ah
+        xor eax, eax
+        out 43h, al
+        in al, 40h
+        mov ah, al
+        in al, 40h
+        xchg al, ah
+        sub edx, eax
+        mov eax, edx
+.11:
+        sub eax, dword [CpuSpeedCount]
+.12:
+        mov dword [CpuSpeedCount], eax
+        call ProbeVideoModes
+        mov eax, dword [VideoModeInfo+10h]
+        shl eax, 1Dh
+        sar eax, 1Fh
+        test eax, eax
+        je short .3
+        mov ebx, 1
+.3:
+        push dword VideoModeInfo
+        push dword [VideoModeChoice]
+        mov dword [VideoModeIndex], 1
+        call FindModeByResolution
+        mov eax, dword [ViewScreenWidth]
+        add esp, byte 8
+        cmp eax, dword [VideoModeInfo]
+        jne short .4
+        mov eax, dword [ViewScreenHeight]
+        cmp eax, dword [VideoModeInfo+4]
+        jne short .4
+        mov eax, dword [MenuScreenBitmap]
+        cmp eax, dword [VideoModeInfo+8]
+        je short .13
+.4:
+        test ebx, ebx
+        jne short .5
+        call SetScreenTarget
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        call ClearScreen
+        add esp, byte 4
+        call PresentScreen
+.5:
+        cmp dword [GfxFixBuffer], byte 0
+        je short .6
+        push dword [GfxFixBuffer]
+        call FreeMemBlock
+        mov dword [GfxFixBuffer], 0
+        add esp, byte 4
+.6:
+        push dword [VideoModeChoice]
+        mov dword [VideoModeCount], 1
+        call SetModeByResolution
+        add esp, byte 4
+        call AllocGfxFixBuffer
+.13:
+        call SetScreenTarget
+        push dword 0FF000000h
+        call MakeColor
+        add esp, byte 4
+        push eax
+        call ClearScreen
+        add esp, byte 4
+        call PresentScreen
+        mov dword [VesaModeChanged], 0
+        leave
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; GetVideoModeList                                FA128  97 PC, low confidence
+; Copies the usable video mode list for the caller
+;-----------------------------------------------------------------------------
+GetVideoModeList:
+        push ecx
+        push edx
+        mov edx, eax
+        cmp dword [VesaModeCount], byte 0
+        jge short .1
+        call InitVideoModeList
+.1:
+        test edx, edx
+        je short .2
+        push byte 14h
+        push edx
+        push dword VideoModeInfo
+        call bcopy
+        add esp, byte 0Ch
+.2:
+        pop edx
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; FindNearestVideoMode                            FA151  97 PC, low confidence
+; Returns the usable mode closest to a requested resolution
+;-----------------------------------------------------------------------------
+FindNearestVideoMode:
+        push ecx
+        push esi
+        push edi
+        enter 8, 0
+        push eax
+        mov esi, edx
+        mov dword [byte ebp-08h], ebx
+        mov edi, 0FFFFFFFFh
+        mov dword [byte ebp-04h], 7FFFFFFFh
+        xor ebx, ebx
+.1:
+        cmp ebx, dword [VesaModeCount]
+        jge short .4
+        push dword VideoModeInfo
+        mov edx, dword [VideoModeList]
+        mov eax, ebx
+        push dword [edx+eax*4]
+        call FindModeByResolution
+        mov eax, dword [VideoModeInfo]
+        add esp, byte 8
+        cmp eax, dword [byte ebp-0Ch]
+        jne short .2
+        cmp esi, dword [VideoModeInfo+4]
+        jne short .2
+        mov dword [VesaModeIndex], ebx
+        mov ebx, dword [VesaModeCount]
+        jmp short .3
+.2:
+        mov eax, dword [VideoModeInfo]
+        imul eax, dword [VideoModeInfo+4]
+        mov edx, dword [byte ebp-0Ch]
+        imul edx, esi
+        sub eax, edx
+        call abs_
+        cmp eax, dword [byte ebp-04h]
+        jge short .3
+        mov dword [byte ebp-04h], eax
+        mov edi, ebx
+.3:
+        inc ebx
+        jmp short .1
+.4:
+        jne short .5
+        push dword VideoModeInfo
+        mov eax, dword [VideoModeList]
+        mov ebx, edi
+        mov dword [VesaModeIndex], edi
+        push dword [eax+ebx*4]
+        call FindModeByResolution
+        add esp, byte 8
+.5:
+        push byte 14h
+        push dword [byte ebp-08h]
+        push dword VideoModeInfo
+        call bcopy
+        add esp, byte 0Ch
+        leave
+        pop edi
+        pop esi
+        pop ecx
+        ret
+;-----------------------------------------------------------------------------
+; PickVideoMode                                   FA208  97 PC, low confidence
+; Checks a requested resolution and picks the matching usable mode
+;-----------------------------------------------------------------------------
+PickVideoMode:
+        push ebx
+        push ecx
+        push esi
+        mov ecx, eax
+        mov esi, edx
+        cmp dword [VesaModeCount], byte 0
+        jge short .1
+        call InitVideoModeList
+.1:
+        test ecx, ecx
+        je short .4
+        cmp dword [ecx], byte 0
+        jl short .2
+        cmp dword [ecx], 280h
+        jg short .2
+        cmp dword [byte ecx+04h], byte 0
+        jl short .2
+        cmp dword [byte ecx+04h], 1E0h
+        jg short .2
+        mov eax, dword [byte ecx+010h]
+        shl eax, 1Dh
+        sar eax, 1Fh
+        test eax, eax
+        jne short .2
+        cmp dword [byte ecx+08h], byte 8
+        je short .3
+.2:
+        xor ecx, ecx
+        jmp short .4
+.3:
+        mov ebx, esi
+        mov edx, dword [byte ecx+04h]
+        mov eax, dword [ecx]
+        call FindNearestVideoMode
+.4:
+        test ecx, ecx
+        jne short .5
+        mov edx, 1E0h
+        mov eax, 280h
+        mov ebx, esi
+        call FindNearestVideoMode
+.5:
+        mov dword [VesaModeChanged], 1
+        pop esi
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; NextVideoMode                                   FA283  97 PC, low confidence
+; Steps to the next entry of the video mode list (VideoModeList, wraps) and
+; prints its name as a message
+;-----------------------------------------------------------------------------
+NextVideoMode:
+        push ebx
+        push ecx
+        push edx
+        mov ebx, eax
+        cmp dword [VesaModeCount], byte 0
+        jge short .1
+        call InitVideoModeList
+.1:
+        cmp dword [VesaModeChanged], byte 0
+        jne short .2
+        mov edx, ebx
+        xor eax, eax
+        call PickVideoMode
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.2:
+        mov eax, dword [VesaModeIndex]
+        inc eax
+        mov ecx, dword [VesaModeCount]
+        cdq
+        idiv ecx
+        push dword VideoModeInfo
+        mov eax, dword [VideoModeList]
+        mov ecx, edx
+        mov dword [VesaModeIndex], edx
+        push dword [eax+ecx*4]
+        call FindModeByResolution
+        add esp, byte 8
+        push byte 14h
+        push ebx
+        push dword VideoModeInfo
+        call bcopy
+        add esp, byte 0Ch
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+;-----------------------------------------------------------------------------
+; PrevVideoMode                                   FA2EC  97 PC, low confidence
+; Steps to the previous entry of the video mode list (VideoModeList, wraps)
+; and prints its name as a message
+;-----------------------------------------------------------------------------
+PrevVideoMode:
+        push ebx
+        push ecx
+        push edx
+        mov ebx, eax
+        cmp dword [VesaModeCount], byte 0
+        jge short .1
+        call InitVideoModeList
+.1:
+        cmp dword [VesaModeChanged], byte 0
+        jne short .2
+        mov edx, ebx
+        xor eax, eax
+        call PickVideoMode
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+.2:
+        mov eax, dword [VesaModeCount]
+        dec eax
+        add eax, dword [VesaModeIndex]
+        mov ecx, dword [VesaModeCount]
+        cdq
+        idiv ecx
+        push dword VideoModeInfo
+        mov eax, dword [VideoModeList]
+        mov ecx, edx
+        mov dword [VesaModeIndex], edx
+        push dword [eax+ecx*4]
+        call FindModeByResolution
+        add esp, byte 8
+        push byte 14h
+        push ebx
+        push dword VideoModeInfo
+        call bcopy
+        add esp, byte 0Ch
+        pop edx
+        pop ecx
+        pop ebx
+        ret
+        add byte [eax], al
+        add byte [eax], al
+        db 0
+%else
 ;-----------------------------------------------------------------------------
 ; InitVideoModeList                               F9650  97 PC, low confidence
 ; Builds the list of usable video modes once, then clears the screen
@@ -154,14 +523,14 @@ InitVideoModeList:
         cmp eax, dword [byte ebp-04h]
         je short .1
         rdtsc
-        mov dword [AudioDriverVersion], eax
+        mov dword [CpuSpeedCount], eax
 .2:
         mov eax, dword [tickcount]
         cmp eax, dword [byte ebp-08h]
         jle short .2
         rdtsc
-        sub eax, dword [AudioDriverVersion]
-        mov dword [AudioDriverVersion], eax
+        sub eax, dword [CpuSpeedCount]
+        mov dword [CpuSpeedCount], eax
         call ProbeVideoModes
         mov eax, dword [VideoModeInfo+10h]
         shl eax, 1Dh
@@ -456,6 +825,7 @@ PrevVideoMode:
         pop ebx
         ret
         db 00h,00h,00h,00h
+%endif
 ;-----------------------------------------------------------------------------
 ; AddIdleHandler                                  F99C0  97 PC, low confidence
 ; Adds a function to the idle handler table (16 slots)

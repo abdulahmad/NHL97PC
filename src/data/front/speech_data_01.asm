@@ -7,6 +7,9 @@ section s_160D70 progbits alloc noexec write align=1
 global str_03dDAT, str_03dHDR, str_TEMPBANK, str_EVENTDAT, str_CBANK03dHDR, str_TEAM04dHDR, str_PBP, str_Mous
 global str_Remo, str_PlayByPlayNeedsToBeInstal, str_PlayByPlayNeedsToBeInstal2, str_InstallingPlayByPlay, str_CarrySS, str_GKSF, str_SPEECH, F64_0p5_SayShotCall
 global F64_0p5_SaySaveCall, F64_0p5_SayPlayerCall, F64_0p5_SayRandomFiller, str_DerHome, str_PlayHome, str_DerAway, str_PlayAway
+%if VERSION = 11
+global str_KTSF_InitSpeechBanks
+%endif
 str_03dDAT:                                     ; string "%03d.DAT"; used by LoadSpeechBank
         db 025h,030h,033h,064h,02Eh,044h,041h,054h,00h,00h,00h,00h
 str_03dHDR:                                     ; string "%03d.HDR"; used by LoadSpeechBank
@@ -21,6 +24,10 @@ str_TEAM04dHDR:                                 ; string "TEAM%04d.HDR"; used by
         db 054h,045h,041h,04Dh,025h,030h,034h,064h,02Eh,048h,044h,052h,00h,00h,00h,00h
 str_PBP:                                        ; string "PBP"; used by InitSpeechBanks
         db 050h,042h,050h,00h
+%if VERSION = 11
+str_KTSF_InitSpeechBanks:                       ; string "KTSF"; used by InitSpeechBanks
+        db 4Bh,54h,53h,46h,0,0,0,0
+%endif
 str_Mous:                                       ; string "mous"; used by InitSpeechBanks
         db 06Dh,06Fh,075h,073h,00h,00h,00h,00h
 str_Remo:                                       ; string "remo"; used by InitSpeechBanks

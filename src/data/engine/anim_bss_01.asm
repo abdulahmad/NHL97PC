@@ -16,6 +16,9 @@ global CameraDebugArt, AiIconSize, CameraDebugLoaded, AiIconCount, DepthSortKeys
 global ShotAnimPoses, ActAnimFrames, FallAnimFrames, InterferAnimFrames, GoalieAnimFrames, RefSkateAnimFrames, RefAmbiAnimFrames, RefCallAnimFrames
 global FightAnimFrames, CupAnimFrames, ShotAnimIndex, ActAnimIndex, FallAnimIndex, InterferAnimIndex, GoalieAnimIndex, RefSkateAnimIndex
 global RefAmbiAnimIndex, RefCallAnimIndex, FightAnimIndex, CupAnimIndex
+%if VERSION = 11
+global AnimNodeFreeCount, AnimNodeFreeHead, AnimNodeFreeTail, GoalieMoveDist
+%endif
 DepthSortCount:                                 ; players sorted by depth; used by SortPlayersByDepth
         resb 4
 DepthSortKeys:                                  ; depth sort keys; used by SortPlayersByDepth
@@ -110,11 +113,18 @@ FightAnimFrames:                                ; fight animation frames; used b
         resb 1736
 CupAnimFrames:                                  ; cup animation frames; used by LoadCupAnims
         resb 336
+%if VERSION = 11
+GoalieMoveLimit:                                ; goalie move limit (-1.0); used by GoalieMoves,
+                                                ; LoadGoalieAnims
+GoalieTickCount:                                ; goalie tick count; used by GoalieTick
+        resb 4
+%else
 GoalieTickCount:                                ; goalie tick count; used by GoalieTick
         resb 4
 GoalieMoveLimit:                                ; goalie move limit (-1.0); used by GoalieMoves,
                                                 ; LoadGoalieAnims
         resb 4
+%endif
 SkateAnimScale:                                 ; skate animation scale; used by LoadSkateAnims
         resb 4
 SkateAnimBase:                                  ; skate animation base; used by LoadSkateAnims
@@ -187,6 +197,44 @@ StopTableForward:                               ; stop table, forwards; used by 
 StopTableBackward:                              ; stop table, backwards; used by FreeAnimTables, GetStopTable,
                                                 ; LoadSkateAnims
         resb 4
+%if VERSION = 11
+GoalieMoveDist:                                 ; per-move distance table, the GoalieMoveTable of 1.0 moved 4
+                                                ; bytes; used by GoalieMoves
+        resb 4
+GoalieMoveTable:                                ; goalie move table; used by GoalieMoves
+        resb 132
+AnimStatesReady:                                ; animation states ready; used by AllocAnimStateBlocks,
+                                                ; InitAnimState, ReplayRestoreObjects
+        resb 4
+AnimDecodePtr:                                  ; animation decode pointer; used by DecodeAnimDelta,
+                                                ; DecodeAnimFile, DecodeAnimFrame ...
+        resb 4
+AnimDecodeEnd:                                  ; animation decode end; used by DecodeAnimDelta,
+                                                ; DecodeAnimFile, DecodeAnimFrame ...
+AnimNodesFree:                                  ; animation nodes free; used by AllocAnimNode, FreeAnimNode,
+                                                ; InitAnimNodePool
+        resb 4
+AnimDecodeFrame:                                ; animation decode frame; used by DecodeAnimDelta,
+                                                ; DecodeAnimFile, DecodeAnimFrame ...
+AnimNodeFreeList:                               ; animation node free list; used by AllocAnimNode,
+                                                ; AllocAnimStateBlocks, FreeAnimNode ...
+        resb 4
+AnimStateBlocks:                                ; animation state blocks; used by AllocAnimStateBlocks,
+                                                ; AllocAnimStates, FreeAnimStates ...
+        resb 4
+AnimNodeFreeCount:                              ; free animation nodes; used by AllocAnimNode,
+                                                ; InitAnimNodePool
+        resb 4
+AnimNodeFreeHead:                               ; head of the free animation node list; used by AllocAnimNode,
+                                                ; AllocAnimStateBlocks
+        resb 4
+AnimNodeFreeTail:                               ; tail of the free animation node list; nodes are freed onto
+                                                ; it
+        resb 4
+AnimNodePool:                                   ; animation node pool; used by AllocAnimStateBlocks,
+                                                ; AllocAnimStates, FreeAnimStates ...
+        resb 4
+%else
 GoalieMoveTable:                                ; goalie move table; used by GoalieMoves
         resb 136
 AnimStateBlocks:                                ; animation state blocks; used by AllocAnimStateBlocks,
@@ -213,6 +261,7 @@ AnimDecodeEnd:                                  ; animation decode end; used by 
 AnimDecodeFrame:                                ; animation decode frame; used by DecodeAnimDelta,
                                                 ; DecodeAnimFile, DecodeAnimFrame ...
         resb 4
+%endif
 AnimStateCount:                                 ; animation states; used by AllocAnimStateBlocks,
                                                 ; AllocAnimStates, InitAnimState
         resb 8
