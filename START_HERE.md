@@ -16,7 +16,7 @@ share code.
 
 ## 1. Setup
 
-NASM 2.15+ and Python 3. Put your NHL 97 `HOCKEY.EXE` (1,865,388 bytes) in `retail/`, or set `NHL97_EXE=/path/to/HOCKEY.EXE`.
+NASM 2.15.05 (2.16 does not MATCH) and Python 3. Put your NHL 97 `HOCKEY.EXE` (1,865,388 bytes) in `retail/`, or set `NHL97_EXE=/path/to/HOCKEY.EXE`.
 The maintainer tools (`tools/build/gen_src.py`, the matchers) also need `pip install iced-x86`.
 
 ## 2. Build and confirm MATCH

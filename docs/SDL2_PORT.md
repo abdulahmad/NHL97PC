@@ -63,3 +63,20 @@ The same rollback design as the 96 port (`port/netplay.c`; Overbar's `overbar/ne
 
 Test aid (two copies on one machine): `NHL97_ONLINE=host` / `join` (port `NHL97_PORT`, default 41970), `NHL97_NETSIM=delay,jitter,loss%`,
 `NHL97_AUTOPAD=1`, `NHL97_REGIONS=1`, `NHL97_SOUND=none`. With the game's sound on, a session is muted and the streamed audio (sub_3EF68 / sub_3FBE4) is off: its buffers would go back with a state while the sound card and the file go on.
+
+## Known fixes
+
+### In-game player streaks (fixed 2026-11-16)
+
+In game (8-bit VESA 0x101, overhead camera), blocks of 5-12 screen rows at a player were filled with one flat colour from
+x = 0 to the player's x. Cause: the x87 register stack. The Watcom start-up (`__sys_init_387_emulator`, 121AD0) ends with four `fldz` and leaves the stack
+"4 empty / 4 full". EA's model loader needs more than four registers, the stack overflowed while the players' 8-vertex chest and
+shoulder model was read (tick 8476 in the trace, the tag word went 55FF -> F5FF -> FDFF), and a real FPU answers a masked overflow
+with NaN: the model's vertex 3 was (0.06, NaN, NaN) for the whole game. `sub_FFBE0` (the players' float projection, called from
+10B0D4) made it x = y = 80000000h, the polygon filler at 112540 clipped it at the left screen edge and drew rows from x = 0 with
+`sub_12D784`. DOSBox's FPU does not fault on the overflow, so the dummy zeros are just overwritten there. Fix: `port/overrides.c`
+nops the four `fldz` in the loaded image (`NHL97_X87DUMMIES=1` keeps them). Checked over 2.7 million projections: no bad vertex,
+tag word FFFF, no streak in 297 rink screenshots. (An earlier theory blamed the team crest; the bad vertex is in the chest model.)
+
+How it was found: a write trap on the off-screen frame gave the writer of the streak rows (12D784 from 112546), a trap at 112540
+gave the edge records (left edge x = 0 for 14 rows: a clipped polygon), a trap at 10B0EA gave the NaN vertex and the tag word.
