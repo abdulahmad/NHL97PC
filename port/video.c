@@ -970,6 +970,7 @@ void video_present(void)
                 unsigned v = src[x], r = v >> 11, g = (v >> 5) & 63, b = v & 31;
                 dst[x] = 0xFF000000u | (r << 3 | r >> 2) << 16 | (g << 2 | g >> 4) << 8 | (b << 3 | b >> 2);
             }
+            if (ntsc_on) for (x = 0; x < w; x++) dst[x] = ob_ntsc_color(dst[x]);   /* CRT TV colors */
         }
     } else
     for (y = 0; y < h; y++) {
