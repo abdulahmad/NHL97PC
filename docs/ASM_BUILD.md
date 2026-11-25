@@ -1,6 +1,7 @@
 # Assembly build
 
-`./build.sh` (NASM 2.15+ and Python 3):
+`./build.sh` (NASM 2.15.05 and Python 3; NASM 2.16 encodes some instructions differently and the EXE does not match. Set `NASM=` to
+the 2.15.05 binary if your system nasm is newer):
 
 1. `tools/build/rebuild_exe.py extract your HOCKEY.EXE build/parts`: checks the SHA-1 and takes the third-party
    parts from your EXE: the Watcom wstub (NHL 97 has no bound DOS/4GW: DOS4GW.EXE ships beside the game), the LE header fields and the order

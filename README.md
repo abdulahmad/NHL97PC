@@ -37,7 +37,7 @@
 
 ## Build
 
-Needs NASM 2.15+ and Python 3. `./build.sh` ends with `MATCH: build/HOCKEY.EXE is byte-identical to the retail HOCKEY.EXE`. See
+Needs NASM 2.15.05 and Python 3 (NASM 2.16 builds a different EXE: 21 bytes differ in the Watcom C library). `./build.sh` ends with `MATCH: build/HOCKEY.EXE is byte-identical to the retail HOCKEY.EXE`. See
 [docs/ASM_BUILD.md](docs/ASM_BUILD.md).
 
 `./build.sh 11` builds patch 1.1 (HOCKEY.EXE 1,871,324 bytes, SHA-1 `dadba8ec9aeb111f044ca2457736447ef2929809`) from the
